@@ -1,0 +1,348 @@
+\include{pre_documento}
+\include{pre_codigo}
+\begin{document}
+\title{Examen 2 - Operaciones matem\'{a}ticas b\'{a}sicas}
+\subtitle{C\'alculo de ra\'{i}ces - Soluci\'{o}n}
+%\subsubtitle{Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+%\email{curso.fisica.comp@gmail.com}
+%\ptsize{10}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Problema 1}
+\begin{frame}[fragile]
+\frametitle{Problema 1}
+Dados los puntos
+	\begin{table}[H]
+		\centering 
+		\begin{large}
+			\begin{tabulary}{15cm}{c | c | c | c  }\normalsize
+				$x$ & $-1.2$ & $0.3$ & $1.1$ \\
+				\midrule
+				$y$ & $-5.76$ & $-5.61$ & $-3.69$
+			\end{tabulary}
+		\end{large}
+	\end{table}
+	Calcula $y$ en $x=0$ usando: a) el m\'{e}todo de Neville y b) el m\'{e}todo de Lagrange.
+	\\
+	\bigskip
+	\visible<2->{\textcolor{red}{La ra\'{i}z en ambos m\'{e}todos, vale $6.0$}}
+\end{frame}
+\section{Problema 2}
+\begin{frame}
+\frametitle{Problema 2}
+Encontrar la ra\'{i}z de $y(x)$ a partir de los siguientes datos:
+\fontsize{12}{12}\selectfont
+	\begin{table}[H]
+		\centering 
+		\begin{large}
+			\begin{tabulary}{15cm}{c | c | c | c | c | c | c | c }
+				$x$ & $0$ & $0.5$ & $1$ & $1.5$ & $2$ & $2.5$ & $3$ \\
+				\midrule
+				$y$ & $1.8421$ & $2.4694$ & $2.4921$ & $1.9047$ & $0.8509$ & $-0.4112$ & $-1.5727$ 
+			\end{tabulary}
+		\end{large}	
+	\end{table}
+	Usando la interpolaci\'{o}n de Lagrange sobre a) tres puntos, y b) sobre cuatro puntos vecinos m\'{a}s cercanos.
+	\visible<2->{\textcolor{red}{El valor de la ra\'{i}z es: 2.3397}}
+\end{frame}
+\begin{frame}
+\frametitle{Usaremos la interpolaci\'{o}n de Lagrange para hallar una ra\'{i}z}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/Tarea_Raices_Problema_2_01.eps} 
+\end{figure}
+\end{frame}
+\begin{frame}
+Dado que el punto de la ra\'{i}z est\'{a} entre los puntos 5 y 6, es decir, entre $(2,0.8509)$ y $(2.5,-0.4112)$, escogemos los puntos m\'{a}s cercanos a ellos, para interpolar:
+\begin{enumerate}
+\item Usando 3 puntos (3 al 5): \hspace{1.5cm} $x(y=0) = 2.4037$
+\\
+\medskip \texttt{lagrange(yDatos[3:5],xDatos[3:5],0)}
+\item Usando 3 puntos (4 al 6): \hspace{1.5cm} $x(y=0) = 2.3371$
+\\
+\medskip \texttt{lagrange(yDatos[4:6],xDatos[4:6],0)}
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\begin{enumerate}
+\item Usando 4 puntos vecinos (3 al 6): \hspace{1.5cm} $x(y=0) = 2.3397$
+\\
+\medskip \texttt{lagrange(yDatos[3:7],xDatos[3:7],0)}
+\item Usando los 7 puntos: \hspace{1.5cm} $x(y=0) = 70.0027$
+\\
+\medskip \texttt{lagrange(yDatos,xDatos,0)}
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/Tarea_Raices_Problema_2_02.eps} 
+\end{figure}
+\end{frame}
+\section{Problema 3}
+\begin{frame}
+\frametitle{Problema 3}
+La funci\'{o}n $y(x)$ del problema anterior, tiene un m\'{a}ximo en $x=0.7679$. Calcular el valor m\'{a}ximo con el m\'{e}todo de interpolaci\'{o}n de Neville usando cuatro puntos vecinos.
+\\
+\bigskip
+\visible<2->{\textcolor{red}{El valor m\'{a}ximo de la funci\'{o}n es: 2.5568}}
+\end{frame}
+\begin{frame}
+\frametitle{Usemos de nuevo la gr\'{a}fica y ubiquemos la zona de inter\'{e}s}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/Tarea_Raices_Problema_3_01.eps} 
+\end{figure}
+\end{frame}
+\begin{frame}
+Dado que el punto de la ra\'{i}z debe estar entre los puntos 1 y 2, es decir, entre $(0.5,2.4694)$ y $(1,2.4921)$, escogeremos los 4 puntos m\'{a}s cercanos a ellos (puntos del 0 al 3):
+\\
+\medskip
+\texttt{neville(xDatos[0:3],yDatos[0:3],0.7679)}
+\\
+\bigskip
+\visible<2->{Por tanto $y(0.7679) = 2.5568$}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/Tarea_Raices_Problema_3_02.eps} 
+\end{figure}
+\end{frame}
+\section{Problema 4}
+\begin{frame}
+\frametitle{Problema 4}
+La viscosidad cinem\'{a}tica $\mu_{k}$ del agua var\'{i}a con la temperatura $T$ de la siguiente manera:
+	\begin{table}[H]
+		\centering
+		\fontsize{10}{10}\selectfont
+				\begin{tabulary}{15cm}{c | c | c | c | c | c | c | c }
+					$T(^\circ C)$ & $0$ & $21.1$ & $37.8$ & $54.4$ & $71.1$ & $87.8$ & $100$ \\
+					\midrule
+					$\mu_{k} (10^{-3}m^{2}/s)$ & $1.79$ & $1.13$ & $0.696$ & $0.519$ & $0.338$ & $0.321$ & $0.296$ 
+				\end{tabulary}
+	\end{table}
+	Interpolar $\mu_{k}$ para $T= 10^{\circ},30^{\circ},60^{\circ}$ y $90^{\circ}$.
+\end{frame}
+\begin{frame}
+\frametitle{Gr\'{a}fica de datos experimentales}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/Tarea_Raices_Problema_4_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Soluci\'{o}n Problema 4}
+Definimos un arreglo con los puntos que deseamos interpolar $x0=[10,30,60,90]$ y un arreglo vac\'{i}o $y=[]$ para guardar los resultados y luego graficarlos.
+\\
+\bigskip
+\begin{verbatim}
+for i in range(4):
+    y0.append(newton(xDatos,yDatos,x0[i]))
+    print "mu(",x0[i],")=%1.3f" %y0[i]
+    plt.plot(x0[i],y0[i],"bo")
+\end{verbatim}
+\end{frame}
+\begin{frame}
+\frametitle{Resultados}
+Los datos interpolados para $T = [10, 30, 60, 90]$ son:
+\begin{center}
+	 \begin{tabular}{c | c}
+			Temperatura (T$^{\circ}$) & Densidad ($\mu_{k}$) \\ \hline
+			$10^{\circ}$ & 1.621 \\ \hline
+			$30^{\circ}$ & 0.842 \\ \hline
+			$60^{\circ}$ & 0.457 \\ \hline
+			$90^{\circ}$ & 0.333 	 
+	 \end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Resultados en la gr\'{a}fica}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/Tarea_Raices_Problema_4_02.eps}
+\end{figure}
+\end{frame}
+\section{Problema 5}
+\begin{frame}
+\frametitle{Problema 5}
+La siguiente tabla muesta como la densidad relativa $\rho$ del aire var\'{i}a con la altitud $h$. Calcula la densidad relativa del aire en $10.5$ km.
+	\begin{table}[H]
+		\centering 
+		\fontsize{12}{12}\selectfont
+			\begin{tabulary}{15cm}{c | c | c | c | c | c | c | c }
+				$h(km)$ & $0$ & $1.525$ & $3.050$ & $4.575$ & $6.10$ & $7.625$ & $9.150$ \\
+				\midrule
+				$\rho$ & $1$ & $0.8617$ & $0.7385$ & $0.6292$ & $0.5328$ & $0.4481$ & $0.3741$ 
+			\end{tabulary}
+	\end{table}
+	\visible<2->{\textcolor{red}{La densidad del aire en 10.5 km es de 0.3178}}
+\end{frame}
+\begin{frame}
+\frametitle{Gr\'{a}fica de datos experimentales}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/Tarea_Raices_Problema_5_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+Usamos el m\'{e}todo de Neville: \verb|y0=neville(xDatos,yDatos,x0)|
+\\
+\bigskip
+para luego, ocupar el resultado $y0=0.3178$ y graficarlo.
+\end{frame}
+\begin{frame}
+\frametitle{Gr\'{a}fica de datos experimentales}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/Tarea_Raices_Problema_5_02.eps}
+\end{figure}
+\end{frame}
+\section{Problema 6}
+\begin{frame}
+\frametitle{Problema 6}
+Encuentra todas las ra\'{i}ces positivas de las siguientes ecuaciones mediante el m\'{e}todo de bisecci\'{o}n, con una tolerancia de 0.001.
+	\begin{enumerate}\label{grupo1}
+	\renewcommand{\arraystretch}{1.5}
+		\item $\tan(x) - x + 1 = 0; \hspace{1cm} 0 < x < 3\pi$
+		\item $\sin(x) - 0.3 \exp(x) = 0; \hspace{1cm} x > 0$
+		\item $-x^{3} + x + 1 = 0$
+		\item $16x^{5} - 20x^{3} + x^{2} + 5x - 0.5 = 0$
+	\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso a) $\tan(x) - x + 1 = 0; \hspace{1cm} 0 < x < 3\pi$ }
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Tarea_Raices_Problema_6a_01.eps}
+\end{figure}
+Hay que considerar el manejo de las singularidades.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Inciso b) $\sin(x) - 0.3 \exp(x) = 0; \hspace{1cm} x > 0$}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{Tarea_Raices_Problema_6b_01.eps}<1>
+	\includegraphics[scale=0.4]{Tarea_Raices_Problema_6b_02.eps}<2>
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso c) $-x^{3} + x + 1 = 0$}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{Tarea_Raices_Problema_6c_01.eps}<1>
+	\includegraphics[scale=0.4]{Tarea_Raices_Problema_6c_02.eps}<2>
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso d) $16x^{5} - 20x^{3} + x^{2} + 5x - 0.5 = 0$}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{Tarea_Raices_Problema_6d_01.eps}<1>
+	\includegraphics[scale=0.4]{Tarea_Raices_Problema_6d_02.eps}<2>
+\end{figure}
+\end{frame}
+\section{Problema 7}
+\begin{frame}
+\frametitle{Problema 7}
+Determina las ra\'{i}ces de las siguientes ecuaciones mediante el m\'{e}todo de la falsa posici\'{o}n modificada:
+	\begin{enumerate}
+		\renewcommand{\arraystretch}{1.5}
+		\item $f(x) = 0.5\exp(\frac{x}{3})- \sin(x); \hspace{1cm} x > 0$
+		\item $f(x) = \log(1 + x) - x^{2}$
+		\item $f(x) = \exp(x) - 5x^{2}$
+		\item $f(x) = x^{3} + 2x - 1 = 0$
+		\item $f(x) = \sqrt{x+2}$
+	\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso a) $f(x) = 0.5\exp(\frac{x}{3})- \sin(x); \hspace{1cm} x > 0$}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7a_01.eps}<1>
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7a_02.eps}<2>
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso b) $f(x) = \log(1 + x) - x^{2}$}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7b_01.eps}<1>
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7b_02.eps}<2>	
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso c) $f(x) = \exp(x) - 5x^{2}$}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7c_01.eps}<1>
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7c_02.eps}<2>	
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso d)$f(x) = x^{3} + 2x - 1 = 0$ }
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7d_01.eps}<1>
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7d_02.eps}<2>	
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso e)}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7e_01.eps}<1>
+	\includegraphics[scale=0.5]{Tarea_Raices_Problema_7e_02.eps}<2>	
+\end{figure}
+\end{frame}
+\section{Problema 8}
+\begin{frame}
+\frametitle{Problema 8}
+Encuentra las ra\'{i}ces de las ecuaciones del problema (6) mediante el m\'{e}todo de Newton-Raphson, con una tolerancia de 0.0001
+\\
+\bigskip
+Dado que ya conocen las ra\'{i}ces de las funciones, pueden elegir un valor de aproximaci\'{o}n a la ra\'{i}z para usarlo en su algoritmo.
+\\
+\bigskip
+Esperar\'{i}amos que reportaran un valor casi id\'{e}ntico en cada inciso, y hasta con un error relativo.
+\end{frame}
+\section{Problema 9}
+\begin{frame}
+\frametitle{Problema 9}
+Identifica el intervalo para las ra\'{i}ces de las siguientes ecuaciones y calcula desp\'{u}es las ra\'{i}ces mediante el m\'{e}todo de la secante, con una tolerancia de $0.001$:
+	\begin{enumerate}
+		\item $0.1 x^{3} - 5 x^{2} - x + 4 + \exp(-x) = 0 $
+		\item $\ln(x) -0.2 x^{2} + 1 = 0$
+		\item $x + \dfrac{1}{(x+3)x}= 0$
+	\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso a) $0.1 x^{3} - 5 x^{2} - x + 4 + \exp(-x) = 0 $}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{Grafica9_a1.eps}<1> 
+	\includegraphics[scale=0.4]{Grafica9_a2.eps}<2>
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso b)}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{Grafica9_b.eps} 
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso c)}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{Grafica9_c.eps} 
+\end{figure}
+\end{frame}
+\end{document}

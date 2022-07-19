@@ -1,0 +1,16 @@
+\documentclass[border=10pt,multi,tikz]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{mindmap}
+\pagestyle{empty}
+\begin{document}
+\begin{tikzpicture}[grow cyclic, text width=2.3cm, align=flush center, every node/.style={concept}, concept color=red!40, 
+    level 1/.style={level distance=4cm,sibling angle=60},
+    level 2/.style={level distance=4cm,sibling angle=45},
+    level 3/.style={level distance=4cm,sibling angle=60}]
+    \node[concept color=yellow!40!red, level distance=5cm] {Interpolación} [clockwise from=90]
+        child { node {Método \\ Lagrange}}
+        child { node {Método Newton}}
+        child { node {Extrapolación}}
+;
+\end{tikzpicture}
+\end{document}

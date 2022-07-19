@@ -1,0 +1,590 @@
+\include{pre_documento}
+\include{pre_codigo}
+\include{pre_define_footers}
+\normalfont
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{Algebra matricial - El método de Jacobi 2}
+\subtitle{Curso de Física Computacional}
+\author[]{M. en C. Gustavo Contreras Mayén}
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\resetcounteronoverlays{saveenumi}
+
+\begin{document}
+\newcommand{\localtextbulletone}{\textcolor{gray}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Método de Jacobi}
+\subsection{Ejemplo con el método de Jacobi}
+\begin{frame}
+\frametitle{Ejemplo con el método de Jacobi}
+\fontsize{12}{12}\selectfont
+Consideremos los esfuerzos aplicados al siguiente cubo
+\\
+\begin{minipage}{5cm}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{cubotensor.eps}
+\end{figure} \hspace{0.5cm}
+\end{minipage}
+\begin{minipage}{5cm}
+\[ \mathbf{S} = \begin{bmatrix}
+80 & 30 & 0 \\
+30 & 40 & 0 \\
+0 & 0 & 60
+\end{bmatrix} \mbox{ MPa} \]
+\end{minipage}
+\\
+\medskip
+En la matriz de esfuerzos, cada renglón consta de los tres componentes de tensión que actúan sobre un plano de coordenadas.
+\end{frame}
+\begin{frame}
+Se puede demostrar que los valores propios de $S$ son las esfuerzos (tensiones) principales y los vectores propios son normales a los planos principales.
+\pause
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Determina las tensiones principales diagonalizando $S$ con una rotación de Jacobi.
+\item Calcula los vectores propios.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Solución inciso 1)}
+Para eliminar $S_{12}$ debemos de aplicar la rotación en el plano $1-2$. Con $k = 1$ y $\ell = 2$, resulta
+\[ \phi = - \dfrac{s_{11} - S_{22}}{2 \; S_{12}}  = - \dfrac{80 - 40}{2(30)} = - \dfrac{2}{3}\]
+\pause
+por lo que ahora podemos calcular $t$
+\[ t = \dfrac{sgn(\phi)}{\vert \phi \vert + \sqrt{ \phi^{2} + 1}} = \dfrac{-1}{2/3 + \sqrt{(2/3)^{2} + 1}}  = -0.53518\]
+\end{frame}
+\begin{frame}
+De acuerdo a las ecuaciones a las que llegamos en donde se determina el cambio de $\mathbf{S}$ debido a la rotación, tenemos que
+\fontsize{12}{12}\selectfont
+\begin{align*}
+S_{11}^{*} &= S_{11} - t \; S_{12} = 80 - (-0.53518)(30) = 96.055 \mbox{ MPa} \\
+S_{22}^{*} &= S_{22} - t \; S_{12} = 40 + (-0.53518)(30) = 23.945 \mbox{ MPa} \\
+S_{12}^{*} &= S_{21}^{*}
+\end{align*}
+\end{frame}
+\begin{frame}
+Por lo que la matriz de esfuerzos diagonalizada es
+\[ \mathbf{S}^{*} = \begin{bmatrix}
+96.055 & 0 & 0 \\
+0 & 23.945 & 0 \\
+0 &  0 & 60
+\end{bmatrix} \]
+donde los elementos de la diagonal son los esfuerzos principales.
+\end{frame}
+\begin{frame}
+\frametitle{Solución inciso 2)}
+Para calcular los valores propios, obtenemos primero los valores de $c$, $s$ y $\tau$:
+\begin{align*}
+c &= \dfrac{1}{\sqrt{1 + t^{2}}} = \dfrac{1}{\sqrt{1 + (-0.53518)^{2}}} = 0.88168 \\
+s &= tc = (-0.5319(0.88168) = -0.47186 \\
+\tau &= \dfrac{s}{1 + c} = \dfrac{-0.47186}{1 + 0.88168} = -0.25077
+\end{align*}
+\end{frame}
+\begin{frame}
+Para obtener los cambios en la matriz de transformación $\mathbf{P}$, recordemos que $\mathbf{P}$ se inicializa como una matriz identidad, la primera ecuación que obtenemos es
+\[ \begin{split}
+P_{11}^{*} &=  P_{11} - s(P_{12} - \tau \; P_{11}) \\
+&= 1 - (-0.47186)(0 + (-0.25077)(1)) = 0.88167 \\
+P_{21}^{*} &= P_{21} - s(P_{22} + \tau \; P_{21} \\
+&= 0 - (-0.47186)[1 + (0.25077)(0)] = 0.47186
+\end{split} \]
+\end{frame}
+\begin{frame}
+De manera similar la segunda ecuación resulta se
+\[ P_{12}^{*} = -04786 \hspace{1.5cm} P_{22}^{*} = 0.88167 \]
+La tercera columna y renglón de $\mathbf{P}$ no son afectadas por la transformación.
+\end{frame}
+\begin{frame}
+\frametitle{La matriz resultate es}
+Entonces tenemos el resultado
+\[ \mathbf{P}^{*} = \begin{bmatrix}
+0.88167 & -0.47186 & 0 \\
+0.47186 & 0.88167 & 0 \\
+0 & 0 & 1
+\end{bmatrix} \]
+Las columnas de $\mathbf{P}^{*}$ son los vectores propios de $\mathbf{S}$.
+\end{frame}
+\section{Problemas de valores propios generalizados}
+\subsection{Conceptos generales}
+\begin{frame}
+\frametitle{{Problemas de valores propios generalizados}}
+En ciertos problemas de la física, derivados por ejemplo del formalismo de la mecánica cuántica, aparecen los denominados \emph{problemas de valores propios generalizados}.
+\\
+\bigskip
+Que no se definen por una sola matriz, sino por dos matrices cuadradas $\mathbf{A}$ y $\mathbf{B}$
+\begin{equation}
+\mathbf{A} \; \mathbf{x} =  \lambda \; \mathbf{B} \; \mathbf{c}
+\label{eq:ecuacion_08_30}
+\end{equation}
+\end{frame}
+\begin{frame}
+En la mayoría de los casos, tales problemas son representaciones matriciales de ecuaciones de operadores con respecto a bases no ortogonales en un espacio de dimensión finita, como $\mathbb{R}_{n}$.
+\end{frame}
+\begin{frame}
+Suponiendo que la matriz $\mathbf{B}$ es no singular, una posibilidad directa de transformar la ecuación generalizada (\ref{eq:ecuacion_08_30}) en una forma estándar
+\[ \mathbf{A} \; \mathbf{x} = \lambda \; \mathbf{x} \]
+consiste en multiplicar a la izquierda la ecuación por la inversa $\mathbf{B}^{-1}$
+\[ ( \mathbf{B}^{-1} \cdot \mathbf{A}) \; \mathbf{x} = \lambda \; \mathbf{x} \]
+\end{frame}
+\begin{frame}
+Desafortundamente, incluso en el caso particular de las matrices simétricas $\mathbf{A}$ y $\mathbf{B}$, el producto $\mathbf{B \cdot A^{-1}}$ ya no conserva la simetría y, por consiguiente, el problema del valor propio estándar resultante ya no puede resolverse mediante métodos específicos para matrices simétricas (como el método de Jacobi)
+\end{frame}
+\begin{frame}
+Si las matrices $\mathbf{A}$ y $\mathbf{b}$ son simétricas y, además, $\mathbf{B}$ es definida positiva, la transformación del problema generalizado (\ref{eq:ecuacion_08_30}) en un problema estándar puede obtenerse realizando primero la factorización de Cholesky de la matriz $\mathbf{B}$.
+\begin{equation}
+\mathbf{B} =  \mathbf{L} \cdot \mathbf{L}^{T}
+\label{eq:ecuacion_08_31}
+\end{equation}
+donde $\mathbf{L}$ es una matriz triangular inferior y $\mathbf{L}^{T}$ es su transpuesta.
+\end{frame}
+\begin{frame}
+Multiplicando por la izquierda por $\mathbf{L}^{-1}$ y re-emplazando por la factorización ec. (\ref{eq:ecuacion_08_31}), tenemos que
+\[ \mathbf{L}^{-1} \cdot \mathbf{a} \cdot \mathbf{x} = \lambda \; \mathbf{L}^{T} \cdot \mathbf{x} \]
+\pause
+Además, al incorporar la descomposición trivial de la matriz unitaria
+\[ \mathbf{E} = \left( \mathbf{L} \cdot \mathbf{L}^{T} \right)^{T} = \left( \mathbf{L}^{-1} \right)^{T} \cdot \mathbf{L}^{T} \]
+\end{frame}
+\begin{frame}
+En el producto $\mathbf{A} \cdot \mathbf{x}$, el problema de valores propios toma la forma
+\[ \mathbf{L}^{-1} \cdot \mathbf{A} \cdot \left( \mathbf{L}^{-1} \right) \cdot \left( \mathbf{L}^{T} \cdot \mathbf{x} \right) = \lambda \left( \mathbf{L}^{T} \cdot \mathbf{x} \right) \]
+\pause
+Haciendo las anotaciones evidentes
+\begin{equation}
+\mathbf{\widetilde{x}} = \mathbf{L}^{T} \cdot \mathbf{x}
+\label{eq:ecuacion_08_32}
+\end{equation}
+y
+\begin{equation}
+\mathbf{\widetilde{A}} = \mathbf{L}^{-1} \cdot \mathbf{A} \cdot \left( \mathbf{L}^{-1} \right)^{T}
+\label{eq:ecuacion_08_33}
+\end{equation}
+\end{frame}
+\begin{frame}
+Se obtiene finalmente una matriz simétrica $\mathbf{\widetilde{A}}$ para el problema de valores propios estándar:
+\begin{equation}
+\mathbf{\widetilde{A}} \; \mathbf{x} = \lambda \; \mathbf{\widetilde{x}}
+\label{eq:ecuacion_08_34}
+\end{equation}
+\pause
+Los valores propios de $\mathbf{\widetilde{A}}$ coinciden con los valores propios de la matriz original $\mathbf{A}$, mientras que los valores propios de $\mathbf{A}$ deben de recalcularse a partir de $\mathbf{\widetilde{A}}$ por la transformación lineal
+\begin{equation}
+\mathbf{x} = \left( \mathbf{L}^{-1} \right)^{T} \; \mathbf{x}
+\label{eq:ecuacion_08_35}
+\end{equation}
+\end{frame}
+\begin{frame}
+Desde el punto de vista de una implementación práctica, la solución del problema de valores propios generalizado (\ref{eq:ecuacion_08_30}) se puede llevar a cabo con las siguientes etapas:
+\end{frame}
+\begin{frame}
+\fontsize{12}{12}\selectfont
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Realizar la descomposición de Cholesky $\mathbf{B} = \mathbf{L} \cdot \mathbf{L}^{T}$.
+\item Calcular la inversa $\mathbf{L}^{-1} = [\ell_{ij}]_{nn}$.
+\item Generar la matriz transformada $\mathbf{\widetilde{A}} = \mathbf{L}^{-1} \cdot \mathbf{A} \cdot \left( \mathbf{L}^{-1} \right)^{T}$ de acuerdo con
+\[ \widetilde{a}_{ij} = \sum_{k = 1}^{n} \sum_{m = 1}^{j} \ell_{ik}^{\prime} \; a_{km} \; \ell_{jm}^{\prime} \]
+\item Resolver el problema del valor propio estándar $\mathbf{\widetilde{A}} \cdot \mathbf{\widetilde{x}} = \lambda \mathbf{\widetilde{x}}$ mediante un método adecuado para matrices simétricas (tales como el método de Jacobi).
+\item Recalcular los valores propios $\mathbf{x} = (\mathbf{L}^{-1})^{T} \cdot \mathbf{\widetilde{x}}$ del problema inicial de valores propios, a partir de 
+\begin{equation}
+x_{ij} = \sum_{k = i}^{n} \ell_{ki}^{\prime} \; \widetilde{x}_{kj}
+\label{eq:ecuacion_08_37}
+\end{equation}
+\end{enumerate}
+\end{frame}
+\subsection{Problema 1}
+\begin{frame}
+\frametitle{Problema 1}
+Utiliza la el método de Jacobi para probar que una matriz simétrica invertible aleatoria $\mathbf{A}$ de orden $n = 100$ cumple la propiedad general de que los valores propios de la matriz inversa $\mathbf{A}^{-1}$ son las inversas $1 / \lambda_{i}$ de los valores propios $\lambda_{i}$ de la matriz original, mientras que los vectores propios coinciden.
+\end{frame}
+\begin{frame}
+Invertir la matriz $\mathbf{A}$ utilizando la rutina \texttt{MatInv} del módulo \texttt{linsys.py}, y empleando la función \texttt{EigSort}, clasificar los autovectores de $\mathbf{A}$ y $\mathbf{A}^{-1}$ por los valores propios correspondientes antes de compararlos.
+\end{frame}
+\begin{frame}
+\frametitle{Trabajemos el código}
+Presentamos una propuesta de solución, construimos inicialmente los elementos que vamos a ocupar:
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item $n$ es el orden de la matriz.
+\item $a$ es la matriz de coeficientes.
+\item $a1$ es la inversa de la matriz $a$.
+\item $x$ son los vectores propios de $a$.
+\item $x1$ son los vectores propios de $a1$.
+\item $d$ son los valores propios de  $a$ y $a1$.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+n = 100
+
+a  = [[0]*(n+1) for i in range(n+1)]
+
+a1 = [[0]*(n+1) for i in range(n+1)]
+
+x  = [[0]*(n+1) for i in range(n+1)]
+
+x1 = [[0]*(n+1) for i in range(n+1)]
+
+d = [0]*(n+1); d1 = [0]*(n+1)  
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{¿Cómo generar números aleatorios}
+Podemos mencionar propiamente que no hay algoritmos que generen números puramente aleatorios y que sean deterministas, por lo que usando solamente software es imposible obtener números verdaderamente aleatorios.
+\end{frame}
+\begin{frame}
+Para generar números aleatorios en una computadora se necesita muestrear algún proceso físico real: por ejemplo, en el sitio \url{www.random.org} utilizan ruido atmosférico, y en \url{www.fourmilab.ch/hotbits/} desintegración radiactiva.
+\end{frame}
+\begin{frame}
+En computación realmente se dispone de números \emph{pseudoaleatorios}, que son secuencias determinadas a partir de unos ciertos datos iniciales que se parecen bastante a una secuencia aleatoria.
+\\
+\bigskip
+\texttt{NumPy} utiliza un algoritmo llamado \enquote{Mersenne twister}, creado por dos matemáticos japoneses y que utilizan otros programas como \texttt{MATLAB}.
+\end{frame}
+\begin{frame}
+En la librería estándar de \python viene ya incluido el módulo \texttt{random}, con funciones pensadas para trabajar con valores escalares y listas.
+\end{frame}
+\begin{frame}
+A veces nos puede interesar, por ejemplo para pruebas, utilizar siempre una misma secuencia pseudoaleatoria.
+\\
+\bigskip
+Utilizando la función \texttt{random.seed()} se establecen las condiciones iniciales del generador; si no se pasa algún argumento, \texttt{NumPy} escoge la hora del sistema como semilla, de tal forma que cada programa utilice secuencias diferentes.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecuta el código con \texttt{Jupyter QtConsole}}
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+>>>from numpy import random
+
+>>>random.seed(0)
+
+>>>random.rand()
+>>> 0.5488135039273248
+
+>>>random.rand(3)
+>>>array([ 0.71518937,  0.60276338,  0.54488318])
+#devuelve un arreglo de tres numeros aleatorios
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecuta el código con \texttt{Jupyter QtConsole}}
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+>>>random.seed(3)
+#cambiamos la semilla del generador
+
+>>>random.rand()
+>>>0.5507979025745755
+
+>>>random.rand(3)
+>>>array([ 0.70814782,  0.29090474,  0.51082761])
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecuta el código con \texttt{Jupyter QtConsole}}
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+>>>random.seed(0)
+#cambiamos la semilla con el valor inicial
+
+>>>random.rand()
+>>>0.5488135039273248
+#Se obtiene el mismo numero aleatorio
+
+>>>random.rand(3)
+>>>array([ 0.71518937,  0.60276338,  0.54488318])
+#Se obtiene el mismo arreglo de tres numeros aleatorios
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Regresamos con el código}
+Una vez que se revisó el proceso para la generación de números aleatorios, ahora retomamos el código en el punto donde se genera una matriz de $100 \times 100$ cuyos elementos son números aleatorios.
+\end{frame}
+\begin{frame}[fragile]
+Se genera la matriz de $100 \times 100$ de números aleatorios:
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+random.seed()
+
+for i in range(1,n+1):
+   for j in range(1,i+1):
+      a[i][j] = a[j][i] = random.random()
+      a1[i][j] = a1[j][i] = a[i][j]
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+# resuelve el problema de valores propios para a
+Jacobi(a,x,d,n)
+
+# ordena los valores y vectores propios
+EigSort(x,d,n,1)
+
+# calcula la inversa a1 = a^(-1)
+MatInv(a1,n)
+
+# resuelve el problema de valores propios para a1
+Jacobi(a1,x1,d1,n)
+
+# inverte  los valores propios antes de ordenarlos
+for i in range(1,n+1): d1[i] = 1./d1[i]
+
+# ordena los valores propios de a1
+EigSort(x1,d1,n,1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+# se hace un bucle sobre los vectores propios
+# se revisa el signo y se ajusta para que lo mantenga
+
+for j in range(1,n+1):
+   if (x[1][j] * x1[1][j] < 0):
+      for i in range(1,n+1): x1[i][j] = -x1[i][j] 
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+# se calcula la diferencia de valores propios en d1
+VecDiff(d,d1,d1,n)
+
+#se calcula la norma de los valores propios
+norm = VecNorm(d1,n)
+
+print("Diferencia de la norma de los valores propios = {0:8.2e}".format(norm))
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+# se calcula la diferencia de vectores propios en x1
+
+MatDiff(x,x1,x1,n,n)
+
+#calcula la norma de los vectores propios
+norm = MatNorm(x1,n,n)
+
+print("Diferencia de la norma de los vectores propios = {0:8.2e}".format(norm))
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado}
+Al ejecutar el código, se obtiene el siguiente resultado:
+\\
+\bigskip
+\texttt{Diferencia de la norma de los valores propios = 7.00e-12
+\\
+\medskip
+Diferencia de la norma de los vectores propios = 9.51e-13}
+\end{frame}
+\begin{frame}
+\frametitle{Conclusión}
+Con lo que se demuestra que se cumplen la propiedades generales:
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Los valores propios de la matriz inversa $\mathbf{A}^{-1}$ son las inversas $1 / \lambda_{i}$ de los valores propios $\lambda_{i}$ de la matriz original.
+\item Los valores de los vectores propios de las dos matrices coinciden.
+\end{enumerate}
+\end{frame}
+%\begin{frame}
+%\frametitle{Esquema de operación de los módulos}.
+%Para la solución del ejercicio, fue necesario ocupar diferentes módulos que resolvieron tareas específicas del problema.
+%\\
+%\bigskip
+%Recuerda que es práctico contar con una modularidad dentro con \ptyhon.
+%\end{frame}
+%\begin{frame}
+%\frametitle{Esquema de operación de los módulos}.
+%\begin{figure}
+%	\centering
+%	\includestandalone{}
+%\end{figure}
+%\end{frame}
+\subsection{Problema 2}
+\begin{frame}
+\frametitle{Problema 2}
+Considera una cuerda elástica sin masa, cargada con $n$ masas idénticas $m$ que están distribuidas de manera equidistante  bajo una tensión constante $T$.
+\\
+\bigskip
+Suponemos que hay pequeños desplazamientos transversales de la cuerda.
+\end{frame}
+\begin{frame}
+\frametitle{A resolver}
+\begin{enumerate}
+\item Determina las frecuencias y desplazamientos para sus modos normales de vibración. 
+\item Comprueba que las frecuencias propias adimensionales son múltiplos de $\pi$.
+\end{enumerate}
+Considera, en particular, $n = 100$ y $dm / T = 1$.
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+Hagamos $u_{i} = u_{i}(t)$ con $i = 1, 2, \ldots, n$ los desplazamientos transversales instantáneos de los puntos.
+\\
+\bigskip
+La fuerza ejercida por la cuerda en el punto de masa $i$, puede aproximarse por
+\[ F_{i} = T \; \dfrac{u_{i-1} - 2 \; u_{i} + u_{i+1}}{d} \]
+\end{frame}
+\begin{frame}
+La respectiva ecuación de movimiento es
+\[ m \ddot{u}_{i}  = \left( \dfrac{T}{d} \right) (u_{i-1} - 2 \; u_{i} + u_{i+1}), \hspace{1cm} i = 2, \ldots, n-1  \]
+\pause
+Este conjunto de ecuaciones acopladas debe complementarse con condiciones de frontera, que en el caso más simple de una cuerda fija en ambos extremos:
+\[ u_{1} = u_{n} = 0 \]
+\end{frame}
+\begin{frame}
+Los modos normales de la cuerda se caracterizan por la vibración en fase de todos los puntos con una frecuencia angular común $\omega$.
+\\
+\bigskip
+En consecuencia, la expresión para el movimiento para cada punto tendrá la forma:
+\[ u_{i} = x_{i} \; \exp(j \; \omega \; t) \]
+\end{frame}
+\begin{frame}
+\[ u_{i} = x_{i} \; \exp(j \; \omega \; t) \]
+Donde $x_{i}$ es el desplazamiento transversal correspondiente (amplitud) y $j$ es la unidad imaginaria.
+\\
+\bigskip
+Las ecuaciones de movimiento discretizadas junto con las condiciones de frontera finalmente llevan al siguiente problema de valor propio con matriz tridiagonal:
+\end{frame}
+\begin{frame}
+\frametitle{Matriz tridiagonal}
+\[ \begin{bmatrix}
+1 & 0  &    &    & & & 0 \\
+0 & 2  & -1 &    & & &   \\
+  & -1 & 2  & -1 & & &   \\
+  &  & \ddots & \ddots & \ddots & &   \\
+  &  & -1  & 2 & -1 & &   \\
+  &  &  &  & -1 & 2 & 0   \\
+0 &  &  &  & &  0 & 1   \\
+  
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+\vdots \\
+x_{n-2} \\
+x_{n-1} \\
+x_{n} \\
+\end{bmatrix} = \lambda \;
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+\vdots \\
+x_{n-2} \\
+x_{n-1} \\
+x_{n}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+Donde el valor propio $\lambda$ relaciona la frecuencia angular $\omega$ por
+\[ \lambda = \left( \dfrac{d m}{T} \right) \; \omega^{2}  \]
+\end{frame}
+\begin{frame}[fragile]
+Necesitaremos las librerías para resolver el problema, se introduce una librería que genera la interfaz gráfica mediante una ventana.
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+from eigsys import Jacobi, EigSort
+from graphlib import GraphInit, Plot, MainLoop
+from math import sqrt
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Interfaces gráficas de usuario con \texttt{Tk}}
+La librería \texttt{tkinter} nos ayudará con la creación de GUI (Interfaces gráficas de usuario) en \python.
+\\
+\bigskip
+Ya se encuentra instalada por defecto por lo que no debemos preocuparnos por descargarla e instalarla, es una librería multiplataforma lo que permitirá ejecutar nuestros scripts en diversos sistemas como Windows, Linux o Mac.
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+# se define el numero de puntos
+n = 100
+
+# matriz de coeficientes
+a = [[0]*(n+1) for i in range(n+1)]
+
+# desplazamientos = vectores propios
+x = [[0]*(n+1) for i in range(n+1)]
+
+# frecuecias^2 -- valores propios
+d = [0]*(n+1)
+
+# puntos para graficar
+xp = [0]*(n+1) # mesh points for plotting
+
+# valores de la funcion para graficar
+yp = [0]*(n+1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+Se define la matriz de coeficientes
+\\
+\medskip
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+for i in range(1,n+1): a[i][i] = 2.0
+
+for i in range(2,n-1): a[i+1][i] = -1.0; a[i][i+1] = -1.0
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+Se utiliza la función \texttt{Jacobi} para resolver la matriz y luego se ordenan los valores propios.
+\\
+\medskip
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+Jacobi(a, x, d, n)
+
+EigSort(x, d, n, 1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Construcción de la gráfica}
+Con las funciones contenidas en el módulo \texttt{graphlib}, se construye la ventana en donde se colocarán las cuatro gráficas, una por cada modo normal de oscilación de la cuerda.
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+# se establece el tamano de la ventana grafica
+GraphInit(1200,600)
+
+# se define el espacio entre los puntos
+h = 1.0/(n-1)
+
+for i in range(1,n+1): xp[i] = (i-1) * h
+
+# se grafica el primer modo de oscilacion
+mode = 1
+
+# se calcula la frecuencia
+omega = sqrt(d[mode])*(n-1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+# se calculan los desplazamientos
+for i in range(1,n+1): yp[i] = x[i][mode]
+
+title = "omega({0:d}) = {1:6.2f}".format(mode,omega)
+Plot(xp,yp,n,"blue",3,0.10,0.45,0.60,0.90,"x","y",title)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Solución gráfica}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.25]{cuerdaOscilante.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+El uso de librerías o módulos para crear interfases requiere considerar que hay tareas que deben de incluirse, como por ejemplo guardar la ventana en un archivo gráfico.
+\\
+\bigskip
+Con \texttt{matplotlib} tenemos la oportunidad de contar con un menú de opciones, con \texttt{tkinter}, se puede implementar, pero hay que revisar la respectiva documentación.
+\end{frame}
+\end{document}

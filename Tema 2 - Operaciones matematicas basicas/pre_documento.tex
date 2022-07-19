@@ -1,0 +1,55 @@
+\documentclass[12pt]{beamer}
+\graphicspath{{Imagenes/}{../Imagenes/}}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{etex}
+\reserveinserts{28}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{tabulary}
+\usepackage{booktabs}
+\usepackage{nccmath}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{color}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{hyperref}
+\renewcommand {\arraystretch}{1.5}
+\newcommand{\python}{\texttt{Python}}
+\usefonttheme[onlymath]{serif}
+\setbeamertemplate{navigation symbols}{}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+\tikzstyle{every picture}+=[remember picture,baseline]
+%\tikzstyle{every node}+=[inner sep=0pt,anchor=base,
+%minimum width=2.2cm,align=center,text depth=.15ex,outer sep=1.5pt]
+%\tikzstyle{every path}+=[thick, rounded corners]
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \setbeamertemplate{headline}{}
+  \useoutertheme{default}
+  \usecolortheme{spruce}
+  \setbeamercovered{invisible}
+}
+\AtBeginSection[]
+{
+\begin{frame}<beamer>{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+}
+%\mode<presentation>
+%{
+%  \usetheme{Warsaw}
+%  \setbeamertemplate{headline}{}
+%  %\useoutertheme{infolines}
+%  \useoutertheme{default}
+%  \setbeamercovered{invisible}
+%  % or whatever (possibly just delete it)
+%}

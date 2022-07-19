@@ -1,0 +1,378 @@
+\include{pre_documento}
+\include{pre_codigo}
+\begin{document}
+\title{Tema 2 - Operaciones matem\'{a}ticas b\'{a}sicas}
+\subtitle{Integraci\'{o}n num\'{e}rica}
+%\subsubtitle{Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+%\date{27 de septiembre de 2012}
+%\email{curso.fisica.comp@gmail.com}
+%\ptsize{10}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Problema inicial}
+\begin{frame}
+\frametitle{Problema inicial}
+Calcular
+\[\int_{a}^{b} f(x) dx\]
+donde $f(x)$ es una funci\'{o}n dada.
+\end{frame}
+\section{Introducci\'{o}n}
+\begin{frame}
+\frametitle{Introducci\'{o}n}
+La integraci\'{o}n num\'{e}rica (tambi\'{e}n conocida como \textcolor{blue}{cuadratura}) es un procedimiento con mayor precisi\'{o}n que la diferenciaci\'{o}n num\'{e}rica.
+\\
+\bigskip
+La cuadratura aproxima la integral definida
+\[\int_{a}^{b} f(x) dx\]
+mediante la suma
+\[ I = \sum_{i=0}^{n} A_{i}f(x_{i})\]
+\fontsize{12}{12}\selectfont
+donde las \textit{abscisas nodales} $x_{i}$ y los pesos $A_{i}$ dependen de una regla en particular usada para la cuadratura.
+\end{frame}
+\begin{frame}
+Todas las reglas de cuadratura se dividen en dos grupos:
+	\begin{enumerate}
+		\item F\'{o}rmulas de \textcolor{red}{Newton-Cotes}.
+		\item F\'{o}rmulas de \textcolor{blue}{Cuadraturas Gaussianas}.
+	\end{enumerate}
+\end{frame}
+\section{F\'{o}rmulas de Newton-Cotes}
+\begin{frame}
+\frametitle{F\'{o}rmulas de Newton-Cotes}
+Estas f\'{o}rmulas se caracterizan por usar un espaciamiento uniforme y constante en las abscisas, aqu\'{i} se consideran los m\'{e}todos del trapecio y la regla de Simpson.
+\\
+\bigskip
+Son \'{u}tiles si $f(x)$ se ha evaluado en intervalos iguales; dado que las f\'{o}rmulas Newton-Cotes se basan en una interpolaci\'{o}n local, se requiere de una porci\'{o}n para ajustarla al polinomio.
+\end{frame}
+\begin{frame}
+Consideremos la integral definida
+\[\int_{a}^{b} f(x)dx\]
+Dividimos el intervalo de integraci\'{o}n $[a,b]$ en $n$ intervalos de igual longitud $h=(b-a)/n$, y hacemos que las abscisas sean $x_{0},x_{1},\ldots,x_{n}$.
+\end{frame}
+\begin{frame}
+\frametitle{Aproximaci\'{o}n polinomial de $f(x)$}
+	\begin{center}
+		\begin{tikzpicture}[font=\small]
+			\draw [->] (0,0) -- node [near end, left]{$f(x)$} (0,3);
+			\draw [->] (0,0) -- (7,0);
+			\draw (7.4,0) node {x};
+			\draw [blue] (1,0.5) .. controls(2.5,2) .. (6,0.4);
+			\foreach \x in {1,1.5,...,6} \draw (\x,0) circle (0.03cm);
+			\draw (1,-0.3) node {$x_{0}$};
+			\draw (1,-0.7) node {a};
+			\draw (1.5,-0.3) node {$x_{1}$};
+			\draw (2,-0.3) node {$x_{2}$};
+			\draw (2.5,-0.3) node {$x_{3}$};
+			\draw (3,-0.3) node {$x_{4}$};
+			\draw (5.5,-0.3) node {$x_{n-1}$};
+			\draw (6,-0.3) node {$x_{n}$};
+			\draw (6,-0.7) node {b};
+			\draw [dashed] (1,0) -- (1,0.5);
+			\draw [dashed] (1.5,0) -- (1.5,1.05);
+			\draw [dashed] (2,0) -- (2,1.37);
+			\draw [dashed] (2.5,0) -- (2.5,1.6);
+			\draw [dashed] (3,0) -- (3,1.56);
+			\draw [dashed] (3.5,0) -- (3.5,1.48);
+			\draw [dashed] (4,0) -- (4,1.27);
+			\draw [dashed] (4.5,0) -- (4.5,1.09);
+			\draw [dashed] (5,0) -- (5,0.85);
+			\draw [dashed] (5.5,0) -- (5.5,0.65);
+			\draw [dashed] (6,0) -- (6,0.43);
+			\draw [<->] (2.5,1) -- node [midway, below] {h} (3,1);
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+\begin{frame}
+Ahora aproximamos $f(x)$ con un polinomio de orden $n$ que intersecta todos los nodos. La expresi\'{o}n para el polinomio de Lagrange es:
+\[P_{n}(x) = \sum_{i=0}^{n} f(x_{i})\mathcal{L}_{i}(x) \]
+donde $\mathcal{L}_{i}(x)$ son las funciones definidas en el tema de interpolaci\'{o}n. 
+\end{frame}
+\begin{frame}
+Por tanto, un aproximaci\'{o}n a la integral es
+\[I = \int_{a}^{b} P_{n}(x) dx = \sum_{i=0}^{n} \left[ f(x_{i}) \int_{a}^{b} \mathcal{L}_{i}(x) dx \right] = \sum_{i=0}^{n} A_{i} f(x_{i})\]
+donde
+\[A_{i} = \int_{a}^{b} \mathcal{L}_{i} dx, \hspace{1cm} i=0,1,\ldots,n\]
+\end{frame}
+\begin{frame}
+Las ecuaciones
+\[I = \int_{a}^{b} P_{n}(x) dx = \sum_{i=0}^{n} \left[ f(x_{i}) \int_{a}^{b} \mathcal{L}_{i}(x) dx \right] = \sum_{i=0}^{n} A_{i} f(x_{i})\]
+se conocen como las f\'{o}rmulas de Newton-Cotes. Siendo los casos:
+	\begin{enumerate}
+		\item $n=1$, Regla del trapecio.
+		\item $n=2$, Regla de Simpson.
+		\item $n=3$, Regla de Simpson de $3/8$.
+	\end{enumerate}
+\end{frame}
+\begin{frame}
+La m\'{a}s importante es la regla del trapecio, ya que se puede combinar con la extrapolaci\'{o}n de Richardson, en un algoritmo eficiente llamado: \textcolor{blue}{Integraci\'{o}n de Romberg}.
+\end{frame}
+\subsection{Regla del trapecio}
+\begin{frame}
+\frametitle{Regla del trapecio}
+	\begin{center}
+		\begin{tikzpicture}[font=\small,scale=0.6]
+			\draw [->] (0,0) -- node [near end, left] {$f(x)$}(0,4);
+			\draw [->] (0,0) -- (5,0);
+			\draw [blue] (1,2.3) .. controls (2.5,2.8) ..  (4,2.8);
+			\draw (1,2.3) -- (4,2.8);
+			\draw [dashed] (1,0) -- (1,2.3);
+			\draw [dashed] (4,0) -- (4,2.8);
+			\draw [<->] (1,0.5) -- node [midway, above] {h} (4,0.5);
+			\draw (0.7,-0.3) node {$x_{0}=a$};
+			\draw (3.7,-0.3) node {$x_{1}=b$};
+			\draw (2.2,1.7) node {Area=I};
+			\draw (2,3) node {E};
+			\draw [->] (2.3,2.9) -- (2.5,2.7);
+		\end{tikzpicture}
+	\end{center}
+Si $n=1$ (un bloque), tenemos que $l_{0} = (x-x_{1})/(x_{0}-x_{1})= (x-b)/h$ por tanto:
+\[A_{0} = \dfrac{1}{h} \int_{a}^{b} (x-b) dx = \dfrac{1}{2h} (b-a)^{2}= \dfrac{h}{2}\]
+\end{frame}
+\begin{frame}
+Para $l_{1} = (x-x_{0})/(x_{1}-x_{0}) = (x-a)/h$ tenemos
+\[A_{1} = \dfrac{1}{h} \int_{a}^{b} (x-a) dx = \dfrac{1}{2h} (b-a)^{2}= \dfrac{h}{2}\]
+Sustituyendo:
+\[I = \left[ f(a) + f(b) \right] \dfrac{h}{2}\]
+Siendo la regla del trapecio. Representa el \'{a}rea del trapecio que se muestra en la figura anterior.
+\end{frame}
+\subsection{Error en la regla del trapecio}
+\begin{frame}
+\frametitle{Error en la regla del trapecio}
+El error viene dado por
+\[ E = \int_{a}^{b} f(x) dx - I \]
+que es diferencia entre el \'{a}rea debajo de la curva de $f(x)$ y el la integral obtenida. 
+\end{frame}
+\begin{frame}
+Integrando el error de interpolaci\'{o}n:
+\[ \begin{split} 
+E =& \dfrac{1}{2!} \int_{a}^{b} (x-x_{0})(x-x_{1}) f''(\xi) dx  \\
+=& \dfrac{1}{2} f''(\xi) \int_{a}^{b} (x-a)(x-b) dx = \\
+=& -\dfrac{1}{12}(b-a)^{3} f''(\xi) \\
+=& -\dfrac{h^{3}}{12}f''(\xi) \\
+\end{split} \]
+\end{frame}
+\subsection{Regla extendida del trapecio}
+\begin{frame}
+\frametitle{Regla extendida del trapecio}
+En la pr\'{a}ctica la regla del trapecio se usa con una divisi\'{o}n en el dominio. La siguiente figura muestra la regi\'{o}n $[a,b]$ dividida en $n$ bloques, de longitud $h$.
+	\begin{center}
+		\begin{tikzpicture}[font=\small]
+			\draw [->] (0,0) -- node [near end, left]{$f(x)$} (0,3);
+			\draw [->] (0,0) -- (7,0);
+			\draw (7.4,0) node {x};
+			\draw [blue] (1,0.5) .. controls(2.5,2) .. (6,0.4);
+			\foreach \x in {1,1.5,...,6} \draw (\x,0) circle (0.03cm);
+			\draw (1,-0.3) node {$x_{0}$};
+			\draw (1,-0.7) node {a};
+			\draw (2.5,-0.3) node {$x_{i}$};
+			\draw (3,-0.3) node {$x_{i+1}$};
+			\draw (5.5,-0.3) node {$x_{n-1}$};
+			\draw (6,-0.3) node {$x_{n}$};
+			\draw (6,-0.7) node {b};
+			\draw [dashed] (1,0) -- (1,0.5);
+			\draw [dashed] (1.5,0) -- (1.5,1.05);
+			\draw [dashed] (2,0) -- (2,1.37);
+			\draw [dashed] (2.5,0) -- (2.5,1.6);
+			\draw [dashed] (3,0) -- (3,1.56);
+			\draw [dashed] (3.5,0) -- (3.5,1.48);
+			\draw [dashed] (4,0) -- (4,1.27);
+			\draw [dashed] (4.5,0) -- (4.5,1.09);
+			\draw [dashed] (5,0) -- (5,0.85);
+			\draw [dashed] (5.5,0) -- (5.5,0.65);
+			\draw [dashed] (6,0) -- (6,0.43);
+			\draw [<->] (2.5,1) -- node [midway, below] {h} (3,1);
+			\draw (1,0.5) -- (1.5,1.05) -- (2,1.37) -- (2.5,1.6) --(3,1.56) -- (3.5,1.48) -- (4,1.27) -- (4.5,1.09) -- (5,0.85) --(5.5,0.65) -- (6,0.43);
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+\begin{frame}
+La funci\'{o}n $f(x)$ se integrar\'{a} con una aproximaci\'{o}n lineal en cada panel. De la regla del trapecio, tenemos una que para el i-\'{e}simo panel:
+\[ I_{i} = [ f(x_{i}) + f(x_{i+1}) ] \dfrac{h}{2}\]
+y como el \'{a}rea total, representada por la integral:
+\[ I \simeq \sum_{i=0}^{n-1} [f(x_{0}) + 2f(x_{1}) + 2f(x_{2}) + \ldots +2 f(x_{n-1}) + f(x_{n})] \dfrac{h}{2}\]
+que es la regla del extendida del trapecio.
+\end{frame}
+\subsection{Regla recursiva del trapecio}
+\begin{frame}
+\frametitle{Regla recursiva del trapecio}
+Sea $I_{k}$ la integral evaluada con la regla compuesta del trapecio, usando $2^{k-1}$ bloques. Con la notaci\'{o}n $H=b-a$,de la regla compuesta del trapecio, para $k=1,2,3$
+\[
+	\begin{split}
+		k=1 \text{ (1 bloque) }: \\
+		I_{1} = [f(a) + f(b)] \frac{H}{2}
+	\end{split}
+\]
+\end{frame}
+\begin{frame}
+\[
+	\begin{split}
+		k=2 \text{ (2 bloques) }: \\
+		I_{2} =& \left[ f(a) + 2f\left(a+\frac{H}{2} \right) + f(b) \right] \frac{H}{4} \\
+		=& \frac{1}{2} I_{1} + f \left( a + \frac{H}{2} \right) \frac{H}{2}
+	\end{split}
+\]
+\end{frame}
+\begin{frame}
+\[
+	\begin{split}
+		k=&3 \text{ (4 bloques) }: \\
+		I_{3} =& \left[ f(a) + 2f \left(a + \frac{H}{4} \right) + 2 f \left( a + \frac{H}{2} \right) + \right.\\
+		 +& \left. 2 f \left( a + \frac{3H}{4} \right)+ f(b) \right] \frac{H}{8} \\
+		=& \frac{1}{2} I_{2} \left[f\left(a+\frac{H}{4} \right) + f\left(a+\frac{3H}{4}\right) \right] \frac{H}{4}
+	\end{split}
+\]
+\end{frame}
+\begin{frame}
+\frametitle{Regla recursiva del trapecio}
+Para un $k>1$ arbitrario, tenemos
+\[ I_{k} = \dfrac{1}{2} I_{k-1} + \dfrac{H}{2^{k-1}} \sum_{i=1}^{2^{k-2}} f \left[ a + \dfrac{(2i-1)H}{2^{k-1}} \right], \hspace{0.6cm} k=2,3,\ldots\]
+Otra forma de la misma ecuaci\'{o}n es:
+\[ I(h) = \dfrac{1}{2}I(2h) + h \sum f(x_{\text{nuevo}}) \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+El cuerpo de revoluci\'{o}n que se muestra en la figura, se obtiene al girar la curva dada por
+\[ y= 1 + \left( \dfrac{x}{2} \right)^{2}, \hspace{0.5cm} 0 \leq x \leq 2\]
+en torno al eje $x$. Calcula el volumen, usando la regla extendida del trapecio con $N=2,4,8,16,32,64,128$.
+\\
+\bigskip
+El valor exacto es $I=11.7286$. Eval\'{u}a el error para cada $N$.
+\end{frame}
+\begin{frame}
+	\begin{center}
+		\begin{tikzpicture}[domain=0:2,font=\small, scale=1.4]
+			\draw [<->] (0,-2) -- (0,2);
+			\draw [->] (0,0) -- (3,0);
+			\draw (1.7,2.3) node {$y=1+\left(\dfrac{x}{2}\right)^{2}$};
+			\draw(3.4,0) node {$x$};
+			\draw [color=red] plot(\x,{1+(\x/2)^2});
+			\draw [color=red] plot(\x,{-(1+(\x/2)^2)});
+			\draw [red] (2,0) ellipse [x radius=2,y radius=0.5, rotate=90];
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Resolviendo el problema}
+Hay que definir inicialmente la funci\'{o}n que queremos integrar, por tanto
+\[ I = \int_{a}^{b} f(x) dx\]
+donde
+\[ f(x) = \pi  \left( 1 + \left( \dfrac{x}{2} \right)^{2} \right)^{2}  \]
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+def trapecios(f,a,b,n):
+   h = (b-a)/float(n)
+   x = a
+   suma = 0
+   for i in range(1,n):
+      x = x + h
+      suma = suma + funcion(x)
+   return (h/2.)*(funcion(a) + funcion(b) + 2*suma)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\begin{center}
+	\begin{tabular}{r | l | l} 
+		i & Integral & Error \\ \hline
+		2 & 12.762720155 & 8.81708094e-02 \\ \hline
+		4 & 11.989593838 & 2.22527700e-02 \\ \hline
+		8 & 11.794011288 & 5.57707550e-03 \\ \hline
+		16 & 11.744971839 & 1.39589033e-03 \\ \hline
+		32 & 11.732702989 & 3.49827695e-04 \\ \hline
+		64 & 11.729635215 & 8.82641387e-05 \\ \hline
+		128 & 11.728868236 & 2.28702562e-05
+	\end{tabular}
+\end{center}
+\end{frame}
+\section{Librer\'{i}a Scipy}
+\begin{frame}
+\frametitle{Librer\'{i}a Scipy}
+SciPy es un conjunto de algoritmos matem\'{a}ticos y funciones de conveniencia construidos en la extensi\'{o}n NumPy para Python.
+\\
+\bigskip
+Se agrega un poder significativo a la sesi\'{o}n interactiva de Python mediante la presentaci\'{o}n del usuario a comandos de alto nivel y clases para la manipulaci\'{o}n y visualizaci\'{o}n de datos.
+\end{frame}
+\subsection{Organizaci\'{o}n de Scipy}
+\begin{frame}
+\frametitle{Organizaci\'{o}n de Scipy}
+SciPy est\'{a} organizada en sub-paquetes que cubren diferentes \'{a}reas de computaci\'{o}n cient\'{i}fica. Estos se resumen en la siguiente tabla:
+\fontsize{12}{12}\selectfont
+\begin{tabular}{l | l}
+	Subpaquete	&	Descripci\'{o}n \\ \hline
+	cluster		&	Algortimos para clusters \\ \hline
+	constants	&	Constantes f\'{i}sicas y matem\'{a}ticas \\ \hline
+	fftpack 	&	Rutinas para la Transformada R\'{a}pida de Fourier \\ \hline
+	integrate	&	Integraci\'{o}n y EDO \\ \hline
+	interpolate	&	Interpolaci\'{o}n y uso de splines \\ \hline
+	io			&	Rutinas de entrada y salida
+\end{tabular}
+\end{frame}
+\begin{frame}
+\fontsize{12}{12}\selectfont
+\begin{tabular}{l | l}
+	Subpaquete	&	Descripci\'{o}n \\ \hline
+	linalg		&	Algebra lineal \\ \hline
+	ndimage		&	Procesamiento N-dimensional de imagenes \\ \hline
+	odr			&	Regresi\'{o}n de distancias ortogonales \\ \hline
+	optimize	&	Optimizaci\'{o} y rutinas para encontrar ra\'{i}ces \\ \hline
+	signal		&	Procesamiento de señales \\ \hline
+	sparse		&	Matrices sparse y rutinas asociadas \\ \hline
+	spatial		&	Estructura de datos espaciales \\ \hline
+	special		&	Funciones especiales \\ \hline
+	stats		&	Distribuciones estad\'{i}sticas \\ \hline
+	weave		&	Integraci\'{o}n con C/C++
+\end{tabular}
+\end{frame}
+\subsection{Integraci\'{o}n (\texttt{scipy.integrate})}
+\begin{frame}
+\frametitle{Integraci\'{o}n (\texttt{scipy.integrate})}
+El subpaquete \texttt{scipy.integrate} proporciona varias t\'{e}cnicas de integraci\'{o}n.
+\fontsize{12}{12}\selectfont
+	\begin{tabular}{l | p{8cm}}
+	quad 		& Integraci\'{o}n en general. \\ \hline
+	dblquad 	& Integraci\'{o}n doble en general. \\ \hline
+	tplquad 	& Integraci\'{o}n triple en general. \\ \hline
+	fixed-quad 	& Integraci\'{o}n de f(x) usando cuadraturas gaussianas de orden n. \\ \hline
+	quadrature 	& Integra con tolerancia dada usando cuadratura gaussiana. \\ \hline
+	romberg 	& Integra una funci\'{o}n mediante la integraci\'{o}n de Romberg.
+\end{tabular}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo del uso de \texttt{integrate.quad}}
+\begin{verbatim}
+>>> from scipy import integrate
+>>> x2 = lambda x: x**2
+>>> integrate.quad(x2,0.,4.)
+(21.333333333333336, 2.368475785867001e-13)
+\end{verbatim}
+El operador \texttt{lambda} sirve para crear funciones an\'{o}nimas en l\'{i}nea. Al ser funciones an\'{o}nimas, es decir, sin nombre, \'{e}stas no podr\'{a}n ser referenciadas m\'{a}s tarde.
+\\
+\medskip
+Las funciones \texttt{lambda} se construyen mediante el operador \texttt{lambda}, los par\'{a}metros de la funci\'{o}n separados por comas (atenci\'{o}n, SIN par\'{e}ntesis), dos puntos (:) y el c\'{o}digo de la funci\'{o}n.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El problema del volumen con \texttt{integrate.quad}}
+Para comparar el resultado que nos da el m\'{o}dulo \texttt{scipy.integrate.quad}, veamos c\'{o}mo implementar la soluci\'{o}n del problema del s\'{o}lido de revoluci\'{o}n.
+\begin{lstlisting}
+from numpy import pi
+from scipy.integrate import quad
+
+def f(x):
+    return pi*(1+(x/2)**2)**2
+   
+print quad(f,0,2)
+\end{lstlisting}
+El resultado que nos devuelve es: $(11.728612573401893, 1.302137572589889e-13)$.
+\end{frame}
+\begin{frame}[fragile]
+El valor posterior al resultado de la integral es el error asociado al algoritmo que usa \texttt{integrate.quad}, para que no lo reporte en el resultado, basta con indicar que queremos s\'{o}lo el primer elemento de la lista:
+\\
+\bigskip
+\verb|print quad(f,0,2)[0]|
+\end{frame}
+\end{document}

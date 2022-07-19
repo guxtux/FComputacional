@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{minted}
+\usepackage{xcolor}
+\definecolor{lightgray}{gray}{0.95}
+\usemintedstyle{autumn}
+\begin{document}
+\begin{minted}
+[frame=lines,framesep=2mm,baselinestretch=1.2,bgcolor=lightgray,
+fontsize=\normalsize,linenos]{python}
+def taylor(deriv, x, y, xAlto, h):
+    X  =[]
+    Y = []
+    X.append(x)
+    Y.append(y)
+    
+    while x < xAlto:
+        h = min(h, xAlto - x)
+        D = deriv(x, y)
+        H = 1.0
+        for j in range(4):
+            H = H*h / (j+1)
+            y = y + D[j]*H
+        x = x + h
+        X.append(x)
+        Y.append(y)
+    
+    return array(X), array(Y)
+\end{minted}
+texto
+\\
+\\
+texto
+\\
+\begin{minted}
+[frame=lines,framesep=2mm,baselinestretch=1.2,bgcolor=lightgray,fontsize=\normalsize,linenos]{python}
+def taylor(deriv, x, y, xAlto, h):
+    X  =[]
+    Y = []
+    X.append(x)
+    Y.append(y)
+
+\end{minted}
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass[12pt]{beamer}
+\graphicspath{{Imagenes/}{../Imagenes/}}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{etex}
+%\reserveinserts{28}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{nccmath}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage[siunitx]{circuitikz}
+\usetikzlibrary{arrows,patterns,shapes}
+\usetikzlibrary{decorations.markings}
+
+%\usepackage{theorem}
+%\newtheorem{teorema}{Teorema}
+%\usepackage{tikz}
+%\usetikzlibrary{patterns}
+
+
+%\usetikzlibrary{positioning}
+
+% Introduce a new counter for counting the nodes needed for circling
+\newcounter{nodecount}
+% Command for making a new node and naming it according to the nodecount counter
+\newcommand\tabnode[1]{\addtocounter{nodecount}{1} \tikz \node (\arabic{nodecount}) {#1};}
+
+% Some options common to all the nodes and paths
+%\tikzstyle{every picture}+=[remember picture,baseline]
+%\tikzstyle{every node}+=[inner sep=0pt,anchor=base,minimum width=2.2cm,align=center,text depth=.15ex,outer sep=1.5pt]
+%\tikzstyle{every path}+=[thick]
+
+\renewcommand*{\multirowsetup}{\centering}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\renewcommand {\arraystretch}{1.5}
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \setbeamertemplate{headline}{}
+  \useoutertheme{default}
+  \setbeamercovered{invisible}
+}
+\AtBeginSection[]
+{
+\begin{frame}<beamer>{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+}
+\usefonttheme[onlymath]{serif}

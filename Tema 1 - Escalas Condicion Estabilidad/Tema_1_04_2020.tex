@@ -1,0 +1,320 @@
+\input{../Preambulos/preambulo_presentacion}
+\title{\large{Tema 1 - Escalas, condición y estabilidad}}
+\subtitle{Curso de Física Computacional}
+\author[]{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=2cm]{Imagenes/escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=2cm]{Imagenes/escudo-unam}
+}
+\begin{document}
+\maketitle
+\section*{Contenido}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideallsubsections]}
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section{Error por corte/redondeo}
+\begin{frame}
+Volvamos a nuestro sistema decimal tradicional. Supongamos ahora que los números se pueden representar de la siguiente manera:
+\begin{align*}
+fl(x) = \pm (0 . d_{1} d_{2} d_{3} \ldots d_{t} d_{t+1} d_{t+2} \ldots) \times 10^{e}
+\end{align*}
+Si la precisión elegida es $t$, entonces \enquote{recortar} el número definido arriba, pues no podemos representar los $d_{i}$ para $i > t$.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Alternativas para el recorte}
+En consecuencia, tenemos dos alternativas básicas para efectuar dicho recorte:
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item  \textbf{Corte}: Ignorar los dígitos $d_{i}$ cuando $i > t$
+\item \textbf{Redondeo}: Sumar $1$ a $d_{t}$ si $d_{t+1}\geq \frac{10}{2}$ e ignorar los restantes $d_{i}$ para $i > t + 1$, o
+\item Aplicar el corte si $d_{t+1} < \frac{10}{2}$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Error absoluto}
+Esto nos permite obtener una cota del error absoluto para ambos casos:
+\begin{align*}
+e_{A} = \left\{ \begin{array}{ll}
+10^{-t} \times 10^{e} & \mbox{para corte} \\[0.5em]
+\dfrac{1}{2} 10^{-t} \times 10^{e} & \text{para redondeo}
+\end{array} \right.
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Error relativo}
+Y como definimos el error absoluto, también podemos definir un límite para el error relativo, que será:
+\\
+\medskip
+\textbf{Corte}:
+\begin{align*}
+e_{r} \leq \dfrac{10^{-t} \times 10^{e}}{0.1 \times 10^{e}} = 10^{1-t}
+\end{align*}
+\textbf{Redondeo}:
+\begin{align*}
+e_{r} \leq \dfrac{1}{2}\dfrac{10^{-t} \times 10^{e}}{0.1 \times 10^{e}} = \dfrac{1}{2} \, 10^{1-t}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Definición de $\mu$}
+Al valor $10^{1-t}$ lo identificaremos con la letra $\mu$, y resulta ser importante porque nos da
+una idea del error relativo que cometemos al utilizar una representación de punto flotante.
+\end{frame}
+\begin{frame}
+\frametitle{Definición de $\mu$}
+Al valor de $\mu$ suele denominarse como \textcolor{blue}{unidad de máquina o unidad de redondeo}. 
+\\
+\bigskip
+El negativo del exponente de $\mu$ suele llamarse también \textit{cantidad de dígitos significativos}.
+\end{frame}
+\section{Errores de truncamiento}
+\begin{frame}
+\frametitle{Errores de truncamiento}
+Sabemos que este error surge de aproximar procesos continuos mediante procedimientos discretos o
+de procesos \enquote{infinitos} mediante procedimientos \enquote{finitos}.
+\end{frame}
+\begin{frame}
+\frametitle{Errores de truncamiento}
+Como ejemplo suele tomarse la diferenciación numérica como forma de aproximar el cálculo de una derivada en un punto (o su equivalente, la integración numérica).
+\\
+\bigskip
+\pause
+Para el caso de discretización, el ejemplo más es usual es la utilización de métodos iterativos para resolver sistemas de ecuaciones lineales.
+\end{frame}
+\begin{frame}
+\frametitle{Uso de una serie de Taylor}
+En general, el error de truncamiento está asociado al uso de la serie de Taylor para aproximar funciones, de modo que estimar una cota del error no conlleva una dificultad mayor.
+\end{frame}
+\begin{frame}
+\frametitle{Uso de una serie de Taylor}
+Sin embargo, con el uso de la serie de Taylor suelen interactuar tanto el error inherente y/o el error de redondeo, con lo que muchas veces su influencia no es bien advertida o es muy reducida. 
+\end{frame}
+\begin{frame}
+\frametitle{Uso de una serie de Taylor}
+Veamos un ejemplo clásico: supongamos que queremos calcular una aproximación de $f^{\prime}(x_{0})$ para una función continua, pues no es posible obtener la derivada en forma analítica o resulta muy difícil.
+\\
+\bigskip
+\pause
+Por lo tanto, usaremos un entorno del punto $x_{0}$ para calcular $f^{\prime}(x_{0})$ utilizando solamente $f(x)$.
+\end{frame}
+\begin{frame}
+\frametitle{Desarrollo de la serie}
+Para ello nos valdremos de la serie de Taylor. En efecto, para cualquier punto distante $h$ de $x_{0}$ tendremos:
+\begin{align*}
+f(x_{0} + h) &= f(x_{0}) + f^{\prime}(x_{0})h + f^{\prime \prime}(x_{0}) \dfrac{h^{2}}{2} + \\
+&+ f^{\prime \prime \prime}(x_{0}) \dfrac{h^{3}}{6} + f^{4}(x_{0}) \dfrac{h^{4}}{24} + \ldots
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Desarrollo de la serie}
+despejamos $f^{\prime}(x_{0})$, por tanto
+\begin{align*}
+f^{\prime}(x_{0}) &= \dfrac{f(x_{0} + h) - f(x_{0})}{h} + \\
+&- \left[ f^{\prime \prime}(x_{0}) \dfrac{h^{2}}{2} + f^{\prime \prime \prime}(x_{0}) \dfrac{h^{3}}{6} + f^{4}(x_{0}) \dfrac{h^{4}}{24} + \ldots \right] 
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Algoritmo propuesto}
+Proponemos el siguiente algoritmo para aproximar $f^{\prime}(x_{0})$:
+\begin{align*}
+f^{\prime}(x_{0}) = \dfrac{f(x_{0} + h) - f(x_{0})}{h} + \order{h}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Error en el algoritmo propuesto}
+El error que se comete en la aproximación viene dado por:
+\begin{align*}
+\order{h} = \left[  f^{\prime \prime}(x_{0}) \dfrac{h^{2}}{2} + f^{\prime \prime \prime}(x_{0}) \dfrac{h^{3}}{6} + f^{4}(x_{0}) \dfrac{h^{4}}{24} + \ldots \right] 
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Error por truncamiento}
+El término de la derecha es el llamado \emph{error de truncamiento}, pues es lo que se truncó a la serie de Taylor para aproximar el valor buscado. 
+\end{frame}
+\begin{frame}
+\frametitle{Velocidad de convergencia}
+Este error suele asociarse también con la convergencia (o la velocidad de convergencia), que suele representarse como $\order{n}$ (generalmente, como $\order{h^{n}}$, siendo $n$ el parámetro que determina la velocidad o la convergencia. 
+\end{frame}
+\begin{frame}
+\frametitle{Aproximación para la derivada}
+En nuestro ejemplo, y dado que $h$ generalmente es menor a $1$, podemos decir que la aproximación es del tipo:
+\begin{align*}
+f^{\prime}(x_{0}) = \dfrac{f(x_{0} + h) - f(x_{0})}{h} +  \order{h}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Error en la aproximación para la derivada}
+En donde el error que se comete es proporcional a $h$.
+\\
+\medskip
+\pause
+Se verifica que además están los términos con $h^{2}$, $h^{3}$, etc. pero como $h<1$ se tiene que $h^{2}  \ll h$, $h^{3} \ll h^{2}$, etc. por lo que la influencia de éstos es mucho menos y despreciable.
+\end{frame}
+\begin{frame}
+\frametitle{Primera suposición}
+Supongamos por un momento que todas las derivadas $f^{i}(x_{0}) = 0$ para $i \geq 3$.
+\\\
+\bigskip
+\pause
+Entonces, tenemos que:
+\begin{align*}
+\left[ f^{\prime}(x_{0}) - \dfrac{f(x_{0} + h) - f(x_{0})}{h} \right] = \dfrac{h}{2} \vert f^{\prime \prime}(\xi) \vert
+\end{align*}
+con $\xi \in [x, x + h]$
+\end{frame}
+\begin{frame}
+\frametitle{Error al despreciar un término}
+Por lo que, si conociéramos $f^{\prime \prime}(\xi)$ se podría acotar el error que se está cometiendo por despreciar el término $\dfrac{h}{2} f^{\prime \prime}(x_{0})$
+\end{frame}
+\section{Ejercicio para la aproximación}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Implementación del algoritmo}
+\begin{frame}
+\frametitle{Ejercicio con la aproximación}
+Como ejercicio, apliquemos el algoritmo para obtener la derivada de la función $f(x) = \sin(2 \pi x)$ en $x_{0}=0.45$, es decir,  $f^{\prime}(0.45)$.
+\\
+\bigskip
+\pause
+Considera el valor exacto de la derivada 
+\begin{align*}
+f^{\prime}(0.45) = 2 \, \pi \, cos(2 \, \pi * 0.45) = -5.97566
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio con la aproximación}
+Utiliza como valor inicial de $h = 10^{-1}$, para luego repertir el cálculo con $h = 10^{-2}$, así hasta llegar a $h = 10^{-16}$
+\end{frame}
+\begin{frame}
+\frametitle{Construye una tabla de las aproximaciones}
+\begin{center}
+\begin{tabular}{l | l | l}
+h & $f^{\prime}(x_{0})$ & Error \\ \hline
+$10^{-1}$ & & \\ \hline
+$10^{-2}$ & & \\ \hline
+$10^{-3}$ & & \\ \hline
+\ldots & & \\ \hline
+$10^{-15}$ & & \\ \hline
+$10^{-16}$ & & \\ \hline
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}[fragile]
+\begin{table}
+\fontsize{12}{12}\selectfont
+\centering
+\begin{tabular}{l | p{2cm} | p{3cm}}
+h & \multicolumn{1}{c}{$f^{\prime}(x_{0})$ } & \multicolumn{1}{c}{Error} \\ \hline
+$10^{-1}$ & $-6.180340$ & $3.425226e-02$ \\ \hline
+$10^{-2}$ & $-6.032711$ & $9.547183e-03$ \\ \hline
+$10^{-3}$ & $-5.981725$ & $1.014908e-03$ \\ \hline
+$10^{-4}$ & $-5.976274$ & $1.027353e-04$ \\ \hline
+$10^{-5}$ & $-5.975725$ & $1.093152e-05$ \\ \hline
+$10^{-6}$ & $-5.975670$ & $1.745271e-06$ \\ \hline
+$10^{-7}$ & $-5.975665$ & $8.269814e-07$ \\ \hline
+$10^{-8}$ & $-5.975664$ & $7.339002e-07$ \\ \hline
+$10^{-9}$ & $-5.975665$ & $7.561951e-07$ \\ \hline
+$10^{-10}$ & $-5.975666$ & $1.016302e-06$ \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}[fragile]
+\begin{table}
+\fontsize{12}{12}\selectfont
+\centering
+\begin{tabular}{l | p{2cm} | p{3cm}}
+h & \multicolumn{1}{c}{$f^{\prime}(x_{0})$ } & \multicolumn{1}{c}{Error} \\ \hline
+$10^{-11}$ & {-5.975670} & $1.666570e-06$ \\ \hline
+$10^{-12}$ & {-5.975442} & $3.642056e-05$ \\ \hline
+$10^{-13}$ & {-5.976331} & $1.122121e-04$ \\ \hline
+$10^{-14}$ & {-5.995204} & $3.270657e-03$ \\ \hline
+$10^{-15}$ & {-5.884182} & $1.530843e-02$ \\ \hline
+$10^{-16}$ & {-8.326673} & $3.934315e-01$ \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Comportamiento del error}
+Vemos en los resultados que el valor del error relativo comienza a disminuir pero luego llega a un punto en donde crece nuevamente.
+\\
+\bigskip
+\pause
+\textcolor{red}{¿Por qué pasa esto?}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Interpretación de los resultados}
+Una vez que tengamos los resultados de la tabla, para interpretar de mejor manera los datos, tendremos que elaborar una gráfica del error relativo contra el valor de $h$.
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de la tendencia del error}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/Ejercicio_Derivada_00.eps}
+    \caption{Grafica del comportamiento del error relativo en escala normal.}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ajuste de eje en la gráfica}
+Vemos que hay un comportamiento de cambio drástico con los valores del error relativo, donde en apariencia el error relativo se cancela.
+\\
+\bigskip
+\pause
+Si ajustamos el eje $y$ a una escala logarítmica, quizá encontremos un resultado interesante.
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de la tendencia del error}
+\begin{figure}
+	\centering
+    \includegraphics[scale=0.55]{Imagenes/Ejercicio_Derivada_01.eps}
+    \caption{Grafica del comportamiento del error relativo en la aproximación.}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Respuesta a la pregunta}
+Si analizamos en detalle, vemos que la tendencia del error de truncamiento es lineal (en escala logarítmica) pero para $h < 10^{-8}$ el error aumenta y no sigue una ley determinada. 
+\end{frame}
+\begin{frame}
+\frametitle{Respuesta a la pregunta}
+Este \enquote{empeoramiento} de la aproximación se debe a la incidencia del error de redondeo, es decir, la unidad de máquina pasa a ser más importante que el error de truncamiento.
+\end{frame}
+\begin{frame}
+\frametitle{Respuesta a la pregunta}
+Es por eso que no siempre el utilizar una \enquote{mejor precisión} ayuda a mejorar los resultados finales. 
+\\
+\bigskip
+En este tipo de problemas, es conveniente que el error que domine los cálculos sea el de truncamiento o de discretización.
+\end{frame}
+% \section{Acumulación del error por redondeo}
+% \begin{frame}
+% Desde que se creó la primera computadora, la acumulación del error de redondeo ha sido uno de los ''dolores de cabeza'' de los especialistas, como se puede ver en esta frase:
+% \\
+% \medskip
+% ''La extraordinaria rapidez de las actuales computadoras significa que en un problema típico se realizan millones de operaciones con coma (punto) flotante. Esto quiere decir que la acumulación de errores de redondeo puede ser desastrosa''.
+% \end{frame}
+% \begin{frame}
+% En muchas ocasiones la inestabilidad está dada por la incidencia de unos pocos errores de redondeo y no por la acumulación de millones de ellos.
+% \\
+% \medskip
+% Un ejemplo en ese sentido está dado por el algoritmo del ejemplo inicial, en el cual el error está dado por el redondeo de $y_{n-1}$, que se propaga a medida que el valor es cada vez más chico.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Ejercicio}
+% Calcula el valor de $e$ para $n$ suficientemente grandes, a partir de la su definición:
+% \[ f(n) = \lim_{n \rightarrow \infty} \left( 1 + \dfrac{1}{n} \right)^{n} \]
+% \end{frame}
+% \begin{frame}
+% Completa la tabla:
+% \begin{center}
+% \begin{tabular}{l |l | l}
+% n & f(n) & $\vert \exp - f(n) \vert$ \\ \hline
+% $10^{1}$ & & \\ \hline
+% $10^{2}$ & & \\ \hline
+% $10^{3}$ & & \\ \hline
+% \ldots & & \\ \hline
+% $10^{14}$ & & \\ \hline
+% $10^{15}$ & & \\ \hline
+% \end{tabular}
+% \end{center}
+% Discute tus resultados!
+% \end{frame}
+\end{document}

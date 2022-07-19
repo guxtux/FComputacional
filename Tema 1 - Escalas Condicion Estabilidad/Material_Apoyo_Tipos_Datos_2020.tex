@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{siunitx}
+\marginsize{1cm}{2cm}{0cm}{2cm}  
+\newcommand{\letraconsola}[1]{\texttt{#1}}
+\title{Tipos de datos para el IEEE 754 y python. \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{20}\selectfont
+A partir del año 1987, el Instituto de Ingenieros Eléctricos y Electrónicos (IEEE) y el Instituto Americano de Estándares Nacionales (ANSI) adoptaron el estándar IEEE 754 para la aritmética de punto flotante.
+\par
+Cuando se sigue el estándar, se espera que los tipos de datos primitivos tengan la precisión y los rangos dados en la Tabla \ref{table:Tabla_01}:
+
+\begin{table}[h]
+\setlength{\extrarowheight}{10pt}
+\centering
+\begin{tabular}{l c c c p{9cm}}
+Nombre & Tipo & Bits & Bytes & \multicolumn{1}{c}{Rango} \\ \hline
+\letraconsola{boolean} & Lógico & $1$ & $\dfrac{1}{8}$ & \texttt{True} o \texttt{False} \\ \hline
+\letraconsola{char} & String & $16$ & $2$ & \verb|'\u0000'| $\leftrightarrow$ \verb|'\uFFFF'| (Caracteres Unicode ISO) \\ \hline
+\letraconsola{byte} & Integer & $8$ & $1$ & $-128 \leftrightarrow +127$ \\ \hline
+\letraconsola{short} & Integer & $16$ & $2$ & $-32,768 \leftrightarrow +32,767$ \\ \hline
+\letraconsola{int} & Integer & $32$ & $4$ & $-2,147,483,648 \leftrightarrow +2,147,483,647$ \\ \hline
+\multirow{2}{*}{\letraconsola{long}} & \multirow{2}{*}{Integer} & \multirow{2}{*}{$64$} & \multirow{2}{*}{$8$} & $-9,223,372,036,854,775,808 \leftrightarrow$ \\
+ & & & & $-9,223,372,036,854,775,807$ \\ \hline
+\letraconsola{float} & Floating & $32$ & $4$ & $\pm \num{1.401298e-45} \leftrightarrow \pm \num{3.402923e+38}$ \\ \hline
+\multirow{2}{*}{\letraconsola{double}} & \multirow{2}{*}{Floating} & \multirow{2}{*}{$64$} & \multirow{2}{*}{$8$} & $\pm \num{4.94065645841246544e-324} \leftrightarrow$ \\
+& & & & $\pm \num{1.7976931348623157e+308}$ \\ \hline
+\end{tabular}
+\caption{Tipos de datos primitivos para el IEEE 754.}
+\label{table:Tabla_01}
+\end{table}
+Además, cuando las computadoras y el software cumplen con este estándar, (hoy en día la mayoría lo hace), se tiene la garantía de que el programa que implementemos, producirá resultados idénticos en diferentes computadoras. Sin embargo, debido a que el estándar IEEE puede no producir el código más eficiente o la mayor precisión para una computadora en particular, a veces puede que tenga que invocar opciones del compilador o intérprete para exigir que el estándar IEEE se siga estrictamente para los casos de prueba.
+\newpage
+En el caso de \letraconsola{python}, hay 5 tipos numéricos básicos que representan booleanos (bool), enteros (int), enteros sin signo (uint), punto flotante (floating) y complejos (complex). 
+\par
+Los tipos de datos con algún número en su nombre indican el tamaño de bits del tipo (es decir, cuántos bits se necesitan para representar un solo valor en la memoria), en la Tabla \ref{table:Tabla_02} se presentan los tipos de datos:
+\begin{table}[h]
+    \setlength{\extrarowheight}{10pt}
+    \centering
+\begin{tabular}{l l c p{9cm}}
+Tipo & Nombre & Bytes & \multicolumn{1}{c}{Rango} \\ \hline
+\letraconsola{bool} & Booleano & $\dfrac{1}{8}$ & \texttt{True} o \texttt{False} \\ \hline
+\letraconsola{int8} & Byte & $1$ & $-128 \leftrightarrow +127$ \\ \hline
+\letraconsola{int16} & Integer & $2$ & $-32,768 \leftrightarrow +32,767$ \\ \hline
+\letraconsola{int32} & Integer & $4$ & $-2,147,483,648 \leftrightarrow +2,147,483,647$ \\ \hline
+\multirow{2}{*}{\letraconsola{int64}} & \multirow{2}{*}{Integer} & \multirow{2}{*}{$8$} & $-9,223,372,036,854,775,808 \leftrightarrow$ \\
+ & & & $-9,223,372,036,854,775,807$ \\ \hline
+ \letraconsola{uint8} & Unsigned integer & $1$ & $0 \leftrightarrow 255$ \\ \hline
+ \letraconsola{uint16} & Unsigned integer & $2$ & $0 \leftrightarrow 65535$ \\ \hline
+ \letraconsola{uint32} & Unsigned integer & $4$ & $0 \leftrightarrow 4294967295$ \\ \hline
+ \letraconsola{uint64} & Unsigned integer & $8$ & $0 \leftrightarrow 18446744073709551615$ \\ \hline
+ \letraconsola{float16} & Half precision float & $2$ & $1$ para el signo, $5$ bits para el exponente, $10$ bits para la mantisa \\ \hline
+ \letraconsola{float32} & Half precision float & $4$ & $1$ para el signo, $8$ bits para el exponente, $23$ bits para la mantisa \\ \hline
+ \letraconsola{float64} & Half precision float & $8$ & $1$ para el signo, $11$ bits para el exponente, $52$ bits para la mantisa \\ \hline
+ \letraconsola{complex64} & Complex number & $8$ & Se representa por dos números de punto flotante de $32$ bits, uno para la componente real y otro para la imaginaria. \\ \hline
+ \letraconsola{complex128} & Complex number & $16$ & Se representa por dos números de punto flotante de $64$ bits, uno para la componente real y otro para la imaginaria. \\ \hline
+\end{tabular}
+\caption{Tipos de datos en \texttt{python}.}
+\label{table:Tabla_02}
+\end{table}
+\end{document}

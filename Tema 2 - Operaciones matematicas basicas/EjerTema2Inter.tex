@@ -1,0 +1,90 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{nccmath}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{listings}
+\renewcommand{\arraystretch}{1.5}
+\lstset{ %
+language=Python,                % choose the language of the code
+basicstyle=\normalsize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=4,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\#}{)}          % if you want to add a comment within your code
+}
+\marginsize{1.5cm}{1.5cm}{1cm}{2cm}  
+\title{Ejercicios Parte de Interpolaci\'{o}n. \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\begin{enumerate}
+\item La densidad del aire $\rho$ var\'{i}a con la altura de la siguiente manera:
+\begin{table}[H]
+\centering \Large
+\begin{tabulary}{15cm}{c | c | c | c}
+$h (km)$ & $0$ & $3$ & $6$ \\
+\midrule $\rho (kg/m^{3})$ & $1.225$ & $0.905$ & $0.652$
+\end{tabulary}
+\end{table}
+Define $\rho(h)$ como una funci\'{o}n cuadr\'{a}tica a partir del m\'{e}todo de Lagrange.
+\item Usando el m\'{e}todo de Newton, encuentra un polinomio que se ajuste a los siguientes puntos:
+\begin{table}[H]
+\centering \Large
+\begin{tabulary}{15cm}{c | c | c | c | c | c}
+$x$ & $-3$ & $2$ & $-1$ & $3$ & $1$ \\
+\midrule $y$ & $0$ & $-5$ & $-4$ & $12$ & $0$
+\end{tabulary}
+\end{table}
+\item El calor espec\'{i}fico del alumino $c_{p}$ depende de la temperatura $T$ como sigue:
+\begin{table}[H]
+\centering \Large
+\begin{tabulary}{15cm}{c | c | c | c | c | c | c}
+$T(^{\circ} C)$ & $-250$ & $-200$ & $-100$ & $0$ & $100$ & $300$ \\
+\midrule $c_{p} (kJ/kgK)$ & $0.0163$ & $0.318$ & $0.699$ & $0.870$ & $0.941$ & $1.04$
+\end{tabulary}
+\end{table}
+Calcula $c_{p}$ en $T=200^{\circ}$C y $T=400^{\circ}$C
+\item Dados los puntos de la siguiente tabla:
+\begin{center}
+\begin{tabular}{c | c }
+$x$ & $y$ \\ \hline
+$4.0$ & $-0.06604$\\ \hline
+$3.9$ & $-0.02724$ \\ \hline
+$3.8$ & $0.01282$ \\ \hline
+$3.7$ & $0.05383$
+\end{tabular}
+\end{center}
+Calcula el valor de la ra\'{i}z $y(x)=0$
+\\
+\\
+Este es un ejemplo de interpolaci\'{o}n inversa, donde los roles de $x$, $y$ se inverten, esto es, dado $y$ se calcula $x$, debemos de encontrar $x$ que corresponda a un $y$ dado (en el ejercicio $y=0$).
+\\
+\\
+Aqu\'{i} hay dos puntos que resolver, primero, que modifiques el c\'{o}digo de Newton-Gregory para que te eval\'{u}e un s\'{o}lo dato, luego a partir de la indicaci\'{o}n del cambio de papeles en las variables, que construyas la tabla de diferencias divididas y eval\'{u}es el polinomio.
+\\
+\\
+La ra\'{i}z obtenida es $x=3.8317$.
+\end{enumerate}
+\end{document}

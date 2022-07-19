@@ -1,0 +1,22 @@
+\documentclass[tikz]{standalone}
+\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\begin{document}
+\begin{circuitikz}[scale=0.8]
+\draw
+    (0,0)
+        to[battery1, l=$V$] ++(0,4)
+        to[short] ++(1,0)
+        to[L, l^=$L_{1}$] ++(1.5,0)
+        to[short] ++(1,0) coordinate (A)
+        to[short] ++(1,0)
+        to[R, l^=$R_{2}$] ++(1.5,0)
+        to[short] ++(1,0)
+        to[L, l^=$L_{2}$] ++(0,-4)--(1,0)
+        to[cspst, o-o] ++(0.8,0) -- (0,0)
+        (A)
+        to[short] ++(0,-0.5)
+        to[R, l^=$R_{1}$] ++(0,-1.5)
+        to[C, l^=$C$] ++(0,-2);
+\end{circuitikz}
+\end{document}

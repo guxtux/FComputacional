@@ -1,0 +1,143 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{amsthm}
+\marginsize{1cm}{2cm}{-1cm}{2cm}  
+\title{Método de Runge-Kutta de cuarto orden \\ para un sistema de EDO \\ \begin{large}Curso de Física Computacional\end{large}}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+La aplicación del RK4 a un conjunto de EDO es análoga a la aplicación del método de segundo orden. Sea un conjunto de dos ecuaciones:
+\begin{eqnarray*}
+y' & = & f(y,z,t) \\
+z' & = & g(y,z,t) 
+\end{eqnarray*}
+El método RK4 para éste conjunto es
+\begin{eqnarray*}
+k_{1} & = & h f(y_{n}, z_{n}, t_{n}) \\
+l_{1} & = & h g(y_{n}, z_{n}, t_{n}) \\
+k_{2} & = & h f \left(y_{n}+ \dfrac{k_{1}}{2}, z_{n}+\dfrac{l_{1}}{2},t_{n}+\dfrac{h}{2} \right) \\
+l_{2} & = & h g \left(y_{n}+ \dfrac{k_{1}}{2}, z_{n}+\dfrac{l_{1}}{2},t_{n}+\dfrac{h}{2} \right) \\
+k_{3} & = & h f \left(y_{n}+ \dfrac{k_{2}}{2}, z_{n}+\dfrac{l_{2}}{2},t_{n}+\dfrac{h}{2} \right) \\
+l_{3} & = & h g \left(y_{n}+ \dfrac{k_{2}}{2}, z_{n}+\dfrac{l_{2}}{2},t_{n}+\dfrac{h}{2} \right) \\
+k_{4} & = & h f (y_{n} + k_{3}, z_{n} + l_{3}, t_{n} + h) \\
+l_{4} & = & h g (y_{n} + k_{3}, z_{n} + l_{3}, t_{n} + h) \\
+y_{n+1} & = & y_{n} + \dfrac{1}{6} [k_{1} + 2 k_{2} + 2k_{3} + k_{4} ] \\
+z_{n+1} & = & z_{n} + \dfrac{1}{6} [l_{1} + 2 l_{2} + 2l_{3} + l_{4} ]
+\end{eqnarray*}
+Ejercicio: Resuelve el siguiente conjunto de EDO con $h=0.3 \pi$ y $h=0.5 \pi$
+\begin{eqnarray*}
+ y & = & z, \hspace{1cm} y(0) = 1\\
+ z' & = & -y, \hspace{1cm} z(0) = 0
+\end{eqnarray*}
+\section{Explicación}
+Este programa se diseño para resolver un conjunto de cualquier número de EDO de primer orden. En el subprograma \texttt{FUNCT} se definen el número de ecuaciones IM, asi como los IM valores de las condiciones iniciales. Para utilizar el programa con un nuevo problema, el usuario debera cambiar las ecuaciones en \texttt{FUNCT}, el valor de IM y las condiciones iniciales. La estructura del programa es esencialmente la misma del programa RK4, pero se calcula cada paso intermedio en un ciclo \texttt{DO} para el número IM de ecuaciones.
+\section{Variables}
+\begin{tabbing}
+Listado de \= variables \\
+\> Y(1) : y \\
+\> Y(2) : z \\
+\> Y(I) : \textit{I}-ésima incógnita \\
+\> YN(I): \= $y_{n}$ para $I=1$ y $z_{n}$ para $I=2$, etc. \\
+\> YA(I) : $y_{n}+k_{1}/2$ ó $y_{n}+k_{2}/2$ ó $y_{n}+k_{3}/2$ para $I=1$ \\
+\> \> $z_{n}+l_{1}/2$ ó $z_{n}+l_{2}/2$ ó $z_{n}+l_{3}/2$ para $I=2$ \\
+\> K(J,1),J = 1,2,3,4 : $k_{1}$, $k_{2}$, $k_{3}$, $k_{4}$ \\
+\> K(J,2),J = 1,2,3,4 : $l_{1}$, $l_{2}$, $l_{3}$, $l_{4}$ \\
+\> K(J,M),J = 1,2,3,4 : similar al anterior para la \textit{M}-ésima ecuación diferencial \\
+\> IM : número de ecuaciones en el conjunto \\
+\> NS : número de intervalos de tiempo en un intervalo de impresión, TD \\
+\> XP : límite máximo de \textit{t} \\
+\> TD : intervalo de impresión para \textit{t}
+\end{tabbing}
+\section{Código}
+A continuación se indica el código del programa.\\
+\texttt{
+DIMENSION YA(0:10), YN(0:10), EK(O:4,0:10), Y(0:10) \\
+PRINT * \\
+PRINT *, 'Esquema RK4 para un conjunto de ecuaciones' \\
+!Numero de ecuaciones \\
+IM=2 \\
+!Condicion inicial para y1 en t=0 \\
+Y(1) = 1 \\
+!Condicion inicial para y2 en t=0 \\
+Y(2) = 0 \\
+1 PRINT * \\
+PRINT *, 'Intervalo de impresion de T?' \\
+READ *, PI \\
+PRINT *, '¿Numero de pasos en un intervalo de impresion de T?' \\
+READ *, NS \\
+PRINT *, 'T maximo para detener los calculos?' \\
+READ *, XL \\
+H = PI/NS \\
+PRINT *, 'H = ' , H \\
+XP = 0 \\
+HH = H/2 \\
+PRINT *
+!Inicializacion del numero de linea \\
+LI = 0 \\
+PRINT *, 'Linea \hspace{2cm} T \hspace{2cm} Y(1) \hspace{2cm} Y(2), ... ' \\
+WRITE (*,98) LI, XP, (Y(I),I=1,IM) \\
+28 LI = LI+1 \\
+\begin{tabbing}
+DO \= N = 1 \\
+\> XB=XP \hspace{4cm} \= !Tiempo anterior \\
+\> XP=XP+H \> !Tiempo nuevo\\
+\> XM=XB+HH \> !Tiempo en el punto nuevo\\
+\> J=1 \> !Esta parte calcula k1 \\
+\> DO I\= = 1, IM \hspace{2cm} \= \text{ } \\
+\> \> YA(I)=Y(I) \\
+\> END DO \\
+\> \\
+\> XA=XB \\
+\> CALL FUNCT(EK,J,YA,H) \\
+\> J=1 \> \> !Esta parte calcula k2 \\
+\> DO I = 1, IM \\
+\> \> YA(I)=Y(I)+EK(1,I)/2 \\
+\> END DO \\
+\> \\
+\> XA=XM \\
+\> CALL FUNCT(EK,J,YA,H) \\
+\> J=3 \> \> !Esta parte calcula k3 \\
+\> DO I=1, IM \\
+\> \> YA(I)=Y(I)+EK(2,I)/2 \\
+\> END DO \\
+\> \\
+\> XA=XM \\
+\> CALL FUNCT(EK,J,YA,H) \\
+\> J=4 \> \> !Esta parte calcula k4 \\
+\> DO I = 1, IM \\
+\> \> YA(I) = Y(I) +EK(3,I) \\
+\> END DO \\
+\> \\
+\> XA=XP \\
+\> CALL FUNCT(EK,J,YA,H) \\
+\> DO I = 1, IM \> \> !Esquema RK4 \\
+\> \> Y(I) = Y(I) + (EK(1,I)+EK(2,I)*2+EK(3,I)*2+EK(4,I))/6 \\
+\> END DO
+\end{tabbing}
+END DO\\
+WRITE (*,98) LI, XP, (Y(I), I=1,IM) \\
+98 FORMAT (1X, I2, F10.6, 2X, 1P4E16.6/ (15X, 1P4E16.6)) \\
+IF (XP .LT. XL) GOTO 28 \\
+200 PRINT * \\
+PRINT *, 'Oprime 1 para Continuar o 0 para Terminar' \\
+READ *, K \\
+IF (K .EQ. 1) GOTO 1 \\
+PRINT * \\
+END \\
+!++++++++++++++++++++++++++++++++++++ \\
+SUBROUTINE FUNCT(EK, J, YA, H) \\
+DIMENSION EK(0:4, 0:10), YA(0:10) \hspace{2cm} !Define un conjunto de ecuaciones \\
+EK(J,1) = YA(2) * H \\
+EK(J,2) = -YA(1) * H \\
+RETURN \\
+END}
+\\
+\\
+Nótese que no está implementado en el código, el almacenamiento de los datos en un archivo, por lo que habrá que agregarlo y posteriormente trabajar con ese archivo.
+\end{document}

@@ -1,0 +1,78 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{multicol}
+\linespread{1.3}
+\setlength{\parskip}{1em}
+\newcommand{\python}{\texttt{python}}
+\marginsize{1cm}{2cm}{0cm}{2cm}
+\decimalpoint
+
+\title{Examen 1: Errores, condición y estabilidad. \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\textbf{Indicaciones: } 
+
+Para cada uno de los problemas, deberás resolverlo con un código de \python, en el caso que se indique, deberás de incluir un gráfica con formato *.jpg o *.png.
+\par
+En caso de que tengas alguna complicación para resolver el problema, comenta dentro del mismo código para que sepamos en dónde se te presenta la dificultad.
+\begin{enumerate}
+\item Calcula el error absoluto y el error relativo en las aproximaciones de $p$ y $p^{*}$:
+\begin{multicols}{2}
+\begin{enumerate}
+\item $p = \pi$, $p^{*} = 22/7$
+\item $p = \pi$, $p^{*} = 3.1416$
+\item $p = e$, $p^{*} = 2.718$
+\item $e = \sqrt{2}$, $p^{*} = 1.414$
+\item $p= e^{10}$, $p^{*} = 22000$
+\item $p= 10^{\pi}$, $p^{*} = 1400$
+\item $p = 8!$, $p^{*}=39900$
+\item $p = 9!$, $p^{*}= \sqrt{18 \pi} (9/e)^{9}$
+\end{enumerate}
+\end{multicols}
+Presenta una tabla en la terminal que muestre el inciso, el error relativo y el error absoluto.
+\item Calcula la fracción mediante aritmética exacta (resuelve a mano la operación):
+\begin{align*}
+\dfrac{122}{135} - \dfrac{11}{32} + \dfrac{20}{19}
+\end{align*}
+luego con \python{} utiliza truncamiento a tres cifras y redondeo hasta tres cifras. Determina entonces los errores absolutos y relativos, considera como valor exacto el resultado que devuelve la aritmética exacta.
+\item Las expresiones 
+\begin{align*}
+a &= 215 - 0.345 -214 \\
+b &= 215 - 214 - 0.345
+\end{align*}
+son idénticas. Calcula mediante aritmética exacta el resultado, luego con \python{} usa truncamiento y redondeo hasta tres cifras. Determina entonces los errores absoluto y relativo. 
+\item Se sabe que
+\begin{align*}
+\pi = 4 - 8 \sum_{k=1}^{\infty} \left( 16 \, k^{2} - 1 \right)^{-1}
+\end{align*}
+Usando \python{} responde: ¿Cuántas iteraciones se necesitan para producir el resultado con diez cifras decimales de exactitud? Toma en cuenta que debes de ocupar el valor de $\pi$ que está incluido en librería \texttt{math} o \texttt{numpy}, para ocupar entonces el respectivo alcance de diez cifras decimales.
+\item En el intervalo $[-1.5, 1.5]$ compara el valor entre la función $\arctan(x)$ y las primeras cinco sumas parciales de la serie
+\begin{align*}
+\arctan(x) = \sum_{k=1}^{\infty} (-1)^{k+1} \, \dfrac{x^{2 \, k - 1}}{2\, k - 1}
+\end{align*}
+Reporta el valor del error absoluto y el error relativo, así como una par de gráficas: para la aproximación de la suma con $k = 1, \ldots, 5$ y $\arctan(x)$, así como una gráfica que indique el comportamiento del error relativo contra $k$.
+\item Usando la serie de Maclaurin truncada, una función $f(x)$ con $n$ derivadas continuas se puede aproximar con un polinomio de n-ésimo grado
+\begin{align*}
+f(x) \simeq p_{n}(x) = \sum_{i=0}^{n} \, c_{i} \, x^{i}
+\end{align*}
+donde $c_{i} = \dfrac{f^{(i)}(0)}{i!}$
+
+Compara los valores para $f(x)= e^{x}$ y los polinomios $p_{2}(x)$, $p_{3}(x)$, $p_{4}(x)$, $p_{5}(x)$. Reporta el error absoluto, el error relativo, presenta una gráfica que compare $f(x)$ y $p_{n}$ con $n = 2, 3, \ldots, 5$ y otra gráfica que indique el error relativo contra $n$. Discute tus resultados.
+\item Las siguientes expresiones definen a la constante de Euler
+\begin{align}
+\gamma &= \lim_{n \to \infty} \left[ \sum_{k=1}^{n} \dfrac{1}{k} - \ln (n) \right] \\[0.5em]
+\gamma &= \lim_{k \to \infty} \left[ \sum_{k=1}^{m} \dfrac{1}{k} - \ln \left( m + \dfrac{1}{2} \right) \right]
+\end{align}
+Escribe un programa que calcule con ambas expresiones el valor de $\gamma$ con 6 cifras significativas. ¿Cuál de las dos expresiones converge más rápido al valor? Utiliza el valor exacto de $\gamma$ del paquete \texttt{numpy.euler\_gamma}.
+\end{enumerate}
+\end{document}

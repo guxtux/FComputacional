@@ -1,0 +1,171 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{anyfontsize}
+\usepackage{anysize}
+\marginsize{1.5cm}{1.5cm}{-1cm}{2cm}
+%\setlength{\parskip}{21pt}
+%\linespread{1.3}
+\author{M. en C. Gustavo Contreras May\'{e}n.\\
+F\'{i}s. Ludmila Palomino Mendoza.}
+\title{Curso de F\'{i}sica Computacional\\{\large Grupo 8142}}
+\date{ }
+\begin{document}
+%\renewcommand\theenumii{\arabic{theenumii.enumii}}
+\renewcommand\labelenumii{\theenumi.{\arabic{enumii}}}
+\maketitle
+\fontsize{12}{12}\selectfont
+\textbf{Objetivos:}
+El prop\'{o}sito del curso es enseñar al estudiante las ideas de computabilidad usadas en distintas \'{a}reas de la  f\'{i}sica para resolver un conjunto de problemas modelo. A partir de planteamientos anal\'{i}ticos se pretende obtener resultados num\'{e}ricos reproducibles consistentes, y que predigan situaciones f\'{i}sicas asociadas al problema bajo estudio.
+\\
+\\
+El alumno debe asimilar las ideas b\'{a}sicas del análisis num\'{e}rico, como son las de estabilidad en el c\'{a}lculo y la sensibilidad de las respuestas a las perturbaciones en la estructura del problema.El curso tambi\'{e}n le dar\'{a} al estudiante capacidad de juicio sobre la calidad de los resultados num\'{e}ricos obtenidos. En particular se har\'{a} \'{e}nfasis en la confiabilidad de los resultados respecto a los errores tanto del algoritmo de soluci\'{o}n como de las limitaciones num\'{e}ricas de la computadora. Esta capacidad se adquirir\'{a} a lo largo del curso comparando resultados num\'{e}ricos con otros tipos de an\'{a}lisis, en las regiones en las cuales se pueden llevar ambos a cabo. Por otra parte permitir\'{a} al estudiante explorar regiones de comportamiento f\'{i}sico sólo accesibles al c\'{a}lculo num\'{e}rico.
+\\
+\\
+\textbf{Lugar: }Laboratorio de Enseñanza en Cómputo de Física, Edificio Tlahuizcalpan.
+\\
+\textbf{Horario: } Martes y Jueves de 18 a 21 horas.
+\\
+\\
+\section{Metodolog\'{i}a de Enseñanza}
+\textbf{Antes de la clase.}
+\\
+\\
+Para facilitar la discusi\'{o}n en el aula, el alumno revisar\'{a} el material de trabajo que se le proporcionar\'{a} oportunamente, de tal manera que ya llegar\'{a} conociendo el tema a desarrollar a la clase. Damos por entendido de que el alumno realizar\'{a} la lectura.
+\\
+\\
+\textbf{Durante la clase}
+\\
+\\
+Se dar\'{a} un tiempo para la exposici\'{o}n con di\'{a}logo y discusi\'{o}n del material de trabajo con los temas a cubrir durante el semestre. Se busca que sea un curso totalmente pr\'{a}ctico por lo que se va a trabajar con los equipos de c\'{o}mputo del laboratorio.
+\\
+\\
+\textbf{Después de la clase}
+\\
+\\
+El curso requiere que le dediquen al menos el mismo n\'{u}mero de horas de trabajo en casa, es decir, les va a demandar seis horas como m\'{i}nimo; si cuentan con una experiencia en programaci\'{o}n, tienen un paso adelantado, pero si no han programado, se ver\'{a}n en la necesidad de dedicarle m\'{a}s tiempo.
+\\
+\\
+Las t\'{e}cnicas de programaci\'{o}n que vayan adquiriendo ser\'{a}n el reflejo de su trabajo fuera de clase. En caso de no trabajar o dedicarle el tiempo al curso, se complicar\'{a} bastante, situaci\'{o}n que esperamos no se presente.
+
+\section{¿Programaci\'{o}n?}
+El planteamiento de los algoritmos y la soluci\'{o}n de un problema, se expondr\'{a} de manera general, propiamente \textcolor{blue}{NO es un curso de programación bajo alg\'{u}n lenguaje en particular}, es importante que cuenten con conocimientos de programaci\'{o}n b\'{a}sicos en alg\'{u}n lenguaje com\'{u}n.
+\\
+\\
+En el curso utilizaremos Python para programar, se dar\'{a} un breviario de programaci\'{o}n con Python b\'{a}sico como Tema 0, que no ser\'{a} evaluado ni formar\'{a} parte de la calificaci\'{o}n final.
+\\
+\\
+Cuentan con la completa libertad de elegir el lenguaje o software para trabajar durante el curso:
+\begin{multicols}{2}
+\begin{itemize}
+\item Fortran
+\item Java
+\item C++
+\item C
+\item Delphi
+\item Mathematica
+\item Maple
+\item Matlab
+\item Scilab
+\item Octave
+\end{itemize}
+\end{multicols}
+\subsection{Software adicional}
+Para la ejecuci\'{o}n de los algoritmos con c\'{o}digos de Python, ser\'{a} necesario usar un editor de texto, pueden elegir el de su gusto y preferencia, para aprovechar al m\'{a}ximo la integraci\'{o}n de herramientas, usaremos en el curso: Spyder2.
+\\
+\\
+Adem\'{a}s ser\'{a} necesario usar software para graficaci\'{o}n de datos, para ello usaremos gnuPlot y la librer\'{i}a matplotlib integrada en Python, pero igual pueden usar el que ya conozcan y manejen bien.
+\subsection{Opcionales}
+Pueden traer una laptop para el trabajo en el curso, no es requisito, ya que tenemos equipos suficientes en el laboratorio. Deber\'{a}n de configurar en su equipo, ya sea en Linux o en Windows, la paqueter\'{i}a necesaria afortunadamente est\'{a} disponible de manera libre, es decir, es software GNU.
+%\newpage
+\section{Temario del curso}
+Llevaremos el temario oficial del curso, que est\'{a} disponible en la p\'{a}gina de la Facultad, haciendo un ajuste en el orden de los temas, siendo entonces:
+\\
+\\  
+\textbf{Tema 1: Escalas, condici\'{o}n y estabilidad}
+\begin{enumerate}
+\item Introducci\'{o}n.
+\item Sistemas num\'{e}ricos de punto flotante y lenguajes.
+\item Dimensiones y escalas.
+\item Errores num\'{e}ricos y su amplificaci\'{o}n.
+\item Condici\'{o}n de un problema y estabilidad de un m\'{e}todo.
+\end{enumerate}
+\textbf{Tema 2: Operaciones matem\'{a}ticas b\'{a}sicas}
+\begin{enumerate}
+\item Interpolaci\'{o}n y extrapolaci\'{o}n.
+\item Diferenciaci\'{o}n num\'{e}rica.
+\item Integraci\'{o}n num\'{e}rica.
+\item Evaluaci\'{o}n num\'{e}rica de soluciones.
+\end{enumerate}
+\textbf{Tema 3: Ecuaciones diferenciales ordinarias}
+\begin{enumerate}
+\item M\'{e}todos simples.
+\item M\'{e}todos impl\'{i}citos y de multipasos.
+\item M\'{e}todos de Runge-Kutta.
+\item Estabilidad de las soluciones.
+\item Orden y caos en el movimiento de dos dimensiones.
+\end{enumerate}
+\textbf{Tema 4: An\'{a}lisis num\'{e}rico de problemas matriciales}
+\begin{enumerate}
+\item Inversi\'{o}n de matrices y n\'{u}mero de condici\'{o}n.
+\item Valores propios de matrices tridiagonales.
+\item Discretizaci\'{o}n de la ecuaci\'{o}n de Laplace y m\'{e}todos iterativos de soluci\'{o}n.
+\item Solución num\'{e}rica de ecuaciones diferenciales el\'{i}pticas en una y dos dimensiones.
+\end{enumerate}
+\textbf{Tema 5: Problemas cl\'{a}sicos y cu\'{a}nticos de valores propios}
+\begin{enumerate}
+\item Algoritmo de Numerov.
+\item Integraci\'{o}n de problemas con valores en la frontera.
+\item Formulaci\'{o}n matricial para problemas de valores propios.
+\item Formulaciones variacionales.
+\end{enumerate}
+\textbf{Tema 6: Simulaci\'{o}n computacional}
+\begin{enumerate}
+\item M\'{e}todo de Monte Carlo.
+\item Din\'{a}mica molecular.
+\item Otros algoritmos de simulaci\'{o}n.
+\item Aplicaci\'{o}n a problemas de f\'{i}sica de inter\'{e}s actual.
+\end{enumerate}
+\textbf{Tema 7: Ecuaciones de evoluci\'{o}n}
+\begin{enumerate}
+\item La ecuaci\'{o}n de ondas y su discretizaci\'{o}n en diferencias finitas. Criterio de Courant.
+\item La ecuaci\'{o}n de Fourier para el calor y su discretizaci\'{o}n en diferencias finitas. Estabilidad del esquema.
+\end{enumerate}
+\section{Bibliograf\'{i}a}
+\begin{itemize}
+\item Kahaner, D., Moler, C., Nash, S., 1989, Numerical methods and software, Prentice Hall, USA.
+\item Klein, A., Godunov, A. Introductory Computational Physics. Cambridge University Press. 2006.
+\item Gould, H., Tobochnik, J., 1988, An introduction to computer simulation methods: Applications to physical systems, Addison Wesley Publishing Company, USA.
+\item Vesely, F., 1994, Computational physics: An introduction, Plenum Press, USA.
+\item Rojas, J.F., Morales, M.A., Rangel, A., Torres, I. F\'{i}sica computacional: una propuesta educativa. Revista Mexicana de F\'{i}sica E 55 (1) 97–111, Junio 2009.
+\item Janert, P. K. Gnuplot in action. Understanding data with graphs. Manning Publications Co. 2010.
+\item Mej\'{i}a, C.E., Restrepo, T., Trefftz, C. LAPACK, una colecci\'{o}n de rutinas para resolver problemas de \'{a}lgebra lineal num\'{e}rica. Universidad Eafit, julio-septiembre, número 123, Universidad Eafit, Medill\'{i}n, Colombia, pp. 73-80. 2001.
+\end{itemize}
+\section{Evaluaci\'{o}n}
+Se distribuye de la siguiente manera:
+\begin{itemize}
+\item \textbf{Ejercicios en clase $\mathbf{20\%}$:} para tener derecho a este porcentaje se requiere estar presente en la clase, es decir, el ejercicio se entregar\'{a} en la clase o se dejar\'{a} para la siguiente, en caso de que no asistan y se enteren del ejercicio, se les revisar\'{a} el trabajo que entreguen, pero no se les tomar\'{a} en cuenta para el porcentaje, (moraleja: hay que asistir a clase) 
+\item \textbf{Tareas $\mathbf{40\%}$} : Se entregar\'{a} una tarea por tema, se les proporcionar\'{a} de manera adelantada y con fecha de entrega definida, no se reciben tareas extempor\'{a}neas, ni por correo.
+\item \textbf{Ex\'{a}menes $\mathbf{40\%}$} : Uno por tema, de tipo teóricos-pr\'{a}cticos. 
+\end{itemize}
+\underline{No habr\'{a} reposiciones de ex\'{a}menes parciales.}
+\section{Examen final}
+\textbf{Para tener derecho al examen final:} se deber\'{a}n de haber presentado todos los ex\'{a}menes parciales y haber entregado todas las tareas del curso. Habr\'{a} dos rondas de examen final, si en la primera de ellas no se acredita el examen, ser\'{a} posible presentarlo en una segunda y \'{u}ltima ronda, se aclara que para tener derecho al segundo examen, se debe de presentar el primero.
+\\
+\\
+En caso de haber presentado al menos un examen parcial o haber entregado al menos una tarea, y el promedio final sea menor a 6, la calificación final que se asentar\'{a} en el acta, ser\'{a} 5. No hay renuncias a calificaciones.
+\section{Fechas importantes}
+\begin{itemize}
+\item 5 de agosto. Inicio del semestre.
+\item 22 de noviembre. Fin de Semestre.
+\item 25 al 29 de noviembre, primera semana de finales.
+\item 2 al 6 de diciembre, segunda semana de finales.
+\end{itemize}
+\end{document}

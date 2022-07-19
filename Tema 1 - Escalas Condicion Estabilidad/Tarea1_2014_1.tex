@@ -1,0 +1,106 @@
+\documentclass[12pt]{article}
+%\setlength{\textwidth}{6in}
+%\setlength{\textheight}{8.5in}
+%\setlength{\topmargin}{-0.5in}
+%\setlength{\oddsidemargin}{0.25in}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol,multienum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{anysize}
+\usepackage{anyfontsize}
+\spanishdecimal{.}
+\marginsize{1.5cm}{1.5cm}{2cm}{2cm}
+\author{M. en C. Gustavo Contreras May\'{e}n.}
+\title{Curso de F\'{i}sica Computacional \\ \begin{Large} Tarea 1\end{Large} }
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+La finalidad de los ejercicios que se enlistan a continuaci\'{o}n es para que identifiques la habilidad con la que cuentas para programar en cualquier lenguaje, ya hemos comentado que en el curso usaremos Python, pero si ya conoces alg\'{u}n otro lenguaje, desarrolla tus respuestas en ese lenguaje.
+\\
+\begin{enumerate}
+\item La distancia entre dos puntos $(x_{1},y_{1})$ y $(x_{2},y_{2})$ en el plano cartesiano est\'{a} dado por la expresi\'{o}n:
+\[ d = \sqrt{(x_{1} - x_{2})^{2} + (y_{1} - y_{2})^{2}} \]
+Escribir un programa para calcular la distancia entre dos puntos cualesquiera $(x_{1}, y_{1})$ y $(x_{2}, y_{2})$ proporcionados por el usuario. Calcula la distancia entre los puntos $(2,3)$ y $(8,-5)$.
+\item La funci\'{o}n coseno hiperb\'{o}lico se define por la ecuaci\'{o}n:
+\[ cosh(x) = \dfrac{e^{x} - e^{-x}}{2} \]
+Escribe un programa para calcular el coseno hiperb\'{o}lico de un valor $x$ proporcionado por el usuario. Calcula el valor del coseno hiperb\'{o}lico de $3.0$. Compara el resultado de tu programa contra el valor que devuelve la funci\'{o}n intr\'{i}nseca de Python COSH (x).
+\item A menudo los ingenieros miden la relaci\'{o}n entre dos medidas de potencia en \textit{decibeles} o dB. La ecuaci\'{o}n para esa relaci\'{o}n de potencias en decibeles, est\'{a} dada por
+\[ dB = 10 \log_{10} \dfrac{P_{2}}{P_{1}} \]
+donde $P_{2}$ es la nivel de potencia medido y $P_{1}$ es un nivel de potencia de referencia. Supongamos que el nivel de potencia de referencia $P_{1}$ es de 1 miliWatt, escribe un programa que acepte un valor de potencia $P_{2}$ y que convierta el valor de salida dB, con respecto al nivel de referencia de 1mW.
+\item Escribe un programa para evaluar la funci\'{o}n:
+\[ y(x) = ln \dfrac{1}{1-x} \]
+para cualquier valor de $x$ que ingrese el usuario, donde $ln$ es el logaritmo natural. Escribe un programa usando bucles (loops) para que el programa repita el c\'{a}lculo del valor de la funci\'{o}n, para cada $x$ v\'{a}lida, en caso de que se ingrese un valor de $x$ inv\'{a}lido, el programa se termina.
+\item Est\'{a}s apoyando a un bi\'{o}logo a realizar un experimento en el cual se mide la tasa de crecimiento de una bacteria que se reproduce en diferentes medios de cultivo. El experimento muestra que en el medio \textbf{A}, la bacteria se reproduce cada 60  minutos, en el medio \textbf{B} la bacteria se reproduce cada 90 minutos. Supongamos que se coloca al inicio del experimento solo una bacteria en cada medio de cultivo. Escribe un programa que calcule y escriba el n\'{u}mero de bacterias presentes en cada medio de cultivo en intervalos de 3 horas a partir del inicio del experimento, hasta haber completado un ciclo de 24 horas. ¿Cu\'{a}ntas bacterias hay en cada medio de cultivo luego de las 24 horas?
+\item A continuaci\'{o}n se enlistan varias versiones para convertir tempreraturas entre grados Celsius a Fahrenheit; indica cuál(es) no funcionan bien y explica el por qué.
+\begin{enumerate}
+\item C = 21; F = 9/5*C + 32; print F
+\item C = 21.0; F = (9/5)*C + 32; print F
+\item C = 21.0; F = 9*C/5 + 32; print F
+\item C = 21.0; F = 9.*(C/5.0) + 32; print F
+\item C = 21.0; F = 9.0*C/5.0 + 32; print F
+\item C = 21; F = 9*C/5 + 32; print F
+\item C = 21.0; F = (1/5)*9*C + 32; print F
+\item C = 21; F = (1./5)*9*C + 32; print F
+\end{enumerate}
+\item La \textit{media geom\'{e}trica} de un conjunto de valores $x_{1}$ a $x_{n}$ se define como la ra\'{i}z n-\'{e}sima del producto de los valores
+\[ \text{media geom\'{e}trica = } \sqrt[n]{x_{1}x_{2}x_{3} \ldots x_{n}}\]
+Escribe un programa que acepte un n\'{u}mero arbitrario de valores positivos y que calcule tanto la media aritm\'{e}tica (el promedio) como la media geom\'{e}trica. Usa un bucle para introducir los valores, en caso de que se proporcione un valor negativo, el programa termina.
+\item Un problema cl\'{a}sico en c\'{o}mputo cient\'{i}fico, es la suma de una serie para evaluar una funci\'{o}n. Sea la serie de potencias para la funci\'{o}n exponencial:
+\[e^{-x} = 1 - x + \dfrac{x^{2}}{2!} + \dfrac{x^{3}}{3!} +\cdots \hspace{1.5cm} (x^{2} < \infty)  \]
+Utiliza la serie anterior para calcular el valor de $e^{-x}$ para $x=0.1,1,10, 100, 1000$ con un error absoluto para cada caso, menor a $10^{-8}$.
+\item Considera el siguiente polinomia :
+\[p(x)= 2x^{4} - 20x^{3} + 70x^{2}+ 100x+48 \]
+Usando el m\'{e}todo de Horner, eval\'{u}a para valores de $x$ en el intervalo $[-4,-1]$, con saltos de $x$ de valor $\Delta x = 0.5$.
+\\
+\\
+Grafica los puntos obtenidos y el polinomio $p(x)$, interpreta los resultados obtenidos.
+\item El valor de $\pi$ se puede calcular aproximando el \'{a}rea de un c\'{i}rculo unitario como el l\'{i}mite de una sucesi\'{o}n $p_{1}, p_{2}, \ldots$ descrita a continuaci\'{o}n:
+\\
+Se divide un c\'{i}rculo unitario en $2^{n}$ sectores (en el ejemplo, $n=3$). Se aproxima el \'{a}rea del sector por el \'{a}rea del tri\'{a}ngulo is\'{o}celes. El \'{a}ngulo $\theta_{n}$ es $2 \pi / 2^{n}$. El \'{a}rea del tri\'{a}ngulo es $1/2 \sin \theta_{n}$.
+\\
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw (3,3) circle (2);
+\draw (1,3) -- (5,3);
+\draw (3,1) -- (3,5);
+\draw (1.6,4.39) -- (4.39,1.6);
+\draw (4.39,4.39) -- (1.6,1.6);
+\draw (4.39,4.39) -- (5,3);
+\draw (5,3) -- (4.39,1.6);
+\draw (5,3) -- (4.39,1.6);
+\draw (4.39,1.6) -- (3,1);
+\draw (3,1) -- (1.6,1.6);
+\draw (1.6,1.6) -- (1,3);
+\draw (1,3) -- (1.6,4.39);
+\draw (1.6,4.39) -- (3,5);
+\draw (3,5) -- (4.39,4.39);
+\draw (3.3,3) arc (0:16:1);
+\draw [font=\small] (3.7,3.2) node {$\theta_{n}$};
+\draw [font=\small] (3.7,4) node {1};
+\draw [font=\small] (4.2,2.8) node {1};
+\end{tikzpicture}
+\caption{Divisi\'{o}n en $n$ sectores.}
+\end{figure}
+La en\'{e}sima aproximaci\'{o}n a $\pi$ es: $p_{n}= 2^{n-1} \sin \theta_{n}$. Demuestra que
+\[\sin \theta_{n} = \dfrac{\sin \theta_{n-1}}{\left( 2 \left[ 1+ (1-\sin^{2}\theta_{n-1})^{\frac{1}{2}} \right] \right)^{\frac{1}{2}}} \]
+Usa esta relaci\'{o}n de recurrencia para generar las sucesiones $\sin \theta_{n}$ y $p_{n}$ en el rango $3 \leq n \leq 20$ iniciando con $\sin \theta_{2}=1$. Compara tus resultados con el valor de $4.0 \arctan(1.0)$
+\item La sucesi\'{o}n de Fibonacci $1,1,2,3,5,8,13,\ldots$ est\'{a} definida por la relaci\'{o}n de recurrencia lineal
+\begin{equation*}
+\begin{cases}
+\lambda_{1} = 1 \hspace{0.5cm} \lambda_{2}= 1 \\
+\lambda_{n} = \lambda_{n-1} + \lambda_{n-2} \hspace{0.5cm} (n \geq 3)
+\end{cases}
+\end{equation*}
+Una f\'{o}rmula para obtener el n-\'{e}simo n\'{u}mero de Fibonacci es
+\[ \lambda_{n} = \dfrac{1}{\sqrt{5}} \left\lbrace \left[ \dfrac{1}{2} (1 + \sqrt{5}) \right]^{n} - \left[ \dfrac{1}{2} (1 - \sqrt{5}) \right]^{n} \right\rbrace \]
+Calcula $\lambda_{n}$ en $3\leq n \leq 50$ usando tanto la relaci\'{o}n de recurrencia como la f\'{o}rmula. Discute los resultados obtenidos.
+\end{enumerate}
+\end{document}

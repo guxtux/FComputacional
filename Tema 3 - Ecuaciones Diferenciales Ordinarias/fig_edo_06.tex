@@ -1,0 +1,25 @@
+\documentclass[tikz]{standalone}
+\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[scale=0.8, font=\small]
+	\draw (0,0) -- (8,0);
+	\draw (0,0) -- (0,4);
+	\draw (-0.3,4.3) node {$y'(x)$};
+	\draw (8.3,-0.3) node {$x$};
+	\draw [pattern=north east lines] (2.5,0) rectangle (5.5,2);
+	\draw (2.5,-0.5) node {$x$};
+	\draw (5.5,-0.5) node {$x+h$};
+	\draw (1.5,1) node {$f(x,y)$};
+	\draw (2.5,2) circle (0.05);
+	\draw [blue, thick](2.3,1.6) .. controls(3,3) and (4.5,4) .. (6,4.5);
+	\draw [dashed] (5.5,0) -- (5.5,4.3);
+	\draw (5.5,4.3) circle (0.05);
+	\draw [black] (4,1) circle (0.05);
+	\draw (4,1) -- (7,1.4);
+	\draw [align=center](7.2,1.4) node {Fórmula \\ de Euler};
+	\draw [black] (4.3,3) circle (0.05);
+	\draw (4.3,3) -- (7,3.5);
+	\draw (7.5,3.5) node {Error};
+\end{tikzpicture}
+\end{document}

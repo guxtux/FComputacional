@@ -1,0 +1,76 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{anysize}
+\marginsize{1.5cm}{1.5cm}{0cm}{1.5cm}
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{\begin{large} Primer Examen Parcial \\ Curso Física Computacional\end{large}}
+\date{ }
+\begin{document}
+\maketitle
+En este examen hay que resolver los problemas que se te presentan, a partir de una revisión del fenómeno o modelo físico. Aunque en algunas preguntas se te pide que respondas con un dato, hay que realizar el código necesario y darle una interpretación a la respuesta. Tu código debe de funcionar y compilar debidamente, si en alguna parte te cuesta trabajo, has una anotación sobre el por qué no funciona, nos interesa revisar la manera en que planteas el problema, lo llevas a un algortimo y cómo lo codificas.
+\begin{enumerate}
+\item Si la siguiente función se escribe en un programa, ¿en qué rango de $x$ aparecerá un desborde o una división entre cero originados por el error de redondeo?
+\[ f(x)=\dfrac{1}{1-tanh(x)} \]
+Suponiendo que el número positivo más pequeño es $3 \times 10^{-39}$  y el épsilon de la máquina es $1.2 \times 10^{-7}$.
+\item Algunas constantes matemáticas son utilizadas con frecuencia en la física, tales como $\pi$, $e$ y la constante de Euler $\gamma = \lim_{n\rightarrow \infty} (\sum_{k=1}^{n} k^{-1} - \ln n)$. Encuentra una forma para crear cada una de las constantes $\pi$, $e$ y $\gamma$. Después, considerando ya los elementos del lenguaje de programación, determina: la precisión y eficiencia. Si se requiere utilizar los valores de las constantes dentro del código, ¿se debe generar en una sola ocasión y almacenarlo en un variable o se debe de generar en cada ocasión que se requiera?
+\item Elabora la una tabla de diferencias hacia adelante a partir de la siguiente tabla de valores
+\begin{center}
+\begin{tabular}{c | c | c}
+i & x & f(x) \\
+\hline 1 & 0.5 & 1.143 \\
+\hline 2 & 1.0 & 1.000 \\
+\hline 3 & 1.5 & 0.828 \\
+\hline 4 & 2.0 & 0.667 \\
+\hline 5 & 2.5 & 0.533 \\
+\hline 6 & 3.0 & 0.428 
+\end{tabular}
+\end{center}
+Por medio de la fórmulas de Newton hacia adelante, escribe los polinomios de interpolación ajustados a:
+\begin{enumerate}
+\item i = 1, 2, 3
+\item i = 4, 5, 6
+\item i = 2, 3, 4, 5
+\end{enumerate}
+Indica una expresión aproximada del error en cada una de las fórmulas de interpolación obtenidas en los incisos de arriba.
+\item La longitud de una curva definida por $x=\theta(t)$ y $\psi(t)$, $a<t<b$, está dada por
+\[ s=\int_{a}^{b}\left( [\theta'(t)]^{2}+[\psi(t)]^{2}\right)^{1/2} dt \]
+Usando las cuadraturas de Gauss con $N=2,4,6$ para encontrar la longitud de la cicloide definida por
+\[ x=3[t-\sin(t)], \hspace{1cm}  y=2-2\cos(t), \hspace{1cm} 0<t<2\pi\]
+\item Un automóvil con masa $M=5400$ kg se mueve a una velocidad de $30 m/s$. El motor se apaga súbitamente a los $t=0 s$. Suponemos que la ecuación de movimiento después de $t=0$, está dada por: \\
+\[ 5400v \frac{dv}{dx} \ = -8.276v^{2}-2000 \]
+\\
+donde $v=v(t)$ es la velocidad del automóvil al tiempo $t$. El lado izquierdo representa \[ Mv (\frac{dv}{dx}) \]\\ El primer término del lado derecho es la fuerza aerodinámica y el segundo término es la resistencia de las llantas al rodaje. Calcula la distancia que recorre el auto hasta que su velocidad se reduce a $15 m/s$. (tip: la ecuación de movimiento se puede integrar como:\\
+\[ \int_{15}^{30} \frac{5400vdv}{8.276v^{2}+2000} =\int dx = x \]
+\\
+otro tip: evalúa esta ecuación mediante la regla de Simpson.
+\item Calcula las siguientes integrales mediante la cuadratura de Gauss-Legendre para $N=6$:
+\begin{enumerate}
+\item $\int_{1}^{2} \frac{ln(1+x)}{x} dx$
+\item $\int_{0}^{1} {xexp(2x)} dx$
+\item $\int_{0}^{1} x^{-x} dx$ 
+\end{enumerate}
+\item La distribución de la velocidad de un fluido cerca de una superficie plana está dada por la siguiente tabla:
+\begin{center}
+\begin{tabular}{c | l | l}
+i & $y_{i}$(m) & $u_{i}$(m/s) \\
+\hline 0 & 0.0 & 0.0 \\
+\hline 1 & 0.002 & 0.006180 \\
+\hline 2 & 0.004 & 0.011756 \\
+\hline 3 & 0.006 & 0.016180 \\
+\hline 4 & 0.008 & 0.019021
+\end{tabular}
+\end{center}
+La ley de Newton para la tensión superficial, viene dada por: 
+\[ \tau = \mu \frac{d}{dy}u \] \\
+donde $\mu$ es la viscosidad que suponemos vale $0,001 Ns/m^{2}$. Calcula la tensión superficial en $y=0$ mediante una aproximación por diferencias utilizando los siguientes puntos:\\
+\begin{enumerate}
+\item $i=0,1$
+\item $i=0,1,2$
+\end{enumerate}
+\item Evalúa la segunda derivada de $tan(x)$ en $x=1$ mediante la expresión de diferencias centrales, utilizando $h=0.1,0.05,0.02$. Determina el error comparándolo con el valor real y muestra que el error es proporcional a $h^{2}$.
+
+\end{enumerate}
+\end{document}

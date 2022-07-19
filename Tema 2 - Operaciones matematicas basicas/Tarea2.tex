@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{anysize}
+\marginsize{2cm}{2cm}{0cm}{2cm}
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{Tarea 2 \\ \begin{large}Curso Física Computacional\end{large}}
+\date{ }
+\begin{document}
+\maketitle
+\textbf{Fecha de entrega: Martes 23 de marzo de 2010.} \\
+\begin{enumerate}
+\item Si se ajusta un polinomio de interpolación de Lagrange a cuatro datos en $x=1,2,3,4$, aparecen los siguientes polinomios cúbicos en la fórmula de interpolación:
+\begin{enumerate}
+\item $\dfrac{(x-2)(x-3)(x-4)}{(1-2)(1-3)(1-4)}$
+\item $\dfrac{(x-1)(x-3)(x-4)}{(2-1)(2-3)(2-4)}$
+\item $\dfrac{(x-1)(x-2)(x-4)}{(3-1)(3-2)(3-4)}$
+\item $\dfrac{(x-1)(x-2)(x-3)}{(4-1)(4-2)(4-3)}$
+\end{enumerate}
+Grafica las cuatro funciones anteriores y analiza las implicaciones de cada una.
+\item El polinomio de interpolación de Newton hacia atrás ajustado a los puntos $x_{0}$, $x_{1}$ y $x_{2}$ se escribe como
+\[ g(x) = f_{2} + s \nabla f_{2} + \frac{1}{2} s(s+1) \nabla^{2} f_{2}, \hspace{1cm} -2 \leq s \leq 0 \]
+donde $s = \frac{(x-x_{2})}{h}$\\
+Por otro lado, el polinomio de interpolación de Newton hacia adelante ajustado a los mismos datos es
+\[ g(x) = f_{0} + s \Delta f_{0} + \frac{1}{2} s(s-1) \Delta^{2} f_{0}, \hspace{1cm} 0 \leq s \leq 2 \]
+donde $s = \frac{(x-x_{0})}{h}$\\
+Verifica la equivalencia de las ecuaciones.
+\item La función de transferencia para un sistema está dada por
+\[ F(s) = \dfrac{H(s)}{1+G(s)H(s)} \]
+donde
+\[ G(s)= \dfrac{1}{s} exp(-0.1s), \hspace{0.5cm} H(s)= K \]
+Busca las raíces de la ecuación característica $1+G(s)H(s)$ para $K=1,2,3$ mediante el método gráfico y evalúalas posteriomente, mediante el método de la falsa posición modificada.
+\item La longitud de una curva definida por $x=\theta(t)$ y $\psi(t)$, $a<t<b$, está dada por
+\[ s=\int_{a}^{b}\left( [\theta'(t)]^{2}+[\psi(t)]^{2}\right)^{1/2} dt \]
+Usando las cuadraturas de Gauss con $N=2,4,6$ para encontrar la longitud de la cicloide definida por
+\[ x=3[t-\sin(t)], \hspace{1cm}  y=2-2\cos(t), \hspace{1cm} 0<t<2\pi\]
+\item Considera una varilla uniforme de $1$ metro de longitud apoyada en dos extremos; el momento de doblamiento está dado por la siguiente fórmula:
+\[ y''= \dfrac{M(x)}{EI} \]
+donde $y(x)$ es la deflexión, $M(x)$ es el momento de doblamiento y $EI$ es la rigidez en la unión. Calcula el momento de doblamiento en cada punto de la retícula -incluyendo los extremos- suponiendo que la distribución de la deflexión tiene los siguientes valores:
+\begin{center}
+\begin{tabular}{c c c}
+i & $x_{i}$ & $f(x_{i})$ \\
+\hline
+0 & 0.0(m) & 0.0(cm) \\
+1 & 0.2 & 7.78 \\
+2 & 0.4 & 10.68 \\
+3 & 0.6 & 8.37 \\
+4 & 0.8 & 3.97 \\
+5 & 1.0 & 0.0
+\end{tabular}
+\end{center}
+Supongamos que $EI=1.2$ $Nm^{2}$. Utiliza la aproximación por diferencias centrales para los puntos de la retícula distintos de los extremos. Para éstos, utiliza la aproximación por diferencias hacia adelante o hacia atrás utilizando cuatro puntos.
+\end{enumerate}
+\end{document}

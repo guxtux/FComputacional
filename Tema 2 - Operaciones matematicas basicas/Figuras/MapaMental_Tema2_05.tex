@@ -1,0 +1,16 @@
+\documentclass[border=10pt,multi,tikz]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{mindmap}
+\pagestyle{empty}
+\begin{document}
+\begin{tikzpicture}[grow cyclic, text width=2.3cm, align=flush center, every node/.style={concept}, concept color=purple!60, 
+    level 1/.style={level distance=4cm,sibling angle=60}]
+    \node[concept color=green, level distance=5cm] {Fórmulas Gaussianas} [clockwise from=90]
+        child {node {Polinomios ortogonales}}
+        child {node {Gauss-Legendre}}
+        child {node {Gauss-Hermite}}
+        child {node {Gauss-Chebychev}}
+        child {node {Gauss-Laguerre}}
+;
+\end{tikzpicture}
+\end{document}

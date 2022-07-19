@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{anysize}
+\marginsize{2cm}{2cm}{0cm}{2cm}
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{Ejercicios para el Tema 2.\\ Operaciones matemáticas básicas\\ \begin{large}Curso Física Computacional\end{large}}
+\date{ }
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item Aproxima
+\[ y = \dfrac{1}{1+2x+3x^{2}} \]
+en $[0,5]$ mediante la interpolación de Lagrange de orden 4 y evalúa el error exacto mediante $e(x)= y-g(x)$. Trabaja realizando los siguientes pasos:
+\begin{enumerate}
+\item determina los puntos.
+\item escribe la inteporlación de Lagrange.
+\item calcula el error para cada incremento de $0.2$ en $x$.
+\item grafica la distribución del error.
+\end{enumerate}
+\item \begin{enumerate}
+\item Escribe la fórmula de interpolación de Lagrange ajustada a los puntos $i=2,3,4$ dados en la siguiente tabla:\\
+\begin{center}
+\begin{tabular}{c c c}
+i & $x_{i}$ & $f(x_{i})$ \\
+\hline
+1 & 0 & 0.9162 \\
+2 & 0.25 & 0.8109 \\
+3 & 0.5 & 0.6931 \\
+4 & 0.75 & 0.5596 \\
+5 & 1.0 & 0.4055
+\end{tabular}
+\end{center}
+\item Si la tercera derivada de la función en $i=3$ es $f'''=-0.26$, estima el error de la interpolación de Lagrange obtenido en el inciso a) en $x=0.6$.
+\end{enumerate}
+\item La siguiente tabla de valores se muestreó del polinomio
+\[ y=2x^{3}+3x+1 \]
+\begin{center}
+\begin{tabular}{c c}
+x & y  \\
+\hline
+0.1 & 1.302 \\
+0.2 & 1.616 \\
+0.3 & 1.954 \\
+0.4 & 2.328 \\
+0.5 & 2.750
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item Elabora una tabla de diferencias hacia adelante y muestra que la diferencia de cuarto orden se anula
+\item Explica por qué ocurre esto.
+\end{enumerate}
+\item Elabora la tabla de diferencias hacia adelante a partir de la siguiente tabla de valores:
+\begin{center}
+\begin{tabular}{c c c}
+i & x & f(x) \\
+\hline
+1 & 0.5 & 1.143 \\
+2 & 1.0 & 1.000 \\
+3 & 1.5 & 0.828 \\
+4 & 2.0 & 0.667 \\
+5 & 2.5 & 0.533 \\
+6 & 3.0 & 0.428
+\end{tabular}
+\end{center}
+Por medio de las fórmulas de Newton hacia adelante, escribe los polinomios de interpolación ajustados a:
+\begin{enumerate}
+\item i=1,2,3
+\item i=4,5,6
+\item i=2,3,4,5
+\end{enumerate}
+Deduce una expresión aproximada para el error en cada una de las fórmulas de interpolación obtenidas.
+\item ¿Es posible escribir una interpolación de Newton hacia atras, utilizando la tabla de diferencias hacia adelante?. Explica cómo.
+\item Calcula intervalos apropiados para las raíces de las siguientes ecuaciones y determina después de las raíces mediante el método de bisección, con una tolerancia de 0.001:
+\begin{enumerate}
+\item $0.1x^{3}-5x^{2}-x+4+e^{-x}=0$
+\item $log_{e}(x)-0.2x^{2}+1=0$
+\item $x+\dfrac{1}{(x+3)x}=0$
+\end{enumerate}
+\item Una masa de 1 kg de CO está contenida en un recipiente a $T=215$ K y $p=70$ bars. Calcula el volumen del gas utilizando la ecuación de estado de Van der Waals para un gas no ideal, dada por
+\[ P + \dfrac{a}{v^{2}}(v-b)=RT \]
+donde $R=0.08314$ bar m$^{3}$/(kg mol K), $a=1.463$ bar m$^{6}$/(kg mol)$^{2}$ y compara los resultados con el volumen calculado por la ecuación del gas ideal, $Pv=RT$.
+\item Un automóvil con masa $M=5400$ kg se mueve a una velocidad de $30 m/s$. El motor se apaga súbitamente a los $t=0 s$. Suponemos que la ecuación de movimiento después de $t=0$, está dada por: \\
+\[ 5400v \frac{dv}{dx} \ = -8.276v^{2}-2000 \]
+\\
+donde $v=v(t)$ es la velocidad del automóvil al tiempo $t$. El lado izquierdo representa \[ Mv (\frac{dv}{dx}) \]\\ El primer término del lado derecho es la fuerza aerodinámica y el segundo término es la resistencia de las llantas al rodaje. Calcula la distancia que recorre el auto hasta que su velocidad se reduce a $15 m/s$. (tip: la ecuación de movimiento se puede integrar como:\\
+\[ \int_{15}^{30} \frac{5400vdv}{8.276v^{2}+2000} =\int dx = x \]
+\\
+otro tip: evalúa esta ecuación mediante la regla de Simpson.
+\item Calcula las siguientes integrales mediante la cuadratura de Gauss-Legendre para $N=6$:\\
+\begin{enumerate}
+\item  \[\int_{1}^{2} \frac{ln(1+x)}{x} dx \] 
+\item  \[\int_{0}^{1} {xexp(2x)} dx \]
+\item  \[\int_{0}^{1} x^{-x} dx \]
+\end{enumerate}
+\item La distribución de la velocidad de un fluido cerca de una superficie plana está dada por la siguiente tabla:
+\begin{center}
+\begin{tabular}{c l l}
+i & $y_{i}$(m) & $u_{i}$(m/s) \\
+\hline
+0 & 0.0 & 0.0 \\
+1 & 0.002 & 0.006180 \\
+2 & 0.004 & 0.011756 \\
+3 & 0.006 & 0.016180 \\
+4 & 0.008 & 0.019021
+\end{tabular}
+\end{center}
+La ley de Newton para la tensión superficial, viene dada por: 
+\[ \tau = \mu \frac{d}{dy}u \] \\
+donde $\mu$ es la viscosidad que suponemos vale $0,001 Ns/m^{2}$. Calcula la tensión superficial en $y=0$ mediante una aproximación por diferencias utilizando los siguientes puntos:\\
+\begin{enumerate}
+\item $i=0,1$
+\item $i=0,1,2$
+\end{enumerate}
+\item Evalúa la segunda derivada de $tan(x)$ en $x=1$ mediante la expresión de diferencias centrales, utilizando $h=0.1,0.05,0.02$. Determina el error comparándolo con el valor real y muestra que el error es proporcional a $h^{2}$.
+\end{enumerate}
+\textbf{Nota: } Recuerda que los problemas de ejercicios no cuentan para la calificación del tema, pero es ampliamente recomendable que los resuelvan, ya que de hecho alguno(s) de éstos(ellos), podría(n) ser incluido(s) en el examen.
+\end{document}

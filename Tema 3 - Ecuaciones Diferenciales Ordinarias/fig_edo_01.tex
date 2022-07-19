@@ -1,0 +1,16 @@
+\documentclass[tikz]{standalone}
+\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[font=\small]
+	\draw [->] (0,0) -- (7,0);
+	\draw [->] (0,0) -- node [near end, left] {$y$} (0,5);
+	\draw (1,1) .. controls (2.5,2.5) and (4,3) .. (6,3);
+	\draw (1,2) .. controls (2.5,3.5) and (4,4) .. (6,4);
+	\draw (1,0.2) .. controls (2.5,1.7) and (4,2.2) .. (6,2.2);
+	\draw (7.3,-0.1) node {$x$};
+	\draw (7.2,2.2) node {$G_{1}=0$};
+	\draw (7.2,3.2) node {$G_{2}=0$};
+	\draw (7.2,4.2) node {$G_{3}=0$};
+\end{tikzpicture}
+\end{document}

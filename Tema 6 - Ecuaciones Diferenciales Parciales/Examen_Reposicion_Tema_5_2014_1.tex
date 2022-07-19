@@ -1,0 +1,41 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{matrix}
+\usepackage{xy}
+\usepackage{siunitx}
+\usepackage[american,cuteinductors,smartlabels]{circuitikz}
+\usetikzlibrary{calc}
+\usepackage{color}
+%\numberwithin{equation}{list}
+\marginsize{1cm}{2cm}{0cm}{2cm}  
+\title{Examen Reposición Tema 5 \\ \begin{large}Curso de Física Computacional\end{large}}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{enumerate}
+\item Resuelve la ecuación de Laplace con el siguiente arreglo donde la placa cuadrada conductora se encuentra a 1 volt, mientras que la placa cuadrada exterior, se encuentra a 0 volts. Grafica e interpreta tus resultados.
+\begin{center}
+\begin{tikzpicture}
+	\draw [dashed](0,0) -- (6,0);
+	\draw [dashed](3,-3) -- (3,3);
+	\draw [draw=black, fill=black!25](2.5,-0.5) rectangle (3.5,0.5);
+	\draw (3.7,0.7) node  {$1 V$};
+	\draw (0.5,-2.5) rectangle (5.5,2.5);
+	\draw (5.7,2.7) node  {$0 V$};
+\end{tikzpicture}
+\end{center}
+\item Presenta una discusión sobre el método de solución llamado de Crank-Nicholson, indicando en qué tipo de EDP se puede aplicar y desarrolla un pseudo-código en Python para implementar esa solución. Debes de indicar cuáles referencias consultaste.
+\end{enumerate}
+\end{document}

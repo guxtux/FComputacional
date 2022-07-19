@@ -1,0 +1,502 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Warsaw_spruce}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers_Warsaw_spruce}
+\title{\large{Tema 2 - Operaciones matemáticas básicas}}
+\subtitle{Técnicas de Interpolación}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=1.75cm]{Imagenes/escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=1.75cm]{Imagenes/escudo-unam}
+}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+\section{Tema 2}
+\subsection{Objetivo}
+\begin{frame}
+\frametitle{Objetivo General del Tema 2}
+Al concluir el Tema 2 del curso, el alumno empleará las técnicas más comunes de operaciones matemáticas necesarias para la solución de problemas numéricos aplicados en la física.
+\end{frame}
+\begin{frame}
+\frametitle{Objetivo General del Tema 2}
+Este tema es una base importante de todo el curso, ya que se establecen las tareas de:
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Interpolación.
+\item Diferenciación.
+\item Integración numérica.
+\item Cálculo de raíces.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Objetivo General del Tema 2}
+De tal manera que en los temas posteriores, se emplearán éstas técnicas, y en algunos casos, se extenderán de manera específica.
+\end{frame}
+\section{Introducción}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición de interpolación}
+\begin{frame}
+\frametitle{Iniciamos}
+Dados los $n+1$ pares de datos $(x_{i},y_{i})$, con $i=0,1,\ldots,n$, queremos estimar el valor de $y(x)$
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación}
+Una parte importante en el trabajo del físico es la interpretación de datos experimentales o cálculos teóricos.
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación}
+Normalmente cuando hacemos mediciones, tenemos un conjunto discreto de puntos que representan nuestro experimento.
+\\
+\bigskip
+Para facilitar el trabajo, suponemos que el experimento puede representarse por un par de valores: una \textit{variable independiente $x$} la cual podemos controlar y una cantidad $y$, que se mide en el punto $x$.
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación vs ajuste con curvas}
+Hay una diferencia entre interpolación y el ajuste de curvas.
+\\
+\bigskip
+En la interpolación se \emph{construye una curva a través de los puntos de datos}.
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación vs ajuste con curvas}
+El ajuste de curvas se aplica a los datos que contienen una dispersión (ruido), por lo general debida a errores de medición.
+\\
+\bigskip
+En este caso, \emph{queremos encontrar una curva suave que se aproxima a los datos en algún sentido}. De tal manera que la curva no toca necesariamente los puntos de datos.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Interpolación vs ajuste con curvas}
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{Imagenes/Interpol01.eps}
+\caption{Tenemos un conjunto de datos experimentales obtenidos en el laboratorio.}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Interpolación vs ajuste con curvas}
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{Imagenes/Interpol02.eps}
+\caption{Con la interpolación se construye una curva suave que \enquote{toca} a los puntos experimentales}.
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Interpolación vs ajuste con curvas}
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{Imagenes/Interpol03.eps}
+\caption{La técnica de ajuste de curvas es una aproximación al conjunto de datos.}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Tomemos como ejemplo una fuente radioactiva y un detector, el cual contabiliza el número de decaimientos.
+\\
+\bigskip
+Para determinar la vida media de la fuente, debemos de contar los decaimientos $N_{0}$, $N_{1}$, $N_{2}$, $\ldots$, $N_{k}$, en los tiempos $t_{0}$, $t_{1}$, $t_{2}$, $\ldots$, $t_{k}$
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+En este ejemplo, \textcolor{red}{la variable independiente es $t$}, siendo la forma  apropiada para resolver el problema. 
+\\
+\bigskip
+Sin embargo, tenemos un conjunto discreto de pares de números $(t_{k},N_{k})$ en el rango de $(t_{0}, t_{k}$)
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Con la intención de obtener información del experimento, deberíamos de encontrar una función analítica que nos devuelva el valor de $N$ para cualquier punto arbitrario $t$.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Pero a veces, el tratar de encontrar una función analítica es imposible, o el pensar en utilizar una función conocida, nos podría llevar mucho tiempo para calcularla, más si nuestro interés se basa en una pequeña vecindad de la variable independiente.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo 2}
+Supongamos que tenemos una fuente radioactiva de {}$^{241}$Am, una fuente de rayos $\alpha$. Su vida media es $\tau_{\frac{1}{2}}=430$ años.
+\\
+\bigskip
+Obviamente no podríamos determinar su vida media midiéndola, ya que el decaimiento es lento y quizá lo que podríamos hacer es medir cada lunes durante algunos meses: después de cinco meses (por ejemplo) podríamos detener las mediciones y revisar los datos.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo 2}
+Una pregunta que nos podemos plantear es: ¿cuál fue la actividad el miércoles de la tercera semana de mediciones? 
+\\
+\bigskip
+Ya que ese día está dentro del rango de mediciones $(t_{0}, t_{k})$
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo 2}
+Lo que podríamos hacer es usar técnicas de \textcolor{blue}{interpolación} para determinar ese valor.  
+\\
+\bigskip
+\pause
+Si lo que queremos, es el caso contrario, conocer la actividad luego de ocho meses posteriores a la última medición, lo que deberíamos de hacer es \textcolor{red}{extrapolar} a ese punto a partir de las mediciones previas.
+\end{frame}
+\subsection{Objetivo de la interpolación.}
+\begin{frame}
+\frametitle{Objetivo de la interpolación.}
+La idea central de la interpolación es seleccionar una función $g(x)$ tal que $g(x_{i}) = f_{i}$ para cada dato $i$, es una buena aproximación para cualquier otro dato $x$ entre el conjunto original de datos.
+\end{frame}
+\begin{frame}
+\frametitle{Objetivo de la interpolación.}
+Pero ¿cómo podemos considerar una buena aproximación al conjunto de datos, si no tenemos la función original?
+\\
+\bigskip
+Dado que los puntos ser pueden interpolar por una familia infinita de funciones, para ello debemos de contar con algún criterio o guía para seleccionar una función razonable.
+\end{frame}
+\begin{frame}
+La regla para esos métodos se basa en la \textcolor{red}{suavidad al ajuste} de las funciones de interpolación.
+\\
+\bigskip
+\pause
+Pero esto no podría funcionar para todo tipo de funciones, consideremos la función:
+\\
+\medskip
+\begin{minipage}{3cm}
+\[g(x) = \dfrac{1}{25 x^{2}}\]
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{6cm}
+\begin{figure}
+	\centering
+	 \includegraphics[scale=0.3]{Imagenes/grafica02.eps}  
+\end{figure}
+\end{minipage}
+\end{frame}
+\subsection{Consideración previa}
+\begin{frame}
+\frametitle{Consideración previa}
+Antes de entrar de lleno a la revisión de las técnicas de interpolación, es necesario mencionar lo siguiente: dado que contamos con un conjunto finito de puntos, debemos de tener cuidado en el espaciamiento de la variable independiente.
+\end{frame}
+\begin{frame}
+\frametitle{Consideración previa}
+Si los puntos se alejan unos de otros, perderemos información para aquellos valores entre éstos puntos y la predicción de la interpolación ya no será la esperada.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo 3}
+\fontsize{12}{12}\selectfont
+Supongamos que tenemos seis mediciones como se indican en la siguiente figura, podemos ver claramente un comportamiento oscilatorio de la función, juzgando por los puntos y de acuerdo a las barras de error, una línea recta es la que probablemente nos ajustaría los puntos.
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.35]{Imagenes/figura01-1.eps} 
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de una interpolación}
+Las técnicas de interpolación hacen lo que pidamos, pero no necesariamente son consistentes con un fenómeno o modelo.
+\begin{figure}
+	\centering
+		\includegraphics[scale=0.4]{Imagenes/figura02.eps} 
+\end{figure}
+\end{frame}
+\section{Interpolación polinomial}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Interpolación de Lagrange}
+\begin{frame}
+\frametitle{Interpolación de Lagrange}
+La técnica más sencilla de interpolación, es usando polinomios. Siempre es posible construir un \emph{único} polinomio de grado $n$ que pasa a través de $n + 1$ puntos.
+\\
+\medskip
+Una manera de obtener este polinomio es usando la fórmula de Lagrange
+\end{frame}
+\begin{frame}
+\frametitle{Fórmula de Lagrange}
+\begin{equation}
+P_{n}(x) = \sum_{i = 0}^{n} \: y_{i} \: \ell_{i}(x)
+\label{eq:ecuacion_03_01a}
+\end{equation}
+donde $n$ es el grado del polinomio y
+\begin{align}
+\begin{aligned}
+\ell_{i}(x) &= \dfrac{x - x_{0}}{x_{i} - x_{0}} \cdot \dfrac{x - x_{1}}{x_{i} - x_{1}} \ldots \dfrac{x - x_{i + 1}}{x_{i} - x_{i + 1}} \cdot \dfrac{x - x_{n}}{x_{i} - x_{n}} \\
+ &= \prod_{\substack{j = 0 \\ j \neq i}}^{n} \; \dfrac{x - x_{j}}{x_{i} - x_{j}}, \hspace{0.5cm} i = 0,1,\ldots,n
+\end{aligned}
+\label{eq:ecuacion_03_01b}
+\end{align}
+se llaman \emph{funciones cardinales}.
+\end{frame}
+\begin{frame}
+\frametitle{Por ejemplo, si $n = 1$}
+La interpolación es una línea recta: 
+\[P_{1}(x) = y_{0} \: \ell_{0}(x) + y_{1} \: \ell_{1}(x) \]
+y las funciones cardinales son
+\[ \ell_{0}(x) = \dfrac{x - x_{1}}{x_{0} - x_{1}} \hspace{1cm} \ell_{1}(x) = \dfrac{x - x_{0}}{x_{1} - x_{0}} \]
+\end{frame}
+\begin{frame}
+\frametitle{Con $n = 2$}
+La interpolación es parabólica:
+\[P_{2}(x) = y_{0} \: \ell_{0}(x) + y_{1} \: \ell_{1}(x) + y_{2} \: \ell_{2}(x) \]
+y las $\mathcal{L}_{i}(x)$ son:
+\begin{eqnarray*}
+\ell_{0}(x) &=& \dfrac{(x - x_{1})(x - x_{2})}{(x_{0} - x_{1})(x_{0} - x_{2})} \\
+\ell_{1}(x) &=& \dfrac{(x - x_{0})(x - x_{2})}{(x_{1} - x_{0})(x_{1} - x_{2})} \\
+\ell_{2}(x) &=& \dfrac{(x - x_{0})(x - x_{1})}{(x_{2} - x_{0})(x_{2} - x_{1})} 
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Propiedad de las funciones cardinales}
+Las funciones cardinales son polinomios de orden $n$ que tienen la propiedad
+\begin{equation}
+\ell_{i} (x_{j}) = \begin{cases} 0 \hspace{0.1cm} \mbox{si } i \neq j \\ 
+1 \hspace{0.1cm} \mbox{si } i = j \end{cases} = \delta_{ij}
+\label{eq:ecuacion_03_02}
+\end{equation}
+donde $\delta_{ij}$ es la delta de Kronecker.
+\end{frame}
+\begin{frame}
+\frametitle{Fórmula de Lagrange}
+Para probar que el polinomio de interpolación pasa por los puntos experimentales, sustituimos $x = x_{j}$ en la definición de $P_{n}(x)$ (ec. \ref{eq:ecuacion_03_01a}) y usamos la ec. (\ref{eq:ecuacion_03_02}, entonces:
+\[ P_{n}(x_{j}) = \sum_{i = 0}^{n} y_{i} \: \ell_{i}(x_{j}) = \sum_{i = 0}^{n} y_{i} \: \delta_{ij} = y_{j} \]
+\end{frame}
+\begin{frame}
+\frametitle{Error en la fórmula de Lagrange}
+Se puede demostrar que el error en el polinomio de interpolación es
+\[ f(x) - P_{n}(x) = \dfrac{(x - x_{0})(x - x_{1}) \ldots (x - x_{n})}{(n + 1)!} \: f^{(n+1)}(\xi)\]
+donde $\xi \in (x_{0},x_{n})$, y éste valor normalmente no se conoce. 
+\\
+\bigskip
+Debemos de notar que mientras más lejos están los datos de $x$, contribuye a que el error se incremente. 
+\end{frame}
+\subsubsection{Ejemplo}
+\begin{frame}
+\frametitle{Ejemplo}
+Veamos el cambio de la presión del vapor de {}$^{4}$He como función de la temperatura, de acuerdo a la literatura tenemos que:
+\fontsize{12}{12}\selectfont
+\begin{center}
+\begin{tabular}{c | l@{}}
+Temperatura [K] & Presión de vapor [kPa] \\
+\hline $2.3$ & $6.38512$ \\
+\hline $2.7$ & $13.6218$ \\
+\hline $2.9$ & $18.6760$ \\
+\hline $3.2$ & $28.2599$ \\
+\hline $3.5$ & $40.4082$ \\
+\hline $3.7$ & $49.9945$
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de los puntos experimentales}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{Imagenes/grafica03_1.eps}
+	\caption{El conjunto de datos experimentales.}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Pregunta para resolver}
+¿Cuál es el valor de presión a una temperatura de $\SI{3}{\kelvin}$?
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{grafica03.eps} 
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Solución}
+Tomamos lo que ya conocemos para $n=1$
+\[P_{1}(x) = y_{0} \: \ell_{0}(x) + y_{1} \: \ell{1}(x) \]
+\pause
+y las funciones cardinales son
+\[ \ell_{0}(x) = \dfrac{x - x_{1}}{x_{0} - x_{1}} \hspace{1cm} \ell_{1}(x) = \dfrac{x - x_{0}}{x_{1} - x_{0}} \]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Solución}
+En nuestro ejemplo, tenemos que:
+\begin{align*}
+(x_{0}, y_{0}) = (2.9, 18.6760) \\
+\\
+(x_{1}, y_{1}) = (3.2, 28.2599)
+\end{align*}
+\visible<2->{Con la interpolación lineal, tenemos que para una temperatura de \textcolor{blue}{$\SI{3.0}{\kelvin}$}, la presión tiene un valor de \textcolor{red}{$\mathbf{\SI{21.87}{\kilo\pascal}}$}}
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación cuadrática}
+Con la intención de mejorar nuestro resultado, podemos usar un polinomio de segundo orden, es decir $n = 2$
+\[P_{2}(x) = y_{0} \: \ell_{0}(x) + y_{1} \: \ell_{1}(x) + y_{2} \: \ell_{2}(x) \]
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación cuadrática}
+Las funciones cardinales $\ell_{i}(x)$ son:
+\begin{align*}
+\ell_{0}(x) &= \dfrac{(x - x_{1})(x - x_{2})}{(x_{0} - x_{1})(x_{0} - x_{2})} \\
+\\
+\ell_{1}(x) &= \dfrac{(x - x_{0})(x - x_{2})}{(x_{1} - x_{0})(x_{1} - x_{2})} \\
+\\
+\ell_{2}(x) &= \dfrac{(x - x_{0})(x - x_{1})}{(x_{2} - x_{0})(x_{2} - x_{1})} 
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Usando los datos experimentales}
+Usando los valores de la tabla anterior:
+\begin{eqnarray*}
+(x_{0}, y_{0}) = (2.7, 13.6218) \\
+(x_{1}, y_{1}) = (2.9, 18.6760) \\
+(x_{2}, y_{2}) = (3.2, 28.2599)
+\end{eqnarray*}
+\visible<2->{A una temperatura de \textcolor{blue}{$\SI{3.0}{\kelvin}$}, la presión de vapor tiene un valor de \textcolor{red}{$\mathbf{\SI{21.671}{\kilo\pascal}}$}}
+\\
+\bigskip
+\visible<3->{El siguiente paso es usar cuatro puntos y construir el polinomio de orden $3$.}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+\begin{minipage}{5cm}
+A partir de la siguiente tabla de datos,
+\\
+\medskip
+\begin{center}
+\begin{tabular}{c | c}
+x & P(x) \\
+\hline $1$ & $0.671$ \\
+\hline $2$ & $0.620$ \\
+\hline $3$ & $0.567$ \\
+\hline $4$ & $0.512$
+\end{tabular}
+\end{center}
+\end{minipage}
+\hspace{0.3cm}
+\visible<2->{
+\begin{minipage}{5cm}
+\fontsize{12}{12}\selectfont
+Usa el algoritmo de interpolación de Lagrange con un polinomio de grado $n = 3$, para estimar el valor de $P(x)$ en los siguientes puntos:
+\\
+\medskip
+$x= 1.5,2.5, 3.5$
+\end{minipage}}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Solución al problema}
+\begin{lstlisting}[caption=Código para la interpolación de Lagrange,style= FormattedNumber, basicstyle=\linespread{0.9}\ttfamily\small, columns=fullflexible]
+import numpy as np
+n = 3
+x_0_ = np.array([1.5, 2.5, 3.5])
+x = np.array([1., 2., 3., 4.])
+f = np.array([0.671, 0.620, 0.567, 0.512])
+
+for k in x_0_:
+    yres = 0
+    for i in range(0, n + 1):
+        z = 1.0
+        for j in range(0, n + 1):
+            if i != j:
+                z = z * (k - x[j])/(x[i] - x[j])
+        yres = yres + z*f[i]
+    
+    print ('El polinomio evaluado en P(',k,') =',  yres)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Solución (en la terminal y con una gráfica)}
+%\begin{minipage}{5cm}
+\begin{center}
+\begin{tabular}{c | l}
+x & P(x) \\
+\hline $1$   & $0.671$ \\
+\hline $1.5$ & $0.64575$ \\
+\hline $2$   & $0.620$ \\
+\hline $2.5$ & $0.59375$ \\
+\hline $3$   & $0.567$ \\
+\hline $3.5$ & $0.53975$ \\
+\hline $4$   & $0.512$
+\end{tabular}
+\end{center}
+%\end{minipage}
+\end{frame}
+\begin{frame}
+\frametitle{Solución con una gráfica}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Imagenes/InterpLagrangen3_01.eps}
+	\caption{Gráfica con los datos experimentales}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Solución con una gráfica}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Imagenes/InterpLagrangen3_02.eps}
+	\caption{Gráfica con los datos experimentales y el valor de interpolación -bola azul-}
+\end{figure}
+\end{frame}
+\subsection{Ejercicios}
+\begin{frame}
+\frametitle{Ejercicios}
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}
+\item Ajusta $x \sin(x$) en $[0, \pi/2]$ con un polinomio de interpolación de Lagrange de orden $n = 4$, utilizando puntos con igual separación.
+\\
+\bigskip
+Calcula el error de cada interpolación en cada incremento de $\pi/16$, muestra una gráfica.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicios}
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}
+\conti
+\item Ajusta $\sin(x)$ en $[0, 2\pi]$ con el polinomio de interpolación de Lagrange de orden $n = 4$ y $n = 8$, utilizando puntos con igual separación ($5$ y $9$ puntos respectivamente). 
+\\
+\bigskip
+Grafica los polinomios de interpolación junto con $\sin(x)$ y las distribuciones de sus errores.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Hints para resolver los ejercicios}
+Tomemos en cuenta los siguiente:
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Hay que dividir el intervalo $[0,\pi/2]$ con cinco espacios.
+\item Se evalúa la función $x \: sin(x)$ en el conjunto de puntos que obtuvimos.
+\item Creamos un conjunto de puntos para ajustar con el método de Lagrange.
+\item La manera más fácil es con un \texttt{linspace}.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Solución Ejercicio 1}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/ejercicioTema21_1.eps} 
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Solución Ejercicio 2}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/ejercicioTema21_2.eps} 
+\end{figure}
+\end{frame}
+\section{Consideraciones importantes}
+\subsection{Consideraciones importantes}
+\begin{frame}
+\frametitle{Consideraciones importantes}
+La técnica de interpolación de Lagrange supone que el espaciamiento entre los puntos es la misma, por lo que cuando se presentan puntos que no cumplen ésta condición, la técnica ya no aplicaría.
+\end{frame}
+\subsection{Desventajas interpolación de Lagrange}
+\begin{frame}
+\frametitle{Desventajas interpolación de Lagrange}
+A continuación se presentan algunas de las desventajas de la primera técnica de interpolación, al interpolación de Lagrange que hemos estudiado.
+\end{frame}
+\begin{frame}
+\frametitle{Desventajas interpolación Lagrange}
+\begin{itemize}[<+->]
+\item [\textcolor{red}{\xmark}] La cantidad de cálculos necesarios para una interpolación es grande.
+\item [\textcolor{red}{\xmark}] La interpolación para otro valor de $x$ necesita la misma cantidad de cálculos adicionales, ya que no se pueden utilizar partes de la aplicación previa.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Desventajas interpolación Lagrange}
+\begin{itemize}[<+->]
+\item [\textcolor{red}{\xmark}] Cuando el número de datos tiene que incrementarse o decrementarse, no se pueden utilizar los resultados de los cálculos previos.
+\item [\textcolor{red}{\xmark}] La evaluación del error no es fácil.
+\end{itemize}
+\end{frame}
+\end{document}

@@ -1,0 +1,326 @@
+\frametitle{Identificadores}
+Son nombres que hacen referencia a los objetos que componen un programa: constantes, variables, funciones, etc.
+\\
+\bigskip
+Reglas para construir identificadores:
+\begin{enumerate}
+\item El primer car\'{a}cter debe ser una letra o el car\'{a}cter de subrayado (gui\'{o}n bajo)
+\item El primer car\'{a}cter puede ir seguido de un n\'{u}mero variable de d\'{i}gitos num\'{e}ricos, letras o car\'{a}cteres de subrayado.
+\item No pueden utilizarse espacios en blanco, ni s\'{i}mbolos de puntuaci\'{o}n.
+\item Python distingue may\'{u}sculas y min\'{u}sculas.
+\item No pueden utilizarse palabras reservadas del lenguaje.
+\end{enumerate}
+\end{frame}
+
+\section{Variables}
+\begin{frame}[fragile]
+\frametitle{Variables}
+\fontsize{12}{12}\selectfont
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<1->
+ \scalebox{0.8}
+ \verb|>>> base = 2| \\
+\end{exampleblock}
+\end{minipage}
+
+\end{frame}
+
+\begin{exampleblock}{}<2->
+ \verb|>>> print base| \\
+ \pause
+ \textcolor{blue}{2}
+\end{exampleblock}
+\begin{exampleblock}{}<3->
+ \verb|>>> print "base"| \\
+ \pause 
+ \textcolor{blue}{\texttt{base}}
+\end{exampleblock}
+\begin{exampleblock}{}<4->
+ \verb|>>> base = base + 1|
+\end{exampleblock}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<5->
+ \verb|>>> base| \\
+ \pause
+ \textcolor{blue}{3}
+\end{exampleblock}
+\begin{exampleblock}{}<6->
+ \verb|>>> alt = 4| \\
+\end{exampleblock}
+\begin{exampleblock}{}<7->
+ \verb|>>> area = base+alt; a= 3|
+\end{exampleblock}
+\begin{exampleblock}{}<8->
+ \verb|>>> a= 2*a| \\
+\end{exampleblock}
+\end{minipage}
+\end{frame}
+\begin{frame}[fragile]
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<1->
+ \verb|>>> area== 2*a| \\
+ \pause
+ \textcolor{blue}{\texttt{False}}
+\end{exampleblock}
+\begin{exampleblock}{}<2->
+ \verb|>>> x= "uno"; y= "dos"| \\
+\end{exampleblock}
+\begin{exampleblock}{}<3->
+ \verb|>>> x| \\
+ \pause
+ \textcolor{blue}{\texttt{uno}}
+\end{exampleblock}
+\begin{exampleblock}{}<4->
+ \verb|>>> print x| \\
+ \pause
+ \textcolor{blue}{\texttt{uno}}
+\end{exampleblock}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<5->
+ \verb|>>> x+y| \\
+ \pause
+ \textcolor{blue}{\texttt{unodos}}
+\end{exampleblock}
+\begin{exampleblock}{}<6->
+ \verb|>>> print x+y| \\
+ \pause
+ \textcolor{blue}{\texttt{unodos}}
+\end{exampleblock}
+\end{minipage}
+\end{frame}
+\section{Listas y Tuplas}
+\begin{frame}[fragile]
+\frametitle{Listas y Tuplas}
+\fontsize{12}{12}\selectfont
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<1->
+	\verb|milista=[a,"hola",3.0,True]|
+\end{exampleblock}
+\begin{exampleblock}{}<2->
+	\verb|milista| \\
+	\pause
+	\textcolor{blue}{\texttt{[8,"hola",3.0,True]}}
+\end{exampleblock}
+\begin{exampleblock}{}<3->
+	\verb|milista[0]| \\
+	\pause
+	\textcolor{blue}{\texttt{8}}
+\end{exampleblock}
+\begin{exampleblock}{}<4->
+	\verb|milista[1]| \\
+	\pause
+	\textcolor{blue}{\texttt{'hola'}}
+\end{exampleblock}
+\begin{exampleblock}{}<5->
+	\verb|milista[2]| \\
+	\pause
+	\textcolor{blue}{\texttt{3.0}}
+\end{exampleblock}
+\begin{exampleblock}{}<6->
+	\verb|milista[1:3]| \\
+	\pause
+	\textcolor{blue}{\texttt{'hola',3.0}}
+\end{exampleblock}
+\begin{exampleblock}{}<7->
+	\verb|milista[0] = 2.0|
+\end{exampleblock}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<8->
+	\verb|milista| \\
+	\pause
+	\textcolor{blue}{\texttt{[2.0,"hola",3.0,True]}}
+\end{exampleblock}
+\begin{exampleblock}{}<9->
+	\verb|milista[-1]| \\
+	\pause
+	\textcolor{blue}{\texttt{True}}
+\end{exampleblock}
+\begin{exampleblock}{}<10->
+	\verb|milista.append("otro")| \\
+\end{exampleblock}
+\begin{exampleblock}{}<11->
+	\verb|milista| \\
+	\pause
+	\textcolor{blue}{\texttt{[2.0,"hola",3.0,True,'otro']}}
+\end{exampleblock}
+\begin{exampleblock}{}<12->
+	\verb|milista[:2]| \\
+	\pause
+	\textcolor{blue}{\texttt{[2.0,"hola"]}}
+\end{exampleblock}
+\begin{exampleblock}{}<13->
+	\verb|milista[1:]| \\
+	\pause
+	\textcolor{blue}{\texttt{[2.0,"hola",3.0,True]}}
+\end{exampleblock}
+\begin{exampleblock}{}<14->
+	\verb|lista2=[]|
+\end{exampleblock}
+\end{minipage}
+\end{frame}
+\begin{frame}[fragile]
+\fontsize{12}{12}\selectfont
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<1->
+	\verb|lista2| \\
+	\pause
+	\verb|[]|
+\end{exampleblock}
+\begin{exampleblock}{}<2->
+	\verb|lista2.insert(1,"a")|
+\end{exampleblock}
+\begin{exampleblock}{}<3->
+	\verb|lista2| \\
+	\pause
+	\textcolor{blue}{\texttt{['a']}}
+\end{exampleblock}
+\begin{exampleblock}{}<4->
+	\verb|lista2.insert(2,"b")|
+\end{exampleblock}
+\begin{exampleblock}{}<5->
+	\verb|lista2| \\
+	\pause
+	\textcolor{blue}{\texttt{['a','b']}}
+\end{exampleblock}
+\begin{exampleblock}{}<6->
+	\verb|lt = (1,2,True, "python")|
+\end{exampleblock}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<7->
+	\verb|lt| \\
+	\pause
+	\textcolor{blue}{\texttt{(1,2, True, 'python')}}
+\end{exampleblock}
+\begin{exampleblock}{}<8->
+	\verb|lt[0]=3| \\
+	\pause
+	\textcolor{blue}{\texttt{Ups, hay un error!}}
+\end{exampleblock}
+\begin{exampleblock}{}<9->
+	\verb|3 in lt| \\
+	\pause
+	\textcolor{blue}{\texttt{False}}
+\end{exampleblock}
+\end{minipage}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Funci\'{o}n \texttt{range}}
+La funci\'{o}n \texttt{range()} crea una lista de n\'{u}meros enteros en sucesi\'{o}n aritm\'{e}tica. La funci\'{o}n \texttt{range()} puede tener uno, dos o tres argumentos num\'{e}ricos.
+\\
+\bigskip
+La funci\'{o}n con un \'{u}nico argumento se escribe \texttt{range(n)} y crea una lista creciente de $n$ t\'{e}rminos enteros que empieza en $0$ y acaba en $n-1$ (el incremento es unitario)
+\fontsize{12}{12}\selectfont
+\begin{center}
+\begin{minipage}{6cm}
+\begin{exampleblock}{}<1->
+	\verb|range(8)| \\
+	\pause
+	\textcolor{blue}{[0,1,2,3,4,5,6,7]}
+\end{exampleblock}
+\begin{exampleblock}{}<2->
+	\verb|range(3,7)| \\
+	\pause
+	\textcolor{blue}{[3,4,5,6]}
+\end{exampleblock}
+\begin{exampleblock}{}<3->
+	\verb|range(4,10,2)| \\
+	\pause
+	\textcolor{blue}{[4,6,8]}
+\end{exampleblock}
+\end{minipage}
+\end{center}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Funciones intr\'{i}nsecas}
+\fontsize{12}{12}\selectfont
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<1->
+	\verb|x =  -5|
+\end{exampleblock}
+\begin{exampleblock}{}<2->
+	\verb|y =  4|
+\end{exampleblock}
+\begin{exampleblock}{}<3->
+	\verb|p =  3.1416|
+\end{exampleblock}
+\begin{exampleblock}{}<4->
+	\verb|z =  '6.3'|
+\end{exampleblock}
+\begin{exampleblock}{}<5->
+	\verb|print int(p)| \\
+	\pause
+	\textcolor{blue}{3}
+\end{exampleblock}
+\begin{exampleblock}{}<6->
+	\verb|abs(x)| \\
+	\pause
+	\textcolor{blue}{5}
+\end{exampleblock}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<7->
+	\verb|print float(z)| \\
+	\pause
+	\textcolor{blue}{6.0}
+\end{exampleblock}
+\begin{exampleblock}{}<8->
+	\verb|complex(x)| \\
+	\pause
+	\textcolor{blue}{\texttt{(-5+0j)}}
+\end{exampleblock}
+\begin{exampleblock}{}<9->
+	\verb|complex(x,y)| \\
+	\pause
+	\textcolor{blue}{\texttt{(-5+4j)}}
+\end{exampleblock}
+\begin{exampleblock}{}<10->
+	\verb|print round(p,2)| \\
+	\pause
+	\textcolor{blue}{3.14}
+\end{exampleblock}
+\begin{exampleblock}{}<11->
+	\verb|cmp(x,y)| \\
+	\pause
+	\textcolor{blue}{-1}
+\end{exampleblock}
+\end{minipage}
+\end{frame}
+\begin{frame}
+\fontsize{12}{12}\selectfont
+\begin{center}
+\begin{tabular}{| c | c |}
+\hline
+Operaci\'{o}n & Descripci\'{o}n \\
+\hline \texttt{int(x)} & Convierte \texttt{x} a entero \\
+\hline \texttt{long(x)} & Convierte \texttt{x} a entero largo \\
+\hline \texttt{float(x)} & Convierte \texttt{x} a punto flotante \\
+\hline \texttt{complex(x)} & Convierte \texttt{x} al complejo \texttt{x+0j} \\
+\hline \texttt{complex(x,y)} & Convierte al complejo \texttt{x+yj} \\
+\hline
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\fontsize{12}{12}\selectfont
+\begin{center}
+\begin{tabular}{| c | c |}
+\hline
+Funci\'{o}n & Descripci\'{o}n \\
+\hline \texttt{abs(x)} & Valor absoluto de \texttt{x} \\
+\hline \texttt{max(sucesion)} & Mayor elemento de la sucesi\'{o}n \\
+\hline \texttt{min(sucesion)} & Menor elemento de la sucesi\'{o}n \\
+\hline \texttt{round(x,n)} & Redondea $x$ al decimal $n$ \\
+\hline \texttt{cmp(x,y)} & Devuelve $-1$, $0$, $1$ si $x<y$, $x==y$, $x>y$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{frame}

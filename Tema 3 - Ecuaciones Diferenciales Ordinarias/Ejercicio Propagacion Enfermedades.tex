@@ -1,0 +1,31 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+%\numberwithin{equation}{list}
+\marginsize{1cm}{2cm}{0cm}{2cm}  
+\title{Ejercicio - Ecuaciones diferenciales ordinarias \\ \begin{large}Curso de Física Computacional\end{large}}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+En la teoría de propagación de enfermedades contagiosas, se puede utilizar una ED relativamente elemental para predecir el número de individuos infectados de la población en cualquier tiempo, siempre y cuando se hagan las suposiciones de simplificación adecuada. En particular, supongamos que todos los individuos de una población fija tienen la misma probabilidad de infectarese y que una vez infectados permanecen en ese estado. Si con $x(t)$ denotamos el número de individuos vulnerables en el tiempo $t$ y con $y(t)$ denotamos al número de infectados, podemos suponer razonablemente, que la rapidez con que el número de los infectados cambia es proporcional al producto de $x(t)$ y $y(t)$, por que la rapidez depende del número de individuos infectados y del número de individuos vulnerables que existen en ese tiempo. Si la población es lo suficientemente numerosa para suponer que $x(t)$ y $y(t)$ son variables continuas, podemos expresar el problema como
+\[y'(t) = k x(t) y(t)\]
+donde $k$ es una constante y $x(t)+ y(t) = m$ es la población total. Se puede re-escribir esta ecuación para que contenga sólo $y(t)$ como
+\[ y'(t) = k (m-y(t)) y(t)\]
+\begin{enumerate}
+\item Suponiendo que $m=100000$, $y(0)=1000$, $k=2 \times 10^{-6}$, y que el tiempo se mide en días, encuentra una aproximación al número de individuos infectados al cabo de 30 días.
+\item La ED del inciso anterior, se denomina \emph{ecuación de Bernoulli} y puede transformarse en una ED lineal en $u(t) = (y(t))^{-1}$. Usa ese método para encontrar una solución exacta de la ecuación, con los mismos supuestos del inciso anterior; compara el valor verdadero de $y(t)$ con la aproximación dada. ¿Qué es $\displaystyle\lim_{t \rightarrow \infty} y(t)$
+\item En el ejercicio anterior todos los individuos infectados permanecieron en la población y propagaron la enfermedad. Una respuesta más realista consiste en introducir una tercera variable $z(t)$ que representa el número de personas a quienes en un tiempo dado $t$ se les separa de la población infectada por aislamiento, recuperación y la subsecuente inmunidad o fallecimiento. Esto viene a complicar más el problema, pero se puede demostrar que una solución aproximada está dada por
+\[ x(t) = x(0) \exp\left(- \frac{k_{1}}{k_{2}}z(t)\right) \hspace{1cm} y(t) =m - x(t) - z(t) \]
+donde $k_{1}$ es la rapidez de la infección, $k_{2}$ es la rapidez de aislamiento y $z(t)$ se obtiene de la ED
+\[ z'(t) = k_{2} \left( m - z(t) - x(0) \exp \left( - \frac{k_{1}}{k_{2}} z(t) \right) \right)\]
+No se conoce un método para resolver directamente este problema, po lo cual es necesario apoyarse con un procedimiento numérico. Obtén una aproximación a $z(30)$, $y(30)$, $x(30)$ suponiendo que $m=100000$, $x(0)=99000$, $k_{1} = 2 \times 10^{-6}$ y $k_{2} = 10^{-4}$
+\end{enumerate}
+\end{document}

@@ -1,0 +1,75 @@
+\documentclass[landscape]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{lscape}
+\usepackage{makecell}
+\usepackage{longtable}
+%\numberwithin{equation}{list}
+\marginsize{1cm}{1cm}{-2cm}{0cm}
+\vspace{1cm}  
+\title{Rúbrica de evaluación \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+%\vspace{100pt}
+%\begin{landscape}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+% \begin{flushright}
+% Fecha: \line(1,0){20} / \line(1,0){20} /\line(1,0){20}
+% \end{flushright}
+% Nombre:\line(1,0){400}
+% \\
+% Para cada uno de los problemas de la tarea-examen, anota la puntuación para cada elemento que consideras lograste, debes de apoyarte en la hoja de rúbrica para conocer el puntaje de cada nivel.
+% \fontsize{12}{12}\selectfont
+% \begin{center}
+% \renewcommand{\arraystretch}{2.3}
+% \begin{tabular}{| l | c | c | c | c | c | c | c | c |}
+% \hline
+%  & Documentación & Modularidad & Eficiencia & Robustez & Graficación & Ejecución & Interpretación & Suma \\ \hline
+% Problema 1 & & & & & & & & \\ \hline
+% Problema 2 & & & & & & & & \\ \hline
+% Problema 3 & & & & & & & & \\ \hline
+% Problema 4 & & & & & & & & \\ \hline
+% Problema 5 & & & & & & & & \\ \hline
+% Problema 6 & & & & & & & & \\ \hline
+% Problema 7 & & & & & & & & \\ \hline
+% Problema 8 & & & & & & & & \\ \hline
+% Problema 9 & & & & & & & & \\ \hline
+% Problema 10 & & & & & & & & \\ \hline
+% Problema 11 & & & & & & & & \\ \hline
+% Problema 12 & & & & & & & & \\ \hline
+% \end{tabular}
+% \end{center}
+%\end{landscape}
+Cada uno de los problemas a resolver para la tarea y/o el examen de cada tema del curso, deberá de considerar los siguientes atributos, cada uno de ellos, tiene asignado un nivel de desempeño junto con una puntuación, la puntuación máxima obtenida es de 18 puntos, ésta puntuación se normalizará para obtener la calificación del ejercicio.
+\begin{table}[h!]
+\fontsize{14}{14}\selectfont
+\centering
+\begin{tabular}{|m{3.5cm} | m{5.5cm} | m{5.5cm} | m{5.5cm} | m{5.5cm} |} \hline
+\makecell{Atributo} & \makecell{Excepcional \\ 3 puntos} & \makecell{Aceptable \\ 2 puntos} & \makecell{Novato \\ 1 punto} & \makecell{No satisfactorio \\ 0 puntos} \\ \hline
+Documentación & El programa contiene documentación extensa, incluyendo el nombre de quien programó; describe la operación del todo el programa, detalla la operación de cada función/módulo. & Cuenta con información sobre lo que realiza el programa, pero sin llegar a detallar cada uno de los componentes incluidos en el código. & Se incluye poca información sobre el programa y lo que realiza. & Carece completamente de documentación. \\ \hline
+\makecell{Modularidad \\ No aplica \\ para funciones \\ vistas en clase} &
+El programa es totalmente modular, separa las funciones en módulos externos y hace llamadas para su uso, incluyendo en los módulos a funciones con funciones contenidas una función contiene otra(s) función(ones) (funciones de nivel 2) &
+El programa separa las funciones en un módulo externo, manteniendo un nivel de llamada de orden 1 (sin funciones contenidas). &
+El programa contiene nuevas funciones dentro del código principal (funciones de nivel 1), las funciones son independientes entre sí. &
+El programa completo consiste en un solo archivo, las funciones están contenidas dentro del código principal. No contiene funciones nuevas. \\ \hline
+\makecell{Ejecución} &
+El programa se ejecuta debidamente sin interrupciones. &
+El programa se ejecuta pero indica alguna advertencia. &
+Al momento de ejecutar el programa presenta fallas: falta el archivo de un módulo, no están contenidas las librerías requeridas, nombres de variables sin declarar. &
+El programa no se ejecuta, contiene errores de sintaxis del lenguaje, errores de dedo, instrucciones incompletas. \\ \hline
+\makecell{Interpretación} &
+El problema se entrega con una interpretación extensa apoyándose en los elementos que el mismo código genera, discute la posibilidad de resultados, modificación de parámetros, contrasta contra el fenómeno físico o matemático. &
+El problema se entrega con una interpretación que se apoya con los elementos que genera el mismo código. &
+El problema se entrega con una interpretación de resultados vaga: se reporta un resultado sin explicación. La interpretación de la solución no es un detalle de las instrucciones del código. &
+El problema a resolver se entrega sin una interpretación de los resultados obtenidos, sólo se entrega el código. \\ \hline
+\end{tabular}
+\end{table}
+\end{document}

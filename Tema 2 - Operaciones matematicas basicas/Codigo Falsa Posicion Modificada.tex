@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{anysize}
+\usepackage{color}
+\usepackage{listings}
+\lstset{ %
+language=C++,                % choose the language of the code
+basicstyle=\small,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=4,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\%}{)}          % if you want to add a comment within your code
+}
+\marginsize{1cm}{1cm}{-1cm}{2cm}
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{Curso de Física Computacional \\ Método de la falsa posición modificada}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\section{Descripción.}
+Este programa encuentra la raíz de una función mediante el método de la falsa posición modificada. 
+El usuario debe definir la ecuación a resolver en el subprograma \texttt{FUNC}. El flujo de cálculo es muy similar al programa de bisección, excepto que \texttt{YA} o \texttt{YC} se dividen a la mitad cuando los contadores de extremos fijos, \texttt{KI} o \texttt{KD}, respectivamente, se vuelven mayores que uno.
+\section{Variables.}
+\textbf{A, C}: valores de $x$ en los puntos extremos actuales. \\
+\textbf{EP}: tolerancia.\\
+\textbf{IL}: máximo número de pasos de iteración permitido. \\
+\textbf{IT}: contador de pasos de iteración.\\
+\textbf{YA, YC}: valores de la función en dos puntos extremos actuales.\\
+\textbf{F}: valor de la función en $x$. \\
+\textbf{KI}: contador del extremo fijo izquierdo. \\
+\textbf{KD}: contador del extremos fijo derecho.
+\section{Código.}
+\begin{lstlisting}
+PROGRAM FalsaModificada
+	PRINT *
+	PRINT *, 'Metodo de la Falsa posicion modificada'
+	PRINT *, 'Ingresa la cota inferior A'
+	READ *, A
+	PRINT *, 'Ingresa la cota superior C'
+	READ *, C
+	PRINT *, 'Indica la tolerancia EP'
+	READ *, EP
+	PRINT *, 'Indica el numero de iteraciones IL'
+	READ *, IL
+
+	PRINT *
+	YA=FUNC(A)
+	YC=FUNC(C)
+	PRINT 10
+10	FORMAT ('IT. No.', 6X, 'A', 11X, 'B', 11X, 'C', 11X,  'YA',10X,'YB',10X,'YC')
+
+	IT=0
+	KI=1
+	KD=1
+30	IT=IT+1
+	IF (IT .GT. IL) THEN
+		PRINT *, 'Se ha excedido el limite de iteraciones'
+		GOTO 110
+	END IF
+
+	GR=(YC-YA)/(C-A)
+	BB=B
+	B=-YA/GR+A
+	YB=FUNC(B)
+	PRINT 70, IT, A, B, C, YA, YB, YC
+70	FORMAT (I3, 3X, 1P6E12.4)
+
+	IF (abs(BB-B) .LT. EP) GOTO 100
+	IF (YA*YB .LE. 0) THEN
+		YC=YB
+		C=B
+		KI=KL + 1
+		KD=0
+		IF (KL .GT. 1) YA = YA/2
+			GOTO 30
+		ELSE
+			YA=YB
+			A=B
+			KD=KD + 1
+			KI=0
+			IF (KD .GT. 1) YC = YC/2
+			GOTO 30
+		END IF
+
+	PRINT *
+100	PRINT *, 'Se ha satisfecho la tolerancia'
+	PRINT *
+	PRINT *,'----------------------------------------------------'
+110	PRINT *,'	Raiz aproximada = ', B
+	PRINT *,'----------------------------------------------------'
+	PRINT *
+	STOP
+END PROGRAM FalsaModificada
+!******************************************************************
+FUNCTION FUNC(x)
+	FUNC=tan(x)-x-0.5
+	RETURN
+END
+\end{lstlisting}
+\end{document}

@@ -1,0 +1,95 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{nccmath}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+\usepackage{pgfplots}
+\usepackage{etex}
+\usepackage{color}
+\usepackage{listings}
+\renewcommand{\arraystretch}{1.5}
+\lstset{ %
+language=Python,                % choose the language of the code
+basicstyle=\normalsize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=4,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\#}{)}          % if you want to add a comment within your code
+}
+\marginsize{1.5cm}{1.5cm}{1cm}{2cm}  
+\title{Examen Tema 2 - Operaciones matem\'{a}ticas b\'{a}sicas. \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+Resuelve los siguientes problemas mediante un c\'{o}digo con Python.
+\begin{enumerate}
+\item La trayectoria de un sat\'{e}lite que orbita la Tierra es
+\[ R = \dfrac{C}{1 + e \sin(\theta + \alpha)}\]
+donde $(R,\theta)$ son las coordenadas polares del sat\'{e}lite, $C$, e, y $\alpha$ son constantes (e se conoce como la excentricidad de la \'{o}rbita).
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) circle (1cm);
+\draw (-0.2,0) node {O};\draw [dashed](0,0) -- node [midway, above] {R} (2,1.5);
+\draw (2,1.5) circle (0.05cm);
+\draw (0,0) -- (0.8,0);
+\draw (0.7,0.2) node {$\theta$};
+\end{tikzpicture}
+\end{center}
+Si el sat\'{e}lite fue observado en las siguientes tres posiciones:
+\\
+\begin{center}
+\begin{tabular}{c | c | c | c}
+$\theta$ & $-30^{\circ}$ & $0^{\circ}$ & $30^{\circ}$ \\ \hline
+R (km) & 6870 & 6728 & 6615
+\end{tabular}
+\end{center}
+Determinar el valor m\'{a}s pequeño de $R$ en la trayectoria y el respectivo valor de $\theta$.
+\item La ecuaci\'{o}n de equilibrio qu\'{i}mico en la producci\'{o}n de metanol a partir de CO y $H_{2}$, es
+\[ \dfrac{\xi (3-2 \xi)^{2}}{(1-\xi)^{3}} = 249.2\]
+donde $\xi$ es el grado de equilibrio de la reacción. Determinar $\xi$.
+\item Obt\'{e}n la aproximaci\'{o}n por diferencias centrales de $f''(x)$ de orden $O(h^{4})$ aplicando la extrapolaci\'{o}n de Richardson a la aproximaci\'{o}n por diferencias centrales de orden $O(h^{2})$.
+\item Obt\'{e}n la primera aproximaci\'{o}n por diferencias centrales para $f^{4}(x)$ a partir de la serie de Taylor.
+\item Evaluar
+\[ \int_{-1}^{1} \cos(2 \cos^{-1} x) dx\]
+con la regla de $1/3$ de Simpson, usando 2, 4 y 6 bloques. Explicar los resultados.
+\item Determina el valor de 
+\[ \int_{1}^{\infty} (1+x^{4})^{-1} dx\]
+con la regla del trapecio, usando cinco bloques y compara el resultado con la integral exacta $0.24375$. Tip: usa la transformaci\'{o}n $x^{3}= 1/t$.
+\item El per\'{i}odo de un p\'{e}ndulo simple de longitud $L$ es $\tau = 4 \sqrt{L/g} h(\theta_{0})$, donde $g$ es la aceleraci\'{o}n debida a la gravedad, $\theta_{0}$ representa la amplitud angular y
+\[ h(\theta_{0}) = \int_{0}^{\pi/2} \dfrac{d\theta}{\sqrt{1 - \sin^{2}(\theta_{0}/2)\sin^{2} \theta}} \]
+Calcular $h(15^{\circ})$,$h(30^{\circ})$ y $h(45^{\circ})$, compara esos valores con $h(0)=\pi/2$ (que es el valor aproximado para pequeñas amplitudes).
+\item La f\'{o}rmula de Debye para la capacidad calor\'{i}fica $C_{v}$ de un s\'{o}lido, es \\ $C_{v} = 9 Nkg(u)$, donde
+\[g(u) = u^{3} \int_{0}^{1/u} \dfrac{x^{4}e^{x}}{(e^{x}-1)}dx\]
+los t\'{e}rminos de la ecuaci\'{o}n son:
+\begin{eqnarray*}
+N &=& \text{N\'{u}mero de part\'{i}culas en el s\'{o}lido} \\
+k &=& \text{Constante de Boltzmann} \\
+u &=& \frac{T}{\Theta_{D}} \\
+T &=& \text{temperatura absoluta} \\
+\Theta_{D} &=& \text{Temperatura de Debye}
+\end{eqnarray*}
+Calcular $g(u)$ para $u=0$ a $1.0$ en intervalos de $0.05$, grafica los resultados.
+\end{enumerate}
+\end{document}

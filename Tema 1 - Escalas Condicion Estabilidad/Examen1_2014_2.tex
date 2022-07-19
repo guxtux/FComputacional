@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{color}
+\marginsize{2cm}{2cm}{1cm}{2cm}  
+\title{Examen 1: Errores, condición y estabilidad. \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\textbf{Indicaciones: } Cada uno de los programas requiere que devuelvas el código utilizado, que deberá de ejecutarse sin problemas. Te pedimos que identifiques cada problema de la manera \emph{E1Problema1.py}, etc. Entregarás una carpeta con los archivos de solución a los problemas.
+\\
+\\
+En caso de que tengas alguna complicación para resolver el problema, comenta dentro del mismo código para que sepamos en dónde se te presenta la dificultad, buscando que tengas un avance para la solución del mismo. !! Suerte !!
+\begin{enumerate}
+\item Las siguientes expresiones definen a la constante de Euler
+\begin{eqnarray}
+\gamma &=& \lim_{n \rightarrow \infty} \left[ \sum_{k=1}^{n} \dfrac{1}{k} - ln (n) \right] \\
+\gamma &=& \lim_{k \rightarrow \infty} \left[ \sum_{k=1}^{m} \dfrac{1}{k} - ln \left( m + \dfrac{1}{2} \right) \right]
+\end{eqnarray}
+Escribe un programa que calcule el valor de $\gamma = 0.57721$, ¿cu\'{a}l de las dos expresiones converge m\'{a}s r\'{a}pido al valor?
+\item Identifica los números de punto flotante correspondientes a las siguientes cadenas de bits
+\begin{enumerate}
+\item \fbox{0 \hspace{0.1cm} 10000001 \hspace{0.1cm} 01100000000000000000000}
+\item \fbox{0 \hspace{0.1cm} 01111111 \hspace{0.1cm} 00000000000000000000000}
+\item \fbox{0 \hspace{0.1cm} 01111011 \hspace{0.1cm} 10011001100110011001100}
+\end{enumerate}
+\item Da la representación en binario con precisión simple de los siguientes números decimales
+\begin{enumerate}
+\item $10^{2}$
+\item $+0.0$
+\item $-0.0$
+\end{enumerate}
+\item Determina la expresión binaria de $\frac{1}{3}$. ¿Cu\'{a}l es la representación en presición simple con una longitud de 32 bits? Compara tu respuesta con el valor que te devuelve python en la terminal.
+\item Los primeros tres términos no nulos de la serie de Maclaurin para la función arcotangente(x), son: $x-(1/3)x^{3} +(1/5)x^{5}$. Calcula el error absoluto y el error relativo en las siguientes aproximaciones para el valor de $\pi$, usando el polinomio en vez de la función arco tangente:
+\begin{enumerate}
+\item $p_{1}(x)= 4 \left[ \arctan \left( \dfrac{1}{2} \right) + \arctan \left( \dfrac{1}{3} \right) \right]$
+\item $p_{2}(x) = 16 \arctan \left( \dfrac{1}{5} \right) - 4 \arctan \left( \dfrac{1}{239} \right)$
+\end{enumerate}
+\item El número $e$ se puede definir como $e = \sum_{n=0}^{\infty} (1/n!)$,\\
+donde $n! = n(n-1)(n-2)\ldots2*1$ para $n \neq 0$ y $0! = 1$.\\
+Calcula el error absoluto y el error relativo con las siguientes aproximaciones de $e$
+\begin{enumerate}
+\item $ \sum_{n=0}^{5} \dfrac{1}{n!} $
+\item $ \sum_{n=0}^{25} \dfrac{1}{n!} $
+\end{enumerate}
+\item Sea
+\[ f(x) = \dfrac{x \cos x - \sin x}{x - \sin x}\]
+\begin{enumerate}
+\item Calcula el $\displaystyle\lim_{x \rightarrow 0} f(x)$
+\item Calcula el valor de $f(0.1)$ con un error del orden de $10^{-4}$ \label{incisob}
+\item Re-emplaza cada función trigonométrica por su tercer polinomio de la serie de Maclaurin y repite el inciso (\ref{incisob}). \label{incisoc}
+\item El valor real de $f(0.1) = -1.99899998$. Calcula el error relativo para los valores obtenidos en los incisos (\ref{incisob})y (\ref{incisoc}) 
+\end{enumerate}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,43 @@
+\documentclass[12pt]{beamer}
+\graphicspath{{Imagenes/}{../Imagenes/}}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{color}
+\usepackage{epstopdf}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{hyperref}
+\renewcommand {\arraystretch}{1.5}
+\newcommand{\python}{\texttt{python}}
+\usefonttheme[onlymath]{serif}
+\setbeamertemplate{navigation symbols}{}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \setbeamertemplate{headline}{}
+  \useoutertheme{default}
+  \setbeamercovered{invisible}
+}
+\AtBeginSection[]
+{
+\begin{frame}<beamer>{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+}
+%\mode<presentation>
+%{
+%  \usetheme{Warsaw}
+%  \setbeamertemplate{headline}{}
+%  %\useoutertheme{infolines}
+%  \useoutertheme{default}
+%  \setbeamercovered{invisible}
+%  % or whatever (possibly just delete it)
+%}

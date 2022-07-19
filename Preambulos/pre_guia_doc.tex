@@ -1,0 +1,45 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol,multienum}
+\usepackage{graphicx}
+\usepackage{standalone}
+\usepackage[outdir=../]{epstopdf}
+\usepackage[binary-units=true]{siunitx}
+\usepackage{float}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.pathmorphing,patterns}
+\usetikzlibrary{arrows,calc,patterns,decorations.markings}
+\usetikzlibrary{positioning}
+\usepackage{color}
+\usepackage{anysize}
+\usepackage[spanish=mexican]{csquotes}
+\usepackage{anyfontsize}
+\usepackage[os=win]{menukeys}
+\usepackage{pbox}
+%Este paquete permite manejar los encabezados del documento
+\usepackage{fancyhdr}
+%hay que definir el ambiente de la página
+\pagestyle{fancy}
+%aqui va el texto para todas las paginas l--> izquierda, r--> derecha, hay un C--> para centrar el texto deseado
+%\lhead{Curso de Física Computacional}
+\fancyhead[R]{\nouppercase{\leftmark}}
+%define el ancho de la linea que separa el encabezado del cuerpo del texto
+\renewcommand{\headrulewidth}{0.5pt}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.25}
+\newcommand{\python}{\texttt{python}}
+\newcommand{\funcionazul}[1]{\textcolor{blue}{\textbf{\texttt{#1}}}}
+\interfootnotelinepenalty=8000
+\usepackage{hyperref}
+%esta parte define el color del marco que aparece en las hiperreferencias.
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
+\spanishdecimal{.}
+\marginsize{1.5cm}{1.5cm}{1.5cm}{1.5cm}
+\numberwithin{equation}{section}
+\date{}

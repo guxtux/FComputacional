@@ -1,0 +1,1286 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Warsaw_crane}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers_Warsaw_crane}	
+\normalfont
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{Métodos numéricos para matrices}
+\subtitle{Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=1.75cm]{Imagenes/escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=1.75cm]{Imagenes/escudo-unam}
+}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+\section{Métodos de descomposición LU}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición}
+\begin{frame}
+\frametitle{Métodos de descomposición \textbf{LU}}
+Se puede demostrar que cualquier matriz cuadrada $\mathbf{A}$ se puede expresar como un producto de una matriz triangular inferior $\mathbf{L}$ y una matriz triangular superior $\mathbf{U}$:
+\[ \mathbf{A = L \: U}\]
+\end{frame}
+\begin{frame}
+\frametitle{Factorización \textbf{LU}}
+El proceso de calcular \textbf{L} y \textbf{U} para un determinada matriz \textbf{A}, se conoce como \textcolor{blue}{descomposición LU} o \textcolor{blue}{factorización LU}.
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición $LU$}
+La descomposición $\mathbf{LU}$ no es única (las combinaciones de $\mathbf{L}$ y $\mathbf{U}$ para una determinada matriz A son infinitas), salvo ciertas restricciones de $\mathbf{L}$ o $\mathbf{U}$. 
+\\
+\bigskip
+Estas limitaciones distinguen un tipo de descomposición de otro.
+\end{frame}
+\subsection*{Métodos más utilizados}
+\begin{frame}
+\frametitle{Métodos $LU$ más utilizados}
+Los tres métodos de descomposición $LU$ más utilizados son:
+\begin{center}
+	\begin{tabular}{l | l}
+		Nombre & Restricciones \\ \hline
+		Doolittle & $L_{ii} = 1, \hspace{0.3cm} i= 1,2,\ldots,n$ \\
+		Crout & $U_{ii} = 1, \hspace{0.3cm} i=1,2,\ldots,n$ \\
+		Choleski & $L = U^{T}$
+	\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Versatilidad de los métodos}
+Después de descomponer a $\mathbf{A}$, se facilita resolver las ecuaciones $A \: x = b$. 
+\\
+\bigskip
+En primer lugar, volvemos a escribir las ecuaciones como $L \: U \: x = b$.
+\end{frame}
+\begin{frame}
+\frametitle{Versatilidad de los métodos}
+Al usar la notación $U \: x = y$, las ecuaciones quedan
+\[ \mathbf{L \: y = b} \]
+que se puede resolver para $y$ por sustitución hacia delante. 
+\end{frame}
+\begin{frame}
+\frametitle{Versatilidad de los métodos}
+Entonces
+\[ \mathbf{U \: x = y} \]
+nos devolverá $x$ con el proceso de sustitución hacia atrás.
+\end{frame}
+\begin{frame}
+\frametitle{Versatilidad de los métodos}
+La ventaja de la descomposición $LU$ sobre el método de eliminación de Gauss es que una vez descompuesta, podemos resolver $Ax = b$ para muchos vectores constantes $b$.
+\end{frame}
+\begin{frame}
+\frametitle{Versatilidad de los métodos}
+El costo de cada solución adicional es relativamente pequeño, ya que el avance y las operaciones de sustitución están consumiendo mucho menos tiempo que el proceso de descomposición.
+\end{frame}
+\section{Descomposición de Doolittle}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Descripción del método}
+\begin{frame}
+\frametitle{Descomposición de Doolittle}
+El método de descomposición de Doolittle está estrechamente relacionado con el proceso de eliminación de Gauss.
+\\
+\bigskip
+Veamos el método con un ejemplo:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Descomposición de Doolittle}
+Considera una matriz $A$ de $3 \times 3$ y suponganmos que existen las matrices triangulares:
+\[ \mathbf{L} =
+	\begin{bmatrix}
+		1 & 0 & 0 \\
+		L_{21} & 1 & 0 \\
+		L_{31} & L_{32} & 1
+	\end{bmatrix}
+	\hspace{1.5cm} U =
+	\begin{bmatrix}
+		U_{11} & U_{12} & U_{13} \\
+		0 & U_{22} & U_{23} \\
+		0 & 0 & U_{33}
+	\end{bmatrix} \]
+tales que $\mathbf{A = LU}$.
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición de Doolittle}
+Después de realizar la multiplicación del lado derecho de $\mathbf{A = LU}$, tenemos que:
+\fontsize{12}{12}\selectfont
+\[ \mathbf{A} =
+	\begin{array}{l l l}
+		U_{11} & U_{12} & U_{13} \\
+		U_{11}L_{21} & U_{12}L_{21} + U_{22} & U_{13}L_{21} + U_{23} \\
+		U_{11}L_{31} & U_{12}L_{31} + U_{22}L_{32} & U_{13}L_{31} + U_{23}L_{32} + U_{33}
+	\end{array} \]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Descomposición de Doolittle}
+Apliquemos ahora la eliminación de Gauss a la ecuación anterior. 
+\\
+\bigskip
+El primer paso de la eliminación  consiste en la elección de la primera fila como la fila pivote y la aplicación de las operaciones elementales:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Descomposición de Doolittle}
+\fontsize{12}{12}\selectfont
+\[ \begin{array}{l l l l}
+	\text{renglón } 2 & \leftarrow & \text{renglón } 2 - L_{21} \times \text{renglón } 1 & (\text{elimina } A_{21}) \\
+	\text{renglón } 3 & \leftarrow & \text{renglón } 3 - L_{31} \times \text{renglón } 1 & (\text{elimina } A_{31})
+	\end{array} \]
+\fontsize{14}{14}\selectfont
+El resultado es
+\[ \mathbf{A}^{\prime} =
+	\left[ \begin{array}{l l l}
+		U_{11} & U_{12} & U_{13} \\
+		0 & U_{22} & U_{23} \\
+		0 & U_{22}L_{32} & U_{23}L_{32}+U_{33}
+	\end{array} \right] \] 
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición de Doolittle}
+El siguiente paso es tomar la segunda fila como pivote y utilizar la operación:
+\fontsize{12}{12}\selectfont
+\[ \begin{array}{l l l l}
+	\text{renglón } 3 & \leftarrow & \text{renglón } 3 - L_{32} \times \text{renglón } 2 & (\text{elimina } A_{32})
+	\end{array} \]
+\fontsize{14}{14}\selectfont
+dejando al final:
+\[ \mathbf{A}^{\prime \prime} = \left[
+	\begin{array}{l l l}
+		U_{11} & U_{12} & U_{13} \\
+		0 & U_{22} & U_{23} \\
+		0 & 0 & U_{33}
+	\end{array} \right] \]
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición de Doolittle}
+Del ejemplo vemos dos características importantes del proceso de descomposición de Doolittle:
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item La matriz $\mathbf{U}$ es idéntica a la matriz triangular inferior que resulta del proceso de eliminación de Gauss.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición de Doolittle}
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\conti
+\item Los elementos fuera de la diagonal de $\mathbf{L}$ son multiplicadores de la ecuación pivote que se utilizan durante la eliminación de Gauss, es decir, $L_{ij}$ es el multiplicador que elimina el elemento $A_{ij}$.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición de Doolittle}
+Es una práctica habitual almacenar los multiplicadores en la parte triangular inferior de la matriz de coeficientes, re-emplazando los coeficientes ya que se eliminaron ($L_{ij}$ sustituye a $A_{ij}$)
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición de Doolittle}
+Los elementos diagonales de $L$ no tienen que guardarse, ya que se entiende que cada uno de ellos es la unidad.
+\\
+\bigskip
+La forma final de la matriz de coeficientes sería una mezcla de $L$ y $U$:
+\[ [\mathbf{L \backslash U} ] =
+	\begin{bmatrix}
+		U_{11} & U_{12} & U_{13} \\
+		L_{21} & U_{22} & U_{23} \\
+		L_{31} & L_{32} & U_{33}
+	\end{bmatrix} \]
+\end{frame}
+\subsubsection{Fase de eliminación Doolittle}
+\begin{frame}[fragile]
+\frametitle{Fase de eliminación Doolittle}
+El algoritmo para la descomposición de Doolittle es idéntico al procedimiento de eliminación de Gauss, excepto por que cada multiplicador $\lambda$ se almacena en la parte triangular inferior de $A$.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Algortimo de Doolittle}
+\begin{lstlisting}[caption=Código para obtener las matrices LU, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+for k in range(_0_, n-_1_):
+    for i in range(k+_1_, n):
+        if a[i,k] != 0.0:
+            lam = a[i, k]/a[k, k]
+            a[i, k+_1_:n] = a[i, k+_1_:n] - lam * a[k, k+_1_:n]
+            a[i,k] = lam
+\end{lstlisting}
+\end{frame}
+\subsubsection{Fase de solución Doolittle}
+\begin{frame}
+\frametitle{Fase de solución Doolittle}
+Considera ahora la fase de solución $Ly=b$ por sustitución hacia adelante. La forma escalar de las ecuaciones es (recuerda que $L_{ii}=1$):
+\begin{align*}
+		y_{1} &= b_{1} \\
+		L_{21}y_{1}+y_{2} &=  b_{2} \\
+		\vdots \\
+		L_{k1}y_{1} + L_{k2}y_{2} + \ldots + L_{k,k+1} y_{k-1} + y_{k} &= b_{k} \\
+		\vdots
+\end{align*}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Fase de solución Doolittle}
+Resolviendo la $k$-ésima ecuación, tenemos
+\[ y_{k} = b_{k} - \sum_{j=1}^{k - 1} L_{kj}y_{j} \hspace{1cm} k=2,3,\ldots,n\]
+\begin{lstlisting}[caption=Fase de solución, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+y[_0_] = b[_0_]
+for k in range(_1_, n):
+    y[k] = b[k] - dot(a[k, _0_:k], y[_0_:k])
+\end{lstlisting}
+\end{frame}
+%\section{Ejercicios}
+\begin{frame}
+\frametitle{Ejercicio 1}
+Resuelve con el método de Doolittle, $A \: x = b$ donde
+\[ A =
+	\begin{bmatrix}
+		-3 & 6 & -4 \\
+		9 & -8 & 24 \\
+		-12 & 24 & -26 
+	\end{bmatrix}
+	\hspace{1.5cm} b =
+	\begin{bmatrix}
+		-3 \\
+		65 \\
+		-42
+	\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio 2. Para entregar.}
+Resuelve con el método de Doolittle, $A \: X = B$ donde
+\[ A = 
+	\begin{bmatrix}
+		4 & -3 & 6 \\
+		8 & -3 & 10 \\
+		-4 & 12 & -10 
+	\end{bmatrix}
+	\hspace{1.5cm} B =
+	\begin{bmatrix}
+		1 & 0 \\
+		0 & 1 \\
+		0 & 0
+	\end{bmatrix} \]
+\end{frame}
+%\subsection{Solución a los ejercicios}
+%\subsubsection{Ejercicio 1}
+%\begin{frame}
+%\frametitle{Solución a los ejercicios}
+%Tenemos el problema:
+%\\
+%\bigskip
+%Resuelve con el método de Doolittle, $Ax=b$ donde
+%\[ A = 
+%	\begin{bmatrix}
+%		-3 & 6 & -4 \\
+%		9 & -8 & 24 \\
+%		-12 & 24 & -26 
+%	\end{bmatrix}
+%	\hspace{1.5cm} b =
+%	\begin{bmatrix}
+%		-3 \\
+%		65 \\
+%		-42
+%	\end{bmatrix} \]
+%\end{frame}
+%\begin{frame}[fragile]
+%Con lo que tendremos una matriz tipo $L$, en donde se han almacenado los multiplicadores:
+%\begin{verbatim}
+%[[ -3.   6.   4.]
+% [ -3.  10.  12.]
+% [  4.   0. -10.]]
+%\end{verbatim}
+%Para esta parte no se ha ocupado la matriz $b$
+%\end{frame}
+%\begin{frame}[fragile]
+%\frametitle{Fase de descomposición}
+%Mencionamos que el método de Doolittle, se basa en el de eliminación de Gauss, por lo que inicia con una fase de eliminación:
+%\begin{lstlisting}
+%for k in range(0,n-1):
+%    for i in range(k+1,n):
+%        if a[i,k] != 0.0:
+%            lam = a [i,k]/a[k,k]
+%            a[i,k+1:n] = a[i,k+1:n] - lam*a[k,k+1:n]
+%            a[i,k] = lam
+%\end{lstlisting}
+%La última línea almacena los multiplicadores en la parte inferior de la matriz.
+%\end{frame}
+%\begin{frame}[fragile]
+%\frametitle{Solución hacia adelante para obtener y}
+%Ahora el proceso consiste en resolver para $y$, tomando la matriz aumentada y mediante una sustitución hacia adelante:
+%\[ [ L \backslash b ] = \left[ 
+%	\begin{array}{c c c |c}
+%		1. & 0. & 0 & -3 \\
+%		-3. &  1. & 0 & 65 \\
+%		4. &  0. & 1. & -42
+%	\end{array} \right] \]
+%\begin{lstlisting}
+%for k in range(1,n):
+%    b[k] = b[k] - dot(a[k,0:k],b[0:k])
+%\end{lstlisting}
+%\end{frame}
+%\begin{frame}
+%Lo que nos devuelve la solución:
+%\[ \begin{split}
+%		y_{1} =& -3 \\ 
+%		y_{2} =& 65 - 3y_{1} = 56 \\
+%		y_{3} =& 42 - 4y_{1} = -30
+%	\end{split} \]
+%Esta solución la ocupamos ahora para resolver $x$ de la matriz $U$, por sustitución hacia atrás:
+%\[ [ U \backslash y ] = \left[
+%	\begin{array}{c c c |c}
+%		-3. & 6. & -44. & -3 \\
+%		0. &  10. & 12 & 56 \\
+%		0. &  0. & -10. & -30
+%	\end{array} \right] \]
+%\end{frame}
+%\begin{frame}[fragile]
+%\[ [ U \backslash y ] = \left[
+%	\begin{array}{c c c |c}
+%		-3. & 6. & -44. & -3 \\
+%		0. &  10. & 12 & 56 \\
+%		0. &  0. & -10. & -30
+%	\end{array} \right] \]
+%Que con el algoritmo de sustitución hacia adelante, obtenemos los valores de \textbf{x}:
+%\begin{lstlisting}
+%for k in range(n-1,-1,-1):
+%        b[k] = (b[k] - dot(a[k,k+1:n],b[k+1:n]))/a[k,k]
+%    return b
+%\end{lstlisting}
+%\end{frame}
+%\begin{frame}
+%Resultando entonces:
+%\[ \begin{split}
+%		x_{3} =& \dfrac{-30}{-10} = 3\\
+%		x_{2} =& \dfrac{-56 -12 y_{3}}{10} = 2\\
+%		x_{1} =& \dfrac{-3 +4y_{3} -6 y_{2}}{-3} = 1
+%	\end{split} \]
+%Por lo que la solución al problema es:
+%\[ x = [1, 2, 3]^{T}\]
+%\end{frame}
+%\begin{frame}[fragile]
+%El código sería:
+%\begin{lstlisting}
+%from numpy import *
+%
+%def LUdescomp(a):
+%    n = len(a)
+%    
+%    for k in range(0,n-1):
+%        for i in range(k+1,n):
+%            if a[i,k] != 0.0:
+%                lam = a [i,k]/a[k,k]
+%                a[i,k+1:n] = a[i,k+1:n] - lam*a[k,k+1:n]
+%                a[i,k] = lam
+%    return a
+%\end{lstlisting}
+%\end{frame}
+%\begin{frame}[fragile]
+%\begin{lstlisting}
+%def LUsoluc(a,b):
+%    n = len(a)
+%    for k in range(1,n):
+%        b[k] = b[k] - dot(a[k,0:k],b[0:k])
+%
+%    for k in range(n-1,-1,-1):
+%        b[k] = (b[k] - dot(a[k,k+1:n],b[k+1:n]))/a[k,k]
+%    return b
+%
+%a = array([[-3.,6,-4],[9,-8,24],[-12,24,-26]])
+%b = array([-3.,65,-42])
+%a= LUdescomp(a)
+%determinante = linalg.det(a)
+%print 'El determinante es =', determinante
+%
+%x = LUsoluc(a,b)
+%print x
+%\end{lstlisting}
+%\end{frame}
+%%\subsubsection{Ejercicio 2}
+%\begin{frame}[fragile]
+%Para el problema 2:Resuelve con el método de Doolittle, $AX=B$ donde
+%\[ A = 
+%	\begin{bmatrix}
+%		4 & -3 & 6 \\
+%		8 & -3 & 10 \\
+%		-4 & 12 & -10 
+%	\end{bmatrix}
+%	\hspace{1.5cm} B =
+%	\begin{bmatrix}
+%		1 & 0 \\
+%		0 & 1 \\
+%		0 & 0
+%	\end{bmatrix} \]
+%Como tenemos ahora dos vectores constantes $b_{1}$ y $b_{2}$, hay que ajustar un poco el código anterior.
+%\end{frame}
+%\begin{frame}[fragile]
+%La modificación queda al momento de indicar el vector constante:
+%\begin{lstlisting}
+%while 1:
+%    print '\nTeclea el vector constante entre [] y valores separados por comas (Teclea Enter para salir) :'
+%    try:
+%        b = array(eval(raw_input('==> ')),dtype=float64)
+%    except SyntaxError: break
+%    x = LUsoluc(a,b)
+%    print 'La solucion es :\n',x
+%raw_input('\nTeclea Enter para salir')
+%\end{lstlisting}
+%Aquí debemos de proporcionar el vector constante de manera manual, ¿cómo podrías resolverlo desde el código?
+%\end{frame}
+\section{Descomposición de Choleski}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Descripción del método}
+\begin{frame}
+\frametitle{Descomposición de Choleski}
+La descomposición de Choleski $\mathbf{A = L \: L}^{T}$ tiene dos limitaciones:
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Dado que $\mathbf{L \: L}^{T}$ devuelve siempre una matriz simétrica, la descomposición de Choleski requiere que la matriz $\mathbf{A}$ sea simétrica.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición de Choleski}
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\conti
+\item El proceso de descomposición implica tomar raíces cuadradas de ciertas combinaciones de la elementos de $\mathbf{A}$.
+\\
+\bigskip
+Se puede demostrar que, para evitar los valores negativos de las raíces, la matriz $\mathbf{A}$ debe de ser definita positiva.
+\end{enumerate}
+\end{frame}
+\subsection*{Matriz definida positiva}
+\begin{frame}
+\frametitle{Definición de matriz definida positiva}
+Se dice que una matriz $\mathbf{M}$ es definida positiva, si para todo vector no nulo $x$, se tiene que
+\[ x^{T} \: M \: x > 0 \]
+cumpliendo esto, también se cumple que, todos los eigenvalores de $M$, son positivos (definición alterna).
+\end{frame}
+\subsection*{Desventaja con Choleski}
+\begin{frame}
+\frametitle{Desventaja del método de Choleski}
+Aunque el número de multiplicaciones en todos los métodos de descomposición es el mismo, la descomposición de Choleski no es tan popular en la solución de ecuaciones simultáneas, debido a las restricciones mencionadas anteriormente.
+\end{frame}
+\subsection{Factorización de Choleski}
+\begin{frame}
+\frametitle{El proceso de factorización de Choleski}
+Consideremos la matriz $\mathbf{A}$ de $3 \times 3$
+\[\mathbf{A = L \: L^{T}}\]
+tal que
+\[ \begin{bmatrix}
+		A_{11} & A_{12} & A_{13} \\
+		A_{21} & A_{22} & A_{23} \\
+		A_{31} & A_{32} & A_{33}
+	\end{bmatrix}
+	= \begin{bmatrix}
+		L_{11} & 0      & 0 \\
+		L_{21} & L_{22} & 0 \\
+		L_{31} & L_{32} & L_{33}
+	\end{bmatrix}
+	\begin{bmatrix}
+		L_{11} & L_{21} & L_{31} \\
+		0      & L_{22} & L_{32} \\
+		0      & 0      & L_{33}
+	\end{bmatrix} \]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Factorización de Choleski}
+Luego de resolver la multiplicación del lado derecho, resulta
+\fontsize{12}{12}\selectfont
+\[ 
+	\begin{bmatrix}
+		A_{11} & A_{12} & A_{13} \\
+		A_{21} & A_{22} & A_{23} \\
+		A_{31} & A_{32} & A_{33}
+	\end{bmatrix} = \]
+\\
+\[ =
+	\left [ \begin{array}{l l l}
+		L_{11}^{2} & L_{11}L_{21} & L_{11}L_{31} \\
+		L_{11}L_{21} & L_{21}^{2} + L_{22}^{2} & L_{21}L_{31} + L_{22}L_{32} \\
+		L_{11}L_{31} & L_{21}L_{31} + L_{22}L_{32} & L_{31}^{2} + L_{32}^{2} + L_{33}^{2}
+	\end{array} \right]  \]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Factorización de Choleski}
+Vemos que la matriz del lado derecho es simétrica.
+\fontsize{12}{12}\selectfont
+\[
+	\left [ \begin{array}{l l l}
+		L_{11}^{2} & L_{11}L_{21} & L_{11}L_{31} \\
+		L_{11}L_{21} & L_{21}^{2} + L_{22}^{2} & L_{21}L_{31} + L_{22}L_{32} \\
+		L_{11}L_{31} & L_{21}L_{31} + L_{22}L_{32} & L_{31}^{2} + L_{32}^{2} + L_{33}^{2}
+	\end{array} \right]  \]
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Al igualar las matrices $\mathbf{A}$ y $\mathbf{L \: L}^{T}$ elemento a elemento, tendremos seis ecuaciones (revisando que hay simetría en los elementos triangulares superiores e inferiores)
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Consideremos la parte triangular inferior de cada matriz, al igualar los elementos de la primera columna, empezando por la primera fila y hacia abajo:
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Calculando $L_{11}$, $L_{21}$ y $L_{31}$ en ese orden:
+\[ \begin{array}{l l l l l}
+		A_{11} & {=L_{11}^{2}}   & \rightarrow & L_{11} & {=\sqrt{A_{11}}} \\
+		&                 &             &        &  \\
+		A_{21} & {=L_{11}L_{21}} & \rightarrow & L_{21} & {=\dfrac{A_{21}}{L_{11}}} \\
+		&                 &             &        &  \\
+		A_{31} & {=L_{11}L_{31}} & \rightarrow & L_{31} & {=\dfrac{A_{31}}{L_{11}}}
+	\end{array} \]
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+De la segunda columna, iniciamos con la segunda fila, para obtener $L_{22}$ y $L_{32}$:
+\[ \begin{array}{l l l l l}
+		A_{22} & {=L_{21}^{2}+L_{22}^{2}}   & \rightarrow & L_{22} & {=\sqrt{A_{22}-L_{21}^{2}}} \\
+       			&                 &             &        &  \\
+		A_{32} & {=L_{21}L_{31}+L_{22}L_{32}} & \rightarrow & L_{32} & {=\dfrac{A_{32}-L_{21}L_{31}}{L_{22}}} \\
+	\end{array} \]
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Finalmente con la tercera columna y de la tercera fila, obtenemos $L_{33}$:
+\[ \begin{array}{l l l l l}
+		A_{33} & {=L_{31}^{2}+L_{32}^{2}+L_{33}^{2}} & \rightarrow & L_{33} & {=\sqrt{A_{33}-L_{31}^{2}-L_{32}^{2}}}
+\end{array} \]
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Podemos extrapolar los resultados para una matriz de $n \times n$.
+\\
+\bigskip
+Para un elemento en la parte triangular inferior de $\mathbf{LL}^{T}$ resulta:
+\[ \begin{split}
+	\mathbf{LL}^{T}_{ij}=& L_{i1}L_{j1} + L_{i2}L_{j2} + \ldots + L_{ij}L_{jj} = \\
+	=& \sum_{k=1}^{j} L_{ik}L_{jk} \hspace{1.5cm} i \geq j \end{split} \]
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Igualando los términos para los correspondientes elementos de $\mathbf{A}$:
+\[ A_{ij} = \sum_{k=1}^{j} L_{ik}K_{jk} \hspace{0.6cm} i=j,j+1,\ldots,n, \hspace{1cm} j=1,2,\ldots,n \]
+El intervalo de índices de los elementos mostrados limita a la parte triangular inferior. 
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Para la primera columna ($j = 1$), obtenemos de la ecuación anterior:
+\[ L_{11} = \sqrt{A_{11}} \hspace{1.5cm} L_{i1} = \dfrac{A_{1j}}{L_{11}}, \hspace{0.5cm} i=2,3,\ldots, n\]
+\\
+\bigskip
+Continuando con las otras columnas, vemos que la incógnita en la ecuación es $L_{ij}$ (los otros elementos de $\mathbf{L}$ que aparecen en la ecuación, ya han sido calculados). 
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Tomando el término que incluye a $L_{ij}$ fuera de la suma de la ecuación para los elementos de $\mathbf{A}$ tenemos:
+\[ A_{ij} = \sum_{k=1}^{j-1} L_{ik}L_{jk} + L_{ij}L_{jj} \]
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Si $i = j$ (un elemento de la diagonal), la solución es:
+\[ L_{jj} = \sqrt{A_{jj} - \sum_{k=1
+}^{j-1}L_{jk}^{2}} \hspace{1cm} j=2,3,\ldots, n \]
+\end{frame}
+\begin{frame}
+\frametitle{Factorización de Choleski}
+Para un elemento que no está en la diagonal:
+\begin{equation*}
+ L_{ij} = \dfrac{\left( A_{ij} - \sum\limits_{k = 1}^{j-1} \: L_{ik} \: L_{jk} \right)}{L_{jj}}
+ \end{equation*}
+donde 
+\[ j=2,3,\ldots,n-1, \hspace{0.5cm} i=j+1,j+2,\ldots,n \]
+\end{frame}
+\subsection{Implementación del código}
+\begin{frame}
+\frametitle{Implementación del código}
+Antes de presentar el algoritmo de descomposición de Choleski, hacemos una observación útil: $A_{ij}$ aparece sólo en la fórmula de $L_{ij}$.
+\end{frame}
+\begin{frame}
+\frametitle{Implementación del código}
+Por lo tanto, una vez que $L_{ij}$ se ha calculado, $A_{ij}$ ya no se necesita.
+\\
+\bigskip
+Esto hace que sea posible escribir los elementos de $\mathbf{L}$ sobre la parte triangular inferior de $\mathbf{A}$, cuando se calculan. 
+\end{frame}
+\begin{frame}
+\frametitle{Implementación del código}
+Los elementos de la diagonal principal de $\mathbf{A}$ permanecerán intactos. 
+\\
+\bigskip
+Si se encuentra un elemento  negativo en la diagonal durante la descomposición, se presenta un mensaje de error y el programa termina.
+\end{frame}
+\begin{frame}[plain, fragile]
+\begin{lstlisting}[caption=Algoritmo para la factorización con Choleski, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+def choleski(a):
+    n = len(a)
+    for k in range(n):
+        try:
+            a[k,k] = sqrt(a[k,k] - dot(a[k,_0_:k],a[k,_0_:k]))
+        except ValueError:
+            err('La matriz no es definida positiva')
+        for i in range(k+_1_,n):
+            a[i,k] = (a[i,k] - dot(a[i,_0_:k],a[k,_0_:k]))/a[k,k]
+    for k in range(_1_,n): a[_0_:k,k] = 0.0
+    return a
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Pendientes para revisión del código}
+Como se hizo con la descomposición de Doolittle, se han incluido las rutinas para sustituir hacia adelante y hacia atrás para obtener la solución final del sistema.
+\\
+\bigskip
+Revisa el código correspondiente del módulo.
+\end{frame}
+\subsection*{Ejercicio 1}
+\begin{frame}
+\frametitle{Ejercicio 1}
+Resuelve el siguiente sistema mediante la factorización de Choleski
+\[ \mathbf{A} =
+	\begin{bmatrix}
+		 1 & 1 & 1 \\
+		 1 & 2 & 2 \\
+		 1 & 2 & 3
+	\end{bmatrix}
+	\hspace{1cm}
+	\mathbf{b}=
+	\begin{bmatrix}
+		1 \\
+		3/2 \\
+		3
+	\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio 1}
+Al usar el algoritmo de la descomposición de Choleski, tenemos las matrices $LL^{T}$
+\[ L = 
+\begin{pmatrix}
+1. & 0. & 0. \\
+1. & 1. & 0. \\
+1. & 1. & 1.
+\end{pmatrix}
+ \]
+\[ L^{T} = 
+\begin{pmatrix}
+1. & 1. & 1. \\
+0. & 1. & 1. \\
+0. & 0. & 1.
+\end{pmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio 1}
+Ahora bien, hay que resolver primero en sustitución hacia adelante el sistema $L*b = c$
+\[ c = 
+\begin{pmatrix}
+1. & 0. & 0. \\
+1. & 1. & 0. \\
+1. & 1. &  1.
+\end{pmatrix}
+\begin{pmatrix}
+1 \\
+3/2 \\
+3
+\end{pmatrix}\]
+donde $c=[1,0.5,1.5]$
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio 1}
+Para finalizar, hacemos ahora la sustitución hacia adelante con el sistema $L^{T}*x = c$
+\[ x = 
+\begin{pmatrix}
+1. & 1. & 1. \\
+0. & 1. & 1. \\
+0. & 0. & 1.
+\end{pmatrix}
+\begin{pmatrix}
+1.0 \\
+0.5 \\
+1.5
+\end{pmatrix}\]
+Y el resultado es: $x=[0.5,-1.,1.5]$
+\end{frame}
+\subsection*{Ejercicio 2}
+\begin{frame}
+\frametitle{Ejercicio 2. Para entregar.}
+Prueba la función Choleski para descomponer la siguiente matriz
+\begin{equation*}
+\mathbf{A} =
+\begin{bmatrix}
+1.44 & -0.36 & 5.52 & 0.00 \\
+-0.36 & 10.33 & -7.78 & 0.0 \\
+5.52 & -7.78 & 28.40 & 9.00 \\
+0.00 & 0.00 & 9.00 & 61.00 
+\end{bmatrix}
+\end{equation*}
+\end{frame}
+\begin{frame}
+\frametitle{Sugerencia para la solución}
+Verifica previamente que los valores propios de la matriz, son todos positivos, usando la respectiva función de \python{} que nos devuelve los \emph{eigenvalores}.
+\\
+\bigskip
+\pause
+Posteriormente revisa si recuperamos la matriz inicial $\mathbf{A}$ al multiplicar por la matriz transpuesta, es decir $\mathbf{L} * \mathbf{L}^{T}$.
+\end{frame}
+\section{M. con coeficientes simétricos y en banda}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición de matrices especiales}
+\begin{frame}
+\frametitle{Coeficientes simétricos y en banda}
+Algunos problemas en física e ingeniería plantean la necesidad de trabajar con matrices \emph{escasamente pobladas}, en inglés \emph{sparse}, donde la gran mayoría de los elementos de la matriz, son cero.
+\end{frame}
+\begin{frame}
+\frametitle{Coeficientes simétricos y en banda}
+Si todos los elementos no nulos de la matriz se ubican sobre la diagonal principal, se dice entonces que la matriz es una \emph{matriz en banda}.
+\end{frame}
+\begin{frame}
+\frametitle{Matriz tridiagonal}
+Sea la matriz
+\[ A = \begin{bmatrix}
+X & X & 0 & 0 & 0 \\
+X & X & X & 0 & 0 \\
+0 & X & X & X & 0 \\
+0 & 0 & X & X & X \\
+0 & 0 & 0 & X & X
+\end{bmatrix}\]
+\end{frame}
+\begin{frame}
+\frametitle{Matriz tridiagonal}
+En donde $X$ indica un elemento no nulo, dando la forma de una banda (considera que algunos de éstos elementos, aún así, pueden ser cero).
+\\
+\bigskip
+Todos los demás elementos fuera de la banda, son nulos.
+\end{frame}
+\begin{frame}
+\frametitle{Propiedades de las matrices \textbf{L} y \textbf{U}}
+Si una matriz en banda se descompone de la forma $\mathbf{A} = \mathbf{L} \mathbf{U}$, donde $\mathbf{L}$ y $\mathbf{U}$ mantienen la estructura en banda de $\mathbf{A}$, por ejemplo, si descomponemos la matriz mostrada anteriormente, obtendremos:
+\end{frame}
+\begin{frame}
+\frametitle{Propiedades de las matrices \textbf{L} y \textbf{U}}
+\[ \mathbf{L} = \begin{bmatrix}
+X & 0 & 0 & 0 & 0 \\
+X & X & 0 & 0 & 0 \\
+0 & X & X & 0 & 0 \\
+0 & 0 & X & X & 0 \\
+0 & 0 & 0 & X & X
+\end{bmatrix} \hspace{0.75cm}
+\mathbf{U} = \begin{bmatrix}
+X & X & 0 & 0 & 0 \\
+0 & X & X & 0 & 0 \\
+0 & 0 & X & X & 0 \\
+0 & 0 & 0 & X & X \\
+0 & 0 & 0 & 0 & X
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Propiedades de las matrices \textbf{L} y \textbf{U}}
+La estructura en banda de una matriz de coeficientes pues aprovecharse para guardar valores y reducir el tiempo de cálculo. 
+\\
+\medskip
+Si la matriz es de coeficientes, y además es simétrica, la economía de operaciones sobre la misma, es mayor.
+\end{frame}
+\section{Matriz de coeficientes tridiagonal}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection*{Definición de la matriz}
+\begin{frame}
+\frametitle{Matriz de coeficientes tridiagonal}
+Considera la solución de un sistema $\mathbf{A}x = \mathbf{b}$ mediante la descomposición de Doolittle, donde $\mathbf{A}$ es una matriz triadiagonal de $n\times n$
+\end{frame}
+\begin{frame}
+\frametitle{Matriz de coeficientes tridiagonal}
+\[ \mathbf{A} =  \begin{bmatrix}
+d_{1} & e_{1} & 0 & 0 & \ldots & 0 \\
+c_{1} & d_{2} & e_{2} & 0 & \ldots & 0 \\
+0 & c_{2} & d_{3} & e_{3} & \ldots & 0 \\
+0 & 0 & c_{3}& d_{4} & \ldots & 0 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & 0 & c_{n-1} & d_{n}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Matriz de coeficientes tridiagonal}
+Como la notación lo indica, podemos almacenar los elementos no nulos de $\mathbf{A}$ en los vectores
+\[ \mathbf{c} = \begin{bmatrix}
+c_{1} \\
+c_{2} \\
+\vdots \\
+c_{n-1}
+\end{bmatrix}
+\hspace{1cm}
+\mathbf{d} = \begin{bmatrix}
+d_{1} \\
+d_{2} \\
+\vdots \\
+d_{n-1} \\
+d_{n}
+\end{bmatrix}
+\hspace{1cm}
+\mathbf{e} = \begin{bmatrix}
+e_{1} \\
+e_{2} \\
+\vdots \\
+e_{n-1}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Matriz de coeficientes tridiagonal}
+El ahorro resultante de almacenamiento puede ser significativo.
+\\
+\bigskip
+Por ejemplo, una matriz tridiagonal de $100 \times 100$, contiene $10000$ elementos, que pueden almacenarse en solo $99+100+99=298$ entradas, lo cual representa una compresión de $33:1$.
+\end{frame}
+\subsection{Descomposición LU}
+\begin{frame}
+\frametitle{Descomposición LU}
+Apliquemos ahora la descomposición $\mathbf{L\: U}$ a la matriz de coeficientes.
+\\
+\medskip
+Podemos reducir el renglón $k$ eliminando $c_{k-1}$ con la operación elemental
+\[ \mbox{renglón } k \leftarrow \mbox{ renglón } k - \left( \dfrac{c_{k-1}}{d_{k-1}} \right) \times \mbox{ renglón } (k-1), \hspace{1cm} k= 2, 3,\ldots,n \]
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición LU}
+El cambio en $d_{k}$ es
+\[ d_{k} \leftarrow d_{k} - \left( \dfrac{c_{k-1}}{d_{k-1}} \right) e_{k-1}\]
+donde $e_{k}$ no se ve afectado.
+\end{frame}
+\begin{frame}
+\frametitle{Descomposición LU}
+Para finalizar la descomposición de Doolittle de la forma $[\mathbf{L} \backslash \mathbf{U} ]$, guardamos el multiplicador $\lambda = c_{k-1}/d_{k-1}$, en la posición previamente ocupada por $c_{k-1}$:
+\[ c_{k-1} \leftarrow \dfrac{c_{k-1}}{d_{k-1}}\]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Algoritmo de descomposición}
+\begin{lstlisting}[caption=Descomposición LU, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+for k in range(_1_, n):
+    lam = c[k-_1_]/d[k-_1_]
+    d[k] = d[k] - lam * e[k -_1_]
+    c[k-_1_] = lam
+\end{lstlisting}
+\end{frame}
+\subsection{Fase de solución}
+\begin{frame}
+\frametitle{Fase de solución}
+La fase de solución viene dada por $\mathbf{L}y = \mathbf{b}$, seguida por $\mathbf{U}x = \mathbf{y}$.
+\\
+\medskip
+Las ecuaciones $\mathbf{L} y = \mathbf{b}$ pueden interpretarse como la matriz de coeficientes aumentada.
+\end{frame}
+\begin{frame}
+\frametitle{Fase de solución}
+\[  [\mathbf{L} \backslash \mathbf{b}] =
+\begin{bmatrix}
+1 & 0 & 0 & 0 & \ldots & 0 & b_{1} \\
+c_{1} & 1 & 0 & 0 & \ldots & 0 & b_{2} \\
+0 & c_{2} & 1 & 0 & \ldots & 0 & b_{3} \\
+0 & 0 & c_{3} & 1 & \ldots & 0 & b_{4} \\
+\vdots & \vdots & \vdots & \vdots & \ldots & 0 & \vdots \\
+0 & 0 & \ldots & 0 & c_{n-1} & 1 & b_{n}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Fase de solución}
+Nótese que los valores originales de $\mathbf{c}$, se destruyen y se reemplazan por los multiplicadores durante la descomposición.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Fase de solución}
+El algoritmo de solución para $y$, por sustitución hacia adelante es:
+\begin{lstlisting}[caption=Sustitución hacia adelante, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+y[_0_] = b[_0_]
+for k in range(_1_, n):
+    y[k] = b[k] - c[k-_1_] * y[k-_1_]
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Fase de solución}
+La matriz de coeficientes aumentada, representada por $\mathbf{U}x = \mathbf{y}$ es
+\[  [\mathbf{U} \backslash \mathbf{y}] =
+\begin{bmatrix}
+d_{1} & e_{1} & 0 & \ldots & 0 & 0 & y_{1} \\
+0 & d_{2} & e_{2} & \ldots & 0 & 0 & y_{2} \\
+0 & 0 & d_{3} & \ldots & 0 & 0 & y_{3} \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots \\
+0 & 0 & 0 & \ldots & d_{n-1} & e_{n-1} & y_{n-1} \\
+0 & 0 & 0 & \ldots & 0 & d_{n} & y_{n}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Fase de solución}
+Revisemos que los valores de $d$ se modificaron durante la fase de descomposición (pero los valores de $e$ se mantienen).
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Fase de solución}
+La solución para $\mathbf{x}$ se obtiene con sustitución hacia atrás, con el algoritmo
+\begin{lstlisting}[caption=Sustitución hacia atrás, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+x[n-_1_] = y[n-_1_]/d[n-_1_]
+for k in range(n-_2_, -_1_, -_1_):
+    x[k] = (y[k] - e[k] * x[k+_1_]) / d[k]
+\end{lstlisting}
+\end{frame}
+\subsection{Algortimo LUdescomp3}
+\begin{frame}
+\frametitle{Algortimo LUdescomp3}
+El siguiene módulo contiene las funciones \funcionazul{LUdescomp3} y \funcionazul{LUsoluc3} para la fase de descomposición y solución para una matriz tridiagonal.
+\end{frame}
+\begin{frame}
+\frametitle{Algortimo LUdescomp3}
+En \funcionazul{LUsoluc3}, el vector $y$ se escribe sobre el vector constante $b$ en la fase de sustitución hacia atrás.
+\\
+\bigskip
+De manera análoga el vector $x$ se sobreescribe en $y$ durante la sustitución hacia atrás. En $\mathbf{b}$ se almacena la solución que devuelve \funcionazul{LUsoluc3}.
+\end{frame}
+\begin{frame}[plain, allowframebreaks, fragile]
+\frametitle{Algoritmo}
+\begin{lstlisting}[caption=Algoritmo para la solución tridiagonal, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+def LUdescomp_3_(c, d, e):
+    n = len(d)
+    for k in range(_1_, n):
+        lam = c[k-_1_]/d[k-_1_]
+        d[k] = d[k] - lam * e[k-_1_]
+        c[k-_1_] = lam
+    return c, d, e
+    
+def LUsoluc_3_(c, d, e, b):
+    n = len(d)
+
+    for k in range(_1_, n):
+        b[k] = b[k] - c[k-_1_] * b[k-_1_]
+    b[n-_1_] = b[n-_1_]/d[n-_1_]
+
+    for k in range(n-_2_, -_1_, -_1_):
+        b[k] = (b[k] - e[k] * b[k+_1_])/d[k]
+    return b
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Usando las funciones \funcionazul{LUdescomp3} y \funcionazul{LUsoluc3}, resuelve el sistema $\mathbf{A \: x} = \mathbf{b}$, donde
+\begin{equation*} 
+\mathbf{A} =  \begin{bmatrix}
+2 & -1 & 0 & 0 & 0 \\
+-1 & 2 & -1 & 0 & 0 \\
+0 & -1 & 2 & -1 & 0 \\
+0 & 0 & -1 & 2 & -1 \\
+0 & 0 & 0 & -1 & 2
+\end{bmatrix}
+\hspace{1cm}
+\mathbf{b} =
+\begin{bmatrix}
+5 \\
+-5 \\
+4 \\
+-5 \\
+5
+\end{bmatrix}
+\end{equation*}
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué necesitamos?}
+Se requiere almacenar los arreglos $\mathbf{c}$, $\mathbf{d}$ y $\mathbf{e}$ para utilizarlos, hay que tomar en cuenta que en particular, la matriz $\mathbf{A}$ de nuestro ejercicio es:
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Simétrica.
+\item Tridiagonal.
+\item Los elementos de $\mathbf{c}$, $\mathbf{d}$ y $\mathbf{e}$ son los mismos, lo que no quiere decir que así sean todos los problemas, pero nos facilita para éste ejercicio la manera en que podemos crearlos.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Creando los vectores columna}
+Del Tema 0 que presentamos al inicio del curso, se revisaron algunas funciones particulares para el manejo de arreglos, una de ellas es la función \azulfuerte{\texttt{ones}} de la librería \texttt{numpy}.
+\\
+\medskip
+Lo que nos devuelve la función \azulfuerte{\texttt{ones(n)}} es un arreglo de $n$ elementos, donde todos ellos valen $1$. 
+\end{frame}
+\begin{frame}
+\frametitle{Creando los vectores columna}
+Nuestra tarea será ahora modificar este arreglo para nuestro ejercicio. 
+\\
+\medskip
+\emph{Nota: } En caso de que los elementos de los vectores $\mathbf{c}$, $\mathbf{d}$ y $\mathbf{e}$, sean diferentes, la construcción será diferente, por no decir \enquote{a mano}.
+\end{frame}
+\begin{frame}[plain, fragile]
+\frametitle{Código}
+\begin{lstlisting}[caption=Código completo para la solución tridiagonal, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+d = ones(_5_)*2.0
+c = ones(_4_)*(-1.0)
+b = array([5.0, -5.0, 4.0, -5.0, 5.0])
+e = c.copy()
+
+c, d, e = LUdescomp_3_(c,d,e)
+
+x = LUsoluc_3_(c,d,e,b)
+print ('x = ',x)
+\end{lstlisting}
+\pause
+La solución es: $x = [ 2. $ $-1.$ $1.$ $-1.$ $2.]$
+\end{frame}
+% \section{Métodos iterativos}
+% \begin{frame}
+% \frametitle{Métodos iterativos}
+% Hasta ahora, hemos discutido sólo los métodos directos de solución. La característica común de estos métodos es que calculan la solución con un número finito de operaciones.
+% \\
+% \medskip
+% Por otra parte, sabemos que si la computadora tuviera una precisión infinita (no hay errores de redondeo), la solución sería exacta.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Definición}
+% Los métodos indirectos o iterativos, comienzan con una estimación inicial de la solución de $x$ y luego mejoran repetidamente la solución hasta que el cambio en $x$ se hace insignificante.
+% \\
+% \medskip
+% Dado que el número requerido de iteraciones puede ser grande, los métodos indirectos son, en general, más lentos que sus homólogos directos. Sin embargo, los métodos iterativos tienen las siguientes ventajas que los hacen atractivos para ciertos problemas:
+% \end{frame}
+% \begin{frame}
+% \begin{enumerate}
+% \item Es factible para almacenar sólo los elementos distintos de cero de la matriz de coeficientes. Esto hace que sea posible para hacer frente a matrices muy grandes que son escasas, pero no necesariamente en bandas. En muchos problemas, no hay necesidad de almacenar la matriz de coeficientes en absoluto.
+% \item Hay procedimientos iterativos de auto-corrección, es decir, que los errores de redondeo (o incluso errores aritméticos) en un ciclo iterativo se corrigen en los ciclos posteriores.
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% Un serio inconveniente de los métodos iterativos es que no siempre convergen a la solución.
+% \\
+% \medskip
+% Se puede demostrar que la convergencia está garantizada sólo si la matriz de coeficientes es diagonal dominante.
+% \\
+% \medskip
+% La estimación inicial de $x$ no juega ningún papel en la determinación de si la convergencia se produce, si el procedimiento converge para un vector de partida, lo haría para cualquier vector de partida. La estimación inicial afecta sólo el número de iteraciones que son necesarias para la convergencia.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Definición de dominancia diagonal}
+% Una matriz $\mathbf{A}$ de $n \times n$ se dice que es \emph{diagonal dominante} si cada elemento de la diagonal es más grande que la suma de los otros elementos de la misma fila (estamos hablando aquí de valor absoluto.
+% \\
+% \medskip
+% Por lo tanto dominancia diagonal que requiere
+% \[ \vert A_{ii} \vert > \sum_{\substack{j=1 \\ j \neq i}}^{n} \vert A_{ij} \vert \hspace{1cm} (i=1,2,\ldots,n) \]
+% \end{frame}
+% \begin{frame}
+% \frametitle{Ejemplo de dominancia diagonal}
+% La matriz
+% \[ \begin{bmatrix}
+% -2 & 4 & -1 \\
+% 1 & -1 & 3 \\
+% 4 & 2 & 1
+% \end{bmatrix}\]
+% No es dominante diagonal, pero si reordenamos los renglones de la siguiente manera
+% \[ \begin{bmatrix}
+% 4 & -2 & 1 \\
+% -2 & 4 & -1 \\
+% 1 & -1 & 3
+% \end{bmatrix}\]
+% resulta ser diagonal dominante.
+% \end{frame}
+% \subsection{Método Gauss-Seidel}
+% \begin{frame}
+% \frametitle{Método Gauss-Seidel}
+% Las ecuaciones $\mathbf{A}x = \mathbf{b}$ en su forma escalar, son:
+% \[ \sum_{j=1}^{n} A_{ij} x_{j} = b_{i} \hspace{1cm} i=1,2,\ldots,n \]
+% Despejando el término que contiene a $x_{i}$ de la suma, obtenemos
+% \[ A_{ii} x_{i} + \sum_{\substack{j=1 \\ j \neq i}}^{n} A_{ij}x_{j} = b_{i} \hspace{1cm} i,2,\ldots,n \]
+% \end{frame}
+% \begin{frame}
+% Resolviendo para $x_{i}$, resulta
+% \[ x_{i} = \dfrac{1}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) \hspace{1cm} i=1,2,\ldots,n \]
+% \end{frame}
+% \begin{frame}
+% La ecuación anterior sugiere el siguiente esquema iterativo:
+% \[ x_{i}\leftarrow \dfrac{1}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) \hspace{1cm} i=1,2,\ldots,n \]
+% Iniciamos eligiendo un vector $x$. Si la suposición inicial no fue buena, podemos elegir de manera aleatoria a $x$.
+% \end{frame}
+% \begin{frame}
+% La ecuación anterior se utiliza nuevamente para calcular cada uno de los elementos de $x$, utilizando siempre los últimos valores disponibles de $x_{j}$. Esto completa un ciclo de iteración. El procedimiento se repite hasta que los cambios en $x$ con cada iteración sucesiva vuelven lo suficientemente pequeños.
+% \\
+% \medskip
+% Es posible mejorar la convergencia del método de Gauss-Seidel con una técnica conocida como \emph{relajación}.
+% \end{frame}
+% \begin{frame}
+% La idea es tomar un nuevo valor de $x_{i}$ como un promedio ponderado de su valor anterior y el valor predicho por la ecuación anterior. La correspondiente fórmula iterativa, es
+% \[  x_{i}\leftarrow \dfrac{\omega}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) + (1 - \omega) x_{i} \hspace{0.75cm} i=1,2,\ldots,n \]
+% donde $\omega$ es el \emph{factor de relajación}.
+% \end{frame}
+% \begin{frame}
+% Nótese que
+% \begin{enumerate}
+% \item  Si $\omega=1$, no se presenta la relajación.
+% \item Si $\omega<1$, la ecuación de relajación, representa una interpolación entre los valores anteriores de $x_{i}$ y el valor dado por la ecuación inicial. A esto se le llama \emph{subrelajación}.
+% \item Si $\omega>1$, tenemos una extrapolación o sobrerelajación.
+% \end{enumerate}
+% No hay ningún método práctico para determinar el valor óptimo de $\omega$ de antemano, sin embargo, una buena estimación se puede calcular en tiempo de ejecución.
+% \end{frame}
+% \begin{frame}
+% Sea
+% \[ \Delta x^{k} = \vert \mathbf{x}^{(k-1)} - \mathbf{x}^{(k)} \vert \]
+% la magnitud del cambio de $x$ durante la $k$-ésima iteración (sin relajación, i.e. $\omega=1$).
+% \\
+% \medskip
+% Si $k$ es lo suficientemente grande ($k\geqslant5$), se puede demostrar que una aproximación para el valor óptimo de $\omega$ es
+% \[ \omega_{\mbox{opt}} \simeq \dfrac{2}{1 + \sqrt{1- (\Delta x^{(k+p)} / \Delta x^{(k)})^{1/p}}} \]
+% donde $p$ es un entero positivo.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Elementos esenciales para el método de GS con relajación}
+% \begin{enumerate}
+% \item Realizar $k$ iteraciones con $\omega=1$ ($k=10$ es razonable). Luego de la $k$-ésima iteración, guardar $\Delta x^{(k)}$.
+% \item Ejecutar $p$ iteraciones adicionales y guardar $\Delta x^{(k+p)}$ en la última iteración.
+% \item Ejecutar las demás iteraciones con $\omega = \omega_{\mbox{opt}}$, donde $\omega_{\mbox{opt}}$ se calcula como se indicó anteriormente.
+% \end{enumerate}
+% \end{frame}
+% \subsubsection{Algorimto para Gauss-Seidel}
+% \begin{frame}
+% \frametitle{Algorimto para Gauss-Seidel}
+% La función \texttt{gaussSeidel} es una implementación del método de Gauss-Seidel con relajación. Se calcula automáticamente $\omega_{\mbox{opt}}$ utilizando $k = 10$ y $p = 1$.
+% \\
+% \medskip
+% El usuario debe proporcionar la función \texttt{iterEqs} que calcula la mejora de $x$ a partir de las fórmulas iterativas. La función devuelve el vector solución $x$, el número de iteraciones llevadas a cabo y el valor de $\omega_{\mbox{opt}}$ utilizado.
+% \end{frame}
+% \begin{frame}[fragile]
+% \begin{lstlisting}
+% def gaussSeidel(iterEqs,x,tol = 1.0e-9):
+%     omega = 1.0
+%     k = 10
+%     p = 1
+    
+%     for i in range(1,501):
+%         xVieja = x.copy()
+%         x = iterEqs(x,omega)
+%         dx = sqrt(dot(x-xVieja,x-xVieja))
+%         if dx < tol: return x,i,omega
+        
+%         if i == k: dx1 = dx
+%         if i == k + p:
+%             dx2 = dx
+%             omega = 2.0/(1.0 + sqrt(1.0 - (dx2/dx1)**(1.0/p)))
+% 	print 'No converge Gauss-Seidel'
+% \end{lstlisting} 
+% \end{frame}
+% \begin{frame}
+% \frametitle{Ejercicio}
+% Resolver el siguiente sistema de $n$ ecuaciones simultáneas por el método de Gauss-Seidel con relajación (el programa deberá resolver para cualquier valor de $n$)
+% \fontsize{12}{12}\selectfont
+% \[ \begin{bmatrix}
+% 2 & -1 & 0 & 0 & \ldots & 0 & 0 & 0 & 1 \\
+% -1 & 2 & -1 & 0 & \ldots & 0 & 0 & 0 & 0 \\
+% 0 & -1 & 2 & -1 & \ldots & 0 & 0 & 0 & 0 \\
+% \vdots & \vdots & \vdots & \vdots & & \vdots & \vdots & \vdots & \vdots \\
+% 0 & 0 & 0 & 0 & \ldots & -1 & 2 & -1 & 0 \\
+% 0 & 0 & 0 & 0 & \ldots & 0 & -1 & 2 & -1 \\
+% 1 & 0 & 0 & 0 & \ldots & 0 & 0 & -1 & 2 \\
+% \end{bmatrix}
+% \begin{bmatrix}
+% x_{1} \\
+% x_{2} \\
+% x_{3} \\
+% \vdots \\
+% x_{n-2} \\
+% x_{n-1} \\
+% x_{n} 
+% \end{bmatrix} = 
+% \begin{bmatrix}
+% 0 \\
+% 0 \\
+% 0 \\
+% \vdots \\
+% 0 \\
+% 0 \\
+% 1 
+% \end{bmatrix} \]
+% Ejecutar el programa con $n=20$, la solución exacta es $x_{i}= - \frac{n}{4} + \frac{i}{2}$, con $i=1,2,\ldots,n$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{¿Qué necesitamos?}
+% Necesitamos desarrollar las fórmulas iterativas a partir de:
+% \[  x_{i}\leftarrow \dfrac{\omega}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) + (1 - \omega) x_{i} \hspace{1cm} i=1,2,\ldots,n \]
+% Para $x_{1}$, tenemos
+% \[ \begin{split}
+% x_{1} =& \dfrac{\omega}{2} \left( (1)(x_{2})-(1)(x_{n}) \right) + (1-\omega)x_{1} \\
+% x_{1} =& \dfrac{\omega(x_{2}-x_{n})}{2} + (1 - \omega)x_{1}
+% \end{split} \]
+% \end{frame}
+% \begin{frame}
+% \[ \begin{split}
+% x_{1} =& \dfrac{\omega(x_{2}-x_{n})}{2} + (1 - \omega)x_{1} \\
+% \pause
+% x_{i} =& \dfrac{\omega(x_{i-1}+x_{i+1})}{2} + (1 - \omega)x_{i} \hspace{1cm} i=2,3,\ldots,n-1 \\
+% x_{n} =& \dfrac{\omega(1-x_{1} + x_{n-1})}{2} + (1-\omega)x_{n}
+% \end{split} \]
+% \emph{Nota: } Cada matriz $\mathbf{A}$ requiere de la construcción de sus ecuaciones de iteración, revisa que se necesita conocer los valores de la diagonal principal $\mathbf{d}$, así como del vector de coeficientes $\mathbf{b}$.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{La función \texttt{iterEqs}}
+% \begin{lstlisting}
+% def iterEqs(x,omega):
+%     n = len(x)
+%     x[0] = omega*(x[1] - x[n-1])/2.0 + (1.0 - omega)*x[0]
+    
+%     for i in range(1,n-1):
+%         x[i] = omega*(x[i-1] + x[i+1])/2.0 + (1.0 - omega)*x[i]
+    
+%     x[n-1] = omega*(1.0 - x[0] + x[n-2])/2.0 + (1.0 - omega)*x[n-1]
+
+%     return x
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Código principal}
+% \begin{lstlisting}
+% n = eval(raw_input('Numero de ecuaciones ==> '))
+
+% x = zeros((n),dtype='float64')
+
+% x,numIter,omega = gaussSeidel(iterEqs,x)
+
+% print '\nNumero de iteraciones =',numIter
+
+% print '\nFactor de relajacion =',omega
+
+% print '\nLa solucion es :\n',x
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}{fragile}
+% \frametitle{Solución al problema}
+% La solución que nos devuelve el algoritmo, con $n=20$ es:
+% \\
+% \medskip
+% \texttt{
+% Número de ecuaciones = 20 
+% \\
+% \medskip
+% Número de iteraciones = 259 
+% \\
+% \medskip
+% Factor de relajación = 1.70545231071
+% }
+% \end{frame}
+% \begin{frame}
+% \frametitle{Explorando la solución I.}
+% Como podemos ver en la solución, el número de iteraciones es elevado, ¿a qué se debe?
+% \\
+% \medskip
+% Revisando la configuración del arreglo, notamos que no es dominante diagonal, por lo que en gran medida, el procedimiento de iteración es elevado, ahora: ¿qué podemos hacer?
+% \\
+% \medskip
+% Podemos reconfigurar el arreglo de tal manera en que sea dominante diagonal y podríamos revisar cuántas iteraciones requiere y compararlas contra la manera inicial.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Explorando la solución II.}
+% ¿Y si aumentamos el tamaño del arreglo?
+% \\
+% \medskip
+% El algoritmo que se propuso para el ejercicio, considera la solución para un sistema de $n$ ecuaciones, ya lo tenemos para $n=20$, completa la siguiente tabla:
+% \begin{center}
+% \begin{tabular}{c | c | c }
+% \hline
+% $n$ & iteraciones & $\omega_{opt}$ \\ \hline
+% 20 & & \\ \hline
+% 25 & & \\ \hline
+% 50 & & \\ \hline
+% 75 & & \\ \hline
+% 100 & & \\ \hline
+% \end{tabular}
+% \end{center}
+% Interpreta tus resultados.
+% \end{frame}
+\end{document}

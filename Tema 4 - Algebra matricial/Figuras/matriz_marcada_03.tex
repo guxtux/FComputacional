@@ -1,0 +1,16 @@
+\documentclass[tikz]{standalone}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows,matrix,positioning}
+\begin{document}
+    \begin{tikzpicture}
+        \matrix [matrix of math nodes,left delimiter=(,right delimiter=), row sep=20pt, column sep = 20pt] (m)
+        {
+            3 & -5 & 8 \\
+            -1 & 2 & 3 \\
+            -5 & -6 & 2 \\
+        };  
+        \draw [color = blue, thick] (m-1-2.north west) -- (m-1-2.south west) -- (m-2-3.south west) -- (m-2-3.south east) -- (m-2-3.north east) -- (m-1-2.north east) -- cycle;
+    \end{tikzpicture}
+\end{document}

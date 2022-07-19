@@ -1,0 +1,492 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Warsaw_crane}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers_Warsaw_crane}	
+\normalfont
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{Problemas de valores propios}
+\subtitle{Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=1.75cm]{Imagenes/escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=1.75cm]{Imagenes/escudo-unam}
+}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+\section{Problemas de valores propios}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Introducción}
+\begin{frame}
+\frametitle{Introducción}
+Muchos problemas fundamentales de la física e ingeniería se formulan naturalmente como problemas de valores propios. 
+\end{frame}
+%Referencia Titus. Cap.8
+\begin{frame}
+\frametitle{Introducción}
+En términos generales, una ecuación de autovalores es un operador homogéneo o ecuación matricial, que presenta un parámetro, cuyos valores admisibles, los autovalores, deben determinarse simultáneamente con las soluciones correspondientes, denominadas autovectores o funciones propias.
+\end{frame}
+\begin{frame}
+\frametitle{Introducción}
+Por ejemplo, los vectores propios del tensor de inercia permiten colocar un cuerpo rígido en su sistema de ejes principales, lo que simplifica enormemente la descripción de su dinámica.
+\end{frame}
+\begin{frame}
+\frametitle{Introducción}
+La caracterización de los modos propios de vibración de las estructuras complejas desempeña un papel clave en diversas áreas, que van desde la ingeniería estructural hasta la espectroscopia molecular.
+\end{frame}
+\begin{frame}
+\frametitle{Introducción}
+Implica resolver el problema del valor propio de la llamada rigidez o matriz dinámica.
+\\
+\bigskip
+Incluso las relaciones de dispersión de fonones para las redes cristalinas son el resultado de problemas de autovalores similares.
+\end{frame}
+\begin{frame}
+\frametitle{Introducción}
+La ecuación de Schrödinger, que es central para la mecánica cuántica, es en su tiempo independiente de una ecuación diferencial de autovalores. 
+\\
+\bigskip
+Al expandir las funciones propias en términos de conjuntos completos de funciones de base, se transforma en un problema de valor propio para la matriz hamiltoniana simétrica real. 
+\end{frame}
+\begin{frame}
+\frametitle{Introducción}
+La estructura electrónica de los sistemas moleculares se calcula en química cuántica precisamente a partir de las soluciones de dichos problemas de autovalores de matriz.
+\end{frame}
+\subsection{Definición}
+\begin{frame}
+\frametitle{Definición}
+Un problema matricial de valores propios es una representación de ecuaciones de operador.
+\\
+\bigskip
+Un vector no nulo $\xi$ es llamado \textoazul{valor propio (eigenvector)} de un operador lineal $\mathcal{A}$ si, por la acción del operador, se transforma en un vector colineal
+\begin{equation}
+\mathcal{A} \: \xi = \lambda \: \xi
+\label{eq:ecuacion_08_01}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Definición}
+\begin{equation*}
+\mathcal{A} \: \xi = \lambda \: \xi
+\end{equation*}
+El escalar $\lambda$ se le llama \textoazul{valor propio} del operador $\mathbf{A}$ correspondiente al \textoazul{vector propio (eigenvector)} $\xi$.
+\\
+\bigskip
+Aparte de su magnitud, los valores propios son invariantes a la acción del operador.
+\end{frame}
+\begin{frame}
+\frametitle{Definición}
+Usando un conjunto completo de vectores base ${v_{i}, i = 1, \ldots, b}$, se puede representar en $\mathbb{R}^{n}$ el operador $\mathcal{A}$ mediante la matriz asociada de $n \times n$ $\mathbf{A} =  [a_{ij}]_{nn}$
+\end{frame}
+\begin{frame}
+\frametitle{Definición}
+Teniendo como elementos el producto escalar $a_{ij} = \langle v_{i}, \mathcal{A} \: v_{j} \rangle$, y el vector propio $\xi$, por el vector columna $\mathbf{x} = [x_{i}]_{n}$, con $x_{i} = \langle v_{i}, \xi \rangle$.
+\end{frame}
+\begin{frame}
+\frametitle{Problema de valores propios}
+La ecuación (\ref{eq:ecuacion_08_01}) se representa por el problema matricial de valores propios:
+\begin{equation}
+\mathbf{A \cdot x} = \lambda \: \mathbf{x}
+\label{eq:ecuacion_08_02}
+\end{equation}
+\pause
+o equivalentemente por el sistema lineal
+\begin{equation}
+\begin{bmatrix}
+a_{11} & a_{12} & \ldots & a_{1n} \\
+a_{21} & a_{22} & \ldots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \ldots & a_{nn} 
+\end{bmatrix}
+\begin{bmatrix}
+x_{11} \\
+x_{21} \\
+\vdots \\
+x_{n}
+\end{bmatrix}
+= \lambda
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{bmatrix}
+\label{eq:ecuacion_08_03}
+\end{equation}
+\end{frame}
+\subsection*{Redefiniendo la ecuación}
+\begin{frame}
+\frametitle{Re-escribiendo la ecuación}
+Re-escribiendo la ecuación (\ref{eq:ecuacion_08_02}) como
+\begin{equation}
+(\mathbf{A} - \lambda \: \mathbf{E}) \cdot \mathbf{x} = 0
+\label{eq:ecuacion_08_04}
+\end{equation}
+se enfatiza la \emph{matrix característica} $\mathbf{A} - \lambda \: \mathbf{E}$, y el hecho de que el problema de valores propios, es un sistema lineal homogéneo.
+\end{frame}
+\begin{frame}
+\frametitle{Sistema lineal homogéneo}
+El sistema tiene soluciones no triviales, si y sólo si, su determinante, conocido como \emph{determinante característico}, es igual a cero:
+\begin{equation}
+\det (\mathbf{A} - \lambda \: \mathbf{E}) = 0
+\label{eq:ecuacion_08_05}
+\end{equation}
+\end{frame}
+\subsection*{Ecuación característica}
+\begin{frame}
+\frametitle{Ecuación característica}
+Entonces la \emph{ecuación característica (secular)} tiene la forma:
+\begin{equation}
+\begin{vmatrix}
+a_{11} - \lambda & a_{12} & \ldots & a_{1n} \\
+a_{21} & a_{21} - \lambda & \ldots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \ldots & a_{nn} - \lambda
+\end{vmatrix}
+= 0
+\label{eq:ecuacion_08_06}
+\end{equation}
+\end{frame}
+\subsection*{Raíces de la ecuación secular}
+\begin{frame}
+\frametitle{La ecuación secular}
+Siendo equivalente a una ecuación polinomial de orden $n$ en $\lambda$, la ecuación secular tiene en principio $n$ raíces reales o complejas $\lambda_{1}, \lambda_{2}, \ldots, \lambda_{n}$, distintas o no, que son precisamente los valores propios de la matriz A.
+\end{frame}
+\begin{frame}
+\frametitle{Cálculo de las raíces}
+El cálculo de las raíces del determinante característico expandido se puede realizar mediante cualquier método general para ecuaciones polinomiales.
+\\
+\bigskip
+El conjunto de todos los valores propios forma el \emph{espectro} de la matriz $\mathbf{A}$.
+\end{frame}
+\begin{frame}
+\frametitle{Cálculo de los vectores propios}
+Una vez que se conocen los valores propios, para obtener los vectores propios se logra de la manera más elemental mediante la sustitución en secuencia cada valor propio $\lambda_{j}$ en el sistema homogéneo lineal (\ref{eq:ecuacion_08_03})
+\end{frame}
+\begin{frame}
+\frametitle{Cálculo de los vectores propios}
+La solución obtenida (expresada en términos de un componente arbitrario) representa el vector propio correspondiente $\mathbf{x}^{(j)}$ de la matriz $\mathbf{A}$.
+\\
+\bigskip
+Se puede proceder de manera análoga para todos los autovalores, calculando los vectores propios respectivos.
+\\
+\bigskip
+Pero en la práctica, sin embargo, hay enfoques numéricos mucho más eficientes.
+\end{frame}
+\subsection*{La matriz modal}
+\begin{frame}
+\frametitle{La matriz modal}
+Denotando por $\mathbf{X}$ la matriz que tiene como columnas los vectores propios $\mathbf{x}^{(j)}$, las $n$ ecuaciones matriciales (\ref{eq:ecuacion_08_03}) resultantes de la sustitución de los valores propios $\lambda_{j}$ y de los vectores propios $x^{(j)} \; (j = 1, 2, \ldots, n)$ se puede escribir sintéticamente como:
+\end{frame}
+\begin{frame}
+\frametitle{Matriz modal}
+\begin{equation}
+\mathbf{A \cdot X} = \mathbf{X} \cdot \Lambda
+\label{eq:ecuacion_08_07}
+\end{equation}
+\pause
+donde
+\begin{equation}
+\mathbf{X} = \begin{vmatrix}
+x_{1}^{(1)} & x_{1}^{(2)} &  & x_{1}^{(n)} \\
+x_{2}^{(1)} & x_{2}^{(2)} &  & x_{2}^{(n)} \\
+ & & & & \\
+ x_{n}^{(1)} & x_{n}^{(2)} &  & x_{n}^{(n)} \\
+\end{vmatrix},
+\Lambda = 
+\begin{vmatrix}
+\lambda_{1} & 0 & & 0 \\
+0 & \lambda_{2} & & 0 \\
+ & & & & \\
+ 0 & 0 & & \lambda_{n}
+\end{vmatrix}
+\label{eq:ecuacion_08_08}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Matriz modal}
+La matriz $\mathbf{X}$ se le llama \textoazul{matriz modal} y la ecuación (\ref{eq:ecuacion_08_07}) es llamada \textoazul{ecuación modal}.
+\end{frame}
+\begin{frame}
+\frametitle{Propiedad de la matriz modal}
+Para una matriz $\mathbf{A}$ de \enquote{bien comportada}, es sencillo demostrar que la matriz modal $\mathbf{X}$ está compuesta de columnas linealmente independientes (como vectores propios de $\mathbf{A}$), por lo tanto es no singular ($\det \mathbf{X} \neq 0$) y admite una matriz inversa: $\mathbf{X}^{-1}$.
+\end{frame}
+\begin{frame}
+\frametitle{Propiedad de la matriz modal}
+En consecuencia, la ecuación modal puede ser escribir como
+\begin{equation}
+\mathbf{X}^{-1} \cdot \mathbf{A} \cdot \mathbf{X} = \Lambda
+\label{eq:ecuacion_08_09}
+\end{equation}
+\pause
+Siempre que se conozcan efectivamente los vectores propios de $\mathbf{A}$, los valores propios correspondientes son los elementos diagonales de la matriz
+\[ \mathbf{X}^{-1} \cdot \mathbf{A} \cdot \mathbf{X} \]
+\end{frame}
+\section{Diagonalización de matrices}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Diagonalización por transformaciones}
+\begin{frame}
+\frametitle{Diagonalización por transformaciones}
+Las matrices asociadas al mismo operador lineal $\mathcal{A}$ relativas a bases diferentes, se les llama \emph{similares}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Un par de teoremas}
+Se puede demostrar que:
+\begin{teo}[Primer teorema]
+Dos matrices reales $\mathbf{A}$ de $n \times n$ y $\mathbf{\mathcal{A}^{\prime}} \in \mathbf{M}_{\mathbb{R}}^{n \times n}$, son similares si y sólo si, están relacionadas por una \emph{transformación de similaridad}:
+\begin{equation}
+\mathbf{\mathcal{A}^{\prime}} =  \mathbf{\mathcal{S}^{-1}} \cdot \mathbf{A} \cdot \mathbf{S}
+\label{eq:ecuacion_08_10}
+\end{equation}
+donde $\mathbf{\mathcal{S}} \in \mathbf{M}_{\mathbb{R}}^{n \times n}$ es una matriz invertible.
+\end{teo}
+\end{frame}
+\begin{frame}
+\frametitle{Del primer teorema}
+De hecho, suponiendo que la acción del operador se describe con relación a una primera base por la matriz $\mathbf{A}$ y con respecto a una segunda base por la otra matriz $\mathbf{A^{\prime}}$, tenemos
+\begin{equation}
+\mathbf{y} = \mathbf{A} \cdot \mathbf{x}, \hspace{1cm} \mathbf{y^{\prime}} = \mathbf{A^{\prime}} \cdot \mathbf{x^{\prime}}
+\label{eq:ecuacion_08_11}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Del primer teorema}
+Donde $\mathbf{x}$ y $\mathbf{x^{\prime}}$ de un lado, y por el otro  $\mathbf{y}$, $\mathbf{y^{\prime}}$, son las representacoines de las columnas de la matriz con los mismos vectores relativos a la primera y segunda base, respectivamente.
+\end{frame}
+\begin{frame}
+\frametitle{Del primer teorema}
+Si $\mathbf{S}$ es una matriz no singular que realiza el cambio de base, entonces:
+\begin{equation}
+\mathbf{x} = \mathbf{S} \cdot \mathbf{x^{\prime}}, \hspace{1cm} \mathbf{y} = \mathbf{S} \cdot \mathbf{y^{\prime}}
+\label{eq:ecuacion_08_12}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Del primer teorema}
+Sustituyendo las relaciones (\ref{eq:ecuacion_08_12}) en la primera de las ecuaciones (\ref{eq:ecuacion_08_11}), se sigue que
+\[ \mathbf{y^{\prime}} =  (\mathbf{S}^{-1} \cdot \mathbf{A} \cdot \mathbf{S}) \cdot \mathbf{x}^{\prime} \]
+al comparar éste resultado con la segunda de las ecuaciones (\ref{eq:ecuacion_08_11}), se obtiene la ec. (\ref{eq:ecuacion_08_10}), con lo que se cumple la condición necesaria y suficiente para que las dos matrices sean similares.
+\end{frame}
+\subsection*{Segundo teorema}
+\begin{frame}
+\frametitle{Segundo teorema}
+Consideremos el siguiente teorema
+\begin{teo}[Segundo teorema]
+Dos matrices similares tienen valores propios idénticos.
+\end{teo}
+La demostración es sencilla, por lo que se omitirá
+\end{frame}
+\subsection*{Consecuencia de los teoremas}
+\begin{frame}
+\frametitle{Consecuencia de los teoremas}
+Como consecuencia de los teoremas tenemos que: dos matrices similares tienen valores propios idénticos y los vectores propios correspondientes se pueden deducir uno de otro por medio de una transformación de similaridad.
+\end{frame}
+\begin{frame}
+\frametitle{Consecuencia de los teoremas}
+Específicamente, a partir de la reformulación (\ref{eq:ecuacion_08_09}) de la ecuación modal se deduce que las matrices $\mathbf{A}$ y $\Lambda$ son similares.
+\\
+\bigskip
+\pause
+Las matrices similares con matrices diagonales se denominan \textoazul{diagonalizables}.
+\end{frame}
+\begin{frame}
+\frametitle{Consecuencia de los teoremas}
+La esencia de la diagonalización de matrices consiste en el hecho de que, siempre que se encuentre una matriz de transformación que diagonalice la matriz considerada, los valores propios buscados estarán en la diagonal principal de la matriz transformada.
+\end{frame}
+\begin{frame}
+\frametitle{Consecuencia de los teoremas}
+Mientras que las columnas de la matriz de transformación (que pueden identificarse con la matriz modal) representarán con precisión los vectores propios correspondientes de la matriz original.
+\end{frame}
+\section{Método de Jacobi}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Aprovechando la simetría de las matrices}
+\begin{frame}
+\frametitle{Aprovechando la simétría de las matrices}
+Como se mencionó anteriormente, la solución de problemas de valores propios para matrices simétricas reales es de gran interés en muchas áreas de las física y la ingeniería.
+\end{frame}
+\begin{frame}
+\frametitle{Aprovechando la simétría de las matrices}
+La utilización efectiva de la simetría de las matrices involucradas conduce a una considerable simplificación de los métodos numéricos desarrollados, que de esta manera ganan estabilidad, precisión y eficiencia (tanto en términos de costo de operación como de uso de memoria).
+\end{frame}
+\begin{frame}
+\frametitle{Aprovechando la simétría de las matrices}
+Una propiedad esencial de los vectores propios de las matrices simétricas reales es que son reales y ortogonales.
+\\
+\bigskip
+Como consecuencia, la matriz modal $\mathbf{X}$ tiene columnas ortogonales.
+\end{frame}
+\begin{frame}
+\frametitle{Aprovechando la simétría de las matrices}
+La diagonalización de una matriz simétrica real se puede realizar por medio de una \emph{matriz de transformación ortogonal} $\mathbf{R}$, definida por
+\[ \mathbf{R} \cdot \mathbf{R}^{T} =  \mathbf{R}^{T} \cdot \mathbf{R} =  \mathbf{E} \]
+\end{frame}
+\begin{frame}
+\frametitle{Aprovechando la simétría de las matrices}
+El mayor beneficio de esta propiedad de ortogonalidad es que permite que la costosa operación para calcular la inversa de la matriz $\mathbf{R}$, sea reemplazada en la ecuación modal (\ref{eq:ecuacion_08_09}) por la operación de transposición significativamente más simple
+\[ \mathbf{R}^{-1} =  \mathbf{R}^{T} \]
+\end{frame}
+\begin{frame}
+\frametitle{Diagonalización de la matriz}
+Así pues, la diagonalización de la matriz $\mathbf{A}$ se logra mediante la \emph{transformación de similaridad ortogonal}
+\begin{equation}
+\mathbf{R}^{T} \cdot \mathbf{A} \cdot \mathbf{R} = \Lambda
+\label{eq:ecuacion_08_13}
+\end{equation}
+\end{frame}
+\section{El método de Jacobi}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición del método}
+\begin{frame}
+\frametitle{El método de Jacobi}
+Podemos considerar que el método de Jacobi es un algoritmo iterativo infinito.
+\\
+\bigskip
+Consiste esencialmente en aplicar una secuencia de transformaciones ortogonales a la matriz $\mathbf{A}$, con la intención de reducir gradualmente sus elementos fuera de la diagonal hasta que desaparezcan numéricamente.
+\end{frame}
+\begin{frame}
+\frametitle{El método de Jacobi}
+Se considera utilizar rotaciones bidimensionales, que son las transformaciones ortogonales más simples.
+\\
+\bigskip
+Las transformaciones elementales tienen la forma de rotaciones planas que implican pares de coordenadas y apuntan a la puesta a cero los elementos simétricos fuera de la diagonal.
+\end{frame}
+\begin{frame}
+\frametitle{El método de Jacobi}
+Como un efecto secundario perjudicial, la acción de las rotaciones elementales no puede restringirse a los dos elementos dirigidos y sustituir los ceros fuera de la diagonal creados previamente.
+\end{frame}
+\begin{frame}
+\frametitle{El método de Jacobi}
+ Sin embargo, se produce una reducción general gradual de los elementos fuera de la diagonal, hasta que la matriz transformada se vuelve diagonal en el límite de los errores de redondeo y se puede identificar con la matriz $\Lambda$.
+\end{frame}
+\begin{frame}
+\frametitle{El método de Jacobi}
+Al final, el producto de las sucesivas matrices de rotación proporciona la matriz modal, que tiene en las columnas los vectores propios de la matriz $\mathbf{A}$, que a su vez corresponden a los valores propios ubicados en la diagonal de la matriz $\Lambda$.
+\end{frame}
+\subsection*{Desarrollo del método de Jacobi}
+\begin{frame}
+\frametitle{Desarrollo del método de Jacobi}
+Consideremos por simplicidad el caso de una matriz $\mathbf{A}$ de $2 \times 2$.
+\\
+\bigskip
+\pause
+La transformación ortogonal se puede lograr mediante la matriz de rotación
+\begin{equation}
+\mathbf{R} = \begin{bmatrix}
+\cos \varphi & - \sin \varphi \\
+\sin \varphi & \cos \varphi
+\end{bmatrix}
+\label{eq:ecuacion_08_14}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Desarrollo del método de Jacobi}
+La matriz $\mathbf{R}$ rota el sistema de los vectores base en un ángulo $\varphi$ (vectores unitarios en el sistema cartesiano)
+\end{frame}
+\begin{frame}
+\frametitle{Desarrollo del método de Jacobi}
+La matriz de rotación así definida $\mathbf{R}$ es ortogonal independiente del ángulo $\varphi$ y, por lo tanto, se puede imponer la condición adicional en $\varphi$ que la transformación $\mathbf{R}$ diagonaliza la matriz $\mathbf{A}$. 
+\end{frame}
+\begin{frame}
+\frametitle{Desarrollo del método de Jacobi}
+La matriz resultante puede escribirse formalmente
+\[ \mathbf{A}^{\prime} =  \mathbf{R}^{T} \cdot \mathbf{A} \cdot \mathbf{R} \]
+y sus elementos equivalen a
+\fontsize{12}{12}\selectfont
+\begin{align*}
+a^{\prime}_{11} &= a_{11} \: \cos^{2} \varphi + 2 \: a_{21} \: \sin \varphi \: \cos \varphi + a_{22} \: \sin^{2} \varphi, \\
+a^{\prime}_{22} &= a_{11} \: \sin^{2} \varphi - 2 \: a_{21} \: \sin \varphi \: \cos \varphi + a_{22} \: \cos^{2} \varphi, \\
+a^{\prime}_{21} &= a_{21} \: (\cos^{2} \varphi - \sin^{2} \varphi) + (a_{22} - a_{11}) \: \sin \varphi \: \cos \varphi = a^{\prime}_{12}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Uso de una propiedad}
+Aquí hemos utilizado el hecho de que la transformación ortogonal conserva el carácter simétrico de la matriz.
+\end{frame}
+\begin{frame}
+\frametitle{Forzando una condición}
+Hacinedo que los elementos simétricos fuera de la diagonal de la matriz $\mathbf{A}^{\prime}$ se anulen $(a^{\prime}_{21} = a^{\prime}_{12} = 0)$, obtenemos la siguiente ecuación algrabica para $\cot \varphi$:
+\[ \cot^{2} \varphi + \dfrac{a_{22} - a_{11}}{a_{21}} \: \cot \varphi - 1 =0 \]
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+Una de las formas matemáticamente equivalentes de expresar la solución, que revelará sus virtudes más adelante, es
+\[ \tan \varphi = \left[ \dfrac{a_{11} - a_{22}}{2 \: a_{21}} \pm \sqrt{\left(\dfrac{a_{11} - a_{22}}{2 \: a_{21}} \right)^{2} + 1} \right]^{-1} \]
+\end{frame}
+\begin{frame}
+\frametitle{Las matrices $\mathbf{A^{\prime}}$ y $\mathbf{R}$}
+En lugar de expresar desde aquí el ángulo $\varphi$ en sí mismo, uno puede determinar numéricamente (de manera más eficiente) los valores de la función $\cos \varphi = (1 + \tan \varphi)^{-1/2}$ y $\sin \varphi = \tan \varphi \cos \varphi$, que son necesarios para especificar tanto las matrices $\mathbf{R}$ y $\mathbf{A}^{\prime}$.
+\end{frame}
+\begin{frame}
+\frametitle{Los valores propios de $\mathbf{A}$}
+Los valores propios de $\mathbf{A}$ se obtienen evaluando los elementos de la diagonal de la matriz $\mathbf{A}^{\prime}$ transformada, usando los $\cos \varphi$ y $\sin \varphi$ determinados.
+\end{frame}
+\begin{frame}
+\frametitle{Los vectores propios de $\mathbf{A}$}
+Mientras que los vectores propios correspondientes son las columnas de la matriz de rotación $\mathbf{R}$:    
+\begin{align*}
+\lambda_{1} &= a^{\prime}_{11}, \hspace{0.75cm} \mathbf{x}^{(1)} = \begin{bmatrix} \cos \varphi \\ \sin \varphi \end{bmatrix} \\
+\lambda_{2} &= a^{\prime}_{22}, \hspace{0.75cm} \mathbf{x}^{(2)} = \begin{bmatrix} - \sin \varphi \\ \cos \varphi \end{bmatrix}
+\end{align*}
+\pause
+En resumen: la diagonalización de matrices $(2 \times 2)$ se puede realizar exactamente, \funcionazul{mediante una única transformación ortogonal}.
+\end{frame}
+\subsection*{Generalización de la matriz de rotación}
+\begin{frame}
+\frametitle{Generalización de la matriz de rotación}
+En el espacio n-dimensional, la matriz de rotación puede generalizarse para operar con respecto al eje definido por el par de coordenadas $i$ y $j$:
+\end{frame}
+\begin{frame}
+\frametitle{Generalización de la matriz de rotación}
+\begin{equation}
+\mathbf{R}(i,j) = \begin{bmatrix}
+1 & \vdots & & \vdots & 0 \\
+\ldots & \cos \varphi & \ldots & - \sin \varphi & \ldots \\
+ & \vdots & \ddots & \vdots &  \\
+\ldots & \sin \varphi & \ldots & \cos \varphi & \ldots \\
+0 & \vdots & & \vdots & 1
+\end{bmatrix}
+\end{equation}
+\fontsize{12}{12}\selectfont
+\hspace{4cm} columna $i$ \hspace{0.3cm} columna $j$
+\end{frame}
+\begin{frame}
+\frametitle{Elementos no nulos}
+Difiriendo de la matriz unitaria sólo por los cuatro elementos distintos de cero en $a_{ii} = a_{jj} = \cos \varphi$ y en  $a_{ij} = -a_{ji} = - \sin \varphi$, ubicado en la intersección de las filas $i$ y las columnas $j$.
+\end{frame}
+\begin{frame}
+\frametitle{La matriz de rotación}
+La matriz de rotación $\mathbf{R}(i, j)$ está destinada para llevar a cabo la transformación ortogonal
+\begin{equation}
+\mathbf{A}^{\prime} =  \mathbf{R}^{T}(i, j) \cdot \mathbf{R}(i, j)
+\label{eq:ecuacion_08_16}    	
+\end{equation}
+que hace que los elementos fuera de la diagonal $a^{\prime}_{ij}$ y $a^{\prime}_{ji}$ se anulen.
+\end{frame}
+\begin{frame}
+\frametitle{Afectación de renglones}
+Los únicos elementos de $\mathbf{A}^{\prime}$ que difieren de los de $\mathbf{A}$ se encuentran en las filas $i$ y y columnas $j$.
+\\
+\bigskip
+Ya que al multiplicar $\mathbf{A}$ por la izquierda con $\mathbf{R}^{T}(i, j)$, sólo se modifican los renglones $i$ y $j$.
+\end{frame}
+\begin{frame}
+\frametitle{Afectación de columnas}
+Mientras que por la posterior multiplicación por la derecha con $\mathbf{R} (i, j)$, sólo las columnas $i$ y $j$ se ven afectadas.
+\\
+\bigskip
+\pause
+Definiendo la matriz intermedia $\tilde{\mathbf{A}}$, podemos reescribir las transformaciones (\ref{eq:ecuacion_08_16}) como
+\begin{equation}
+\tilde{\mathbf{A}} = \mathbf{A} \cdot \mathbf{R}(i, j), \hspace{1cm} \mathbf{A}^{\prime} = \mathbf{R}^{T}(i, j) \cdot \tilde{\mathbf{A}}
+\label{eq:ecuacion_08_17}
+\end{equation}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,21 @@
+\documentclass[tikz, border=5pt]{standalone}
+%\usepackage[utf8]{inputenc}
+%\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{matrix, backgrounds, arrows, decorations.markings}
+\begin{document}
+\begin{tikzpicture}
+\node at (-4.5, 0.8) {$\textbf{Contenido}$};
+\node at (-4.5, 0) {$\textbf{Indice}$};
+\draw [->, thick] (-2.4, -2) -- (-2.4, -1.6);
+\matrix (m) [matrix of nodes,
+             nodes={draw, minimum size=8mm,anchor=center},
+             nodes in empty cells, minimum height = 1cm,
+             row 1/.style={nodes={draw=none}},]
+{
+  C & i & e & n & c & i & a & s  \\
+  0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+};
+\node at (-2.4, -3) {facultad[2:] = 'encias'};
+\end{tikzpicture}
+\end{document}

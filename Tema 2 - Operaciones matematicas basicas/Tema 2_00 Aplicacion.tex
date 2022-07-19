@@ -1,0 +1,298 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Warsaw_spruce}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers}
+\makeatletter
+\def\maketag@@@#1{\hbox{\m@th\normalfont\small#1}}
+\makeatother
+\title{Tema 2 - Operaciones matemáticas básicas}
+\subtitle{¿Hacia dónde va el Tema 2?}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=1.75cm]{Imagenes/escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=1.75cm]{Imagenes/escudo-unam}
+}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Motivación}
+\subsection{Dispersión clásica}
+\begin{frame}
+\frametitle{Un problema conocido}
+La dispersión es un proceso muy importante en la física.
+\par
+Desde los sistemas en escala microscópica, como los protones y los neutrones en los núcleos, hasta los que están en la escala astronómica, tales como las galaxias y estrellas.
+\par
+Los procesos de dispersión juegan un papel crucial en la determinación de sus estructuras y dinámicas.
+\end{frame}
+\begin{frame}
+\frametitle{Dispersión clásica}
+En general, un proceso de muchos cuerpos puede ser visto como una suma de muchos eventos de dispersión de dos cuerpos simultáneos si no se presenta un proceso de dispersión uniforme.
+\end{frame}
+\begin{frame}
+Tomamos como ejemplo el estudio de la dispersión clásica de dos partículas, que interactúan entre sí a través de un potencial de pares. 
+\end{frame}
+\begin{frame}
+\frametitle{Dispersión clásica}
+La mayoría de los procesos de dispersión con potenciales de interacción realistas no se pueden resolver analíticamente. 
+\par
+Por lo tanto, las soluciones numéricas de un problema de dispersión se convierten en una herramienta extremadamente valiosa si queremos entender el proceso físico de la interacción entre partículas.
+\end{frame}
+\begin{frame}
+\frametitle{Dispersión clásica}
+Vamos a suponer que el potencial de interacción entre las dos partículas es esféricamente
+simétrico.
+\\
+\bigskip
+El momento angular total y la energía del sistema se conservan durante la dispersión.
+\end{frame}
+\begin{frame}
+\frametitle{Un sistema de dos partículas}
+El lagrangiano para un sistema de dos cuerpos en general, se puede escribir como:
+\[ \mathcal{L} = \dfrac{m_{1}}{2} v_{1}^{2} + \dfrac{m_{2}}{2} v_{2}^{2} - V(\mathbf{r}_{1},\mathbf{r}_2)\]
+donde $m_{i}$, $\mathbf{r}_{i}$ y $v_{i} = \vert d \mathbf{r}_{i}/dt  \vert$ con $i = 1,2$ son respectivamente, la masa, el vector de posición y la velocidad de la $i$-ésima partícula.
+\end{frame}
+\begin{frame}
+\frametitle{Un sistema de dos partículas}
+El lagrangiano para un sistema de dos cuerpos en general, se puede escribir como:
+\[ \mathcal{L} = \dfrac{m_{1}}{2} v_{1}^{2} + \dfrac{m_{2}}{2} v_{2}^{2} - V(\mathbf{r}_{1},\mathbf{r}_2)\]
+$V$ es el potencial de interacción entre las dos partículas, el cual consideramos con simetría esférica, esto es: $V(\mathbf{r}_{1},\mathbf{r}_{2}) = V(r_{21})$, con $r_{21} = \vert \mathbf{r}_{2} - \mathbf{r}_{1} \vert$, que es la distancia entre las dos partículas.
+\end{frame}
+\begin{frame}
+\frametitle{Un sistema de dos partículas}
+Podemos realizar una transformación de coordenadas de $\mathbf{r}_{1}$ y $\mathbf{r}_{2}$ a una coordenada relativa $\mathbf{r}$ y una coordenada del centro de masa $\mathbf{r}_{c}$ con
+\begin{eqnarray}
+\mathbf{r} &=& \mathbf{r}_{2} - \mathbf{r}_{1} \\
+\mathbf{r}_{c} &=& \dfrac{m_{1}\mathbf{r}_{1} + m_{2} \mathbf{r}_{2}}{m_{1} + m_{2}}
+\end{eqnarray}
+\end{frame}
+\begin{frame}
+\frametitle{Un sistema de dos partículas}
+Por lo que podemos expresar el lagrangiano del sistema en términos de las nuevas coordenadas y sus velocidades correspondientes como
+\begin{equation}
+\mathcal{L} = \dfrac{M}{2} v_{c}^{2} + \dfrac{m}{2} v^{2} - V(r)
+\end{equation}
+\end{frame}
+\begin{frame}[fragile]
+\[ \mathcal{L} = \dfrac{M}{2} v_{c}^{2} + \dfrac{m}{2} v^{2} - V(r)\]
+donde
+\begin{itemize}[<+->]
+\item [\textcolor{red}{\checkmark}] $r=r_{21}$ es la distancia entre las dos partículas.
+\item [\textcolor{red}{\checkmark}] $v= \vert d\mathbf{r}/dt \vert$ es la velocidad relativa entre las dos partículas,
+\item [\textcolor{red}{\checkmark}] $M = m_{1} + m_{2}$ es la masa total del sistema,
+\item [\textcolor{red}{\checkmark}] $m = m_{1}m_{2}/(m_{1}+m_{2})$ es la masa reducida de las dos partículas,
+\item [\textcolor{red}{\checkmark}] $v_{c} = \vert d\mathbf{r}_{c}/dt \vert$ es la velocidad del centro de masa.
+\end{itemize}
+\end{frame}
+\begin{frame}
+Si estudiamos la dispersión en sistema del centro de masa con $\mathbf{v}_{c} = d\mathbf{r}_{c}/dt = 0$, el proceso queda entonces representado por el movimiento de una partícula simple de masa $m$ en un potencial central $V(r)$.
+\end{frame}
+\begin{frame}
+En general, un sistema de dos partículas con una interacción simétrica y esférica, puede ser visto como una partícula simple con masa reducida moviéndose en un potencial central, que es idéntica a la interacción del potencial.
+\end{frame}
+\begin{frame}
+Podemos obtener la misma conclusión a partir de las ecuaciones de Newton:
+\begin{eqnarray}
+m_{1} \ddot{\mathbf{r}_{1}} = \mathbf{f}_{1} \\
+m_{2} \ddot{\mathbf{r}_{2}} = \mathbf{f}_{2} 
+\end{eqnarray}
+donde las aceleraciones y las fuerzas vienen dadas por
+\begin{align*}
+\ddot{\mathbf{r}_{i}} &= \dfrac{d^{2} \mathbf{r_{i}}}{dt^{2}} \\
+\mathbf{f}_{i} &= - \nabla_{i} V(r_{21}) = - \dfrac{d V(r_{21})}{d \mathbf{r}_{i}}
+\end{align*}
+\end{frame}
+\begin{frame}
+Sumando las dos ecuaciones anteriores y aplicando la tercera ley de Newton $\mathbf{f}_{1} = - \mathbf{f}_{2}$, o dividiendo la ecuación por $m_{i}$, luego restando, obtenemos:
+\begin{eqnarray}
+m \ddot{r} &=& \mathbf{f(r)} \\
+M \ddot{r}_{c} &=& 0
+\end{eqnarray}
+donde $\mathbf{f(r)}= - \nabla V(r) = - dV(r)/ d\mathbf{r}$
+\end{frame}
+\begin{frame}
+Así el movimiento de un sistema de dos partículas con una interacción isotrópica es equivalente al movimiento de velocidad constante del centro de masa más el movimiento relativo de dos partículas que están descritas por una partícula eficaz de masa $m$ en un potencial central $V(r)$.
+\end{frame}
+\subsection{Sección de área transversal}
+\begin{frame}
+\frametitle{Sección de área transversal}
+Ahora sólo tenemos que estudiar el proceso de dispersión de una partícula con una masa $m$ en un potencial central $V(r)$.
+\end{frame}
+\begin{frame}
+\frametitle{Sección de área transversal}
+Supongamos que la partícula está entrando desde la izquierda con un parámetro de impacto $b$, es decir, la distancia más corta entre la partícula y el centro potencial si $V(r) \rightarrow 0$. 
+\\
+\bigskip
+Un esquema del proceso se muestra en la siguiente figura.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Dispersión de una partícula en un potencial central}
+\begin{figure}
+\centering
+\includestandalone[scale=1.1]{figdispersion}
+\end{figure}
+\end{frame}
+\begin{frame}
+La sección transversal completa en el proceso de dispersión está dada por la expresión:
+\begin{eqnarray}
+\sigma = \int \sigma (\theta) \; d \Omega
+\end{eqnarray}
+donde $\sigma(\theta)$ es la sección transversal diferencial, o la probabilidad de que una partícula se encuentre en el elemento de ángulo sólido $d \Omega = 2 \pi \; \sin \theta \; d \theta$, con el ángulo de deflexión $\theta$.
+\end{frame}
+\begin{frame}
+Si las partículas llegan con una densidad de flujo $I$ (número de partículas por unidad de área transversal y por unidad de tiempo), entonces el número de partículas por unidad de tiempo dentro del rango $d\theta$ del parámetro de impacto $b$ es $2 \pi \; I \; b \; db$.
+\end{frame}
+\begin{frame}
+Debido a que todas las partículas entrantes en esta área, quedarán dentro del elemento de ángulo sólido $d \Omega$ con la probabilidad $\sigma(\theta)$, tenemos que
+\begin{eqnarray}
+2 \pi \; I \; b \; db = I \; \sigma(\theta) \; d \Omega
+\end{eqnarray}
+lo que nos proporciona una sección diferencial de área
+\begin{eqnarray}
+\sigma(\theta) = \dfrac{b}{\sin \theta} \; \left| \dfrac{db}{d \theta} \right|
+\label{eq:sigma_theta}
+\end{eqnarray}
+\end{frame}
+\begin{frame}
+Se toma el valor absoluto del valor de $db/d\theta$ en la ecuación anterior, ya que $db / d\theta$ puede ser positivo o negativo dependiendo de la forma y potencial así como el parámetro de impacto, además, $\sigma(\theta)$ debe de ser positivo ya que es un valor de probabilidad.
+\end{frame}
+\subsection{Eval. numérica de la sección transversal}
+\begin{frame}
+\frametitle{Evaluación numérica de la sección transversal}
+Dado que la interacción entre dos partículas está descrita por un potencial esférico simétrico, el momento angular y la energía total del sistema se conservan durante la dispersión.
+\end{frame}
+\begin{frame}
+Tenemos que
+\begin{eqnarray}
+l = m \; b \; v_{0} = m \; r^{2} \dot{\phi}
+\label{eq:momento}
+\end{eqnarray}
+y además
+\begin{eqnarray}
+E = \dfrac{m}{2} v_{0}^{2} = \dfrac{m}{2} \left( \dot{r}^{2} + r^{2} \dot{\phi}^{2} \right) + V(r)
+\label{eq:energia}
+\end{eqnarray}
+que representan respectivamente el momento total y la energía total, siendo constantes las dos cantidades. La variable $r$ es la coordenada radial, $\phi$ es el ángulo polar, $v_{0}$ es la velocidad de impacto inicial.
+\end{frame}
+\begin{frame}
+Combinando las ecuaciones (\ref{eq:momento}) y (\ref{eq:energia}), con
+\begin{eqnarray}
+\dfrac{d \theta}{dr} = \dfrac{d \phi}{dt} \dfrac{dt}{dr}
+\end{eqnarray}
+se obtiene
+\begin{eqnarray}
+\dfrac{d \phi}{dr} = \pm \dfrac{b}{r^{2} \sqrt{1-b^{2}/r^{2}-V(r)/E}}
+\label{eq:dtheta_dr}
+\end{eqnarray}
+esta expresión nos relaciona las cantidades $\phi$ y $r$ para valores dados de $E$, $b$ y $V(r)$. Los signos $\pm$ corresponden a las dos partes simétricas de la trayectoria.
+\end{frame}
+\begin{frame}
+La ecuación anterior puede ser utilizada para calcular el ángulo de deflexión $\theta$ a través de
+\begin{eqnarray}
+\theta = \pi - 2 \Delta \phi
+\label{eq:theta}
+\end{eqnarray}
+donde $\Delta \phi$ es el cambio en el ángulo polar cuando $r$ cambia desde infinito hasta un valor mínimo $r_{m}$. 
+\end{frame}
+\begin{frame}
+De la ecuación (\ref{eq:dtheta_dr}), se tiene que
+\begin{eqnarray}
+\Delta \phi &=&  b \int_{r_{m}}^{\infty} \dfrac{dr}{r^{2} \sqrt{1 - b^{2}/r^{2}-V(r)/E}} \nonumber \\
+&=& - b \int_{\infty}^{r_{m}} \dfrac{dr}{r^{2} \sqrt{1 - b^{2}/r^{2}-V(r)/E}}
+\end{eqnarray}
+\end{frame}
+\begin{frame}
+Si consideramos que tanto la energía como el momento angular se conservan (Eqs. (\ref{eq:momento}) y (\ref{eq:energia})), se puede demostrar que $r_{m}$ está dada por
+\begin{eqnarray}
+1 - \dfrac{b^{2}}{r_{m}^{2}} - \dfrac{V(r_{m})}{E} = 0
+\label{eq:raiz_rm} 
+\end{eqnarray}
+que es la componente de la velocidad cero de $r$, es decir, $\dot{r}=0$.
+\end{frame}
+\begin{frame}
+Dado que el cambio en el ángulo polar $\Delta \phi = \pi/2$ para $V(r)=0$, podemos escribir la ecuación (\ref{eq:theta}) como
+\fontsize{12}{12}\selectfont
+\begin{eqnarray}
+\theta = 2b \left[ \int_{b}^{\infty} \dfrac{dr}{r^{2} \sqrt{1-b^{2}/r^{2}}} - \int_{r_{m}}^{\infty} \dfrac{dr}{r^{2} \sqrt{1-b^{2}/r^{2} - V(r)/E}} \right]
+\label{eq:integrales_theta} 
+\end{eqnarray} 
+\end{frame}
+\begin{frame}
+La razón por la que se re-escribe $\pi$ como una integral en la expresión anterior para $\theta$, es una estrategia numérica que reduce la posibilidad de errores debidos al trucamiento en la región de integración, en los límites del segundo término.
+\end{frame}
+\begin{frame}
+El valor de la primera integral diverge cuando $r \rightarrow b$ de la misma forma que el valor de la segunda integral cuando $r \rightarrow r_{m}$.
+\\
+\bigskip
+\pause
+Los errores del primer y segundo términos se cancelan mutuamente, al menos parcialmente, dado que tienen signos contrarios.
+\end{frame}
+\begin{frame}
+%\fontsize{12}{12}\selectfont
+Para realizar el ejercicio numérico con \python, consideremos el potencial de Yukawa, dado por
+\[ V(r) = \dfrac{\kappa}{r} e^{-r/a}\]
+Los valores de $\kappa$ y $a$ son parámetros positivos que reflejan respectivamente el rango y la fuerza del potencial, y éstos valores se pueden ajustar.
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué necesitamos para resolver el problema?}
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Requerimos de las condiciones iniciales: un valor de energía $E$, y un conjunto de parámetros de impacto $b$.
+\item La distancia mínima al centro $r_{m}$ que está dada por la ecuación:
+\[ 1  - \dfrac{b^{2}}{r_{m}^{2}} - \dfrac{V(r_{m})}{E} = 0\]
+donde hay que encontrar el valor de la raíz.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué necesitamos para resolver el problema?}
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}
+\conti
+\item El ángulo $\theta$ con el cual la partícula se aleja, está dado por
+\begin{align*}
+\begin{aligned}
+\theta &= 2 \: b \left[ \int_{b}^{\infty} \dfrac{dr}{r^{2} \: \sqrt{1 - b^{2}/r^{2}}} \; + \right. \\
+& \qquad - \left. \int_{r_{m}}^{\infty} \dfrac{dr}{r^{2} \: \sqrt{1 - b^{2}/r^{2} - V(r)/E}} \right]
+\end{aligned}
+\end{align*}
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué necesitamos para resolver el problema?}
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}
+\conti
+\item Para un valor $b$ dado, se obtiene un valor de $\theta$. Por lo que ahora habrá que evaluar la expresión:
+\[  \dfrac{d b}{d \theta}\]
+mediante una estrategia que nos devuelva el valor de la derivada.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica obtenida}
+Una vez con el código para resolver cada una de las etapas del problema, obtenemos una gráfica de la sección diferencial de área contra el ángulo de incidencia
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{Imagenes/graficadispersion_01.eps} 
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Y para no aburrirse...}
+Podremos obtener entonces con todos los elementos señalados, una descripción de la dispersión clásica, y compararla con lo que ya sabemos de una dispersión con un potencial de tipo coulumbiano
+\[  V(r) = \dfrac{1}{4 \: \pi \: \epsilon_{0}} \; \dfrac{1}{r}\]
+\end{frame}
+\begin{frame}
+\frametitle{Y para no aburrirse...}
+Como un ejercicio para la tarea del tema, realizar el mismo procedimiento pero ahora con un potencial de tipo Lennard-Jones
+\[ V(r) = 4 \: \varepsilon \: \left[ \left( \dfrac{\sigma}{r} \right)^{12} - \left( \dfrac{\sigma}{r} \right)^{6} \right] \]
+\end{frame}
+\end{document}

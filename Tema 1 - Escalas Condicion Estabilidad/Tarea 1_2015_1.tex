@@ -1,0 +1,111 @@
+\documentclass[12pt]{article}
+%\setlength{\textwidth}{6in}
+%\setlength{\textheight}{8.5in}
+%\setlength{\topmargin}{-0.5in}
+%\setlength{\oddsidemargin}{0.25in}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol,multienum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{anysize}
+\usepackage{anyfontsize}
+\spanishdecimal{.}
+\marginsize{1.5cm}{1.5cm}{0cm}{2cm}
+\author{M. en C. Gustavo Contreras May\'{e}n.}
+\title{Tarea 1 - Curso de F\'{i}sica Computacional}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+La finalidad de los ejercicios que se enlistan a continuaci\'{o}n es para que identifiques la habilidad con la que cuentas para programar en cualquier lenguaje, ya hemos comentado que en el curso usaremos Python, pero si ya conoces alg\'{u}n otro lenguaje, desarrolla tus respuestas en ese lenguaje.
+\\
+\begin{enumerate}
+\item La distancia entre dos puntos $(x_{1},y_{1})$ y $(x_{2},y_{2})$ en el plano cartesiano est\'{a} dado por la expresi\'{o}n:
+\[ d = \sqrt{(x_{1} - x_{2})^{2} + (y_{1} - y_{2})^{2}} \]
+Escribir un programa para calcular la distancia entre dos puntos cualesquiera $(x_{1}, y_{1})$ y $(x_{2}, y_{2})$ proporcionados por el usuario. Calcula la distancia entre los puntos $(2,3)$ y $(8,-5)$.
+\item La funci\'{o}n coseno hiperb\'{o}lico se define por la ecuaci\'{o}n:
+\[ cosh(x) = \dfrac{e^{x} - e^{-x}}{2} \]
+Escribe un programa para calcular el coseno hiperb\'{o}lico de un valor $x$ proporcionado por el usuario. Calcula el valor del coseno hiperb\'{o}lico de $3.0$. Compara el resultado de tu programa contra el valor que devuelve la funci\'{o}n intr\'{i}nseca de Python $\cosh(x)$.
+\item A menudo los ingenieros miden la relaci\'{o}n entre dos medidas de potencia en \textit{decibeles} o dB. La ecuaci\'{o}n para esa relaci\'{o}n de potencias en decibeles, est\'{a} dada por
+\[ dB = 10 \log_{10} \dfrac{P_{2}}{P_{1}} \]
+donde $P_{2}$ es la nivel de potencia medido y $P_{1}$ es un nivel de potencia de referencia. Supongamos que el nivel de potencia de referencia $P_{1}$ es de 1 miliWatt, escribe un programa que acepte un valor de potencia $P_{2}$ y que convierta el valor de salida dB, con respecto al nivel de referencia de 1mW.
+\item Escribe un programa para evaluar la funci\'{o}n:
+\[ y(x) = ln \dfrac{1}{1-x} \]
+para cualquier valor de $x$ que ingrese el usuario, donde $ln$ es el logaritmo natural. Escribe un programa usando bucles (loops) para que el programa repita el c\'{a}lculo del valor de la funci\'{o}n, para cada $x$ v\'{a}lida, en caso de que se ingrese un valor de $x$ inv\'{a}lido, el programa se termina.
+\item Est\'{a}s apoyando a un bi\'{o}logo a realizar un experimento en el cual se mide la tasa de crecimiento de una bacteria que se reproduce en diferentes medios de cultivo. El experimento muestra que en el medio \textbf{A}, la bacteria se reproduce cada 60  minutos, en el medio \textbf{B} la bacteria se reproduce cada 90 minutos. Supongamos que se coloca al inicio del experimento solo una bacteria en cada medio de cultivo. Escribe un programa que calcule y escriba el n\'{u}mero de bacterias presentes en cada medio de cultivo en intervalos de 3 horas a partir del inicio del experimento, hasta haber completado un ciclo de 24 horas. ¿Cu\'{a}ntas bacterias hay en cada medio de cultivo luego de las 24 horas?
+\item La \textit{media geom\'{e}trica} de un conjunto de valores $x_{1}$ a $x_{n}$ se define como la ra\'{i}z n-\'{e}sima del producto de los valores
+\[ \text{media geom\'{e}trica = } \sqrt[n]{x_{1}x_{2}x_{3} \ldots x_{n}}\]
+Escribe un programa que acepte un n\'{u}mero arbitrario de valores positivos y que calcule tanto la media aritm\'{e}tica (el promedio) como la media geom\'{e}trica. Usa un bucle para introducir los valores, en caso de que se proporcione un valor negativo, el programa termina.
+\item Un problema cl\'{a}sico en c\'{o}mputo cient\'{i}fico, es la suma de una serie para evaluar una funci\'{o}n. Sea la serie de potencias para la funci\'{o}n exponencial:
+\[e^{-x} = 1 - x + \dfrac{x^{2}}{2!} + \dfrac{x^{3}}{3!} +\cdots \hspace{1.5cm} (x^{2} < \infty)  \]
+Utiliza la serie anterior para calcular el valor de $e^{-x}$ para $x=0.1,1,10, 100, 1000$ con un error absoluto para cada caso, menor a $10^{-8}$.
+\item Considera el siguiente polinomio :
+\[p(x)= 2x^{4} - 20x^{3} + 70x^{2}+ 100x+48 \]
+Usando el m\'{e}todo de Horner, eval\'{u}a para valores de $x$ en el intervalo $[-4,-1]$, con saltos de $x$ de valor $\Delta x = 0.5$.
+\\
+\\
+Grafica los puntos obtenidos y el polinomio $p(x)$, interpreta los resultados obtenidos.
+\item El valor de $\pi$ se puede calcular aproximando el \'{a}rea de un c\'{i}rculo unitario como el l\'{i}mite de una sucesi\'{o}n $p_{1}, p_{2}, \ldots$ descrita a continuaci\'{o}n:
+\\
+Se divide un c\'{i}rculo unitario en $2^{n}$ sectores (en el ejemplo, $n=3$). Se aproxima el \'{a}rea del sector por el \'{a}rea del tri\'{a}ngulo is\'{o}celes. El \'{a}ngulo $\theta_{n}$ es $2 \pi / 2^{n}$. El \'{a}rea del tri\'{a}ngulo es $1/2 \sin \theta_{n}$.
+\\
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw (3,3) circle (2);
+\draw (1,3) -- (5,3);
+\draw (3,1) -- (3,5);
+\draw (1.6,4.39) -- (4.39,1.6);
+\draw (4.39,4.39) -- (1.6,1.6);
+\draw (4.39,4.39) -- (5,3);
+\draw (5,3) -- (4.39,1.6);
+\draw (5,3) -- (4.39,1.6);
+\draw (4.39,1.6) -- (3,1);
+\draw (3,1) -- (1.6,1.6);
+\draw (1.6,1.6) -- (1,3);
+\draw (1,3) -- (1.6,4.39);
+\draw (1.6,4.39) -- (3,5);
+\draw (3,5) -- (4.39,4.39);
+\draw (3.3,3) arc (0:16:1);
+\draw [font=\small] (3.7,3.2) node {$\theta_{n}$};
+\draw [font=\small] (3.7,4) node {1};
+\draw [font=\small] (4.2,2.8) node {1};
+\end{tikzpicture}
+\caption{Divisi\'{o}n en $n$ sectores.}
+\end{figure}
+La en\'{e}sima aproximaci\'{o}n a $\pi$ es: $p_{n}= 2^{n-1} \sin \theta_{n}$. Demuestra que
+\[\sin \theta_{n} = \dfrac{\sin \theta_{n-1}}{\left( 2 \left[ 1+ (1-\sin^{2}\theta_{n-1})^{\frac{1}{2}} \right] \right)^{\frac{1}{2}}} \]
+Usa esta relaci\'{o}n de recurrencia para generar las sucesiones $\sin \theta_{n}$ y $p_{n}$ en el rango $3 \leq n \leq 20$ iniciando con $\sin \theta_{2}=1$. Compara tus resultados con el valor de $4.0 \arctan(1.0)$
+\item La sucesi\'{o}n de Fibonacci $1,1,2,3,5,8,13,\ldots$ est\'{a} definida por la relaci\'{o}n de recurrencia lineal
+\begin{equation*}
+\begin{cases}
+\lambda_{1} = 1 \hspace{0.5cm} \lambda_{2}= 1 \\
+\lambda_{n} = \lambda_{n-1} + \lambda_{n-2} \hspace{0.5cm} (n \geq 3)
+\end{cases}
+\end{equation*}
+Una f\'{o}rmula para obtener el n-\'{e}simo n\'{u}mero de Fibonacci es
+\[ \lambda_{n} = \dfrac{1}{\sqrt{5}} \left\lbrace \left[ \dfrac{1}{2} (1 + \sqrt{5}) \right]^{n} - \left[ \dfrac{1}{2} (1 - \sqrt{5}) \right]^{n} \right\rbrace \]
+Calcula $\lambda_{n}$ en $3\leq n \leq 50$ usando tanto la relaci\'{o}n de recurrencia como la f\'{o}rmula. Discute los resultados obtenidos.
+\item La din\'{a}mica de un cometa est\'{a} sometida por la fuerza gravitacional entre el cometa y el Sol, 
+\[   \textbf{f} = -GMm \textbf{r}/r^{3} \]
+donde $ G=6.67 \times 10^{11} Nm^{2}/kg^{2}$ es la constante gravitacional, $M=1.99 \times 10^{30} kg$ es la masa del Sol, \textit{m} es la masa del cometa, \textbf{r} es el vector posici\'{o}n del cometa medido desde el Sol, y \textit{r} es la magnitud de \textbf{r}. Escribe un programa para estudiar el movimiento del cometa Halley que tiene un afelio (el punto m\'{a}s alejado del Sol) de $5.28 \times 10^{12}m$ y la velocidad en el afelio es de $9.12 \times 10^{2} m/s$
+\begin{enumerate}
+\item ¿cu\'{a}les son las unidades tanto de tiempo como de longitud m\'{a}s pertinentes en el problema?
+\item Discute el error que se genera por el programa en cada per\'{i}odo del cometa Halley.
+\end{enumerate}
+\item Hay personas que luego no tienen nada qu\'{e} hacer, y algunos se dedican a saltar en motocicletas, se te pide que propongas un modelo de estudio para estos saltos. La resistencia del aire de un objeto en movimiento est\'{a} dada por 
+\[ \textbf{f}_{r} = - cA \rho v(\textbf{v})/2 \]
+donde $v(\textbf{v})$ es la velocidad y \textit{A} es la secci\'{o}n de \'{a}rea transversal del objeto en movimiento, $\rho$ es la densidad del aire y \textit{c} es un coeficiente en el orden de $1$, para los dem\'{a}s factores que no se enlistan. Si la secci\'{o}n de \'{a}rea transversal es $A=0.93m^{2}$, la velocidad m\'{a}xima con la que despega la motocicleta es de $67 m/s$, la densidad del aire es
+ $\rho = 1.2 kg/m^{3}$, la masa combinada de la motocicleta y la persona que maneja es de $250$ kg, y el coeficiente $c=1$, encuentra el \'{a}ngulo de inclinaci\'{o}n de la rampa de despegue, para que se consiga la mayor distancia de recorrido.
+\item El 25 de febrero de 1991, durante la guerra del Golfo, una bater\'{i}a de misiles Patriot americanos en Dharan (Arabia Saudita) no lograron interceptar un misil Scud iraqu\'{i}. Murieron 28 soldados americanos. La causa: los errores num\'{e}ricos por utilizar truncado en lugar de redondeo en el sistema que calcula el momento exacto en que debe ser lanzado el misil.\\
+Las computadoras de los Patriot que han de seguir la trayectoria del misil Scud, la predicen punto a punto en funci\'{o}n de su velocidad conocida y del momento en que fue detectado por última vez en el radar. La velocidad es un número real. El tiempo es una magnitud real pero el sistema la calculaba mediante un reloj interno que contaba d\'{e}cimas de segundo, por lo que representaban el tiempo como una variable entera. Cuanto m\'{a}s tiempo lleva el sistema funcionando m\'{a}s grande es el entero que representa el tiempo. Los ordenadores del Patriot almacenan los números reales representados en punto flotante con una mantisa de 24 bits. Para convertir el tiempo entero en un número real se multiplica \'{e}ste por $1/10$, y se trunca el resultado (en lugar de redondearlo). El número $1/10$ se almacenaba truncado a 24 bits. El pequeño error debido al truncado, se hace grande cuando se multiplica por un número (entero) grande, y puede conducir a un error significativo. La bater\'{i}a de los Patriot llevaba en funcionamiento m\'{a}s de 100 horas, por lo que el tiempo entero era un número muy grande y el número real resultante tendr\'{a} un error cercano a $0.34$ segundos.
+\\Explica a detalle qu\'{e} fue lo que ocurri\'{o}.
+\item Consideremos una part\'{i}cula bajo un campo gravitatorio uniforme vertical y una fuerza de resistencia $\mathbf{f}_{r} = - \kappa \nu(\mathbf{v})$, donde $\nu(\mathbf{v})$ es la velocidad de la part\'{i}cula y $\kappa$ es un par\'{a}metro positivo. Analiza la dependencia de la altura y la velocidad de una gota de agua con diferentes $m/\kappa$, donde $m$ es la masa de la gota de agua, para simplificar, considera la raz\'{o}n como una constante. Grafica la velocidad terminal de la gota de lluvia contra $m/\kappa$, y comp\'{a}ralo con el resultado de una ca\'{i}da libre.
+\item Algunas constantes matem\'{a}ticas son utilizadas con frecuencia en la f\'{i}sica, tales como $\pi$, $e$ y la constante de Euler $\gamma = \lim_{n\rightarrow \infty} (\sum_{k=1}^{n} k^{-1} - \ln n)$. Encuentra una forma para crear cada una de las constantes $\pi$, $e$ y $\gamma$. Despu\'{e}s, considerando ya los elementos del lenguaje de programaci\'{o}n, determina: la precisi\'{o}n y eficiencia. Si se requiere utilizar los valores de las constantes dentro del c\'{o}digo, ¿se debe generar en una sola ocasi\'{o}n y almacenarlo en un variable o se debe de generar en cada ocasi\'{o}n que se requiera?
+\end{enumerate}
+\end{document}

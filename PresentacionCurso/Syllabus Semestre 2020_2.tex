@@ -1,0 +1,124 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[autostyle,spanish=mexican]{csquotes}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{anyfontsize}
+\usepackage{anysize}
+\usepackage{cite}
+\renewcommand{\baselinestretch}{1.5}
+\marginsize{1.5cm}{1.5cm}{1cm}{2cm}
+\author{M. en C. Gustavo Contreras Mayén. \texttt{curso.fisica.comp@gmail.com}\\
+M. en C. Abraham Lima Buendía. \texttt{abraham3081@ciencias.unam.mx}}
+\title{Curso de Física Computacional\\{\large Semestre 2020-2 Grupo 8226}}
+\date{ }
+\makeatletter
+\renewcommand{\@biblabel}[1]{}
+\renewenvironment{thebibliography}[1]
+     {\section*{\refname}%
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{}%
+           {\labelwidth=0pt
+            \labelsep=0pt
+            \leftmargin1.5em
+            \itemindent=-1.5em
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            }%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+\makeatother
+\usepackage{breakcites}	
+\begin{document}
+%\renewcommand\theenumii{\arabic{theenumii.enumii}}
+\renewcommand\labelenumii{\theenumi.{\arabic{enumii}}}
+\maketitle
+\fontsize{12}{12}\selectfont
+\textbf{Lugar: } Laboratorio de Enseñanza en Cómputo en Física. Edificio Tlahuizcalpan.
+\par
+\textbf{Horario: } Martes y Jueves de 18 a 21 horas.
+\par
+\par
+\textbf{Objetivos y Temario:}
+\par
+Se trabajará el temario oficial de la asignatura, que está disponible en:
+
+\href{http://www.fciencias.unam.mx/asignaturas/715.pdf}{http://www.fciencias.unam.mx/asignaturas/715.pdf}
+\section{Metodología de Enseñanza.}
+\textbf{Antes de la clase.}
+\\
+Para facilitar la discusión en el aula, el alumno revisará el material de trabajo que se le proporcionará oportunamente, de tal manera que llegará conociendo el tema a desarrollar a la clase. Daremos por entendido de que el alumno realizará la lectura y actividades establecidas.
+\\
+\textbf{Durante la clase.}
+\\
+Se dará un tiempo para la exposición con diálogo y discusión del material de trabajo con los temas a cubrir durante el semestre. Se busca que sea un curso práctico por lo que se va a trabajar con los equipos de cómputo del laboratorio, de tal manera que habrá ejercicios para desarrollar durante la clase.
+\par
+Un curso de este tipo requiere que el alumno le de solución a problemas mediante un algoritmo computacional, de tal forma que va a requerir \enquote{ejecutar} su algoritmo para verificar la funcionalidad del mismo, así como revisar la congruencia de la solución.
+\par
+Considere que el curso no está enfocado al desarrollo de habilidades y/o técnicas de programación con un lenguaje en particular. En un primer momento se revisará un planteamiento general de la solución, para posteriormente, implementarlo en la sintaxis del lenguaje python.
+\par
+Si cuentan con una experiencia previa en programación (con cualquier lenguaje), será conveniente para el trabajo en clase; pero si no han programado, se verán en la necesidad de dedicarle más tiempo tanto para revisar los materiales adicionales, así como para resolver los problemas y ejercicios.
+\\
+\textbf{Después de la clase.}
+\\
+Fuera de la clase presencial deberán de revisar los materiales para la siguiente sesión, así como para resolver y entregar los ejercicios presentados que queden a cuenta.
+\section{Evaluación.}
+Los elementos y la proporción de la calificación total del curso, se distribuyen de la siguiente manera:
+\begin{itemize}
+\item \textbf{Ejercicios en clase $\mathbf{10\%}$:} Durante la clase se trabajarán ejercicios, algunos de ellos se dejarán para que completen la solución, de tal forma que deberán de entregarlo resuelto para la siguiente sesión.
+\par
+Para que el ejercicio resuelto se considere dentro de este porcentaje, se requiere que el alumno asista a la clase, en caso de que el alumno no asista y se entere del ejercicio, solamente se le revisará el ejercicio que entregue, pero no se le tomará en cuenta para el porcentaje, (moraleja: hay que asistir a clase).
+\item \textbf{Tareas $\mathbf{50\%}$} : Serán tres tareas durante el curso, se les proporcionará de manera adelantada y con fecha de entrega definida, no se recibirán tareas extemporáneas. Para que la tarea se considere, deberá de entregar el $100\%$ de los ejercicios resueltos. En caso contrario, sólo se revisarán los ejercicios, pero no se tomará en cuenta como parte de la calificación por tareas.
+\item \textbf{Exámenes $\mathbf{40\%}$} : Habrá tres exámenes en clase, de tipo teórico-prácticos. Se indicará oportunamente el día del examen y los temas correspondientes, que se resolverán y entregarán durante la clase.
+\end{itemize}
+La calificación final se obtendrá de los porcentajes indicados para los ejercicios en clase, de las tareas y de los exámenes. En el caso de obtener una calificación mayor o igual a $6$, será la que se asentará en el acta del curso.
+\section{Exámen de reposición.}
+Considerando que sólo habrá tres exámenes durante el semestre, se considera la posibilidad de presentar una única reposición si y sólo si se cumplen los siguientes puntos:
+\begin{itemize}
+\item Se presentaron los tres exámenes parciales.
+\item Se entregaron las tres tareas del curso.
+\item Sólo en un examen parcial se obtuvo una calificación no aprobatoria, es decir, que la calificación del examen parcial sea menor a $6$ (seis).
+\end{itemize}
+En caso de contar con un promedio final aprobatorio del curso (los tres exámenes parciales aprobados), no se aplicará la reposición de algún examen para subir el promedio final del curso.
+\section{Examen final.}
+El examen final del curso se presentará si y sólo si:
+\begin{itemize}
+\item Se presentaron los tres exámenes parciales.
+\item Se entregaron las tres tareas del curso.
+\item Hay dos exámenes parciales (o los tres exámenes) con calificación menor a seis.
+\end{itemize}
+De acuerdo al Reglamento de Estudios Profesionales, habrá dos oportunidades para presentar el examen final, cuyas fechas se anunciarán respectivamente.
+\par
+Es nececesario considerar que para tener derecho al segundo examen final, se deberá de haber presentado el primer examen final. En un examen final ya no se promediará la calificación obtenida con las tareas y ejercicios en clase: la calificación obtenida en el examen final, es la que se asentará en el acta de calificaciones del curso de Física Computacional.
+\par
+\emph{En caso de haber presentado al menos un examen parcial y/o haber entregado al menos una tarea} se promediarán respectivamente las tareas y exámenes.
+\par
+Sólo se asentará en el acta de calificaciones \textcolor{blue}{NP} si el alumno no entrega tarea alguna y no presenta algún examen. (¿?)
+\begin{itemize}
+\item No \enquote{se guardan calificaciones}.
+\item No se renuncia a una calificación.
+\end{itemize}
+\section{Fechas importantes.}
+\begin{itemize}
+\item Lunes 27 de enero. Inicio del semestre 2020-2.
+\item \textcolor{red}{Del lunes 6 al viernes 10 de abril, Semana Santa.}
+\item Viernes 22 de mayo. Fin de Semestre.
+\item Del 25 al 29 de mayo, primera semana de finales.
+\item Del 1 al 5 de junio, segunda semana de finales.
+\end{itemize}
+\section{Bibliografía.}
+Se recomienda la consulta de los siguientes textos, en cada uno de los temas se propocionará bibliografía adicional para una mejor comprensión del tema.
+\nocite{*}
+\bibliographystyle{apalike-es}
+\bibliography{LibrosFC}
+\end{document}

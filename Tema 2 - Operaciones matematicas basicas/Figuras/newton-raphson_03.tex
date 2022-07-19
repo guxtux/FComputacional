@@ -1,0 +1,25 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{positioning, shapes.geometric, arrows}
+\usepackage[T1]{fontenc}
+\renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+\begin{document}
+	 \setbeamercovered{invisible}
+	\begin{tikzpicture}[decoration={
+  markings,% activar las marcas
+  mark= at position 2cm with{\arrow{stealth}}}]
+		\draw [->] (0,0) -- (6,0);
+		\draw [<->] (0,-2) -- (0,2);
+		\draw [red, thick] (0.5,-2) .. controls (3,-1.9) and (3,1.9) .. (5.5,2);
+		\draw (4.5,-0.3) node {$x_{0}$};\pause
+		\draw [dashed] (4.5,0) -- (4.5,1.69);
+		\draw (4.5,1.7) circle (0.04);
+		\draw [blue, postaction={decorate}] (4.5,1.7) -- (1,0);
+		\draw (1,0.3) node {$x_{1}$};
+		\draw (1,0) circle (0.04);\pause
+		\draw [dashed] (1,0) -- (1,-1.95);
+		\draw (1,-1.95) circle (0.04);
+		\draw [blue,, postaction={decorate}] (1,-1.95) -- (5.8,0.1);
+	\end{tikzpicture}
+\end{document}

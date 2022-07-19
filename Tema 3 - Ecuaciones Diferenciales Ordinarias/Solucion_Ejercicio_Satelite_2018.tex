@@ -1,0 +1,233 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Warsaw_whale}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers_Warsaw_whale}
+\normalfont
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{Solución al problema del satélite}
+\subtitle{Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=1.75cm]{Imagenes/escudo-facultad-ciencias.jpg}\hspace*{4.75cm}~%
+   \includegraphics[width=1.75cm]{Imagenes/escudo-unam.jpg}
+}
+%\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+\newcommand{\DrawBox}[3][]{%
+    \tikz[overlay,remember picture]{
+    \draw[black,#1]
+      ($(#2)+(-0.5em,2.0ex)$) rectangle
+      ($(#3)+(0.75em,-0.75ex)$);}
+}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}
+\frametitle{El problema del satélite}
+\begin{center}
+\begin{tikzpicture}[font=\small]
+	\draw (2,2) circle (2cm);
+	\draw [dashed] (-0.4,2) -- (5,2);
+	\draw [->] (2,2) -- node [midway, fill=white] {$R_{t}$} (1.8,4);
+	\draw (5,2) circle (0.05);
+	\draw (5.2,1.8) node {H}; 
+	\draw [->] (5,2) -- node [near end, right] {$v_{0}$}(5,2.5);
+	\draw [->] (2,2) -- node [midway, above] {$r$} (4,3.6);
+	\draw (2.7,2) arc (0:45:5.9mm) node [right] {$\theta$};
+	\draw [dashed] (5,2) arc (0:95:1.8);
+\end{tikzpicture}
+\end{center}
+Un satélite se lanza desde una altitud $H=772$ km sobre el nivel del mar, con una velocidad inicial $v_{0}=6700$ $m/s$ en la dirección que se muestra.
+\end{frame}
+\begin{frame}
+\frametitle{Sistema de EDO-2}
+El conjunto de EDO que describen el movimiento del satélite son:
+\[ \ddot{r} = r  \dot{\theta}^{2} - \dfrac{G M_{t}}{r^{2}}  \hspace{2cm} \ddot{\theta} = - \dfrac{2 \dot{r}\dot{\theta}}{r}\]
+donde $r$ y $\theta$ son las coordenadas polares del satélite.
+\end{frame}
+\begin{frame}
+\frametitle{Constantes del Problema}
+Las constantes involucradas en las expresiones, son:
+\begin{eqnarray*}
+G &=& 6.672 \times 10^{-11} \mbox{ m}^{3} \mbox{kg}^{-1} \mbox{s}^{2} \\
+M_{t} &=& 5.9742 \times 10^{24} \mbox{ kg, Masa de la Tierra} \\
+R_{e} &=& 6378.14 \mbox{ km, radio de la Tierra al nivel del mar} 
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Problemas a resolver}
+\setbeamercolor{item projected}{bg=purple!80!white,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Obtén el conjunto de EDO-1 y las condiciones iniciales del problema, de la forma $\dot{\mathbf{y}} = \mathbf{F}(x,\mathbf{y})$, $\mathbf{y}(0) = \mathbf{b}$.
+\item Integra las EDO-1 en el tiempo en que se lanza el satélite y choca en su regreso a la Tierra.
+\item Calcula el lugar del impacto, con $\theta$.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso 1: Sistema de EDO-1}
+Tenemos que
+\[ \begin{split} G M_{t} &= (6.672 \times 10^{-11}) (5.9742 \times 10^{24})  = \\
+ &= 3.9860 \times 10^{14} \mbox{m}^{3} \mbox{s}^{2} \end{split} \]
+Ahora hacemos
+\[ \mathbf{y} = \begin{bmatrix}
+y_{0} \\
+y_{1} \\
+y_{2} \\
+y_{3}
+\end{bmatrix} =
+\begin{bmatrix}
+r \\
+\dot{r} \\
+\theta \\
+\dot{\theta}
+\end{bmatrix}
+\]
+\end{frame}
+\begin{frame}
+\frametitle{Inciso 1: Sistema de EDO-1}
+Por lo que el conjunto equivalente de EDO-1, resulta ser
+\[ \dot{\mathbf{y}} = \begin{bmatrix}
+\dot{y}_{0} \\
+\dot{y}_{1} \\
+\dot{y}_{2} \\
+\dot{y}_{3}
+\end{bmatrix} =
+\begin{bmatrix}
+y_{1} \\
+y_{0} y_{3}^{2} - 3.9860 \times 10^{14}/y_{0}^{2} \\
+y_{3} \\
+-2 y_{1} y_{3} / y_{0}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones iniciales}
+Las condiciones iniciales resultan
+\fontsize{12}{12}\selectfont
+\begin{eqnarray*}
+r(0) &=& R_{t} + H = (6378.14+772) \times 10^{3} = 7.15014 \times 10^{6} \mbox{ m} \\
+\dot{r}(0) &=& 0 \\
+\theta(0) &=& 0 \\
+\dot{\theta}(0) &=& \dfrac{v_{0}}{r(0)} = \dfrac{6700}{7.15014 \times 10^{6}} = 0.937045 \times 10^{-3} \mbox{ rad/s}
+\end{eqnarray*}
+\fontsize{14}{14}\selectfont
+\pause
+Por tanto
+\[ \mathbf{y}(0) = 
+\begin{bmatrix}
+7.15014 \times 10^{6} \\
+0 \\
+0 \\
+0.937045 \times 10^{3}
+\end{bmatrix}
+\]
+\end{frame}
+\begin{frame}
+\frametitle{Inciso 2: Integración de las EDO-1}
+Usaremos la función \funcionazul{integrate.odeint} para integrar el sistema de EDO-1.
+\\
+\bigskip
+De lo visto en clase, se necesita la función \funcionazul{y, t} que incluye el sistema de EDO-1.
+\end{frame}
+\begin{frame}
+\frametitle{Inciso 2: Integración de las EDO-1}
+El período de integración, es decir, el valor del tiempo que tarda en caer el satélite y choca con la Tierra, hay que estimarlo tentativamente.
+\end{frame}
+\begin{frame}[plain, allowframebreaks, fragile]
+\begin{lstlisting}[caption=Solución con python, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+def F(y, t):
+    F = zeros((4), dtype='float64')
+    F[_0_] = y[_1_]
+    F[_1_] = y[_0_] * (y[_3_]**2) - 3.9860e14 / (y[_0_]**2)
+    F[_2_] = y[_3_]
+    F[_3_] = -2.0 * y[_1_] * y[_3_]/y[_0_]
+    return F
+
+t = np.linspace(0, 1200, 100)
+y_0_ = np.array([7.1514e6, 0., 0., 0.937045e-3])
+y_1_ = odeint(F, y_0_, t)
+
+print('tiempo \t altura \t velocidad')
+print('-'*30)
+
+for i in range(len(t)):
+    print('{0:4.4f} \t {1:1.6e} \t {2:1.6e}'.format(t[i], y_1_[i][_0_], y_1_[i][_1_]))
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Resultados}
+\fontsize{10}{10}\selectfont
+\begin{center}
+\hspace*{-1.25cm}
+\begin{tabular}{c | c | c | c | c }
+tiempo & altura ($r$) & velocidad ($\dot{r}$) & $\theta$ & $\dot{\theta}$ \\ \hline
+$0.0000$ & $7.151400e+06$ & $0.000000e+00$ & $0.000000e+00$ & $9.370450e-04$\\ \hline
+$12.1212$ & $7.151289e+06$ & $-1.835853e+01$ & $1.135824e-02$ & $9.370742e-04$ \\ \hline
+$24.2424$ & $7.150955e+06$ & $-3.671583e+01$ & $2.271718e-02$ & $9.371616e-04$ \\ \hline
+\ldots & \ldots & \ldots & \ldots & \ldots \\ \hline
+$1030.3030$ & $6.386228e+06$ & $-1.396748e+03$ & $1.043431e+00$ & $1.175043e-03$ \\ \hline
+$1042.4242$ & $6.369227e+06$ & $-1.408222e+03$ & $1.057712e+00$ & $1.181324e-03$ \\ \hline
+\ldots & \ldots & \ldots & \ldots & \ldots \\ \hline
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Intervalo de tiempo al choque}
+El satélite choca con la Tierra cuando $r$ es igual a $R_{t}=6.37814 \times 10^{6}$ m. 
+\\
+\bigskip
+De los resultados, vemos que esto ocurre entre el tiempo $t= 1030$ y $1042$ segundos.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Intervalo de tiempo al choque}
+\fontsize{10}{10}\selectfont
+\begin{center}
+\hspace*{-1.25cm}
+\begin{tabular}{c | c | c | c | c}
+tiempo & altura ($r$) & velocidad ($\dot{r}$) & $\theta$ & $\dot{\theta}$ \\ \hline
+$0.0000$ & $7.151400e+06$ & $0.000000e+00$ & $0.000000e+00$ & $9.370450e-04$\\ \hline
+$12.1212$ & $7.151289e+06$ & $-1.835853e+01$ & $1.135824e-02$ & $9.370742e-04$ \\ \hline
+$24.2424$ & $7.150955e+06$ & $-3.671583e+01$ & $2.271718e-02$ & $9.371616e-04$ \\ \hline
+\ldots & \ldots & \ldots & \ldots & \ldots \\ \hline
+\tikzmark{top left 1}$1030.3030$ & $6.386228e+06$ & $-1.396748e+03$ & $1.043431e+00$ & $1.175043e-03$ \\ \hline
+$1042.4242$ & $6.369227e+06$ & $-1.408222e+03$ & $1.057712e+00$ & $1.181324e-03$ \tikzmark{bottom right 1} \\ \hline
+\ldots & \ldots & \ldots & \ldots & \ldots \\ \hline
+\end{tabular}
+\DrawBox[ultra thick, red]{top left 1}{bottom right 1}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Intervalo de tiempo al choque}
+Un valor de $t$ más preciso, lo podemos obtener mediante una interpolación  polinomial, pero si no queremos una precisión alta, con una interpolación lineal, bastará.
+\\
+\medskip
+\pause
+Consideremos que $1030.3030 + \Delta t$ el tiempo para el impacto, por lo que escribimos
+\[ r(1030.3030 + \Delta t) = R_{t} \]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Intervalo de tiempo al choque}
+Desarrollando $r$ con dos términos de la serie de Taylor, tenemos que
+\[ \begin{split} 
+r(1030.3030) + \dot{r}(1030.3030) \Delta t &= R_{t} \\
+6.386228 \times 10^{6} + (-1.385053 \times 10^{3}) \Delta t &= R_{t}
+\end{split} \]
+que al despejar, 
+\[ \Delta t =  \dfrac{R_{t} - 6.386228 \times 10^{6}}{-1.385053 \times 10^{3}} =  \SI{5.8394}{\second} \]
+\pause
+\textcolor{blue}{Por lo que el tiempo de impacto es $1036.1424$ segundos}.
+\end{frame}
+\begin{frame}
+\frametitle{Inciso 3) Coordenada de impacto}
+La coordenada $\theta$ del impacto, la podemos calcular de una manera similar, para ello desarrollamos dos términos de la serie de Taylor:
+\[ \begin{split}
+\theta(1030.3030 + \Delta t) &= \theta(1030.3030) + \dot{\theta}(1030.3030)\Delta t \\
+ &= 1.043431 + (1.175043 \times 10^{-3} )(5.8394) \\
+ &= 1.5029 \mbox{ rad} = 60.18^{\circ}
+\end{split} \]
+\end{frame}
+\end{document}

@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{nccmath}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+\usepackage{pgfplots}
+\usepackage{etex}
+\usepackage{color}
+\usepackage{listings}
+\renewcommand{\arraystretch}{1.5}
+\lstset{ %
+language=Python,                % choose the language of the code
+basicstyle=\normalsize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=4,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\#}{)}          % if you want to add a comment within your code
+}
+\marginsize{1.5cm}{1.5cm}{1cm}{1cm}  
+\title{Examen Tema 2 - Operaciones matem\'{a}ticas b\'{a}sicas - 2a. Parte \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\begin{enumerate}
+	\item (\textbf{2 puntos.}) La funci\'{o}n gamma $\Gamma (x)$, se define como la siguiente integral
+	\[ \Gamma (x) = \int_{0}^{\infty} t^{x-1} e^{-t} dt\]
+	que converge para todo $x$ positivo, pese a que para $0<x<1$ el integrando tiene una divergencia en $t=0$.
+	\\
+	Calcula num\'{e}ricamente a partir de la definci\'{o}n anterior, la $\Gamma$ para $x=10$ y $x=1/2$, valores para los cuales se conocen los resultados anal\'{i}ticos:
+	\begin{eqnarray*}
+		\Gamma(10) &=& 9! = 362880 \\
+		\Gamma(1/2) &=& \sqrt{\pi}
+	\end{eqnarray*}
+	En cada caso debes:
+	\begin{enumerate}
+		\item indicar el cambio de variable utilizado.
+		\item el n\'{u}mero de puntos utilizados en la discretizaci\'{o}n.
+		\item el m\'{e}todo de integraci\'{o}n.
+		\item el resultado obtenido.
+		\item el error cometido respecto al valor anal\'{i}tico.
+	\end{enumerate}
+	\item (\textbf{2 puntos.}) Eval\'{u}a num\'{e}ricamente las siguientes integrales:
+	\begin{eqnarray*}
+		I_{1} &=& \int_{0}^{\infty} e^{-x} ln x dx \\
+		I_{2} &=& \int_{0}^{1} \dfrac{1+x}{1-x^{3}} ln\dfrac{1}{x} dx
+	\end{eqnarray*}
+	El problema consiste en resolver las integrales con alg\'{u}n cambio de variable para tener un integrando suave en un intervalo finito.
+	\\
+	Se debe de obtener un resultado razonablemente bueno, teniendo que evaluar el integrando final con el menor n\'{u}mero ($N$) de veces que sea posible. Como criterio de convergencia debes de usar alguna cantidad como
+	\[ \epsilon = \dfrac{I - I_{N}}{I} < 10^{-n}\]
+	con n = $2,3,4,5,6$
+	En cada caso debes:
+	\begin{enumerate}
+		\item indicar el(los) cambio(s) de variable utilizado(s).
+		\item el n\'{u}mero de puntos utilizados en la discretizaci\'{o}n.
+		\item el m\'{e}todo de integraci\'{o}n.
+		\item el resultado obtenido.
+		\item el error cometido respecto al valor de I.
+	\end{enumerate}
+	Nota: no se vale usar integraci\'{o}n por partes.
+	\item (\textbf{6 puntos.}) Para muchos efectos la fuerza entre \'{a}tomos puede ser tratada exitosamente con el potencial central, llamado de Lennard-Jones
+	\[ V = 4 V_{0} \left[ \left( \dfrac{a}{r} \right)^{12} - \left( \dfrac{a}{r} \right)^{6} \right] \]
+	cuyo valor m\'{i}nimo es $V_{0}$ y se anula cuando $r$ coindice con el radio de Bohr. Una part\'{i}cula atrapada en este potencial (energ\'{i}a menor que cero), tiene un movimiento en el intervalo (rmin, rmax) donde ambos radios son
+mayores que $a$. Cu\'{a}nticamente solo hay un conjunto discreto de energ\'{i}as $E_{n}$ posibles. Cl\'{a}sicamente $E= \frac{p^{2}}{2m}+ V(r)$ o equivalentemente, la magnitud del momento depende de $r$ en la forma $p(r) = \sqrt{2m(E-V(r))}$.
+	\\
+	Una forma aproximada de plantear el problema para encontrar los valores de los niveles cu\'{a}nticos $E_{n}$ consiste en exiger la \textit{condici\'{o}n de Bohr-Sommerfeld}
+	\[ \oint \dfrac{p(r)}{\hbar} dr = 2 \pi \left( n + \dfrac{1}{2} \right) \]
+	con $n$ entero no negativo. La integral es sobre un ciclo completo de oscilaci\'{o}n. El problema se adimensionaliza haciendo las sustituciones
+	\[ E = V_{0} \mathcal{E}, \hspace{0.5cm} r = a \rho, \hspace{0.5cm} V_{0} = \dfrac{\gamma^{2} \hbar^{2}}{2 a^{2} m}\]
+	Para la mol\'{e}cula de hidr\'{o}geno el valor de $\gamma=21.7$, para el O$_{2}$, $\gamma \sim 150$.
+	\\
+	La condici\'{o}n integral de arriba se convierte en la exigencia que se anule la funci\'{o}n
+	\[ F_{n}(\mathcal{E}_{n}) = \gamma  \int_{\rho_{min}}^{\rho^{max}} \sqrt{\mathcal{E}_{n} - 4 \left( \dfrac{1}{\rho^{12}} - \dfrac{1}{\rho^{6}} \right)} d\rho - \pi \left( n + \dfrac{1}{2} \right) \]
+	Es decir, el problmea consiste en encontrar los ceros de $F_{n}$ dados $\gamma=150$ y $n=0,1,2$, con $-1<\mathcal{E}_{n} < 0$ sabiendo que
+	\[ \rho_{min} = \left( \dfrac{2-2\sqrt{\delta_{n}}}{1-\delta_{n}} \right)^{1/6}, \hspace{1cm}  \rho_{max} = \left( \dfrac{2+2\sqrt{\delta_{n}}}{1-\delta_{n}} \right)^{1/6}\]
+	donde $\delta_{n} = 1 + \mathcal{E}_{n}$.
+	El programa que realices para resolver este problema, deber de ser \'{u}til para otros potenciales $V(r)$, como por ejemplo el potencial de Yukawa
+	\[ V(r) = \dfrac{\kappa}{r} e^{-r/a}\]
+	En la b\'{u}squeda de los ceros debes usar el m\'{e}todo de la secante (indicando, entre otras cosas, la tolerancia usada y cu\'{a}ntas iteraciones fueron necesarias)
+\end{enumerate}
+\end{document}

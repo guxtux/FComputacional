@@ -1,0 +1,53 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{matrix}
+\usepackage{xy}
+\usepackage{siunitx}
+\usepackage[american,cuteinductors,smartlabels]{circuitikz}
+\usetikzlibrary{calc}
+\usepackage{color}
+%\numberwithin{equation}{list}
+\marginsize{1cm}{2cm}{0cm}{2cm}  
+\title{Tarea Examen 1/3 - Ecuaciones diferenciales parciales \\ \begin{large}Curso de Física Computacional\end{large}}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{enumerate}
+\item Desarrolla un esquema num\'{e}rico para resolver la ecuaci\'{o}n de Poisson
+\[ \nabla^{2} \phi (r,\theta) = - \rho (r, \theta) / \epsilon_{0} \]
+en coordenadas polares. Considera que la geometr\'{i}a en la frontera es un anillo circular con potenciales dados, para el radio interno es $\phi(a,\theta)$, y para el radio externo $\phi(b,\theta)$. Prueba tu soluci\'{o}n asignando valores de potencial al problema.
+\\
+\\
+\textbf{Tips}
+La ecuaci\'{o}n de Poisson en coordenadas polares resulta ser:
+\[ \nabla^{2} \phi (r,\theta) = \dfrac{1}{r} \dfrac{\partial}{\partial r} \left( r \dfrac{\partial V}{\partial r} \right) + \dfrac{1}{r^{2}} \dfrac{\partial^{2} V}{\partial \theta^{2}} = - \dfrac{\rho(r,\theta)}{\epsilon_{0}} \]
+donde $0 \leq r \leq R $ y $0 \leq \theta \leq 2 \pi$
+\\
+\\
+Usando la malla:
+\begin{eqnarray*}
+r_{i} &=& i \Delta R \\
+\theta &=& j \Delta \theta
+\end{eqnarray*}
+Se aproxima la ecuaci\'{o}n por
+\[ \begin{split}
+\dfrac{1}{r_{i}} \left( r_{i+\frac{1}{2}} \dfrac{V_{i+1,j} - V_{ij}}{\Delta r} - r_{j+\frac{1}{2}} \dfrac{V_{ij}-V_{i-1,j}}{\Delta r} \right) \dfrac{1}{\Delta r} + \\
++ \dfrac{1}{r^{2}} \dfrac{V_{i,j+1}-2V_{ij}+V_{i,j-1}}{\Delta \theta^{2}} = - \dfrac{\rho(r,\theta)}{\epsilon_{0}}
+\end{split} \]
+donde $V_{ij}$ y $r_{ij}$ son funciones
+\[ (r_{i}, \theta_{j}) = (i \Delta r, j \Delta \theta) \]
+Las funciones son peri\'{o}dicas de $j$ en la malla, con per\'{i}odo $j=\dfrac{2 \pi}{\Delta \theta}$  y $V_{ij}$ es independiente de $j$.
+\end{enumerate}
+\end{document}

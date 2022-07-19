@@ -1,0 +1,4 @@
+./esfericasBessely.py
+./esfericasBesselj.py
+./Codigos Python/generaFuncionesBessel.py
+./Codigos Python/Bessel01.py

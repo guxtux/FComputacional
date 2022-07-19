@@ -1,0 +1,232 @@
+\documentclass[12pt]{article}
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{anysize}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.pathmorphing,patterns}
+\usetikzlibrary{arrows,calc,patterns,decorations.markings}
+\usetikzlibrary{positioning}
+\spanishdecimal{.}
+\linespread{1.3}
+\numberwithin{equation}{section}
+\marginsize{1.5cm}{1.5cm}{0cm}{2cm}
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{Algebra matricial - Examen Tarea \\ \begin{Large}Curso de Fí­sica Computacional\end{Large}}
+\date{ }
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item Evaluando el determinante, identifica cuáles de las siguientes matrices, son singulares, mal condicionadas o bien condicionadas:
+\begin{multicols}{2}
+	\begin{enumerate}
+		\item $ \mathbf{A} =
+				\begin{pmatrix}
+					1 & 2 & 3 \\
+					2 & 3 & 4 \\
+					3 & 4 & 5
+				\end{pmatrix} $
+		\item $ \mathbf{A} =
+				\begin{pmatrix}
+					2.11 & -0.80 & 1.72 \\
+					-1.84 & 3.03 & 1.29 \\
+					-1.57 & 5.25 & 4.30
+				\end{pmatrix} $
+		\item $ \mathbf{A} =
+				\begin{pmatrix}
+					2 & -1 & 0 \\
+					-1 & 2 & -1 \\
+					0 & -1 & 2
+				\end{pmatrix} $
+		\item $ \mathbf{A} =
+				\begin{pmatrix}
+					4 & 3 & -1 \\
+					7 & -2 & 3 \\
+					5 & -18 & 13
+				\end{pmatrix} $ 
+	\end{enumerate}
+\end{multicols}
+\item Dada la descomposición $\mathbf{A} = \mathbf{LU}$, calcular $\mathbf{A}$ y $\vert \mathbf{A} \vert$
+	 \begin{enumerate}
+	 	\item $ \mathbf{L} =
+	 			\begin{pmatrix}
+	 				1 & 0 & 0 \\
+	 				1 & 1 & 0 \\
+	 				1 & 5/3 & 1
+				\end{pmatrix} \hspace{0.5cm}
+				\mathbf{U} =
+				\begin{pmatrix}
+					1 & 2 & 4 \\
+					0 & 3 & 21 \\
+					0 & 0 & 0
+				\end{pmatrix} $
+		\item $ \mathbf{L} =
+	 			\begin{pmatrix}
+	 				2 & 0 & 0 \\
+	 				-1 & 1 & 0 \\
+	 				1 & -3 & 1
+				\end{pmatrix} \hspace{0.5cm}
+				\mathbf{U} =
+				\begin{pmatrix}
+					2 & -1 & 1 \\
+					0 & 1 & -3 \\
+					0 & 0 & 1
+				\end{pmatrix} $
+	 \end{enumerate}
+\item Usando los resultados de la descomposición LU
+\[  \mathbf{A} =
+	\mathbf{LU} =
+	\begin{pmatrix}
+		1 & 0 & 0 \\
+		3/2 & 1  & 0 \\
+		1/2 & 11/13 & 1
+	\end{pmatrix}
+	\begin{pmatrix}
+		2 & -3 & -1 \\
+		0 & 13/2 & -7/2 \\
+		0 & 0 & 32/13
+	\end{pmatrix}	 \]
+	para resolver $\mathbf{Ax} = \mathbf{b}$, donde $\mathbf{b}^{T} = [1 \hspace{0.3cm} -1 \hspace{0.3cm} 2 ]$.
+\item Resolver la ecuación $\mathbf{Ax} = \mathbf{b}$ con el método de eliminación de Gauss, donde
+\[  \mathbf{A} =
+	\begin{pmatrix}
+		0 & 0 & 2 & 1 & 2 \\
+		0 & 1 & 0 & 2 & -1 \\
+		1 & 2 & 0 & -2 & 0 \\
+		0 & 0 & 0 & -1 & 1 \\
+		0 & 1 & -1 & 1 & -1
+	\end{pmatrix} \hspace{1.5cm}
+	\mathbf{b} =	
+	\begin{pmatrix}
+		1 \\
+		1 \\
+		-4 \\
+		-2 \\
+		-1
+	\end{pmatrix} \]
+\item Encontrar $\mathbf{L}$ y $\mathbf{U}$ tales que:
+\[ \mathbf{A} = \mathbf{LU} =
+	\begin{pmatrix}
+		4 & -1 & 0 \\
+		-1 & 4 & -4 \\
+		0 & -1 & 4
+	\end{pmatrix} \]
+	usando a) la descomposición de Doolittle y b) la descomposición de Choleski.
+\item Utiliza la descomposición de Doolittle para resolver $\mathbf{Ax}=\mathbf{b}$, donde
+\[  \mathbf{A} =
+	\begin{pmatrix}
+		-3 & 6 & -4 \\
+		9 & -8 & 24 \\
+		-12 & 24 & -26 \\
+	\end{pmatrix} \hspace{1.5cm}
+	\mathbf{b} =	
+	\begin{pmatrix}
+		-3 \\
+		65 \\
+		-42
+	\end{pmatrix} \]
+\item Resolver $\mathbf{Ax} = \mathbf{b}$ por el método de descomposición de Doolittle, donde
+\[  \mathbf{A} =
+	\begin{pmatrix}
+		2.34 & -4.10 & 1.78 \\
+		-1.98 & 3.47 & -2.22 \\
+		2.36 & -15.17 & 6.18 \\
+	\end{pmatrix} \hspace{1.5cm}
+	\mathbf{b} =	
+	\begin{pmatrix}
+		0.02 \\
+		-0.73 \\
+		-6.63
+	\end{pmatrix} \]
+\item Resolver $\mathbf{AX} = \mathbf{B}$ por el método de descomposición de Doolittle, donde
+\[  \mathbf{A} =
+	\begin{pmatrix}
+		4 & -3 & 6 \\
+		8 & -3 & 10 \\
+		-4 & 12 & -10 \\
+	\end{pmatrix} \hspace{1.5cm}
+	\mathbf{B} =	
+	\begin{pmatrix}
+		1 & 0 \\
+		0 & 1 \\
+		0 & 0 
+	\end{pmatrix} \]
+\item Determinar $\mathbf{L}$ que resulta de la descomposición de Choleski para la matriz diagonal
+\[ \begin{pmatrix}
+		\alpha_{1} & 0 & 0 \ldots \\
+		0 & \alpha_{2} & 0 & \ldots \\
+		0 & 0 & \alpha_{3} & \ldots \\
+		\vdots & \vdots &\vdots & \ddots
+\end{pmatrix} \]
+\item Un ejemplo clásico de una matriz mal condicionada, es la matriz de Hilbert
+\[ \mathbf{A} = 
+	\begin{bmatrix}
+		1 & 1/2 & 1/3 & \ldots \\
+		1/2 & 1/3 & 1/4 & \ldots \\
+		1/3 & 1/4 & 1/5 & \ldots \\
+		\vdots & \vdots & \vdots & \ddots
+	\end{bmatrix} \]
+Escribe un programa en python que resuelva el sistema $\mathbf{A}\mathbf{x} = \mathbf{b}$ por el método de Doolittle, donde $\mathbf{A}$ es una matriz de Hilbert arbitraria de $n \times n$ y \[ b_{i} = \sum_{j=1}^{n} A_{ij} \]
+\\
+\\
+El programa no debe de utilizar un valor inicial para $n$, sino que en tiempo de ejecución, se determine para qué valor de $n$, la solución es exacta al menos hasta seis cifras significativas comparada con la solución exacta
+\[\mathbf{x} = [1 \hspace{0.2cm} 1 \hspace{0.2cm} 1 \hspace{0.2cm} \ldots ]^{T} \]
+\item Resolver las siguientes ecuaciones simétricas tridiagonales
+\[ \begin{split}
+4 x_{1} - x_{2} =& 9 \\
+-x_{i-1} + 4x_{i} - x_{i+1} =& 5, \hspace{1cm} i=2,\ldots,n-1 \\
+-x_{n-1} + 4 x_{n} =& 5
+\end{split} \]
+con $n=10$.
+\item El sistema mostrado en la figura consiste en $n$ resortes lineales que soportan $n$ masas. La constante de los resortes se indican por $k_{i}$, mientras que el peso de las masas, es $W_{i}$ y $x_{i}$ son los desplazamientos de las masas (medidos de la posición donde el resorte no está deformado). La llamada \emph{formulación de desplazamiento} se obtiene escribiendo la ecuación de equilibrio para cada masa y sustituyendo $F_{i} = k_{i}(x_{i+1}-x_{i})$ para la fuerza en los resortes. El resultado es un conjunto de ecuaciones simétricas y tridiagonal:
+\\
+\begin{minipage}{0.5\textwidth}
+\[ \begin{split}
+(k_{1} + k_{2})x_{1} - k_{2}x_{2} =& W_{1} \\
+-k_{i} x_{i-1} + (k_{i} + k_{i+1}) x_{i} - k_{i+1} x_{i+1} =& W_{i}, \hspace{1cm} i=2,3,\ldots,n-1 \\
+-k_{n} x_{n-1} + k_{n} x_{n} =& W_{n}
+\end{split} \]
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.1cm,post
+  length=0.1cm,segment length=6}]
+	\draw (0,0) [pattern=north west lines] rectangle(1,0.25);
+	\draw [spring](0.5,0) -- (0.5,-1) node [midway, right=0.4cm] {$k_{1}$}; 
+	\draw (0,-1) rectangle node {$W_{1}$} (1,-2);
+	\draw (1,-1) -- (1.5,-1);
+	\draw [->]  (1.3,-1) -- node [near end, right=0.2]{$x_{1}$}(1.3,-1.7); 
+	\draw [spring](0.5,-2) -- (0.5,-3) node [midway, right=0.4cm] {$k_{2}$};
+	\draw (0,-3) rectangle node {$W_{2}$} (1,-4);
+	\draw (1,-3) -- (1.5,-3);
+	\draw [->]  (1.3,-3) -- node [near end, right=0.2]{$x_{2}$}(1.3,-3.7); 
+	\draw [spring](0.5,-4) -- (0.5,-5) node [midway, right=0.4cm] {$k_{3}$};
+	\draw (0.5,-5.1) node {$\vdots$};
+	\draw [spring](0.5,-5.5) -- (0.5,-6.5) node [midway, right=0.4cm] {$k_{n}$};
+	\draw (0,-6.5) rectangle node {$W_{n}$} (1,-7.5);
+	\draw (1,-6.5) -- (1.5,-6.5);
+	\draw [->]  (1.3,-6.5) -- node [near end, right=0.2]{$x_{n}$}(1.3,-7.2); 
+\end{tikzpicture}
+\end{figure}
+\end{minipage}
+\\
+\\
+\\
+Escribe un programa que resuelva este conjunto de ecuaciones para los valores dados de $n$, $k$ y $W$. Considera $n=5$ y 
+\[ \begin{split} 
+k_{1} = k_{2} = k_{3} = 10 \mbox{ N/mm} \hspace{2cm} k_{4} = k_{5} = 5 \mbox{ N/mm} \\
+W_{1} = W_{3} = W_{5} = 100 \mbox{ N} \hspace{2cm} W_{2} = W_{4} = 50 \mbox{ N}
+\end{split} \]
+
+\end{enumerate}	
+\end{document}

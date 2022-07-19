@@ -1,0 +1,320 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{listings}
+\lstset{ %
+language=C++,                % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=2,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\%}{)}          % if you want to add a comment within your code
+}
+%\numberwithin{equation}{list}
+\marginsize{1cm}{2cm}{0cm}{2cm}  
+\title{Ecuaciones diferenciales ordinarias \\ \begin{large}Curso de Física Computacional\end{large}}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\section*{Método Runge-Kutta de segundo orden.}
+\begin{enumerate}
+\item \textbf{Descripción.}\\
+Este programa calcula la solución de la EDO de segundo orden, mediante el método de RK2. Las constantes se definen en las instrucciones \texttt{DATA}, las condiciones iniciales están dadas en \texttt{YB} y \texttt{ZB}. Los resultados obtenidos se imprimen después de cada 50 pasos.
+\item \textbf{Variables.}\\
+\texttt{Y}, \texttt{Z}: $y$ y z para un nuevo paso. \\
+\texttt{YB}, \texttt{ZB}: $y$ y z del paso anterior. \\
+\texttt{BM}, \texttt{KM}: a y b de la ecuación a resolver.
+\item \textbf{Código.}
+\begin{lstlisting}
+		PROGRAM masaresorte
+		REAL*8 M, K, K1, K2, L1, L2, KM
+		DATA T, K, M, B, Z, Y, H /0.0, 100.0, 0.5, 0.0, 0.0, 1.0, 0.001/
+		PRINT *, '	T	Y	Z'
+		PRINT 1, T, Y, Z
+1		FORMAT (F10.5, 1P2E13.6)
+
+		KM=K/M
+		BM=B/M
+
+		OPEN(1,FILE='rk2masares.dat',STATUS='UNKNOWN')
+		DO 	N = 1, 20
+			DO 	KOUNT = 1, 50
+				T = T+H
+				K1 = H*Z
+				L1 = -H*(BM*Z+KM*Y)
+				K2 = H*(Z+L1)
+				L2 = - H*(BM*(Z+L1)+KM*(Y+K1))
+				Y = Y+(K1+K2)/2
+				Z = Z+(L1+L2)/2
+			END DO
+			WRITE(1,*)T, Y, Z
+			PRINT 1, T, Y, Z
+		END DO
+		CLOSE(1)
+		END PROGRAM masaresorte
+\end{lstlisting}
+\end{enumerate}
+\section*{Método de Runge-Kutta de cuarto orden.}
+\begin{enumerate}
+\item \textbf{Descripción.}
+Se presenta un programa de Runge-Kutta de cuarto orden para resolver una ecuación diferencial de primer orden. Antes de ejecutar el programa, el usuario debe de definir la EDO a resolver, en el subprograma \texttt{FUN}. Cuando se ejecuta el programa, se le preguntará al usuario el número de pasos I, en el intervalo de impresión \textit{t}, denotado \texttt{TD}. Entonces, el intervalo de tiempo se hace igual a $h = TD/I$. También se le pregunta al usuario, el máximo \textit{t} en el que debe evaluarse la solución.
+\item \textbf{Variables} \\
+H : intervalo de tiempo, \textit{h} \\
+F: $f(y,t)$ \\
+K1, K2, K3, K4: $k_{1}$, $k_{2}$, $k_{3}$, $k_{4}$, respectivamente \\
+Y : y \\
+YA : \textit{y} en el subprograma que define la ecuación diferencial \\
+X : \textit{t} \\
+XA : \textit{t} de la ecuación diferencial en el subprograma \\
+XL : valor máximo de \textit{t} \\
+TD : intervalo de impresión de \textit{t} (la solución se imprime después de cada incremento de \textit{t} por TD).
+\item \textbf{Código.}
+A continuación se indica el código del programa.\\
+\begin{lstlisting}
+	PROGRAM rk4ecuacion
+      REAL K1, K2, K3, K4
+      
+      PRINT *
+1     PRINT *, 'Esquema de Runge-Kutta de cuarto orden'
+      PRINT *
+      PRINT *, 'Intervalo de impresion de T?'
+      READ *, XPR
+      PRINT *, 'Numero de pasos en un intervalo de impresion?'
+      READ *, I
+      PRINT *, 'Maximo?'
+      READ *, XL
+
+! AQUI SE FIJA EL VALOR INICIAL DE LA SOLUCION
+      Y=473
+
+! H ES EL INTERVALO DE TIEMPO
+      H=XPR/I\end{enumerate}
+
+      PRINT *, 'H= ', H
+
+      OPEN (1,FILE='datostemp.dat', STATUS='REPLACE')
+! SE INICIALIZA EL TIEMPO
+      XP=0
+      HH=H/2
+      PRINT *
+      PRINT *,'--------------------------------------------'
+      PRINT *,'	T			Y'
+      PRINT *,'--------------------------------------------'
+      PRINT *, XP, Y
+      82 FORMAT (1X, F10.6, 7X, 1PE15.6)
+
+!  AVANZA I PASOS EN CADA INTERVALO DE IMPRESION
+      
+30    DO J= 1,I
+	  	XB=XP
+	  	XP=XP+H
+	  	YN=Y
+	  	XM=XB+HH
+	  	K1=H*FUN(YB,XB)
+	  	K2=H*FUN(YN+K1/2,XM)
+	  	K3=H*FUN(YN+K2/2,XM)
+	  	K4=H*FUN(YN+K3,XP)
+	  	Y=YN+(K1+K2*2+K3*2+K4)/6
+      END DO
+
+      PRINT 82, XP, Y
+      WRITE(1,*) XP, Y
+      IF (XP .LE. XL) GOTO 30
+      PRINT *
+      PRINT *,'Se ha excedido del limite de X'
+      PRINT *
+      PRINT *
+      
+      CLOSE(1)
+      PRINT *, 'Oprime 1 para continuar, 0 para terminar'
+      READ *, K
+      IF (K .EQ. 1) GOTO 1
+      PRINT *
+	END PROGRAM rk4ecuacion
+! +++++++++++++++++++++++++++++++++++++
+FUNCTION FUN(Y,X)
+      rho = 300
+      volumen=0.001
+      area = 0.25
+      caloresp = 900
+      ctransferencia = 30
+      emisividad = 0.8
+      ctestefanbol = 5.67E-8
+     
+      constante1 = area/(rho*caloresp*volumen)
+      constante2 = emisividad*ctestefanbol
+
+      FUN=X*(constante1*(constante2*(bignumerote-Y**4)+ctransferencia*(297-Y)))
+      RETURN
+END|
+!++++++++++++++++++++++++++
+FUNCTION bignumerote()
+  integer, parameter:: DD = selected_int_kind(15)
+     integer(kind = DD):: bignum
+     bignum = 297_DD**4
+     RETURN
+END
+\end{lstlisting}
+\end{enumerate}
+\textbf{Parámetro KIND.}\\
+Especifica el tipo de dato. Si no se especifica, se asume el tipo de dato por defecto. Por ejemplo, Fortran 90 provee tres tipos de datos de parámetro \texttt{KIND} para datos de tipo real:\\
+\texttt{
+REAL(KIND=4) (o REAL*4)\\
+REAL(KIND=8) (o REAL*8)\\
+REAL(KIND=16) (o REAL*16)\\
+}
+\textbf{Función: Selected Int Kind(R)}\\
+Devuelve el tipo de dato entero adecuado para representar todos los valores $n$ en el rango\\ $-10^{R} < n <10^R$\\
+Si no es posible ese tipo de dato, devuelve el valor de $-1$.
+\\
+\\
+La aplicación del método RK4 a un conjunto de ecuaciones diferenciales es análoga del método de segundo orden. Sean un conjunto de dos ecuaciones:
+\begin{eqnarray}
+y'=f(y,z,t) \nonumber \\
+z'=g(y,z,t)
+\end{eqnarray}
+El método RK4 para este conjunto es:
+\begin{eqnarray}
+k_{1} & = & hf(y_{n},z_{n},t_{n}) \nonumber \\
+l_{1} & = & hg(y_{n},z_{n},t_{n}) \nonumber \\
+k_{2} & = & hf \left( y_{n} + \dfrac {k_{1}}{2},z_{n}+ \dfrac {l_{1}}{2},t_{n}+ \dfrac{h}{2}  \right)  \nonumber \\
+l_{2} & = & hg \left( y_{n} + \dfrac {k_{1}}{2},z_{n}+ \dfrac {l_{1}}{2},t_{n}+ \dfrac{h}{2}  \right)  \nonumber \\
+k_{3} & = & hf \left( y_{n} + \dfrac {k_{2}}{2},z_{n}+ \dfrac {l_{2}}{2},t_{n}+ \dfrac{h}{2}  \right)  \nonumber \\
+l_{3} & = & hg \left( y_{n} + \dfrac {k_{2}}{2},z_{n}+ \dfrac {l_{2}}{2},t_{n}+ \dfrac{h}{2}  \right)  \nonumber \\
+k_{4} & = & hf \left( y_{n}+k_{3},z_{n}+l_{3},t_{n}+h \right) \nonumber \\
+l_{4} & = & hg \left( y_{n}+k_{3},z_{n}+l_{3},t_{n}+h \right) \\
+y_{n+1} & = & y_{n} + \dfrac{1}{6} \left[k_{1}+2k_{2}+2k_{3}+k_{4} \right] \\
+z_{n+1} & = & z_{n} + \dfrac{1}{6} \left[l_{1}+2l_{2}+2l_{3}+l_{4} \right]
+\end{eqnarray}
+Incluso cuando el número de ecuaciones en un conjunto es mayor que dos, el método RK4 es esencialmente el mismo.
+\\
+\textbf{Ejemplo: } Resuelve el siguiente conjunto de EDO mediante el esquema RK4, utilizando $h=0.2 \pi$ y $h=0.05 \pi$
+\begin{eqnarray}
+y' & = & z, \hspace{0.5cm} y(0)=1 \nonumber \\
+z' & = & -y, \hspace{0.5cm} z(0)=0 \nonumber
+\end{eqnarray}
+\begin{enumerate}
+\item \textbf{Descripción:} Este programa resuelve un conjunto de cualquier número de EDO de primer orden. En la subrutina \texttt{FUNCT} se define el conjunto de ecuaciones diferenciales a resolver. En el programa principal se define el número de ecuaciones \texttt{IM}, así como los valores de las condiciones iniciales. Para correr el programa con un nuevo problema, el usuario debe de cambiar las ecuaciones en \texttt{FUNCT}, el valor de \texttt{IM} y las condiciones iniciales.
+\item \textbf{Variables:}\\
+Y(1) : y \\
+Y(2) : z \\
+Y(I) : i-ésima incógnita \\
+YN(I) : $y_{n}$ para $I=1$ y $z_{n}$ para $I=2$, etc. \\
+YA(I) : $y_{n}+\frac{k_{1}}{2}$ o $y_{n}+\frac{k_{2}}{2}$ o $y_{n}+k_{3}$ para $I=1$; $z_{n}+\frac{l_{1}}{2}$ o $z_{n}+\frac{l_{2}}{2}$ o $z_{n}+l_{3}$ para $I=2$\\
+EK(J,1), J=1,2,3,4 : $\hspace{0.5cm} k_{1},k_{2},k_{3},k_{4}$ \\
+EK(J,2), J=1,2,3,4 : $\hspace{0.5cm} l_{1},l_{2},l_{3},l_{4}$ \\
+EK(J,M), J=1,2,3,4 : similar a la anterior para la m-ésima EDO \\
+IM : número de ecuaciones en el conjunto \\
+NS : número de intervalos de tiempo en un intervalo de impresión \\
+XP : límite máximo de t \\
+TD : intervalo de impresión para t
+\end{enumerate}
+\begin{lstlisting}
+	PROGRAM RK4_SISTEMA
+	DIMENSION YA(0:10), YN(0:10), EK(0:4,0:10), Y(0:10)
+	PRINT *
+	PRINT *, "      ESQUEMA DE RK4 PARA UN CONJUNTO DE ECUACIONES"
+	PRINT *
+!numero de ecuaciones	
+	IM = 2
+
+	Y(1) = 1	!condicion inicial para y1 en t=0
+	Y(2) = 0	!condicion inicial para y2 en t=0
+
+1	PRINT *
+	PRINT *, '¿INTERVALO DE IMPRESION DE T?'
+	READ *, TD
+
+	PRINT *, '¿NUMERO DE PASOS EN UN INTERVALO DE IMPRESION DE T?'
+	READ *, NS
+
+	PRINT *, '¿T MAXIMO PARA DETENER LOS CALCULOS?'
+	READ *, XL
+
+	H =  TD/NS
+
+	PRINT *, '  H =  ', H
+
+	XP = 0
+	HH = H/2
+
+	PRINT *
+
+	LI = 0		!inicializacion del numero de linea
+	PRINT *, ' LINEA     T       Y(1),       Y(2), .....'
+	WRITE(*,98) LI, XP, (Y(I),I=1,IM)
+
+28	LI = LI + 1
+	DO N = 1, NS
+		XB = XP			!tiempo anterior
+		XP = XP + H		!tiempo nuevo
+		XM = XB + HH	!tiempo en el punto medio
+		
+		J =  1			!se calcula k1
+		DO I = 1, IM
+			YA(I) = Y(I)
+		END DO
+		XA = XB
+		CALL FUNCT(EK,J,YA,H)
+		
+		J = 2			!se calcula k2
+		DO I = 1, IM
+			YA(I) = Y(I) + EK(1,I)/2
+		END DO
+		XA = XM
+		CALL FUNCT(EK,J,YA,H)
+
+		J = 3			!se calcula k3
+		DO I = 1, IM
+			YA(I) = Y(I) + EK(2,I)/2
+		END DO
+		XA = XM
+		CALL FUNCT(EK,J,YA,H)
+
+		J = 4			!se calcula k4
+		DO I = 1, IM
+			YA(I) = Y(I) + EK(3,I)/2
+		END DO
+		XA = XP
+		CALL FUNCT(EK,J,YA,H)
+
+		DO I = 1, IM	!esquema RK4
+			Y(I) = Y(I) + (EK(1,I) + EK(2,I)*2 + EK(3,I)*2 + EK(4,I))/6
+		END DO
+	END DO
+	
+	WRITE(*,98) LI,XP,(Y(I),I=1,IM)
+98	FORMAT(1X,I2,F10.6,2X,1P4E16.6/(15X,1P4E16.6))
+	IF (XP .LT. XL) GOTO 28
+200	PRINT *
+	PRINT *, 'TECLEA 1 PARA CONTINUAR O 0 PARA TERMINAR'
+	READ *, K
+	IF (K .EQ. 1) GOTO 1
+	PRINT *
+	END PROGRAM
+!++++++++++++++++++++++++++++++++++++++++++++++
+	SUBROUTINE FUNCT(EK,J,YA,H)
+	DIMENSION EK(0:4,0:10), YA(0:10)
+
+	EK(J,1) =  YA(2)*H
+	EK(J,2) = -YA(1)*H
+	RETURN
+	END
+\end{lstlisting}
+\end{document}

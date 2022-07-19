@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[siunitx]{circuitikz}
+%\usepackage{siunitx}
+\begin{document}
+%\ctikzset{bipoles/length=1.4cm}
+\begin{circuitikz}[scale =1.2]
+\draw
+    (0,0)
+        to[V, l=$V_{s}$] ++(0,4)
+        to[short] ++(1,0)
+        to[L, l^=$L_{1}$] ++(1.5,0)
+        to[short] ++(1,0) coordinate (A)
+        to[short] ++(1,0)
+        to[R, l^=$R_{2}$] ++(1.5,0)
+        to[short] ++(1,0)
+        to[L, l^=$L_{2}$] ++(0,-4)--(1,0)
+        to[cspst, o-o] ++(0.8,0) -- (0,0)
+        (A)
+        to[short] ++(0,-0.5)
+        to[R, l^=$R_{1}$] ++(0,-1.5)
+        to[C, l^=$C$] ++(0,-2);
+        
+%\draw
+%	(0,0) node[anchor=east] {B}
+%	to [short , o-*] (1,0)
+%	to [R=20<\ohm>, *-*] (1,2)
+%	to [R=10<\ohm>, v=$v_x$] (3,2) -- (4,2)
+%	to [ cI=$\frac{\si{\siemens}}{5} v_x$, *-*] (4,0) -- (3,0)
+%	to [R=5<\ohm>, *-*] (3,2)
+%(3,0) -- (1,0)
+%(1,2) to [short , -o] (0,2) node[anchor=east]{A};
+\end{circuitikz}
+
+\end{document}

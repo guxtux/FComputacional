@@ -1,0 +1,287 @@
+\include{pre_documento}
+\include{pre_codigo}
+\include{pre_define_footers}
+\normalfont
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{Algebra matricial 2}
+\subtitle{Curso de Física Computacional}
+\author[]{M. en C. Gustavo Contreras Mayén}
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\resetcounteronoverlays{saveenumi}
+\begin{document}
+\newcommand{\localtextbulletone}{\textcolor{gray}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Métodos iterativos estacionarios}
+\begin{frame}
+\frametitle{Métodos iterativos estacionarios}
+Los métodos iterativos pueden expresarse en una forma simple
+\begin{equation}
+x^{k} = B \; x^{k - 1} + c
+\end{equation}
+(tanto $B$ o $c$ no dependen del contador de iteración $k$). 
+%\\En esta sección, se presentarán cuatro de los principales métodos de iteración: el \textit{método de Jacobi}, el \textit{método de Gauss-Siedel}, el \textit{método de sobre relajación sucesiva (SOR)} y el \textit{método de sobrerelajación sucesiva simétrica (SSOR)}.
+\end{frame}
+\subsection{El Método de Jacobi}
+\begin{frame}
+\frametitle{El Método de Jacobi}
+El método de Jacobi se obtiene fácilmente al examinar cada una de las $n$ ecuaciones de manera aisalda del sistema lineal $A \; x = b$. Si en la $i$-ésima ecuación
+\begin{equation}
+\sum_{j = 1}^{n} a_{i, j} \; x_{j} = b_{i} \nonumber
+\end{equation}
+\end{frame}
+\begin{frame}
+Resolvemos para el valor de $x_{i}$ asumiendo que las otras entradas de $x$ permanecen fijas (sin cambios), y obtenemos
+\begin{equation}
+x_{i} = (b_{i} - \sum_{j \neq 1} a_{i, j} \; x_{j}) / a_{i, i}
+\end{equation}
+\pause
+Esto sugiere un método iterativo definido por
+\begin{equation}\label{eq:Jacobi}
+x_{i}^{k} = (b_{i} - \sum_{j \neq 1} a_{i, j} \; x_{j}^{(k - 1)})/a_{i, i}
+\end{equation}
+siendo éste el método de Jacobi.
+\end{frame}
+\begin{frame}
+Hay que hacer notar que el orden en el cual se revisan las ecuaciones es irrelevante, dado que el método de Jacobi las considera independientes. 
+\\
+\bigskip
+Por esta razón, el método de Jacobi es también conocido como el \textit{método de desplazamientos simultáneos}.
+\end{frame}
+\begin{frame}
+En términos matriciales, la definición del método de Jacobi dada por (\ref{eq:Jacobi}), se expresa como
+\begin{equation}
+x_{k} =  D^{-1} \; (L + U) \; x^{k - 1} + D^{-1} \; b
+\end{equation}
+donde las matrices $D$, $-L$ y $-U$ representan la diagonal, la parte triangular inferior y la parte triangular superior de $A$, respectivamente.
+\end{frame}
+\begin{frame}
+El seudocódigo para el método de Jacobi se muestra a continuación.
+\\
+\bigskip
+Revisa que en el algoritmo se utiliza un vector auxiliar de almacenamiento $\overline{x}$.
+\end{frame}
+\begin{frame}
+\frametitle{Algoritmo de Jacobi}
+Elegir un valor inicial de $x_{0}$ para la solución $x$\\
+\begin{tabbing}
+\textbf{for} \= $k=1,2, \ldots$ \\
+\> \textbf{for} \= $i=1,2, \ldots,n$ \\
+\> \> $\overline{x}=0$ \\
+\> \> \textbf{for} \= $j=1,2, \ldots , i-1 , i+1,\ldots,n$ \\
+\> \> \> $\overline{x} = \overline{x} + a_{i,j} x_{j}^{k-1}$ \\
+\> \> \textbf{end} \\
+\> \> $\overline{x}=(b_{i}-\overline{x})/a_{i,i}$ \\
+\> \textbf{end} \\
+\> $x^{k} = \overline{x}$ \\
+\> Revisar la convergencia; continuar si es necesario \\
+\textbf{end}
+\end{tabbing}
+\end{frame}
+%\subsection*{Convergencia del método de Jacobi.}
+%Los métodos iterativos se usan a menudo para resolver ecuaciones diferenciales parciales discretizadas. En ese contexto, un riguroso análisis de la convergencia de métodos simples como el de Jacobi, se puede dar. Como ejemplo, consideremos el siguiente problema con valores a la frontera:
+%\begin{equation}
+%Lu=-u_{xx}=f \text{\hspace{0.3cm} con (0,1),\hspace{0.3cm}} u(0)=u_{0}, u(1)=u_{1} \nonumber
+%\end{equation}
+%discretizando el problema, tenemos
+%\begin{equation}
+%Lu(x_{i})=2u(x_{i})-u(x_{i-1})-u(x_{i+1})= \frac{f(x_{i})}{N^{2}} \text{\hspace{0.3cm}para   } x_{i}=\frac{i}{N}, i=1,\ldots , N-1 \nonumber
+%\end{equation}
+%Las eigen-funciones de $L$ y el operador $L$ son las mismas: para $n=1,\ldots ,N-1$ la función $u_{n}(x)=sin(n \pi x)$ y es una eigen-función que corresponde a $\lambda = 4 sin^{2} \pi / 2N$. Los eigen-valores de la matriz $\textit{B}$ de iteración de Jacobi, son entonces: $\lambda(\textit{B}) = 1-1/2 \lambda(L) = 1-2 sin^{2} n \pi /(2N)$.\\
+%Es fácil ver que en modos de alta frecuencia (para eigen-funciones $u_{n}$ con $n$ grandes), se amortigua rápidamente, mientras el factor de amortiguamiento para modos con $n$ pequeños, es cercano a 1. El radio espectral de la matriz de iteración de Jacobi es $\approx 1- 10 / N^{2}$ y esto se logra para una eigen-función $u(x)= sin(\pi x).$\\
+%El tipo de análisis aplicado en este ejemplo, puede generalizarse para dimensiones mayores y con otros métodos iterativos estacionarios. Tanto para el método de Jacobi como el de Gauss-Siedel, el radio espectral se encuentra que es $1-O(h^{2})$ donde $h$ es el ancho de la malla de discretización, es decir, $h=N^{-d}$ donde $N$ es el número de variables y $d$ es el número de dimensiones espaciales.
+%\subsection{El Método de Gauss-Siedel.}
+%Considerando nuevamente las ecuaciones lineales en (\ref{eq:Jacobi}). Si hacemos el algortimo del método de Jacobi, pero ahora con la suposición de que las ecuaciones se revisan en una secuencia de tal forma que ahora los resultados se utilizan tan pronto estén disponibles, así obtenemos el método de Gauss-Siedel:
+%\begin{equation}\label{eq:GaussSiedel}
+%x_{i}^{(k)}=( b_{i} - \sum_{j<1} a_{i,j}x_{j}^{(k)} - \sum_{j>1} a_{i,j} x_{j}^{(k-1)})/a_{i,i}
+%\end{equation}
+%Hay que resaltar dos hechos importantes en el método de Gauss-Siedel, el primero es que los cálculos realizados en (\ref{eq:GaussSiedel}) son seriados, es decir, cada componente de una nueva iteración depende de todas las componentes calculadas previamente, la actualización no se realiza de manera simultánea como en el método de Jacobi. Segundo, la nueva iteración $x_{(k)}$ depende del orden en el cual la ecuación se revisa. El método de Gauss-Siedel es conocido también como el \textit{método de desplazamientos sucesivos} que indican la dependencia del orden en la iteración. Si el orden se cambia, los \textit{componentes} de la nueva iteración (y no sólo su orden) se cambiarán.\\
+%Esos dos puntos son importantes ya que si \textit{A} es de tipo \textit{sparse}, la dependencia de cada componente en la nueva iteración no es absoluta de componentes previas. La presencia de ceros en la matriz puede afectar o influir en algunos de los componentes previos. Realizando un orden específico de las ecuaciones, es posible reducir tal dependencia, esto nos facilita la oportunidad de actualizar los grupos de componentes en paralelo; pero re-ordenar las ecuaciones puede afectar la convergencia del método de Gauss-Siedel.\\
+%En términos matriciales, el método de Gauss-Siedel se define por:
+%\begin{equation}\label{eq:Gauss-Siedel}
+%x_{k}= (D-L)^{-1})(U x^{k-1}+b)
+%\end{equation}
+%Como en el punto anterior, $D$, $-L$ y $-U$ representan la diagonal, la parte triangular inferior y la parte triangular superior de $A$, respectivamente.\\
+%\\
+%El seudocódigo para el método Gauss-Siedel es el siguiente:\\
+%\\
+%Elegir un valor inicial de $x_{0}$ para la solución $x$\\
+%\begin{tabbing}
+%\textbf{for} \= $k=1,2, \ldots $ \\
+%\> \textbf{for} \= $i=1,2,\ldots, n$ \\
+%\> \> $\sigma = 0$\\
+%\> \> \textbf{for} \= $j=1,2,\ldots, i-1$ \\
+%\> \> \> $\sigma = \sigma + a_{i,j}x_{j}^{(k)}$ \\
+%\> \> \textbf{end} \\
+%\> \> \textbf{for} \= $j=i+1, \ldots, n$ \\
+%\> \> \> $\sigma = \sigma+a_{i,j}x_{j}^{(k-1)}$ \\
+%\> \> \textbf{end} \\
+%\> \> $x_{i}^{(k)}= (b_{i}-\sigma)/a_{i,i}$ \\
+%\> \textbf{end} \\
+%\> Revisar la convergencia; continuar si es necesario \\
+%\textbf{end}
+%\end{tabbing}
+\subsection{Algoritmo para Gauss-Seidel}
+\begin{frame}
+\frametitle{Algoritmo para Gauss-Seidel}
+La función \texttt{gaussSeidel} es una implementación del método de Gauss-Seidel con relajación. Se calcula automáticamente $\omega_{\mbox{opt}}$ utilizando $k = 10$ y $p = 1$.
+\end{frame}
+\begin{frame}
+El usuario debe proporcionar la función \texttt{iterEqs} que calcula la mejora de $x$ a partir de las fórmulas iterativas. 
+\\
+\bigskip
+La función devuelve el vector solución $x$, el número de iteraciones llevadas a cabo y el valor de $\omega_{\mbox{opt}}$ utilizado.
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+def gaussSeidel(iterEqs,x,tol = 1.0e-9):
+    omega = 1.0
+    k = 10
+    p = 1
+    
+    for i in range(1,501):
+        xVieja = x.copy()
+        x = iterEqs(x,omega)
+        dx = sqrt(dot(x-xVieja,x-xVieja))
+        if dx < tol: return x,i,omega
+        
+        if i == k: dx1 = dx
+        if i == k + p:
+            dx2 = dx
+            omega = 2.0/(1.0 + sqrt(1.0 - (dx2/dx1)**(1.0/p)))
+	print ('No converge Gauss-Seidel')
+\end{lstlisting} 
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+\fontsize{10}{10}\selectfont
+Resolver el siguiente sistema de $n$ ecuaciones simultáneas por el método de Gauss-Seidel con relajación (el programa deberá resolver para cualquier valor de $n$)
+\[ \begin{bmatrix}
+2 & -1 & 0 & 0 & \ldots & 0 & 0 & 0 & 1 \\
+-1 & 2 & -1 & 0 & \ldots & 0 & 0 & 0 & 0 \\
+0 & -1 & 2 & -1 & \ldots & 0 & 0 & 0 & 0 \\
+\vdots & \vdots & \vdots & \vdots & & \vdots & \vdots & \vdots & \vdots \\
+0 & 0 & 0 & 0 & \ldots & -1 & 2 & -1 & 0 \\
+0 & 0 & 0 & 0 & \ldots & 0 & -1 & 2 & -1 \\
+1 & 0 & 0 & 0 & \ldots & 0 & 0 & -1 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+\vdots \\
+x_{n-2} \\
+x_{n-1} \\
+x_{n} 
+\end{bmatrix} = 
+\begin{bmatrix}
+0 \\
+0 \\
+0 \\
+\vdots \\
+0 \\
+0 \\
+1 
+\end{bmatrix} \]
+Ejecutar el programa con $n=20$, la solución exacta es $x_{i}= - \frac{n}{4} + \frac{i}{2}$, con $i=1,2,\ldots,n$.
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué necesitamos?}
+Necesitamos desarrollar las fórmulas iterativas a partir de:
+\[  x_{i}\leftarrow \dfrac{\omega}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) + (1 - \omega) x_{i} \hspace{1cm} i=1,2,\ldots,n \]
+Para $x_{1}$, tenemos
+\[ \begin{split}
+x_{1} =& \dfrac{\omega}{2} \left( (1)(x_{2})-(1)(x_{n}) \right) + (1-\omega)x_{1} \\
+x_{1} =& \dfrac{\omega(x_{2}-x_{n})}{2} + (1 - \omega)x_{1}
+\end{split} \]
+\end{frame}
+\begin{frame}
+\emph{Nota: } Cada matriz $\mathbf{A}$ requiere de la construcción de sus ecuaciones de iteración, revisa que se necesita conocer los valores de la diagonal principal $\mathbf{d}$, así como del vector de coeficientes $\mathbf{b}$.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función \texttt{iterEqs}}
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+def iterEqs(x,omega):
+    n = len(x)
+    x[0] = omega*(x[1] - x[n-1])/2.0 + (1.0 - omega)*x[0]
+    
+    for i in range(1,n-1):
+        x[i] = omega*(x[i-1] + x[i+1])/2.0 + (1.0 - omega)*x[i]
+    
+    x[n-1] = omega*(1.0 - x[0] + x[n-2])/2.0 + (1.0 - omega)*x[n-1]
+
+    return x
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Código principal}
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\normalsize, columns=fullflexible]
+n = eval(raw_input('Numero de ecuaciones ==> '))
+
+x = zeros((n),dtype='float64')
+
+x,numIter,omega = gaussSeidel(iterEqs,x)
+
+print ('\nNumero de iteraciones =',numIter)
+
+print ('\nFactor de relajacion =',omega)
+
+print ('\nLa solucion es :\n',x)
+\end{lstlisting}
+\end{frame}
+\begin{frame}{fragile}
+\frametitle{Solución al problema}
+La solución que nos devuelve el algoritmo, con $n=20$ es:
+\\
+\medskip
+\texttt{
+Número de ecuaciones = 20 
+\\
+\medskip
+Número de iteraciones = 259 
+\\
+\medskip
+Factor de relajación = 1.70545231071
+}
+\end{frame}
+\begin{frame}
+\frametitle{Explorando la solución I.}
+Como podemos ver en la solución, el número de iteraciones es elevado, ¿a qué se debe?
+\\
+\medskip
+Revisando la configuración del arreglo, notamos que no es dominante diagonal, por lo que en gran medida, el procedimiento de iteración es elevado, ahora: ¿qué podemos hacer?
+\end{frame}
+\begin{frame}
+Podemos reconfigurar el arreglo de tal manera en que sea dominante diagonal y podríamos revisar cuántas iteraciones requiere y compararlas contra la manera inicial.
+\end{frame}
+\begin{frame}
+\frametitle{Explorando la solución II.}
+¿Y si aumentamos el tamaño del arreglo?
+\\
+\medskip
+El algoritmo que se propuso para el ejercicio, considera la solución para un sistema de $n$ ecuaciones, ya lo tenemos para $n=20$, completa la siguiente tabla:
+\end{frame}
+\begin{frame}
+\begin{center}
+\begin{tabular}{c | c | c }
+\hline
+$n$ & iteraciones & $\omega_{opt}$ \\ \hline
+$20$ & & \\ \hline
+$25$ & & \\ \hline
+$50$ & & \\ \hline
+$75$ & & \\ \hline
+$100$ & & \\ \hline
+\end{tabular}
+\end{center}
+Interpreta tus resultados.
+\end{frame}
+\end{document}

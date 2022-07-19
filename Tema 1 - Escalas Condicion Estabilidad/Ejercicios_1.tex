@@ -1,0 +1,38 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\renewcommand{\baselinestretch}{1.3}
+\spanishdecimal{.} 
+\marginsize{1.5cm}{1.5cm}{0cm}{2cm}  
+\title{Tarea 1: Errores, condición y estabilidad \\ Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\begin{enumerate}
+\item La din\'{a}mica de un cometa est\'{a} sometida por la fuerza gravitacional entre el cometa y el Sol, 
+\[   \textbf{f} = -GMm \textbf{r}/r^{3} \]
+donde $ G=6.67 \times 10^{11} Nm^{2}/kg^{2}$ es la constante gravitacional, $M=1.99 \times 10^{30} kg$ es la masa del Sol, \textit{m} es la masa del cometa, \textbf{r} es el vector posici\'{o}n del cometa medido desde el Sol, y \textit{r} es la magnitud de \textbf{r}. Escribe un programa para estudiar el movimiento del cometa Halley que tiene un afelio (el punto m\'{a}s alejado del Sol) de $5.28 \times 10^{12}m$ y la velocidad en el afelio es de $9.12 \times 10^{2} m/s$
+\begin{enumerate}
+\item ¿cu\'{a}les son las unidades tanto de tiempo como de longitud m\'{a}s pertinentes en el problema?
+\item Discute el error que se genera por el programa en cada per\'{i}odo del cometa Halley.
+\end{enumerate}
+\item Hay personas que luego no tienen nada qu\'{e} hacer, y algunos se dedican a saltar en motocicletas, se te pide que propongas un modelo de estudio para estos saltos. La resistencia del aire de un objeto en movimiento est\'{a} dada por 
+\[ \textbf{f}_{r} = - cA \rho v(\textbf{v})/2 \]
+donde $v(\textbf{v})$ es la velocidad y \textit{A} es la secci\'{o}n de \'{a}rea transversal del objeto en movimiento, $\rho$ es la densidad del aire y \textit{c} es un coeficiente en el orden de $1$, para los dem\'{a}s factores que no se enlistan. Si la secci\'{o}n de \'{a}rea transversal es $A=0.93m^{2}$, la velocidad m\'{a}xima con la que despega la motocicleta es de $67 m/s$, la densidad del aire es
+ $\rho = 1.2 kg/m^{3}$, la masa combinada de la motocicleta y la persona que maneja es de $250$ kg, y el coeficiente $c=1$, encuentra el \'{a}ngulo de inclinaci\'{o}n de la rampa de despegue, para que se consiga la mayor distancia de recorrido.
+\item El 25 de febrero de 1991, durante la guerra del Golfo, una bater\'{i}a de misiles Patriot americanos en Dharan (Arabia Saudita) no lograron interceptar un misil Scud iraqu\'{i}. Murieron 28 soldados americanos. La causa: los errores num\'{e}ricos por utilizar truncado en lugar de redondeo en el sistema que calcula el momento exacto en que debe ser lanzado el misil.\\
+Las computadoras de los Patriot que han de seguir la trayectoria del misil Scud, la predicen punto a punto en funci\'{o}n de su velocidad conocida y del momento en que fue detectado por última vez en el radar. La velocidad es un número real. El tiempo es una magnitud real pero el sistema la calculaba mediante un reloj interno que contaba d\'{e}cimas de segundo, por lo que representaban el tiempo como una variable entera. Cuanto m\'{a}s tiempo lleva el sistema funcionando m\'{a}s grande es el entero que representa el tiempo. Los ordenadores del Patriot almacenan los números reales representados en punto flotante con una mantisa de 24 bits. Para convertir el tiempo entero en un número real se multiplica \'{e}ste por $1/10$, y se trunca el resultado (en lugar de redondearlo). El número $1/10$ se almacenaba truncado a 24 bits. El pequeño error debido al truncado, se hace grande cuando se multiplica por un número (entero) grande, y puede conducir a un error significativo. La bater\'{i}a de los Patriot llevaba en funcionamiento m\'{a}s de 100 horas, por lo que el tiempo entero era un número muy grande y el número real resultante tendr\'{a} un error cercano a $0.34$ segundos.
+\\Explica a detalle qu\'{e} fue lo que ocurri\'{o}.
+\item Consideremos una part\'{i}cula bajo un campo gravitatorio uniforme vertical y una fuerza de resistencia $\mathbf{f}_{r} = - \kappa \nu(\mathbf{v})$, donde $\nu(\mathbf{v})$ es la velocidad de la part\'{i}cula y $\kappa$ es un par\'{a}metro positivo. Analiza la dependencia de la altura y la velocidad de una gota de agua con diferentes $m/\kappa$, donde $m$ es la masa de la gota de agua, para simplificar, considera la raz\'{o}n como una constante. Grafica la velocidad terminal de la gota de lluvia contra $m/\kappa$, y comp\'{a}ralo con el resultado de una ca\'{i}da libre.
+\item Si la siguiente funci\'{o}n se escribe en un programa, ¿en qu\'{e} rango de $x$ aparecer\'{a} un desborde o una divisi\'{o}n entre cero originados por el error de redondeo?
+\[ f(x)=\dfrac{1}{1-tanh(x)} \]
+Suponiendo que el número positivo m\'{a}s pequeño es $3 \times 10^{-39}$  y el \'{e}psilon de la m\'{a}quina es $1.2 \times 10^{-7}$.
+\item Algunas constantes matem\'{a}ticas son utilizadas con frecuencia en la f\'{i}sica, tales como $\pi$, $e$ y la constante de Euler $\gamma = \lim_{n\rightarrow \infty} (\sum_{k=1}^{n} k^{-1} - \ln n)$. Encuentra una forma para crear cada una de las constantes $\pi$, $e$ y $\gamma$. Despu\'{e}s, considerando ya los elementos del lenguaje de programaci\'{o}n, determina: la precisi\'{o}n y eficiencia. Si se requiere utilizar los valores de las constantes dentro del c\'{o}digo, ¿se debe generar en una sola ocasi\'{o}n y almacenarlo en un variable o se debe de generar en cada ocasi\'{o}n que se requiera?
+\end{enumerate}
+\end{document}

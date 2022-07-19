@@ -1,0 +1,80 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\marginsize{1cm}{2cm}{2cm}{2cm}  
+\title{Tarea 2 - Operaciones matemáticas básicas. \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item Encuentra todas las raíces positivas de las siguientes ecuaciones mediante el método de bisección, con una tolerancia de 0.001.
+\begin{enumerate}
+\item $\tan(x) - x + 1 = 0; \hspace{1cm} 0 < x < 3\pi$
+\item $\sin(x) - 0.3 \exp^{x} = 0; \hspace{1cm} x > 0$
+\item $-x^{3} + x + 1 = 0$
+\item $16x^{5} - 20x^{3} + x^{2} + 5x - 0.5 = 0$
+\end{enumerate}
+\item Determina las raíces de las siguientes ecuaciones mediante el método de la falsa posición modifcada:
+\begin{enumerate}
+\item $f(x) = 0.5\exp^{\frac{x}{3}}- \sin(x); \hspace{1cm} x > 0$
+\item $g(x) = \log(1 + x) - x2$
+\item $f(x) = \exp^{x} - 5x^{2}$
+\item $h(x) = x^{3} + 2x - 1 = 0$
+\item $f(x) = \sqrt{x+2}$
+\end{enumerate}
+\item Las frecuencias naturales de vibración de una varilla uniforme sujeta por un extremo y libre por el otro, son soluciones de:
+\[ \cos(\beta l)cosh(\beta l) + 1 = 0 \]
+donde:
+$\beta = \dfrac{\rho \omega^{2}}{EI}$ \\
+$l = 1$ (longitud de la varilla en metros) \\
+$\omega$ = frecuencia en $s^{-1}$ \\
+EI = rigidez de flexión \\
+$\rho$ = densidad del material de la varilla.
+Encuentra las raíces de la ecuación anterior, primero mediante el método gráfico, y determina después los
+tres valores más pequeños de $\beta$ que satisfacen la ecuación mediante el método de Newton.
+\item Evalúa las siguientes integrales utilizando la regla extendida del trapecio con intervalos de $N =
+2; 4; 8; 16; 32$, estima el error a partir del valor exacto de la integral:
+\begin{enumerate}
+\item $3x^{3} + 5x - 1; \hspace{1cm} [0, 1]$
+\item $x^{3} - 2x^{2} + x + 2; \hspace{1cm}[0, 3]$
+\item $x^{4} + x^{3} - x^{2} + x + 3; \hspace{1cm} [0, 1]$
+\item $tan(x); \hspace{1cm} [0, \frac{\pi}{4}]$
+\item $\exp(x); \hspace{1cm} [0, 1]$
+\item $ \dfrac{1}{2+x}\hspace{1cm} [0, 1]$
+\end{enumerate}
+\item Un automóvil con masa $M = 5400$ kg se mueve a una velocidad de $30 m/s$ . El motor se apaga súbitamente a los $t = 0$ s. Suponemos que la ecuación de movimiento después de $t = 0$ está dada por:
+\[ 5400v \dfrac{dv}{dx} = -8.27v^{2} - 2000
+\]
+donde $v = v(t)$ es la velocidad del automóvil al tiempo t. El lado izquierdo representa $Mv(dv/dx)$. El primer término del lado derecho es la fuerza aerodinámica y el segundo término es la resistencia de las llantas del rodaje. Calcula la distancia que recorre el auto hasta que la velocidad se reduce a $15 m/s$.\\
+(Hint: la ecuación de movimiento se puede integrar como:
+\[ \int_{15}^{30} \dfrac{5400 v dv}{8.276 v^{2}+2000} =  \int dx = x \]
+Evalúa la ecuación anterior mediante la regla de Simpson.
+\item Evalúa la primera derivada de $y(x) = \sin(x)$ para $x = 14$ y $h = 0.001; 0.005; 0.01; 0.05; 0.1; 0.5$ mediante los tres esquemas diferentes:
+\begin{enumerate}
+\item $ y'(1) = \dfrac{[y(1 + h) - y(1)]}{h}$
+\item $y'(1) = \dfrac{[y(1) - y(1 - h)]}{h}$
+\item $y'(1) = \dfrac{y(1 + \dfrac{h}{2})-y(1-\dfrac{h}{2})}{h}$
+\end{enumerate}
+\item La distribución de velocidad de un fluido cerca de una superficie plana está dada por la siguiente tabla:
+\begin{center}
+\begin{tabular}{c | c | c}
+i & $y_{i}(m)$ & $u_{i}(m/s)$ \\
+\hline 0 & 0.0 & 0.0 \\
+1 & 0.002 & 0.006180 \\
+2 & 0.004 & 0.011756 \\
+3 & 0.006 & 0.016180 \\
+4 & 0.008 & 0.019021
+\end{tabular}
+\end{center}
+La ley de Newton para la tensión superficial está dada por:
+\[\tau = \mu \dfrac{d}{dy} u\]
+donde $\tau$ es la viscosidad que suponemos vale $0.001Ns/m^{2}$.Calcula la tensión superficial en $y = 0$ mediante una aproximación por diferencias usando los siguientes puntos: a) $i = 0, 1$ y b) $i = 0, 1, 2$.
+2
+\end{enumerate}
+\end{document}

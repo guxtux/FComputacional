@@ -1,0 +1,76 @@
+\documentclass[12pt]{beamer}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+%\usetheme{Warsaw}
+%\usepackage{euler}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{listings}
+\lstset{ %
+language=C++,                % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=2,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\%}{)}          % if you want to add a comment within your code
+}
+%\usepackage{epstopdf}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\renewcommand {\arraystretch}{1.5}
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+\title{Tema 0 - Escalas, condici\'{o}n y estabilidad}
+\subtitle{Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+%\email{curso.fisica.comp@gmail.com}
+%\ptsize{10}
+\begin{document}
+\maketitle
+\fontsize{16}{16}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Introducci\'{o}n}
+\begin{frame}
+Para el curso de F\'{i}sica Computacional ser\'{a} necesario que usemos un lenguaje de programaci\'{o}n para apoyarnos en la soluci\'{o}n de los problemas y algoritmos.
+\\
+\bigskip
+El lenguaje de nuestra elecci\'{o}n es un medio para alcanzar nuestro objetivo del curso, m\'{a}s no el fin, por lo que revisaremos lo m\'{a}s b\'{a}asico de Python, dando la oportunidad de que por tu cuenta, logres un mayor conocimiento y pr\'{a}ctica con Python.
+\end{frame}
+\begin{frame}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{../Tema 0 - Programacion basica Python/python-logo-master-v3-TM2.eps} 
+\end{figure}
+\begin{itemize}
+\item Lenguaje de programaci\'{o}n de alto nivel, interpretado.
+\item Desarrollado por Guido van Rossum a principios de
+los años 90.
+\item Es multiplataforma (UNIX, Solaris, Linux, DOS, Windows, OS/2, Mac OS, etc.)
+\item Software libre: Python Software Foundation License (PSFL)
+\item Tipado din\'{a}mico.
+\item Fuertemente tipado.
+\item Orientado a objetos.
+\end{itemize}
+\end{frame}
+\end{document}

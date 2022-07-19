@@ -1,0 +1,541 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Warsaw_default}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers_Warsaw_default}
+\title{\large{Tema 1 - Escalas, condición y estabilidad}}
+\subtitle{Curso de Física Computacional}
+\author[]{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=2cm]{Imagenes/escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=2cm]{Imagenes/escudo-unam}
+}
+\begin{document}
+\maketitle
+\section*{Contenido}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideallsubsections]}
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section{Tema 1 del Curso}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Objetivo}
+\begin{frame}
+\frametitle{Objetivo}
+Al concluir el Tema 1, el alumno:
+\begin{enumerate}
+\item En el diseño de algoritmos para la solución numérica de problemas de la física, aplicará los conceptos de: \textit{Condición}, \textit{Estabilidad} y \textit{Eficiencia}, apoyándose en la teoría de representación de números en la computadora y de la teoría de propagación de errores.
+\end{enumerate}
+\end{frame}
+\section{Física Computacional}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{¿Qué es? ¿Para qué?}
+\begin{frame}
+\frametitle{¿Qué es la física computacional?}
+La física computacional es una nueva manera de hacer investigación en física, próxima al
+experimento y a la teoría.
+\\
+\medskip
+En el laboratorio se realizan mediciones en sistemas físicos reales (restringida a la factibilidad de recursos técnicos), y que luego los físicos teóricos explican esas mediciones mediante las teorías.
+\end{frame}
+\subsection{Áreas de investigación}
+\begin{frame}
+\frametitle{Áreas de investigación en la física}
+\begin{itemize}[<+->]
+	\item Problemas que no tienen solución analítica.
+	\item Validar aproximaciones y hacer efectivas las teorías propuestas.
+	\item Comparar cuantitativamente teorías y mediciones experimentales.
+	\item Visualizar conjuntos de datos complejos.
+	\item Control y medición de experimentos.
+\end{itemize}
+\end{frame}
+\subsection{La física computacional aplicada}
+\begin{frame}
+\frametitle{La física computacional aplicada}
+\fontsize{14}{14}\selectfont
+\begin{multicols}{2}
+\begin{itemize}[<+->]
+	\item Predicción del clima
+	\item Superconductividad
+	\item Genoma Humano
+	\item Visión y lenguaje
+	\item Fusión nuclear
+	\item Oceanografía
+	\item Ciencia de los materiales
+	\item Diseño de semiconductores
+	\item Astrofísica relativista
+	\item Sistemas de combustión
+	\item Estructura biológica
+	\item Diseño de fármacos
+	\item Turbulencia
+	\item Recuperación de petróleo y gas
+	\item Cromodinámica cuántica
+\end{itemize}
+\end{multicols}
+\end{frame}
+\begin{frame}[fragile]
+\begin{figure}
+\centering
+\includestandalone{Figuras/figura_01}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Alcance del curso}
+El curso está diseñado para ofrecer una introducción a los métodos numéricos aplicados a la física.
+\\
+\medskip
+Se da un punto de referencia para continuar profundizando de manera particular en temas específicos. 
+\end{frame}
+\begin{frame}
+\frametitle{Alcance del curso}
+El desarrollo de las habilidades de programación, están en función del tiempo dedicado al trabajo fuera de la clase, pero consideramos que se abren un panorama diferente para abordar ya sea un servicio social, tesis o proyecto de trabajo para un posgrado.
+\end{frame}
+\section{Números en la computadora}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\begin{frame}
+\frametitle{Representación de números en la computadora}
+Las computadoras son herramientas muy poderosas, pero son tienen un alcance finito.
+\\
+\bigskip
+Un problema que se presenta en el diseño de computadora es cómo representar un número arbitrario usando una cantidad finita de espacio de memoria y cómo tratar con las limitaciones que surgen de esta representación.
+\end{frame}
+\begin{frame}
+Como consecuencia de que las memorias de la computadora se basan en un estado de magnetización o electrónico de un giro que apunta hacia arriba o hacia abajo, las unidades más elementales de memoria de la computadora son los dos enteros binarios (bits) $0$ y $1$.
+\end{frame}
+\begin{frame}
+\frametitle{Rango de representación}
+Esto significa que la forma en que se almacenan los números en memoria, es como cadenas largas de ceros y unos, es decir, de modo binario.
+\\
+\bigskip
+De tal manera $N$ bits puede almacenar números enteros en el rango $[0, 2^{N}]$, pero debido a que el signo del número entero está representado por el primer bit (un bit cero para números positivos), el rango real disminuye a $[0, 2^{N- 1}]$.
+\end{frame}
+\begin{frame}
+\frametitle{Otras bases de operación}
+La representación binaria de números a través de ceros y unos, funciona y opera bien para las computadoras, pero no para los usuarios.
+\\
+\bigskip
+Es por ello que las cadenas binarias se convierten en números octal, decimal o hexadecimal antes de que los resultados se presenten a los usuarios.
+\end{frame}
+\begin{frame}
+Los números octales y hexadecimales son también oportunos porque en la conversión no se pierde precisión.
+\\
+\bigskip
+Pero no todo queda bien ya que nuestras reglas decimales de aritmética no funcionan para ellos.
+\end{frame}
+\begin{frame}
+\frametitle{Desventaja de la aritmética binaria}
+La conversión a números decimales hace que los números sean más fáciles de trabajar, pero a menos que el número sea una potencia de $2$, el proceso conduce a una disminución en la precisión.
+\end{frame}
+\begin{frame}
+\frametitle{Longitud de palabra}
+Una descripción de un sistema informático particular indica normalmente la \emph{longitud de la palabra}, es, el número de bits utilizados para almacenar un número.
+\\
+\bigskip
+La longitud se expresa en bytes, donde
+\[ 1 \mbox{ byte} \equiv 1 \mbox{ B} \equiv 8 \: \si{\bit} \]
+\end{frame}
+\begin{frame}
+\frametitle{Unidades de medida}
+Tanto la memoria como el almacenamiento se mide en bytes, kilobytes, megabytes, gigabytes, terabytes y petabytes $(10^{15})$.
+\\
+\bigskip
+No debemos de confundirnos al elegir las unidades de medida, ya que el prefijo \emph{kilo}, no siempre equivale a $1000$
+\[ 1 \: \si{\kilo} =   1 \: \si{\kilo \byte} = 2^{10} \si{\byte} = 1024 \: \si{byte} \]
+\end{frame}
+\begin{frame}
+La memoria de las primeras computadoras usaban palabras de 8 bits, esto implicaba que el mayor entero era $2^{7} = 128$, ($7$ debido a $1$ bit para el signo).
+\\
+\bigskip
+Si queríamos almacenar un número más grande, tanto el hardware como el software se diseñaban para generar un \textoazul{desbordamiento (overflow)}.
+\end{frame}
+\begin{frame}
+Usando $64$ bits, se permiten enteros en el rango $1 - 2^{63} \simeq 10^{19}$.
+\\
+\bigskip
+Que podría en apariencia ser una rango mucho más grande, pero no lo es cuando se compara con el rango de escalas que tenemos en el mundo real: del radio del universo al radio de un protón, tenemos aproximadamente $10^{41}$ órdenes de magnitud.
+\end{frame}
+\section{Estándar IIIE 754}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Representación en la computadora}
+\begin{frame}
+\frametitle{Tipos de notación}
+Los números reales se representan en computadoras en notación de punto fijo o punto flotante.
+\\
+\bigskip
+La notación de punto fijo se puede utilizar para números con un número fijo de lugares luego del punto decimal (raíz) o para números enteros. Tiene como ventaja que se utiliza la aritmética complementaria de dos y por tanto, almacenar enteros exactamente.\footnote{Para ampliar el tema, revisa la guía de operaciones binarias}.
+\end{frame}.
+\subsection{Números de punto fijo}
+\begin{frame}
+\frametitle{Números de punto fijo}
+En la representación de punto fijo con $N$ bits y con un formato de complemento de dos, un número se representa como
+\begin{align}
+\begin{aligned}
+N_{\mbox{fijo}} = \mbox{signo} \times (\alpha_{n} \: 2^{n} &+ \alpha_{n-1} \: 2^{n-1} + \ldots + \\
+&+ \alpha_{0} \: 2^{0} + \ldots + \alpha_{-m} \: 2^{-m} )
+\label{eq:ecuacion_01_01}
+\end{aligned}
+\end{align}
+
+donde $n + m = N - 2$.
+\end{frame}
+\begin{frame}
+\frametitle{Números de punto fijo}
+Es decir, $1$ bit se utiliza para almacenar el signo, con los restantes $(N - 1)$ bits se usan para almacenar los $\alpha_{i}$ valores (se entienden las potencias de 2).
+\\
+\bigskip
+Los valores particulares para $N$, $m$ y $n$ son dependientes de la máquina.
+\end{frame}
+\begin{frame}
+\frametitle{Rango de los enteros}
+Los enteros se representan típicamente con $4$ bytes ($32$ bits) de longitud, en el rango
+\[ -2147483648 \leq 4-\mbox{B entero} \leq 2147483647 \]
+\end{frame}
+\begin{frame}
+\frametitle{Ventaja de la representación}
+Una ventaja de la representación (\ref{eq:ecuacion_01_01}) es que se puede contar con todos los números de punto fijo para tener el mismo error absoluto de $2^{-m-1}$ (el término se deja fuera del extremo derecho de (\ref{eq:ecuacion_01_01}).
+\end{frame}
+\begin{frame}
+\frametitle{Desventaja de la representación}
+ La correspondiente desventaja es que los números pequeños (aquellos para los cuales la primera cadena de valores de $\alpha$ son ceros) tienen grandes errores relativos.
+ \end{frame}
+ \begin{frame}
+ \frametitle{Utilidad de los enteros}
+ Dado que en el mundo real \textcolor{red}{los errores relativos tienden a ser más importantes que los absolutos}, los números enteros se utilizan principalmente para fines de conteo y en aplicaciones especiales.
+\end{frame}
+\subsection{Números de punto flotante}
+\begin{frame}
+\frametitle{Números de punto flotante}
+En la mayoría de los cálculos científicos se utilizan números de punto flotante de doble precisión ($64$ bits = 8 Bytes).
+\\
+\bigskip
+La representación en las computadoras de números en punto flotante de números es una versión binaria de lo que comúnmente se conoce como notación científica.
+\end{frame}
+\begin{frame}
+\frametitle{Notación científica}
+Por ejemplo, la velocidad de la luz en notación científica
+\[ c = + \num{2.99792458e8} \si{\meter\per\second} \]
+y en notación de ingeniería
+\[ + \num{	0.299792458e9} \si{\meter\per\second} \mbox{ ó } \num{0.299795498E9} \si{\meter\per\second} \]
+\pause
+En cada uno de estos casos, el número al frente se denomina \azulfuerte{mantisa} y contiene nueve cifras significativas. La potencia 10 a la que se eleva se llama \azulfuerte{exponente}, con el signo más ($+$) incluido, como recordatorio de que estos números pueden ser negativos.
+\end{frame}
+\begin{frame}
+\frametitle{Almacenamiento}
+Los números de punto flotante se almacenan en la computadora como una concatenación del bit de signo, el exponente y la mantisa.
+\\
+\bigskip
+Debido a que sólo se almacena un número finito de bits, el conjunto de números de punto flotante que el equipo puede almacenar exactamente, \azulfuerte{números de máquina}, es mucho menor que el conjunto de los números reales.
+\end{frame}
+\begin{frame}
+\frametitle{Errores de almacenamiento: overflow}
+Los números de máquina tienen un máximo y un mínimo.
+\\
+\bigskip
+Si se supera el máximo, se produce una condición de error conocida como \textoazul{desbordamiento -overflow-}.
+\begin{figure}
+\centering
+\includestandalone[scale=0.75]{Figuras/over_underflow}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Errores de almacenamiento: underflow}
+\begin{figure}
+\centering
+\includestandalone[scale=0.75]{Figuras/over_underflow}
+\end{figure}
+Si se cae por debajo del mínimo, se produce una condición de error conocida como \textoazul{subflujo -underflow-}.
+\end{frame}
+\begin{frame}
+\frametitle{Manejo del overflow y del underflow}
+En este último caso, el software y el hardware se pueden configurar para que los overflow se pongan a cero sin que se le avise al usuario.
+\\
+\bigskip
+En contraste, los overflow suelen detener la ejecución.
+\end{frame}
+\begin{frame}
+\frametitle{Valor en memoria}
+La relación real entre lo que se almacena en la memoria y el valor de un número de punto flotante es algo indirecta, habiendo un número de casos especiales y relaciones utilizadas a lo largo de los años.
+\end{frame}
+\begin{frame}
+\frametitle{Valor en memoria}
+En el pasado, cada sistema operativo de computadora y cada lenguaje de programación contenían sus propios estándares para números de punto flotante.
+\\
+\bigskip
+Diferentes normas implican que el mismo programa que se ejecuta correctamente en diferentes equipos podría dar resultados diferentes.
+\end{frame}
+\begin{frame}
+\frametitle{Valor en memoria}
+A pesar de que los resultados eran sólo ligeramente diferentes, el usuario nunca podría estar seguro de si la falta de reproducibilidad de un caso de prueba se debía a la computadora particular que se está utilizando o a un error en la implementación del programa.
+\end{frame}
+\subsection{Estándar IEEE 754}
+\begin{frame}
+\frametitle{Estándar IEEE 754}
+En 1987, el Instituto de Ingenieros Eléctricos y Electrónicos (IEEE) y el American National Standards Institute (ANSI) adoptaron el estándar \azulfuerte{IEEE 754} para la aritmética de punto flotante.
+\\
+\bigskip
+Cuando se sigue el estándar, puede esperar que los tipos de datos primitivos tengan la precisión y los intervalos dados en la siguiente tabla:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{IEEE 754 para Tipos de Datos Primitivos}
+\begin{table}
+\fontsize{10}{10}\selectfont
+\begin{tabular}{l c c c l}
+\hline
+Nombre & Tipo & Bits & Byte & Rango \\ \hline
+\texttt{boolean} & Lógico & 1 & $\dfrac{1}{8}$ & \texttt{True} o \texttt{False} \\ \hline
+\texttt{char} & String & 16 & 2 & \verb|'u0000'| $\longleftrightarrow$ \verb|'uFFFF'| \\ \hline
+\texttt{byte} & Integer & 8 & 1 & $-128 \longleftrightarrow +127$ \\ \hline
+\texttt{short} & Integer & 16 & 2 & $-32768 \longleftrightarrow +32767$ \\ \hline
+\texttt{int} & Integer & 32 & 4 & checar en tablas \\ \hline
+\texttt{long} & Integer & 64 & 8 & checar en tablas \\ \hline
+\texttt{float} & Floating & 32 & 4 & checar en tablas \\ \hline
+\texttt{double} & Flaoting & 64 & 8 & checar en tablas \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}
+\frametitle{Apego al IEEE 754}
+ Cuando las computadoras y el software se apegan a este estándar, está garantizado que un programa producirá resultados idénticos en diferentes equipos.
+ \end{frame}
+ \begin{frame}
+ \frametitle{Apego al IEEE 754}
+ En realidad hay una serie de componentes en el estándar IEEE, y diferentes fabricantes de computadoras o procesadores pueden apegarse a sólo algunos de ellos.
+ \\
+ \bigskip
+ Además, \python puede no seguir a todos a medida que se desarrolla, pero probablemente con el tiempo lo haga.
+ \end{frame}
+ \subsection{Notación de punto flotante}
+ \begin{frame}
+ \frametitle{Ńotación de punto flotante}
+ Normalmente un número de punto flotante $x$ se almacena como
+ \begin{equation}
+ x_{f} = (-1)^{s} \times 1.f \times 2^{e - \text{sesgo}}
+ \label{eq:ecuacion_01_02}
+ \end{equation}
+ esto es, con partes por separado para:
+ \begin{itemize}[<+->]
+ \item El signo $s$.
+ \item La parte fraccional de la mantisa $f$.
+ \item El valor del exponente $e$.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Almacenamiento en punto flontante}
+Todas las partes se almacenan en forma binaria y ocupan segmentos adyacentes de una sola palabra de 32 bits o dos palabras adyacentes de 32 bits para palabras dobles.
+\\
+\bigskip
+El signo $s$ se almacena como un solo bit, con $s = 0$ ó $1$ para un signo positivo o negativo.
+\end{frame}
+\begin{frame}
+Se usan ocho bits para almacenar el exponente $e$, lo que significa que $e$ puede estar en el rango $0 \leq e \leq 255$.
+\\
+\bigskip
+Los extremos, $e = 0$ y $e = 255$, son casos especiales.
+\end{frame}
+\begin{frame}
+\frametitle{Casos especiales del estándar IIEEE}
+\begin{table}
+\fontsize{10}{10}\selectfont
+\begin{tabular}{l c c}
+\hline
+Nombre del número & Valores de $s$, $e$ y $f$ & Valor \\ \hline
+Normal & $0 < e < 255$ & $(-1)^{s} \times 2^{e-127} \times 1.f$ \\ \hline
+Subnormal & $e = 0, f \neq 0$ & $(-1)^{s} \times 2^{e-126} \times 0.f$ \\ \hline
+Signo cero $(\pm 0)$ & $e = 0, f = 0$ & $(-1)^{s} \times 0.0$ \\ \hline
+$+ \infty$ & $s = 0, e=255, f = 0$ & \textbf{\texttt{+INF}} \\ \hline
+$- \infty$ & $s = 1, e=255, f = 0$ & \textbf{\texttt{-INF}} \\ \hline
+Not a number & $s = u, e=255, f \neq 0$ & \textbf{\texttt{NaN}} \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}
+\frametitle{Números normales}
+Los números normales tienen un valor entre $0 < e < 255$, y con ellos la convención es suponer que el primer bit de la mantisa es un $1$.
+\\
+\bigskip
+De modo que sólo se almacena la parte fraccional $f$ después del punto binario. 
+\end{frame}
+\begin{frame}
+\frametitle{Valores $\pm \: \text{INF}$ y $NaN$ }
+Nótese que los valores $\pm \: \text{INF}$ y $NaN$ no son números en el sentido matemático, es decir, son objetos que pueden ser manipulados o utilizados en cálculos para tomar límites
+\\
+\bigskip
+Más bien, son señales para la computadora y para el usuario de que algo ha ido mal y que el cálculo probablemente debería detenerse hasta resolver las cosas.
+\end{frame}
+\begin{frame}
+\frametitle{Los valores $\pm 0$}
+En contraste, el valor $-0$ se puede utilizar en un cálculo sin problemas.
+\\
+\bigskip
+Algunos lenguajes pueden establecer variables no asignadas como $-0$ como una pista de que aún no se han asignado, pero no es lo más conveniente.
+\end{frame}
+\begin{frame}
+\frametitle{Precisión relativa en punto flotante}
+Debido a que la incertidumbre (error) está presente sólo en la mantisa y no en el exponente, las representaciones IEEE aseguran que todos los números normales de punto flotante tengan la misma precisión relativa.
+\end{frame}
+\begin{frame}
+\frametitle{El bit fantasma}
+Debido a que el primer bit se supone que es $1$, no tiene que ser almacenado, y los diseñadores de computadoras sólo necesitan recordar que hay un \emph{bit fantasma} allí para obtener un poco más de precisión.
+\end{frame}
+\begin{frame}
+Durante el procesamiento de números en un cálculo, el primer bit de un resultado intermedio puede llegar a ser cero, pero éste se cambia antes de que se almacene el número final.
+\\
+\bigskip
+Para repetir, en los casos normales, la mantisa real ($1.f$ en notación binaria) contiene un $1$ implícito que precede al punto binario.
+\end{frame}
+\begin{frame}
+\frametitle{El número de sesgo}
+Con el fin de garantizar que el exponente $e$ almacenado sea siempre positivo, se agrega un número fijo llamado \textoazul{sesgo} al exponente real $p$, antes de que se almacene como exponente $e$.
+\\
+\bigskip
+El exponente real, que puede ser negativo, es
+\begin{equation}
+p = e - \text{sesgo}
+\label{eq:ecuacion_01_03}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Formatos básicos del IEEE}
+Hay dos formatos básicos para el IEEE de punto flotante, \textoazul{de precisión simple} y de \textoazul{precisión doble}.
+\end{frame}
+\begin{frame}
+\frametitle{Precisión simple}
+La precisión simple representa a los números de punto flotante de precisión simple (sencilla).
+\\
+\bigskip
+Ocupan $32$ bits en total: con $1$ bit para el signo, $8$ bits para el exponente y $23$ bits para la mantisa fraccional (lo que da una precisión de $24$ bits cuando el bit fantasma es incluido)
+\end{frame}
+\begin{frame}
+\frametitle{Precisión doble}
+Es una abreviatura para los números de punto flotante de precisión doble.
+\\
+\bigskip
+Ocupan $64$ bits en total: con $1$ bit para el signo, $10$ bits para el exponente y $53$ bits para la mantisa fraccional (para precisión de 54 bits). Esto significa que los exponentes y mantisas para la precisión doble no son simplemente el doble de los floating.
+\end{frame}
+\begin{frame}
+\frametitle{Representación de 32 bits}
+Para ver el esquema en la práctica consideremos la representación de 32 bits:
+\begin{table}
+\fontsize{12}{12}\selectfont
+\begin{tabular}{l | c | c | c | c | c|}
+\cline{2-6}
+ {} & $s$ & \multicolumn{2}{c|}{$e$} & \multicolumn{2}{c|}{$f$} \\ \hline
+ Bit & 31 & 30 & 23 & 22 & 0 \\ \hline
+\end{tabular}
+\end{table}
+\pause
+El bit de signo $s$ está en la posición $31$, el exponente con sesgo, está en los bits $30-23$, y la mantisa fraccional $f$, en los bits $22 - 0$.
+\end{frame}
+\begin{frame}
+Ya que se usan $8$ bits para almacenar el exponente $e$, y $2^{8} = 256$, el exponente tiene un rango
+\[ 0 \leq e \leq 255 \]
+\pause
+Con el sesgo = $127_{10}$, el exponente completo queda como
+\[ p = e_{10} - 127 \]
+\end{frame}
+\begin{frame}
+Para la precisión sencilla el exponente tiene el rango
+\[ -126 \leq p \leq 127 \]
+La mantisa $f$ se almacena en los $23$ bits con posición $22-0$. Para los números normales, esto es, para aquellos con $0 < e < 255$, $f$ es la parte fraccional de la mantisa, y por tanto, el número representado en 32 bits es
+\[ \text{Numero normal de punto flotante } = (-1)^{s} \times 1.f \times 2^{e-127} \]
+\end{frame}
+\begin{frame}
+\frametitle{Números subnormales}
+Los números subnormales tienen $e=0$, $f \neq 0$; para estos números, $f$ es la mantisa completa, por lo que el número representado en 32 bits es
+\begin{equation}
+\text{Numero subnormal } = (-1)^{s} \times 0.f \times 2^{e-126}
+\label{eq:ecuacion_01_04}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Representación de la mantisa}
+Los $23$ bits $m_{22} - m_{0}$ que se utilizan para almacenar la mantisa de números normales, corresponde a la notación
+\begin{align}
+\begin{aligned}
+\text{Mantisa } = 1.f = 1 + m_{22} \times 2^{-1} &+ m_{21} \times 2^{-2} + \ldots + \\
+&+ m_{0} \times 2^{-23}
+\end{aligned}
+\label{eq:ecuacion_01_05}
+\end{align}
+\pause
+Para los números subnormales, se usa $0.f$
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Veamos un ejemplo: el mayor número positivo de punto flotante de precisión simple para una máquina de $32$ bits, tiene el valor máximo para $e = 254$ y el valor máximo para $f$:
+\fontsize{12}{12}\selectfont
+\begin{align}
+\begin{aligned}
+X_{max} &= 01111 1110 1111 1111 1111 1111 1111 111 \\
+&=(0)(1111 1110)(1111 1111 1111 1111 1111 111)
+\end{aligned}
+\label{eq:ecuacion_01_06}
+\end{align}
+donde se han agrupado los bits.
+\end{frame}
+\begin{frame}
+Se tienen entonces los siguiente valores
+\begin{align}
+\begin{aligned}
+s &= 0 \\
+e &= 1111 1110 = 254 \\
+p &= e - 127 = 127 \\
+f &= 1.1111 1111 1111 1111 1111 111 = 1 + 0.5 + 0.25 + \ldots + \simeq 2 \\
+&\rightarrow (-1)^{s} \times 1.f \times 2^{p=e-127} \simeq 2 \times 2^{127} \simeq \num{3.4e38}
+\end{aligned}
+\label{eq:ecuacion_01_07}
+\end{align}
+\end{frame}
+ \begin{frame}
+ \frametitle{Ejercicio a cuenta}
+ Ahora te toca desarrollar las cuentas para evaluar el número positivo de punto flotante de precisión simple más pequeño subnormal, con $e=0$, y con una mantisa:
+ \[ 0 \: 0000 \: 0000 \: 0000 \: 0000 \: 0000 \: 0000 \: 0000 \: 001 \]
+ \end{frame}
+ \begin{frame}
+ \frametitle{Solución}
+ Acomodamos los términos para un manejo más sencillo
+ \begin{align*}
+s &= 0 \\
+e &= 0 \\
+p &= e - 126 = -126 \\
+f &= 0.0000 \: 0000 \: 0000 \: 0000 \: 0000 \: 001 = 2^{-23} \\
+&\rightarrow (-1)^{s} \times 0.f \times 2^{p=e-126} = 2^{-149} \simeq \num{1.4e-45}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Resumen de la precisión simple}
+Podemos dejar como resumen que los números de precisión simple, tienen $6$ ó $7$ decimales de significancia y las magnitudes están en el rango
+\[ \num{1.4e-45} \leq \text{ precision simple } \leq \num{3.4e38} \]
+\end{frame}
+\subsection{Precisión doble}
+\begin{frame}
+\frametitle{Representación de la precisión doble}
+Los números de precisión doble se almacenan en dos palabras de $32$ bits, para un total de $64$ bits ($8$) Bytes.
+\pause
+\begin{table}
+\fontsize{12}{12}\selectfont
+\begin{tabular}{ l | c | c | c | c | c | c | c |}
+\cline{2-8}
+ {} & $s$ & \multicolumn{2}{c|}{$e$} & \multicolumn{2}{c|}{$f$} & \multicolumn{2}{c|}{$f \text{ cont}$} \\ \hline
+ Bit & 63 & 62 & 52 & 51 & 32 & 31 & 0 \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}
+\frametitle{Representación de la precisión doble}
+El signo ocupa $1$ bit, el exponente $e$ ocupa $11$ bits, la mantisa fraccional $52$ bits.
+\\
+\bigskip
+Los valores se almacenan de manera contigua, en donde parte de la mantisa $f$ se almacena en un palabra de $32$ bits.
+\end{frame}
+\begin{frame}
+\frametitle{Valor del sesgo}
+Para los números de precisión doble, el valor del seso es mayor que en los de precisión simple
+\[ \text{sesgo } = 1111111111_{2} = 1023_{10} \]
+por lo que el exponente real es $p = e - 1023$.
+\end{frame}
+\begin{frame}
+\frametitle{Rangos en precisión doble}
+Los números en precisión doble tienen aproximadamente $16$ decimales de precisión ($1$ parte en $2^{52}$), y las magnitudes están en el rango
+\[ \num{4.9e-324} \leq \text{ precision doble } \leq \num{1.8e308} \]
+\end{frame}
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{float}
+\renewcommand{\baselinestretch}{1.2}
+\spanishdecimal{.} 
+\marginsize{1.5cm}{1.5cm}{0cm}{2cm}  
+\title{Examen Reposición 1: Errores, condición y estabilidad \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\begin{enumerate}
+\item La serie de Malaurin para la función $\arctan$ converge en $-1 \leq x \leq 1$ y está dada por
+\[ \arctan x = \lim_{n\leftarrow \infty} P_{n} (x) = \lim_{n\leftarrow \infty} \sum_{i=1}^{n} (-1)^{i+1} \dfrac{x^{2i-1}}{2i-1}	\]
+\begin{enumerate}
+\item Usa el hecho de que $\tan (\frac{\pi}{4}=1$ para determinar el número de términos $n$ de la serie que debemos de sumar para garantizar que $\vert 4 P_{n}(1) - \pi \vert < 10^{-3}$
+\end{enumerate}
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+

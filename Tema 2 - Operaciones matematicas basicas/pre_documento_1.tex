@@ -1,0 +1,46 @@
+\documentclass[12pt]{beamer}
+\graphicspath{{Imagenes/}{../Imagenes/}}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{etex}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{nccmath}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+% Introduce a new counter for counting the nodes needed for circling
+\newcounter{nodecount}
+% Command for making a new node and naming it according to the nodecount counter
+\newcommand\tabnode[1]{\addtocounter{nodecount}{1} \tikz \node (\arabic{nodecount}) {#1};}
+% Some options common to all the nodes and paths
+\tikzstyle{every picture}+=[remember picture,baseline]
+\tikzstyle{every node}+=[inner sep=0pt,anchor=base,
+minimum width=2.2cm,align=center,text depth=.15ex,outer sep=1.5pt]
+\tikzstyle{every path}+=[thick, rounded corners]
+\usepackage{color}
+\usepackage{listings}
+\renewcommand*{\multirowsetup}{\centering}
+\usetikzlibrary{arrows}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{hyperref}
+\renewcommand {\arraystretch}{1.5}
+\mode<presentation>
+{
+  \usetheme{Warsaw}  
+  %\usetheme{CambridgeUS}
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+  
+  \setbeamertemplate{headline}{}
+  %\useoutertheme{infolines}
+  \useoutertheme{default}
+  \setbeamercovered{invisible}
+  % or whatever (possibly just delete it)
+}

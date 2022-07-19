@@ -1,0 +1,246 @@
+\include{pre_documento}
+\include{pre_codigo}
+\include{pre_define_footers}
+\normalfont
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{Algebra matricial}
+\subtitle{Curso de Física Computacional}
+\author[]{M. en C. Gustavo Contreras Mayén}
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\resetcounteronoverlays{saveenumi}
+\begin{document}
+\newcommand{\localtextbulletone}{\textcolor{gray}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Algebra matricial con python}
+\subsection{Introducción}
+\begin{frame}
+\frametitle{Introducción}
+Nuestro punto de partida es el siguiente:
+\\
+\bigskip
+Encontrar $\lambda$ para el cual existe una solución no trivial de
+\[ \mathbf{A \; x} = \lambda \; \mathbf{x} \]
+\end{frame}
+\begin{frame}
+La \emph{forma estándar} de un problema matricial de valores propios es
+\begin{equation}
+\mathbf{A \; x} = \lambda \mathbf{x}
+\label{eq:ecuacion_09_01}
+\end{equation}
+donde $\mathbf{A}$ es una matriz dada de tamaño $n \times n$. El problema que debemos resolver, es calcular un escalar $\lambda$ y un vector $\mathbf{x}$.
+\end{frame}
+\begin{frame}
+Re-escribimos la ecuación (\ref{eq:ecuacion_09_01}) de la forma
+\begin{equation}
+( \mathbf{A} - \lambda \; \mathbf{I} ) \mathbf{x} = \mathbf{0}
+\label{eq:ecuacion_09_02}
+\end{equation}
+Se hace evidente que se trata de un sistema de $n$ ecuaciones homogéneas.
+\end{frame}
+\begin{frame}
+Una solución obvia es la trivial $x = 0$. Una solución no trivial sólo puede existir si el determinante de la matriz de coeficientes es nulo, es decir
+\begin{equation}
+\vert \mathbf{A} - \lambda \; \mathbf{I} \vert = \mathbf{0}
+\label{eq:ecuacion_09_03}
+\end{equation}
+\end{frame}
+\begin{frame}
+La expansión del determinante nos lleva a la ecuación polinomial, también conocida como la \emph{ecuación característica}
+\[ a_{0} + a_{1} \; \lambda + a_{2} \; \lambda^{2} + \ldots + a_{n} \; \lambda^{n} = 0 \]
+Que tiene las raíces $\lambda_{i} \; i = 1, 2, \ldots,  n$, llamados valores propios (autovalores, \emph{eigenvalores}) de la matriz $\mathbf{A}$.
+\\
+\medskip
+Las soluciones $x_{i}$ de $(\mathbf{A}- \lambda_{i} \; \mathbf{I}) \mathbf{x} = \mathbf{0}$ son conocidas como vectores propios \emph{eigenvectores}.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Considermos la matriz
+\begin{equation}
+\mathbf{A} = \begin{vmatrix}
+1 & -1 & 0 \\
+-1 & 2 & -1 \\
+0 & -1 & 1
+\end{vmatrix}
+\label{eq:ecuacion_09_a}
+\end{equation}
+\end{frame}
+\begin{frame}
+La ecuación característica es
+\begin{equation}
+\vert \mathbf{A} - \lambda \; \mathbf{I} =  \begin{vmatrix}
+1 - \lambda & -1 & 0 \\
+-1 & 2 - \lambda & -1 \\
+0 & -1 & 1 - \lambda
+\end{vmatrix} 
+= -3 \lambda +  4 \lambda^{2} - \lambda^{3} = 0
+\label{eq:ecuacion_09_b}
+\end{equation}
+\pause
+Las raíces de esta ecuación son $\lambda_{1} = 0$, $\lambda_{2} = 1$, $\lambda_{3} = 3$.
+\end{frame}
+\begin{frame}
+Para calcular el vector propio correspondiente a $\lambda_{3}$, sustituimos $\lambda = \lambda_{3}$ en la ecuación (\ref{eq:ecuacion_09_02}), para obtener
+\begin{equation}
+\begin{bmatrix}
+-2 & -1 & 0 \\
+-1 & -1 & -1 \\
+0 & -1 & -2
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} 
+\end{bmatrix} = 
+\begin{bmatrix}
+0 \\
+0 \\
+0
+\end{bmatrix}
+\label{eq:ecuacion_09_c}
+\end{equation}
+\end{frame}
+\begin{frame}
+Sabemos que el determinante de la matriz de coeficientes es cero, de modo que las ecuaciones no son linealmente independientes. 
+\\
+\bigskip
+Por lo tanto, podemos asignar un valor arbitrario a cualquier componente de $x$ y usar dos de las ecuaciones para calcular los otros dos componentes.
+\end{frame}
+\begin{frame}
+Escogiendo $x_{1} = 1$, la primera ecuación de la ecuación (\ref{eq:ecuacion_09_c}) nos devuelve $x_{2} = -2$, y de la tercera ecuación se obtiene $x_{3} = 1$. 
+\\
+\bigskip
+Así, el vector propio asociado con $\lambda_{3}$ es
+\[ \mathbf{x}_{3}  = \begin{bmatrix}
+1 \\
+-2 \\
+1
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+Obtenemos los otros dos vectores propios de la misma forma
+\[ \mathbf{x}_{2} = \begin{bmatrix}
+1 \\
+0 \\
+-1
+\end{bmatrix} \hspace{1cm}
+\mathbf{x}_{1} =  \begin{bmatrix}
+1 \\
+1 \\
+1
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+A veces es conveniente mostrar los vectores propios como columnas de una matriz $\mathbf{X}$. Para nuestro primer ejemplo, esta matriz es
+\[ \mathbf{X} = \left[ \mathbf{x}_{1} \hspace{0.3cm} \mathbf{x}_{2} \hspace{0.3cm} \mathbf{x}_{3} \right] = 
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 0 & -2 \\
+1 & -1 & 1
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+De este ejemplo se desprende claramente que la magnitud de un vector propio es indeterminada; sólo su dirección se puede calcular a partir de la ecuación (\ref{eq:ecuacion_09_02}).
+\\
+\bigskip
+Es costumbre normalizar los vectores propios asignando una magnitud unitaria a cada vector. 
+\pause
+\\
+\medskip
+Así, los vectores propios normalizados en nuestro ejemplo son
+\[ \mathbf{X} = \begin{bmatrix}
+1 / \sqrt{3} & 1 / \sqrt{2} & 1 / \sqrt{6} \\
+1 / \sqrt{3} & 0 & -2 / \sqrt{6} \\
+1 / \sqrt{3} & -1 / \sqrt{2} & 1 / \sqrt{6}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Supondremos que los vectores propios están normalizados}
+Mencionaremos algunas propiedades útiles de los valores propios y de los vectores propios(dados sin prueba):
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Todos los valores propios de una matriz simétrica son reales.
+\item Todos los valores propios de una matriz simétrica definida positiva son reales y positivos.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\conti
+\item Los vectores propios de una matriz simétrica son ortonormales; Es decir, $\mathbf{X}^{T} \; \mathbf{X} = \mathbf{I}$.
+\item Si los valores propios de $\mathbf{A}$ son $\lambda_{i}$, entonces los valores propios de $\mathbf{A}^{-1}$ son $\lambda_{i}^{-1}$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+Los problemas de valores propios que se originan a partir de problemas físicos a menudo terminan con una matriz $\mathbf{A}$ simétrica.
+\\
+\bigskip
+Esto es de cierta manera afortunado, porque los problemas simétricos de los valores propios son más fáciles de resolver que sus homólogos no simétricos (que pueden tener valores propios complejos).
+\end{frame}
+\begin{frame}
+Tomaremos en nuestra discusión a los valores propios y vectores propios de matrices simétricas.
+\\
+\bigskip
+Las fuentes comunes de problemas de los valores propios son los análisis de las vibraciones y la estabilidad.
+\end{frame}
+\begin{frame}
+Estos problemas a menudo tienen las siguientes características:
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Las matrices son grandes y escasas (por ejemplo, tienen una estructura con bandas).
+\item Necesitamos conocer sólo los valores propios; si se requieren vectores propios, sólo unos cuantos de ellos son de interés.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+Un algortimo útil de valores propios, debe ser capaz de utilizar estas características para minimizar los cálculos.
+\\
+\bigskip
+En particular, debe ser lo suficientemente flexible como para calcular sólo lo que necesitamos y no más.
+\end{frame}
+\section{Métodos estacionarios}
+\begin{frame}
+A continuación se presenta una breve descripción de cada uno de los métodos a revisar.
+\end{frame}
+\subsection{Método de Jacobi}
+\begin{frame}
+\frametitle{Método de Jacobi}
+El método de Jacobi está basado en resolver cualquier variable local con respecto a otras variables; cada iteración del método corresponde a la solución de cada variable a la vez. 
+\\
+\bigskip
+El método es fácil de entender e implementar, pero la convergencia es lenta.
+\end{frame}
+\subsection{Método de Gauss-Siedel}
+\begin{frame}
+\frametitle{Método de {Gauss-Siedel}}
+El método de Gauss-Siedel es parecido al método de Jacobi, excepto en que utiliza valores actualizados tan pronto como los tenga disponibles. 
+\\
+\bigskip
+En general, si el método de Jacobi converge, el método de Gauss-Siedel convergerá más rápido que el método de Jacobi.
+\end{frame}
+\subsection{Método de Sobrerelajación (SOR)}
+\begin{frame}
+\frametitle{Método de Sobrerelajación (SOR)}
+El método de sobrerelajación (\textit{Succesive Over Relaxation}) puede considerarse como un derivado del método de Gauss-Siedel, ya que se introduce un parámetro de extrapolación $\omega$. 
+\\
+\bigskip
+Para valores óptimos de $\omega$, el método SOR puede converger más rápido que el método de Gauss-Siedel en un orden de magnitud.
+\end{frame}
+\subsection{Método de Sobrerelajación Simétrico (SSOR)}
+\begin{frame}
+\frametitle{Método de Sobrerelajación Simétrico (SSOR)}
+El método de sobrerelajación simétrico (\textit{Symmetric Successive Over Relaxation}) no tiene una mayor ventaja que el método SOR como método iterativo, pero es bastante útil como precondicionador para métodos no estacionarios.
+\end{frame}
+\end{document}

@@ -1,0 +1,21 @@
+\documentclass{beamer}
+\usepackage{amsmath}
+\usepackage{cancel}
+\begin{document}
+
+\begin{frame}%
+    \begin{overprint}
+        \onslide<1>
+    \begin{multline*}
+        S(1,\dots,s) = \underbrace{\sum_{m=1}^{m_t} (-1)^{m+1} \sum_{i_1<\dots<i_m} I(i_1,\dots,i_m)}_{\text{entropy estimate with correlation order}\, m_t} \\
+        + \underbrace{\sum_{m=m_t+1}^{s} (-1)^{m+1} \sum_{i_1<\dots<i_m} I(i_1,\dots,i_m)}_{\text{correlations of order higher than}\, m_t} 
+    \end{multline*}
+        \onslide<2>
+    \begin{multline*}
+        S(1,\dots,s) = \underbrace{\sum_{m=1}^{m_t} (-1)^{m+1} \sum_{i_1<\dots<i_m} I(i_1,\dots,i_m)}_{\text{entropy estimate with correlation order}\, m_t} \\
+        \xcancel{+ \underbrace{\sum_{m=m_t+1}^{s} (-1)^{m+1} \sum_{i_1<\dots<i_m} I(i_1,\dots,i_m)}_{\text{correlations of order higher than}\, m_t} }
+    \end{multline*}
+    \end{overprint}
+\end{frame}%
+
+\end{document}

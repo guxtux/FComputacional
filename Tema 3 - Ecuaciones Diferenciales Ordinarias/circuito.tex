@@ -1,0 +1,16 @@
+\documentclass[12pt]{beamer}
+
+\RequirePackage{ifpdf} % ¿latex o pdflatex?
+% Configuración de las imágenes
+\ifpdf
+	\usepackage[pdftex]{graphicx}	% Inclusión de imágenes
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\else
+	\usepackage[dvips]{graphicx}		% Inclusión de imágenes
+	\DeclareGraphicsExtensions{.eps}
+\fi
+\begin{document}
+\begin{frame}
+\includegraphics[scale0.4]{Codigos/sistemamasaresorte.eps} 
+\end{frame}
+\end{document}

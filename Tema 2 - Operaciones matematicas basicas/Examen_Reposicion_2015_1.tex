@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{nccmath}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+\usepackage{pgfplots}
+\usepackage{etex}
+\usepackage{color}
+\usepackage{listings}
+\renewcommand{\arraystretch}{1.5}
+\lstset{ %
+language=Python,                % choose the language of the code
+basicstyle=\normalsize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=4,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\#}{)}          % if you want to add a comment within your code
+}
+\marginsize{1.5cm}{1.5cm}{1cm}{2cm}  
+\title{Examen Reposicion Tema 2 \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\begin{enumerate}
+\item Dados los puntos
+\begin{table}[H]
+\centering 
+\begin{large}
+\begin{tabulary}{15cm}{c | c | c | c | c | c  }\normalsize
+$x$ & $0$ & $0.5$ & $1$ & $1.5$ & $2$ \\
+\midrule
+$y$ & $-0.7854$ & $0.6529$ & $1.7390$ & $2.2071$ & $1.9425$
+\end{tabulary}
+\end{large}
+\end{table}
+Calcula $y$ en $x=\pi/4$ y en $\pi/2$ usa (justifica) el método que consideres más conveniente.
+\item El calor específico $c_{p}$ del alumnio depende de la temperatura $T$ como se muestra en la tabla
+\begin{table}[H]
+\centering 
+\begin{large}
+\begin{tabulary}{15cm}{c | c | c | c | c | c | c }
+$T (^{\circ}C)$ & $-250$ & $-200$ & $-100$ & $0$ & $100$ & $300$ \\
+\midrule
+$c_{p} (k J/kg \cdot K)$ & $0.0163$ & $0.318$ & $0.699$ & $0.870$ & $0.941$ & $1.04  $
+\end{tabulary}
+\end{large}	
+\end{table}
+Determina $c_{p}$ para $T=200^{\circ}C$ y para $T=400^{\circ}C$.
+\item La velocidad $v$ del cohete Saturno V en vuelo vertical cerca de la superficie de la Tierra, puede aproximarse por
+\[ v = u ln \dfrac{M_{0}}{M_{0}- \dot{m}t}- gt\]
+donde
+\begin{itemize}
+\item $u=2510$ m/s = velocidad de escape relativa al cohete.
+\item $M_{0}= 2.8 \times 10^{6}$ kg = masa del cohete al despegue.
+\item $\dot{m}=13.3 \times 10^{3}$ kg/s = tasa de consumo de combustible.
+\item $g=9.81 \mbox{ }m/s^{2}$ = aceleración gravitacional.
+\item  $t$ = tiempo medido desde el despegue.
+\end{itemize}
+Calcula el tiempo que tarda el cohete en alcanzar la velocidad del sonido ($335$ m/s).
+\item Un pico de energía en un circuito eléctrico se debe a la corriente que circula por la resistencia.
+\[ i(t) = i_{0} e^{-t/t_{0}} \sin(2t/t_{0}) \]
+La energía $E$ disipada por la resistencia es
+\[ E = \int_{0}^{\infty} R [i(t)]^{2}  dt \]
+Calcula el valor de E con los siguientes valores: $i_{0}=100 \mbox{ A}$, $R=0.5 \mbox{ } \Omega$ y $t_{0}=0.01$ s.
+\end{enumerate}
+\end{document}

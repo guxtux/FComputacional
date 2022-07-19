@@ -1,0 +1,56 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{xy}
+\usepackage{color}
+%\numberwithin{equation}{list}
+\marginsize{1cm}{2cm}{0cm}{2cm}  
+\title{Problemas a cuenta del Parcial 1 \\ \begin{large}Curso de Física Computacional\end{large}}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{17.28}{17.28}\selectfont
+\spanishdecimal{.}
+\begin{enumerate}
+\item Un satélite se lanza desde una altitud $H=772$ km sobre el nivel del mar, con una velocidad inicial $v_{0}=6700$ $m/s$ en la dirección que se muestra.
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[scale=1.4,font=\small]
+	\draw (2,2) circle (2cm);
+	\draw [dashed] (-0.4,2) -- (5,2);
+	\draw [->] (2,2) -- node [midway, fill=white] {$R_{t}$} (1.8,4);
+	\draw (5,2) circle (0.05);
+	\draw (5.2,1.8) node {H}; 
+	\draw [->] (5,2) -- node [near end, right] {$v_{0}$}(5,2.5);
+	\draw [->] (2,2) -- node [midway, above] {$r$} (4,3.6);
+	\draw (2.7,2) arc (0:45:5.9mm) node [right] {$\theta$};
+	\draw [dashed] (5,2) arc (0:95:1.8);
+\end{tikzpicture}
+\end{figure}
+\par
+El conjunto de EDO-2 que describen el movimiento del satélite son:
+\[ \ddot{r} = r  \dot{\theta}^{2} - \dfrac{G M_{t}}{r^{2}}  \hspace{2cm} \ddot{\theta} = - \dfrac{2 \dot{r}\dot{\theta}}{r}\]
+donde $r$ y $\theta$ son las coordenadas polares del satélite.
+\par
+Las constantes involucradas en las expresiones, son:
+\begin{align*}
+G &= 6.672 \times 10^{-11} \mbox{m}^{3} \mbox{kg}^{-1} \mbox{s}^{2} \\
+M_{t} &= 5.9742 \times 10^{24} \mbox{kg, Masa de la Tierra} \\
+R_{e} &= 6378.14 \mbox{km, radio de la Tierra al nivel del mar} 
+\end{align*}
+Resuelve lo siguiente:
+\begin{enumerate}
+\item Obtén el conjunto de EDO-1 y las condiciones iniciales del problema, de la forma $\dot{\mathbf{y}} = \mathbf{F}(x,\mathbf{y})$, $\mathbf{y}(0) = \mathbf{b}$.
+\item Integra las EDO-1 en el tiempo en que se lanza el satélite y choca en su regreso a la Tierra.
+\item Calcula el lugar del impacto, con $\theta$.
+\end{enumerate}
+\end{enumerate}
+\end{document}

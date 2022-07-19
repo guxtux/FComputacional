@@ -1,0 +1,73 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+%\numberwithin{equation}{list}
+\marginsize{1cm}{2cm}{0cm}{2cm}  
+\title{Examen - Ecuaciones diferenciales ordinarias \\ \begin{large}Curso de Física Computacional\end{large}}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\textbf{\textit{Fecha de entrega: Jueves 17 de noviembre de 2011.}}
+\begin{enumerate}
+\item En la figura (\ref{fig:sistemamecanico}) se muestra un sistema de tres masas. Los desplazamientos de estas tres masas satisfacen las ecuaciones dadas por
+\begin{eqnarray} 
+M_{1} y''_{1} + B_{1} y'_{1} + K_{1} y_{1} - B_{1} y'_{2} - K_{2}y_{2} & = & F_{1}(t) \nonumber \\
+-B_{1} y'_{1} - K_{1} y_{1} + M_{2} y''_{2} + B_{1} y'_{2} + (K_{1} + K_{2}) y_{2} - K_{2} y_{3} & = & 0 \label{eq:sistema3masas} \\
+-K_{2} y_{2} + M_{3} y''_{3} + B_{2} y'_{3} + (K_{2} + K_{3}) y_{3} & = & F_{3}(t) \nonumber
+\end{eqnarray}
+Las constantes y condiciones iniciales son
+\begin{tabbing}
+$K_{1} = K_{2} = K_{3} = 1$ \hspace{5.5cm} \= (constantes de los resortes, kgm/$s^{2}$) \\
+$M_{1} = M_{2} = M_{3} = 1$ \> (masa, kg) \\
+$F_{1}(t) = 1, F_{3}(t) = 0$ \> (fuerza, N) \\
+$B_{1} = B_{2} =0.1$ \> (coeficientes de amortiguamiento, kg/s) \\
+$y_{1}(0) = y'_{1}(0) = y_{2}(0) = y'_{2}(0) = y_{3}(0) = y'_{3}(0) = 0$ \> (condiciones iniciales)
+\end{tabbing}
+\begin{figure}[!h]
+	\centering	
+	\includegraphics[scale=0.4]{Tarea3_01.png}
+	\label{fig:sistemamecanico}
+	\caption{Sistema de masas-resortes}
+\end{figure}
+Resuelve y grafica las ecuaciones anteriores mediante RK4, para $0 \leq t \leq 30$ segundos y $h=0.1$ \\
+Hint: Definiendo
+\[ y_{4} = y'_{1}, \hspace{1cm} y_{5} = y'_{2}, \hspace{1cm} y_{6} = y'_{3} \]
+La ecuación (\ref{eq:sistema3masas}) se escribe como un conjunto de seis EDO de primer orden, de la siguiente manera:
+\begin{eqnarray}
+y'_{1} & = & y_{4} \\
+y'_{2} & = & y_{5} \\
+y'_{3} & = & y_{6} \\
+y'_{4} & = & \left[ -B_{1} y_{4} - K_{1} y_{1} + B_{1} y_{5} + K_{2} y_{2} + F_{1} \right] / M_{1} \\
+y'_{5} & = & \left[ B_{1} y_{4} + K_{1} y_{1} - B_{1} y_{5} - \left( K_{1} + K_{2} \right) y_{2} + K_{2} y_{3} \right] / M_{2}\\
+y'_{6} & = & \left[ K_{2} y_{2} - B_{2} y_{6} - \left( K_{2} + K_{3} \right)y_{3} + F_{3} \right] / M_{3}
+\end{eqnarray}
+\item Se dispara un proyectil al aire con un ángulo de $45^{\circ}$ con respecto al suelo, con $u=v=150 m/s$, donde $u$ y $v$ son las velocidades horizontal y vertical, respectivamente. Las ecuaciones de movimiento están dadas por
+\begin{eqnarray*}
+u^{'} & = & -c Vu, \hspace{1.5cm} u(0)=150 m/s \\
+v^{'} & = & -g - cVv, \hspace{1.5cm} v(0)=150 m/s
+\end{eqnarray*}
+donde $u$ y $v$ son funciones del tiempo, $u=u(t)$ $y v=v(t)$ y
+\begin{eqnarray*}
+V & = & \sqrt{u^{2} + v^{2}} \\
+c & = & 0.005 \hspace{2cm} \text{(coeficiente de arrastre)} \\
+g & = & 9.9 m/s^{2}
+\end{eqnarray*}
+Las ecuaciones de movimiento se pueden resolver mediante alguno de los métodos de Runge-Kutta. La trayectoria del proyectil se puede determinar al integrar
+\[ x' = u \hspace{2cm} \text{y} \hspace{2cm} y' = v \]
+o bien
+\begin{eqnarray*}
+x & = & \int^{t}_{0} u(t') dt' \\
+y & = & \int^{t}_{0} v(t') dt'
+\end{eqnarray*}
+\begin{enumerate}
+\item Escribe un programa en Fortran con el método RK2 que resuelva y grafique la trayectoria del proyectil.
+\item Re-escribe el programa, ahora con el metodo RK3.
+\end{enumerate}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,349 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Berlin_beaver}
+%\usepackage[backend=biber]{biblatex}
+%\bibliography{LibrosFC.bib}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers}
+\title{Tema 0 - Introducción a \python - 3}
+\subtitle{Semestre 2018-2}
+\author[]{M. en C. Gustavo Contreras Mayén \\ M. en C. Abraham Lima Buendía}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=2cm]{escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=2cm]{escudo-unam}
+}
+\date{\today}
+\begin{document}
+\maketitle
+\section*{Contenido}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideallsubsections]}
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section{Funciones}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Estructura de una función}
+\begin{frame}
+\frametitle{Funciones}
+Con lo que hemos revisado sobre \python, tenemos elementos para iniciar la solución de problemas, con una manera particular de agrupar un conjunto de instrucciones, a través de funciones.
+\\
+\bigskip
+Las funciones intrínsecas de cualquier lenguaje son pocas, pero podemos extenderlas con funciones definidas por el usuario.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Estructura de una función}
+La palabra reservada \funcionazul{def} se usa para definir funciones. 
+\\
+\bigskip
+Debe seguirle el nombre de la función y la lista de parámetros formales entre paréntesis. Las sentencias que forman el cuerpo de la función empiezan en la línea siguiente, y deben estar con sangría.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Estructura de una función}
+La estructura de una función en Python es la siguiente:
+\begin{center}
+\fontsize{12}{12}\selectfont
+\begin{exampleblock}{}
+\verb| def nombre_funcion(parametro1, ...):|
+\verb|     conjunto de instrucciones|
+\verb|     return valores_devueltos|
+\end{exampleblock}
+\end{center}
+Un parámetro puede ser cualquier objeto de \python, incluyendo una función.
+\end{frame}
+\begin{frame}
+\frametitle{Estructura de una función}
+Los parámetros pueden darse por defecto, por lo que en la función son opcionales. 
+\\
+\bigskip
+Si no se utiliza la instrucción \funcionazul{return}, la función devuelve un objeto de tipo \funcionazul{None}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo}
+\begin{lstlisting}[caption=Función sencilla,basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+def cuadrados(a):
+	for i in range(len(a)):
+		a[i] = a[i]**2
+
+
+a = [1, 2, 3, 4]
+
+solucion = cuadrados(a)
+
+print(solucion)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Cálculo de la serie de Fibonacci}
+La sucesión fue descrita por Fibonacci como la solución a un problema de la cría de conejos: 
+\\
+\bigskip
+\enquote{Cierto hombre tenía una pareja de conejos juntos en un lugar cerrado y uno desea saber cuántos son creados a partir de este par en un año, cuando es su naturaleza parir otro par en un simple mes, y en el segundo mes los nacidos parir también}
+\\
+\bigskip
+\pause
+\textcolor{red}{¿Cómo le hacemos?}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Propuesta de código}
+\begin{lstlisting}[caption=Primer intento para la serie de Fibonacci, basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+def fib(n):
+    a, b = 0, 1
+    while b < n:
+        print (b)
+        a, b = b, a + b
+
+
+f = fib(2000)
+print(f)
+\end{lstlisting}
+\pause
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Segunda propuesta de código}
+\begin{lstlisting}[caption=Otra propuesta para la serie de Fibonacci, basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+def fib2(n):
+	resultado = []
+    a, b = 0, 1
+    while a < n:
+        resultado.append(a)
+        a, b = b, a + b
+    return resultado
+
+f100 = fib2(100)
+print(f100)
+\end{lstlisting}
+
+\end{frame}
+\subsection{Paso de argumentos}
+\begin{frame}[fragile]
+\frametitle{Paso de argumentos}
+Para que una función sea en verdad útil (y reutilizable), es necesario que podamos pasarle entradas. 
+\\
+\bigskip
+Los nombres de las entradas (o argumentos) que requiere una función se declaran a continuación del nombre en \funcionazul{def} (siempre entre paréntesis)
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Paso de argumentos}
+\begin{lstlisting}[caption=Paso de argumentos en una función, basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+def FuncionSuma(x, y):
+    return x + y
+
+print FuncionSuma(5, 3)
+print FuncionSuma(7, 42.0)
+print FuncionSuma(" hola ", " mundo ")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Paso de argumentos}
+\textbf{Nota:} 
+\begin{itemize}[<+->]
+\item Nunca se mencionan los tipos de datos de $x$ e $y$, ni el tipo de datos que devuelve \funcionazul{FuncionSuma}.
+\item Los argumentos y el valor devuelto son, tal como las variables, simples etiquetas a zonas de memoria.
+\end{itemize}  
+\end{frame}
+\subsection{Paso de argumento con nombre}
+\begin{frame}
+\frametitle{Paso de argumentos con nombre}
+Si la función que definimos tiene muchos argumentos, es fácil olvidar el orden en que fueron declarados.
+\\
+\medskip
+Como un argumento no lleva asociado un tipo, \python{} no tiene manera de saber que los argumentos están cambiados.
+\end{frame}
+\begin{frame}
+\frametitle{Paso de argumentos con nombre}
+Para evitar este tipo de errores, hay una manera de llamar a una función pasando los argumentos en cualquier orden arbitrario: \textcolor{blue}{los argumentos se pasan usando el nombre usado en la declaración}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo de paso de argumentos con nombre}
+\begin{lstlisting}[caption=Paso de argumentos con nombre,basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+def Prueba(a, b, c):
+# %r formatea automaticamente cualquier valor
+    print("a = %r, b = %r, c = %r" %(a, b, c))
+
+Prueba(1, 2, 3)
+Prueba(b=3, a=2, c=1)
+
+#Salida en la terminal
+a = 1, b = 2, c = 3
+a = 2, b = 3, c = 1
+\end{lstlisting}
+\end{frame}
+\subsection{Argumentos con valores por omisión}
+\begin{frame}[fragile]
+\frametitle{Argumentos con valores por omisión}
+Para hacer que algunos argumentos sean opcionales, se les asignan valores por omisión al declararlos:
+\begin{lstlisting}[caption=Ejemplo cuando se omiten argumentos declarados, basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+from math import sqrt
+# argumento v es requerido , c es opcional
+# c toma el valor 3.0e8 por omision
+def Gamma(v, c = 3.0e+8):
+    return sqrt(1.0 -(v/c)**2)
+
+print(Gamma(0.1 , 1.0))
+print(Gamma(1.e+7)) # usa c = 3.0e+8
+\end{lstlisting}
+\end{frame}
+\subsection{Regresando varios valores en una función}
+\begin{frame}[fragile]
+\frametitle{Regresando varios valores en una función}
+Para hacer que una función devuelva más de un valor, en lenguajes como Fortran, C o C++, lo que se hace es definir argumentos de entrada y argumentos de salida.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Regresando varios valores en una función}
+Para devolver múltiples valores en \python, lo usual es devolver los valores \enquote{empaquetados} en una tupla:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Regresando varios valores en una función}
+\begin{lstlisting}[caption=Devolviendo varios valores, basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+from math import atan , sqrt
+
+def ModuloArgumento(x, y):
+    norm = sqrt(x**2 + y**2)
+    arg = atan2(y, x)
+    return (norm, arg)
+    
+n, a = ModuloArgumento(3.0,4.0)
+print(" El modulo es:", n)
+print(" El argumento es:", a)
+\end{lstlisting}
+\end{frame}
+\subsection{Número variable de argumentos}
+\begin{frame}[fragile]
+\frametitle{Número variable de argumentos}
+¿Cómo le hacemos para que una función acepte un número no prefijado de argumentos?
+\\
+\medskip
+Es posible pasar una lista o tupla, pero \python\ ofrece una mejor solución:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Número variable de argumentos}
+\begin{lstlisting}[caption=Uso de *args, basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+import math
+
+def miatan(*args ):
+# args es una tupla de argumentos
+    if len(args) == 1:
+        return math.atan(args[0])
+    else :
+        return math.atan2(args[0],args[1])
+
+print(miatan (0.2)) # 0.19739
+print(miatan (2.0,10.0)) # 0.19739
+print(miatan (-2.0,-10.0)) # -2.94419
+\end{lstlisting}
+\end{frame}
+\subsection{Funciones lambda}
+\begin{frame}
+\frametitle{Funciones lambda}
+\python\ admite una interesante sintaxis que permite definir funciones mínimas, de una línea, sobre la marcha. 
+\\
+\bigskip
+Se trata de las denominadas funciones \azulfuerte{lambda}, que pueden utilizarse en cualquier lugar donde se necesite una función.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Funciones lambda}
+\begin{lstlisting}[caption=Ejemplo de función lambda,basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+def f(x):
+	return x*2
+
+print(f(3))
+#Devuelve 6
+
+g = lambda x: x*2
+print(g(3))
+#Devuelve 6
+
+print((lambda x: x*2)(3))
+#se usa lambda dentro del print
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Funciones lambda}
+La primera función \azulfuerte{lambda} consigue el mismo efecto que la función \azulfuerte{f(x)}.
+\\
+\bigskip
+Nótese que: la lista de argumentos no está entre paréntesis, y falta la palabra reservada \azulfuerte{return} (está implícita, ya que la función entera debe ser una única expresión). 
+\\
+\bigskip
+Igualmente, la función no tiene nombre, pero puede ser llamada mediante la variable a que se ha asignado.
+\end{frame}
+\section{Módulos}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Módulos en \python}
+\begin{frame}[fragile]
+\frametitle{Módulos}
+Es una buena práctica almacenar las funciones en módulos.
+\\
+\bigskip
+Un módulo es un archivo en donde se dejan las funciones, el nombre del módulo es el nombre del archivo.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Uso de los módulos}
+Un módulo se carga al programa con la instrucción
+\funcionazul{
+\begin{center}
+\texttt{from nombre\_modulo import *}
+\end{center}
+}
+\python\ incluye un número grande de módulos que contienen funciones y métodos para varias tareas. 
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Uso de los módulos}
+La gran ventaja de los módulos es que están disponibles en internet y se pueden descargar, dependiendo de la tarea que se requiera atender.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Usando el módulo \texttt{math}}
+Muchas funciones matemáticas no se pueden llamar directo del intérprete, pero para ello existe el módulo \funcionazul{math}.
+\\
+\bigskip
+Hay tres diferentes maneras en las que se puede llamar y utilizar las funciones de un módulo.
+\begin{exampleblock}{}
+\verb|from math import *|
+\end{exampleblock}
+\end{frame}
+\begin{frame}
+\frametitle{Usando el módulo \texttt{math}}
+De esta manera, se importan todas las funciones definidas en el módulo \funcionazul{math}, siendo quizá un gasto innecesario de recursos, pero también generar conflictos con definiciones cargadas de otros módulos.
+\end{frame}
+\begin{frame}[fragile]
+\begin{exampleblock}{}
+\verb|from math import func1, func2,...|
+\end{exampleblock}
+\pause
+\begin{exampleblock}{}
+\verb|>>> from math import log,sin| \\
+\verb|>>> print (log(sin(0.5)))| \\
+\verb|-0.735166686385|
+\end{exampleblock}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Usando el módulo \texttt{math}}
+El tercer método que es el más usado en programación, es tener disponible el módulo:
+\begin{center}
+\verb|import math|
+\end{center}
+Las funciones en el módulo se pueden usar con el nombre del módulo como prefijo:
+\begin{exampleblock}{}
+\verb|>>> import math| \\
+\verb|>>> print (math.log(math.sin(0.5)))|
+\verb|-0.735166686385|
+\end{exampleblock}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Contenido del módulo \texttt{math}}
+Podemos ver el contenido de un módulo con la instrucción:
+\\
+\verb|>>> import math| \\
+\verb|>>> dir(math)|
+\fontsize{10}{10}\selectfont
+\begin{verbatim}
+['__doc__', '__name__', '__package__', 'acos',
+'acosh',  'asin', 'asinh', 'atan', 'atan2',
+'atanh', 'ceil', 'copysign', 'cos', 'cosh',
+'degrees', 'e', 'erf', 'erfc', 'exp', 'expm1',
+'fabs', 'factorial', 'floor', 'fmod', 'frexp',
+'fsum', 'gamma', 'hypot', 'isinf', 'isnan',
+'ldexp', 'lgamma', 'log', 'log10', 'log1p',
+'modf', 'pi', 'pow', 'radians', 'sin', 'sinh',
+'sqrt', 'tan', 'tanh', 'trunc']
+\end{verbatim}
+\end{frame}
+\end{document}

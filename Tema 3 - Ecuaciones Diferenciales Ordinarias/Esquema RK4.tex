@@ -1,0 +1,86 @@
+\documentclass[11pt]{article}
+%\usepackage[utf8]{inputenc}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\marginsize{1cm}{2cm}{0cm}{2cm}  
+\title{Esquema de Runge-Kutta de cuarto orden \\ \begin{large}Curso de F�sica Computacional\end{large}}
+\author{M. en C. Gustavo Contreras May�n}
+\date{ }
+\begin{document}
+\maketitle
+\section{Explicaci�n}
+Se presenta un programa de Runge-Kutta de cuarto orden para resolver una ecuaci�n diferencial de primer orden. Antes de ejecutar el programa, el usuario debe de definir la EDO a resolver, en el subprograma \texttt{FUN}. Cuando se ejecuta el programa, se le preguntar� al usuario el n�mero de pasos I, en el intervalo de impresi�n \textit{t}, denotado \texttt{TD}. Entonces, el intervalo de tiempo se hace igual a $h = TD/I$. Tambi�n se le pregunta al usuario, el m�ximo \textit{t} en el que debe evaluarse la soluci�n.
+\section{Variables}
+H : intervalo de tiempo, \textit{h} \\
+F: $f(y,t)$ \\
+K1, K2, K3, K4: $k_{1}$, $k_{2}$, $k_{3}$, $k_{4}$, respectivamente \\
+Y : y \\
+YA : \textit{y} en el subprograma que define la ecuaci�n diferencial \\
+X : \textit{t} \\
+XA : \textit{t} de la ecuaci�n diferencial en el subprograma \\
+XL : valor m�ximo de \textit{t} \\
+TD : intervalo de impresi�n de \textit{t} (la soluci�n se imprime despu�s de cada incremento de \textit{t} por TD).
+\section{C�digo}
+A continuaci�n se indica el c�digo del programa.\\
+\texttt{
+REAL K1, K2, K3, K4 \\
+PRINT * \\
+PRINT *, 'Esquema de Runge-Kutta de cuarto orden' \\
+PRINT * \\
+PRINT *, 'Intervalo de impresi�n de T?' \\
+READ *, XPR \\
+PRINT *, 'Numero de pasos en un intervalo de impresion?' \\
+READ *, I \\
+PRINT *, 'Maximo?' \\
+READ *, XL \\
+\\
+!AQUI SE FIJA EL VALOR INICIAL DE LA SOLUCION \\
+Y=0 \\
+!H ES EL INTERVALO DE TIEMPO \\
+H=XPR/I \\
+PRINT *, 'H= ', H \\
+!SE INICIALIZA EL TIEMPO \\
+XP=0 \\
+HH=H/2 \\
+PRINT * \\
+PRINT *,'--------------------------------------------' \\
+PRINT *,'	T  \hspace{3cm}			Y  ' \\
+PRINT *,'--------------------------------------------' \\
+PRINT 82, XP, Y \\
+82 FORMAT (1X, F10.6, 7X, 1PE15.6) \\
+!AVANZA I PASOS EN CADA INTERVALO DE IMPRESI�N \\
+\begin{tabbing}
+30 DO \= J= 1,I \\
+\> XB=XP \\
+\> XP=XP+H \\
+\> YN=Y \\
+\> XM=XB+HN \\
+\> K1=H*FUN(XB,YN) \\
+\> K2=H*FUN(YN+K1/2,XM) \\
+\> K3=H*FUN(YN+K2/2,XM) \\
+\> K4=H*FUN(YN+K3,XP) \\
+\> Y=YN+(K1+K2*2+K3*2+K4)/6 \\
+\end{tabbing}
+END DO \\
+PRINT 82, XP, Y \\
+IF (XP .LE. XL) GOTO 30 \\
+PRINT * \\
+PRINT *,'Se ha excedido del limite de X' \\
+PRINT * \\
+200 PRINT * \\
+PRINT *, 'Oprime 1 para continuar, 0 para terminar' \\
+READ *, K \\
+IF (K .EQ. 1) GOTO 1 \\
+PRINT * \\
+END PROGRAM rungek4 \\
+!+++++++++++++++++++++++++++++++++++++ \\
+FUNCTION FUN(X,Y) \\
+FUN=X*Y+1 \\
+RETURN \\
+END 
+}\\
+\\
+N�tese que no est� implementado en el c�digo, el almacenamiento de los datos en un archivo, por lo que habr� que agregarlo y posteriormente trabajar con ese archivo.
+\end{document}

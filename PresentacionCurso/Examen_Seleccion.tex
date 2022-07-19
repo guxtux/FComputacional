@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{anyfontsize}
+\usepackage{anysize}
+\usepackage{tikz}
+\usepackage[siunitx]{circuitikz}
+\renewcommand{\baselinestretch}{1.5}
+\marginsize{1.5cm}{1.5cm}{0cm}{2cm}
+%\author{M. en C. Gustavo Contreras Mayén. \texttt{curso.fisica.comp@gmail.com}\\
+%Fís. Abraham Lima Buendía. \texttt{abraham3081@ciencias.unam.mx}}
+\title{Examen breve\\{\large Semestre 2015-1 Grupo 8156}}
+\date{ }
+\begin{document}
+%\renewcommand\theenumii{\arabic{theenumii.enumii}}
+\renewcommand\labelenumii{\theenumi.{\arabic{enumii}}}
+\maketitle
+\fontsize{12}{12}\selectfont
+\vspace{-20mm}
+Considerando que el cupo máximo para el curso de Física Computacional es de 25 alumnos, además de que si estás en el caso de no ser alumno regular de la carrera (contar con el 65.11\% de los créditos), el método de selección para ingresar será a partir de la aprobación del siguiente examen breve, en donde se exploran diferentes áreas de la física que ya debes de manejar con naturalidad.
+\\
+\\
+Elige y resuelve tres problemas, detallando al máximo la solución.
+\begin{enumerate}
+\item \textbf{Mecánica cuántica}. Muestre el conmutador $[ \widehat{x}, \widehat{p} ] = - i \hbar$
+\item \textbf{Óptica}. Mediante el principio de Fermat, muestre la Ley de Snell y como caso particular la ley de reflexión.
+\item \textbf{Electromagnetismo}. Usando la ley de Kirchhoff, determina el valor de la corriente en el siguiente circuito:
+\begin{figure}[H]
+\centering
+\begin{circuitikz}
+\draw
+    (0,0)
+        to[R, l=$R$] ++(0,4)
+        to[short] ++(5,0)
+        to[C, l^=$C$] ++(0,-4)
+        to[short] ++(-2.5,0)
+        to[cspst, o-o] ++(-1,0) -- (0,0);
+\end{circuitikz}
+\end{figure}
+La ecuación que describe el ciclo de descarga es:
+\[ R \dfrac{dI}{dt} + \dfrac{I}{C} = 0\]
+\item Encuentra una expresión para la velocidad de un cuerpo en caída libre que experimenta una
+resistencia al aire de medio viscoso, ¿cuál es la velocidad terminal?. Escoje la constante de
+integración de tal manera que $v(0)=0$.
+\end{enumerate}
+\end{document}

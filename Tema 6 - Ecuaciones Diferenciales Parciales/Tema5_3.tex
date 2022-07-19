@@ -1,0 +1,342 @@
+\include{pre_documento}
+\include{pre_codigo}
+\beamertemplatenavigationsymbolsempty
+\title{Ecuaciones diferenciales parciales 3}
+\subtitle{Curso de Física Computacional}
+\author[]{M. en C. Gustavo Contreras Mayén}
+%\email{curso.fisica.comp@gmail.com}
+%\ptsize{10}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\begin{frame}
+Las ecuaciones hiperbólicas requieren de métodos especiales porque la información contenida en las condiciones iniciales y las condiciones de frontera normalmente no pueden alcanzar a todo el dominio de integración.
+\end{frame}
+\begin{frame}
+\frametitle{EDP Hiperbólicas}
+Alguna vez hemos estirado y soltado un hilo, una cuerda o un cable, de tal manera que vemos una serie de oscilaciones que se desplazan a lo largo del hilo.
+\\
+\bigskip
+El problema que queremos resolver es: predecir el patrón de oscilaciones si estiramos el hilo 1 mm de su posición de equilibrio.
+\end{frame}
+\begin{frame}
+Hemos visto también que si estiramos el hilo en un punto dado y lo soltamos, se observa un pulso o una onda viajera en la cuerda.
+\\
+\bigskip
+Si sacudimos al hilo en ese punto, tendremos un patrón de ondas estacionarias, las cuales permanecen en el mismo punto, en todo momento.
+\end{frame}
+\section{La ecuación de onda}
+\begin{frame}
+\frametitle{La ecuación de onda}
+En nuestro ejemplo, consideraremos un cuerda de longitud $L$, sostenida de sus extremos como se muestra en la siguiente figura:
+\begin{figure}
+	\begin{tikzpicture}[font=\small]
+		\draw [fill=black!30](0,0) rectangle (1,3);
+		\draw [fill=black!30](7,0) rectangle (8,3);
+		\draw [dashed] (1,1.5) -- (7,1.5);
+		\draw [color=blue] (1,1.5) .. controls (3,3) and (5,3) ..  (7,1.5);
+		\draw [arrows=->] (3,1.5) -- (3,2.5) node [midway, right] {y(x,t)};
+		\draw [dashed] (3,1.5) -- (3,1.1);
+		\draw [arrows=<->] (1,1.2) -- (3,1.2) node [midway, below] {x};
+		\draw [arrows=<->] (1,0.7) -- (7,0.7) node [midway, below] {L};
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+\begin{frame}
+Consideremos que la cuerda tiene una densidad por unidad de longitud constante $\rho$, una constante de tensión $\tau$, y no está sujeta a fuerzas gravitacionales.
+\\
+\bigskip
+El desplazamiento vertical de la cuerda a partir de su estado de reposo, está descrito por una función de dos variables $y(x,t)$, donde $x$ es la posición horizontal a lo largo de la cuerda y $t$ el tiempo. Suponemos que el desplazamiento de la cuerda, sólo se presenta en $y$, la dirección vertical.
+\end{frame}
+\begin{frame}
+Para obtener una ecuación de movimiento lineal (hay que considerar que existen ecuaciones de ondas no lineales), suponemos que el desplazamiento relativo de la cuerda $y(x,t)/L$  y la pendiente $\partial y / \partial x$ son pequeñas.
+\\
+\medskip
+Aislamos una sección infinitesimal de la cuerda $\Delta x$ y vemos que la diferencia en los componentes verticales de la tensión en cada extremo de la cuerda, produce la fuerza de restitución que acelera esta sección de la cuerda en la dirección vertical.
+\end{frame}
+\begin{frame}
+\begin{figure}
+	\begin{tikzpicture}[font=\small]
+		\draw [arrows=->, dashed] (0,0) -- (0,3) node [midway, left] {$\Delta y$};
+		\draw [arrows=->, dashed] (0,0) -- (6,0) node [midway, below] {$\Delta x$};
+		\draw [arrows=<->, thick] (0.5,3) .. controls (0.5,0.5) and (5,0.2) .. (5.5,0.3);
+		\draw node at (0.8,3) {T};
+		\draw node at (5.5,0.5) {T};
+		\draw [fill=black!30](1.6,1) rectangle (1.9,1.3);
+		\draw node at (3,0.3) {$\theta$};
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+\begin{frame}
+Sabemos que por la ley de Newton: la suma de las fuerzas verticales en la sección de la cuerda debe de ser igual al producto de la masa por la aceleración vertical de la sección
+\[ \sum F_{y} = \rho \Delta x \dfrac{\partial^{2} y}{\partial t^{2}}\]
+Donde suponemos que $\theta$ es pequeño y con ello
+\[\sin \theta \simeq \tan \theta = \dfrac{\partial y}{\partial x}\]
+\end{frame}
+\begin{frame}
+\begin{eqnarray*}
+\sum F_{y} &=& \rho \Delta x \dfrac{\partial^{2} y}{\partial t^{2}} \\
+ &=& T \sin \theta (x + \Delta x)- T \sin \theta (x) = \\
+ &=& T \dfrac{\partial y}{\partial x}\bigg\vert_{x+\Delta x} - \dfrac{\partial y}{\partial x} \bigg\vert_{x} \\
+ & \simeq & T \dfrac{\partial^{2} y}{\partial x^{2}}, \\
+ & \Rightarrow & \dfrac{\partial^{2} y(x,t)}{\partial x^{2}} = \dfrac{1}{c^{2}} \dfrac{\partial^{2} y(x,t)}{\partial t^{2}}, \hspace{0.7cm} c = \sqrt{\dfrac{T}{\rho}}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+La constante $c$ es la velocidad con la que una perturbación viaja a lo largo de la onda y se considera que disminuye, con una cuerda pesada y aumenta con una cuerda ligera.
+\\
+\medskip
+Toma en cuenta que esta velocidad $c$ no es la misma que la velocidad de un elemento de cuerda.
+\end{frame}
+\section{Condiciones para el ejercicio}
+\begin{frame}
+\frametitle{Condiciones para el ejercicio}
+Como se mencionó anteriormente, la condición inicial del problema en $t=0$, es dejar levantada la cuerda 1 mm para que la cuerda forme un triángulo cuyo centro está en $x=0.8L$
+\\
+\medskip
+Podemos modelar el ''rasgueo" de la cuerda con la función matemática:
+\[
+y(x,t=0) = \left\lbrace \begin{array}{l l}
+1.25 \dfrac{x}{L} & x \leq 0.8 L \\
+5.0 \left( 1- \dfrac{x}{L} \right) & x > 0.8 L
+\end{array} \right. \]
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones de frontera}
+Dado que los extremos de la cuerda están fijos, las condiciones de frontera corresponden a un desplazamiento nulo en ambos extremos para todo tiempo:
+\[y(0,t) = y(L,t) = 0\]
+\end{frame}
+\begin{frame}
+Como tenemos una ecuación diferencial de segundo orden, necesitamos una segunda condición inicial para determinar la solución. 
+\\
+\bigskip
+Tomaremos esa segunda condición haciendo que el rasgueo se realiza en el reposo:
+\[ \dfrac{\partial y}{\partial t} (x,t=0) = 0 \]
+\end{frame}
+\section{Solución numérica al problema}
+\begin{frame}
+\frametitle{Solución numérica al problema}
+Al igual que con la ecuación de Laplace y la ecuación del calor, buscamos una solución $y(x,t)$ para valores discretos de las variables independientes $x$ y $t$ en una malla bidimensional, el eje horizontal (primer índice) representa la posición $x$ a lo largo de la cuerda, y el eje vertical (segundo índice) representa el tiempo. 
+\\
+\medskip
+Asignamos las variables discretas:
+\begin{eqnarray*}
+x & = & i \Delta x, \hspace{1cm} i=1,\ldots,N_{x} \\
+t & = & j \Delta t, \hspace{1cm} j=1,\ldots,N_{t}
+\end{eqnarray*}
+Así:
+\[ y(x,t) = y(i \Delta x, j \Delta t) = y_{i,j} \]
+\end{frame}
+\begin{frame}
+\frametitle{Malla para los cálculos}
+\begin{center}
+	\begin{tikzpicture}[scale=0.8]
+		\draw [arrows=->] (0,8) -- (11,8) ;
+		\draw [arrows=->] (0,8) -- (0,0.7);
+		\draw [font=\tiny] (8.2,8.2) node {x};
+		\draw [font=\tiny] (-0.3,1) node {t};
+		\foreach \x in {1,3,5,7,9} \draw [fill](\x, 2) circle (0.04);
+		\foreach \x in {1,3,5,7,9} \draw [fill](\x,3) circle (0.04);
+		\foreach \x in {1,3,5,7,9} \draw [fill](\x,4) circle (0.04);
+		\foreach \x in {1,3,5,7,9} \draw [fill](\x,5) circle (0.04);
+		\foreach \x in {1,3,5,7,9} \draw [fill](\x,6) circle (0.04);
+		\foreach \x in {1,3,5,7,9} \draw [fill](\x,7) circle (0.04);
+		\foreach \x in {1,3,5,7,9} \draw [fill](\x,8) circle (0.06);
+		\foreach \x in {1,3,5,7,9} \draw [fill=white](\x,8) circle (0.04);
+		\foreach \x in {2,3,4,5,6,7,8} \draw [fill](0,\x) circle (0.06);
+		\foreach \x in {2,3,4,5,6,7,8} \draw [fill=white](0,\x) circle (0.04);
+		\foreach \x in {2,3,4,5,6,7,8} \draw [fill](10,\x) circle (0.06);
+		\foreach \x in {2,3,4,5,6,7,8} \draw [fill=white](10,\x) circle (0.04);
+		\draw [fill=white](5,4) circle(0.45);
+		\draw [fill=white](3,5) circle(0.45);
+		\draw [fill=white](7,5) circle(0.45);
+		\draw [fill=white](5,5) circle(0.45);
+		\draw [fill=white](5,3) circle(0.45);
+		\draw [font=\tiny] (5,4) node {i,j};
+		\draw [font=\tiny] (3,5) node {i-1,j-1};
+		\draw [font=\tiny] (7,5) node {i+1,j-1};
+		\draw [font=\tiny] (5,5) node {i,j-1};
+		\draw [font=\tiny] (5,3) node {i,j+1};
+		\draw [arrows=->] (3.45,5) -- (4.55,3);
+		\draw [arrows=->] (5,3.55) -- (5,3.35);
+		\draw [arrows=->] (6.55,5) -- (5.45,3);
+		\draw (4.55,5) -- (4.25,5) -- (4.25,2.75);
+		\draw [arrows=->] (4.25,2.75) -- (4.55,2.9);
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}
+En contraste con la ecuación de Laplace, donde la malla estaba en dos dimensiones espaciales, la malla anterior representa tanto espacio y tiempo. Siendo así el caso, moviéndose a través de una fila se corresponde con el aumento de los valores en $x$ a lo largo de la cuerda durante un tiempo fijo, mientras que se mueve hacia abajo una columna corresponde al aumento de pasos en el tiempo para una posición fija.
+\end{frame}
+\begin{frame}
+A pesar de que la malla de solución puede ser cuadrada, no podemos usar una técnica de relajación para la solución, ya que no sabemos la solución en los cuatro lados. Las condiciones de contorno determinan la solución a lo largo de los lados derecho e izquierdo, mientras que la condición de tiempo inicial determina la solución a lo largo de la parte superior.
+\end{frame}
+\begin{frame}
+Convertimos la ecuación de onda a una ecuación en diferencias finitas expresando la segunda derivada en términos de diferencias finitas:
+\begin{eqnarray*}
+\dfrac{\partial^{2} y(x,t)}{\partial t^{2}} & \simeq & \dfrac{y(i,j+1) + y(i,j-1) - 2y(i,j)}{(\Delta t)^{2}} \\
+\dfrac{\partial^{2} y(x,t)}{\partial x^{2}} & \simeq & \dfrac{y(i+1,j) + y(i-1,j) - 2y(i,j)}{(\Delta x)^{2}}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+Sustituyendo las expresiones anteriores, en la ecuación de onda, obtenemos la ecuación en diferencias:
+\[ \dfrac{y_{i,j+1} + y_{i,j-1} - 2 y_{i,j}}{c^{2} (\Delta t)^{2}} = \dfrac{y_{i+1,j} + y_{i-1,j} - 2 y_{i,j}}{(\Delta x)^{2}} \]
+Notemos que la ecuación contiene tres valores de tiempo:
+\begin{enumerate}
+\item \texttt{j+1} = futuro,
+\item \texttt{j} = presente,
+\item \texttt{j-1} = pasado
+\end{enumerate}
+\end{frame}
+\begin{frame}
+Por lo que tenemos que re-ordenar de tal manera que podamos predecir la solución futura a partir de las soluciones presentes y pasadas:
+\[ \begin{split} y_{i,j+1} &= 2 y_{i,j} - y_{i,j-1} + \dfrac{c^{2}}{c'^{2}} \left[ y_{i+1,j} + y_{i-1,j} - 2 y_{i,j} \right], \\
+ c' &= \dfrac{\Delta x}{\Delta t} \end{split} \]
+donde $c'$ es una combinación de parámetros numéricos con la dimensión de velocidad, cuyo tamaño relativo a $c$, determina la estabilidad del algoritmo.
+\\
+\medskip 
+Este algoritmo propaga la onda a partir de dos momentos anteriores: $j$ y $j-1$ y con tres posiciones cercanas: $i-1$, $i$ y $i+1$, para un tiempo posterior $j+1$ y una posición espacial $i$ (revisa la malla).
+\end{frame}
+\begin{frame}
+Empezamos con la solución a lo largo de la fila superior y luego bajamos un paso a la vez. Si escribimos la solución para los tiempos presentes a un archivo, entonces tenemos que almacenar sólo tres valores de tiempo en el equipo, lo que ahorra memoria.
+\\
+\medskip
+De hecho, debido a que los pasos de tiempo deben ser muy pequeños para obtener una alta precisión, es posible que desee almacenar la única solución para cada quinta o décima vez.
+\end{frame}
+\begin{frame}
+La relación de recurrencia necesita que hagamos un pequeño truco, ya que necesitamos conocer los desplazamientos en dos momentos iniciales, pero la condición inicial sólo nos proporciona uno. Para resolver esto, transformamos las condiciones iniciales a una forma de diferencias centrales que nos deja extrapolar a un tiempo ''negativo"
+\[ \dfrac{\partial y}{\partial t} (x,0) \simeq \dfrac{y(x,\Delta t) - y(x,-\Delta t)}{2 \Delta t} = 0, \hspace{0.3cm} \rightarrow y_{i,0} = y_{i,2} \]
+Tomamos el tiempo inicial $j=1$, por lo que $j=0$ corresponde a $t= - \Delta t$
+\end{frame}
+\begin{frame}
+Sustituyendo la relación anterior, obtenemos para el paso inicial
+\[ y_{i,2} = y_{i,1} + \dfrac{c^{2}}{2 c'^{2}} \left[ y_{i+1,1} + y_{i-1,1} - 2 y_{i,1} \right] \hspace{0.3cm} \mbox{para } j=2 \]
+\end{frame}
+\begin{frame}
+Haciendo una aproximación por diferencias centrales:
+\begin{eqnarray*}
+\dfrac{\partial y}{\partial t} (x,t=0) &=& 0 \\
+& \longrightarrow & \dfrac{y(x, \Delta t) - y(x, - \Delta t)}{2 \Delta t} = 0 \\
+& \longrightarrow & y(i,-1) = y(i,1)
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+Ocupando éste resultado para el tiempo inicial
+\begin{eqnarray*}
+y(i,2) &=& y(i,1) + \dfrac{1}{2} \left( \dfrac{\Delta t}{\Delta x} \right)^{2} c^{2} \times \\
+& \times & [y(i+1,j) + y(i-1,j) - 2y(i,j)]
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Estabilidad del algoritmo}
+El éxito del método numérico depende del tamaño relativo en los pasos de tiempo y posición. Para este problema, un criterio de estabilidad nos dice que usando una técnica de diferencias finitas, la solución será estable si
+\[ c \leq c' = \dfrac{\Delta x }{\Delta y}\]
+Esto nos dice que la solución es estable para pasos de tiempo pequeños, pero puede tener problemas para pasos aún más pequeños. Se le denomina condición de Courant-Friedrichs-Lewy (condición CFL)
+\end{frame}
+\begin{frame}
+\frametitle{El problema a resolver}
+Para el ejercicio vamos a utilizar $L=1$ m, la densidad y tensión en la cuerda, las vamos a considerar constantes, $\rho=0.01 \mbox{ kg/m}$ y $T=40$ N, usaremos una malla de 101 puntos, que corresponden a un espaciamiento $\Delta = 0.01$ cm.
+\end{frame}
+\subsection{Código en Python}
+\begin{frame}[fragile]
+\frametitle{Código en Python}
+Detalle de la cuerda
+\begin{lstlisting}
+from visual import *
+
+g = display(width=600,height=300, title = 'Cuerda oscilante')
+vibst=curve(x=list(range(0,100)),color=color.yellow)
+ball1=sphere(pos=(100,0),color=color.red,radius=2)
+ball2=sphere(pos=(-100,0),color=color.red,radius=2)
+ball1.pos
+ball2.pos
+vibst.radius=1.0
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Parámetros}
+\begin{lstlisting}
+rho = 0.01
+ten=40.         
+c=sqrt(ten/rho)
+c1 = c
+ratio = c*c/(c1*c1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Inicialización}
+\begin{lstlisting}
+xi=zeros((101,3), dtype=float)
+for i in range(0,81): xi[i,0]= 0.00125*i
+
+for i in range(81,101): xi[i,0]=0.1-0.005*(i-80)
+
+for i in range(0,100):
+    vibst.x[i]=2.0*i-100.0
+    vibst.y[i]=300.*xi[i,0]
+    
+vibst.pos     
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Pasos posteriores de tiempo}
+\begin{lstlisting}
+for i in range(1,100):
+    xi[i,1] = xi[i,0] + 0.5*ratio*(xi[i+1,0]+ xi[i-1,0]-2*xi[i,0])
+
+while 1:
+    rate(50)
+    for i in range(1,100):
+        xi[i,2]=2.*xi[i,1]- xi[i,0] + ratio*(xi[i+1,1]+ xi[i-1,1]-2*xi[i,1])
+    for i in range(1,100):
+        vibst.x[i] = 2.*i-100.0
+        vibst.y[i] = 300.*xi[i,2]
+    vibst.pos
+    for i in range(0,101):
+        xi[i,0] = xi[i,1]
+        xi[i,1] = xi[i,2]    
+\end{lstlisting}
+\end{frame}
+\section{Ejercicio para el examen}
+\begin{frame}[fragile]
+\frametitle{Problema a cuenta de examen}
+Considera ahora una cuerda de 1 m de longitud, con los extremos fijos. Está sometida a una tensión de 40 N y la cuerda tiene una densidad de 10 g/m. Inicialmente la cuerda se ''rasga'' 5 mm en dos puntos, como se muestra en la siguiente figura.
+\begin{center}
+\begin{figure}
+\begin{tikzpicture}[scale=0.8, font=\small]
+	\draw (0,0) -- (10,0);
+	\draw (0.2,0) -- (0.2,4);
+	\draw (0.2,1) -- (2,1);
+	\draw (2,1) -- (3,3);
+	\draw (3,3) -- (4,1);
+	\draw (4,1) -- (6,1);
+	\draw (6,1) -- (7,3);
+	\draw (7,3) -- (8,1);
+	\draw (8,1) -- (10,1);
+	\draw (-1,2) node {$f(x)$};
+	\draw (3,-0.3) node {$10$};
+	\draw (7,-0.3) node {$40$};
+	\draw (5,-0.75) node {Posición x};
+\end{tikzpicture}
+\end{figure}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones inciales del problema}
+\[ \dfrac{y(x,t=0)}{0.005} =
+\begin{cases}
+0, & 0.0 \leq x \leq 0.1 \\
+10x-1, & 0.1 \leq x \leq 0.2 \\
+-10x+3, & 0.2 \leq x \leq 0.3 \\
+0, & 0.3 \leq x \leq 0.7 \\
+10x-7, & 0.7 \leq x \leq 0.8 \\
+-10x+9, & 0.8 \leq x \leq 0.9 \\
+0, & 0.9 \leq x \leq 1.0
+\end{cases} \]
+Ajusta el código para éstas condiciones, ejecuta e interpreta los resultados obtenidos.
+\end{frame}
+\end{document}

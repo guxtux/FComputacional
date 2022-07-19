@@ -1,0 +1,526 @@
+\input{../Preambulos/preambulo_presentacion}
+\title{Curso de Física Computacional}
+\subtitle{Semestre 2020-2}
+\author[]{M. en C. Gustavo Contreras Mayén \\ M. en C. Abraham Lima Buendía}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=2cm]{escudo-facultad-ciencias.jpg}\hspace*{4.75cm}~%
+   \includegraphics[width=2cm]{escudo-unam.jpg}
+}
+\date{\today}
+\begin{document}
+\spanishdecimal{.}
+\maketitle
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+\fontsize{14}{14}\selectfont
+\section{Presentación del curso}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Objetivos}
+\begin{frame}
+\frametitle{Objetivos 1}
+El propósito del curso es enseñar al estudiante las ideas de computabilidad usadas en distintas áreas de la  física para resolver un conjunto de problemas modelo. 
+\\
+\bigskip
+\pause
+A partir de planteamientos analíticos se pretende obtener resultados numéricos reproducibles consistentes, y que predigan situaciones físicas asociadas al problema bajo estudio.
+\end{frame}
+\begin{frame}
+\frametitle{Objetivos 2}
+El alumno debe asimilar las ideas básicas del análisis numérico, como son las de estabilidad en el cálculo y la sensibilidad de las respuestas a las perturbaciones en la estructura del problema.
+\end{frame}
+\begin{frame}
+\frametitle{Objetivos 3}
+El curso también le dará al estudiante capacidad de juicio sobre la calidad de los resultados numéricos obtenidos.
+\end{frame}
+\begin{frame}
+\frametitle{Objetivos 4}
+En particular se hará énfasis en la confiabilidad de los resultados respecto a los errores tanto del algoritmo de solución como de las limitaciones numéricas de la computadora. 
+\\
+\bigskip
+\pause
+Esta capacidad se adquirirá a lo largo del curso comparando resultados numéricos con otros tipos de análisis, en las regiones en las cuales se pueden llevar ambos a cabo.
+\end{frame}
+\begin{frame}
+\frametitle{Objetivos 5}
+ Por otra parte permitirá al estudiante explorar regiones de comportamiento físico sólo accesibles al cálculo numérico.
+\end{frame}
+\section{Sobre el curso}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Lugar y horario}
+\begin{frame}
+\frametitle{Lugar y horario} 
+\textbf{Lugar: }Laboratorio de Enseñanza en Cómputo de Física, Edificio Tlahuizcalpan.
+\\
+\bigskip
+\textbf{Horario: } Martes y Jueves de 18 a 21 horas.
+\end{frame}
+\subsection{Metodología de Enseñanza}
+\begin{frame}
+\frametitle{Metodología de Enseñanza - 1}
+\textbf{Antes de la clase.}
+\\
+\vspace{0.5em}
+Para facilitar la discusión en el aula, el alumno revisará antes de la clase el material de trabajo que se le proporcionará oportunamente, de tal manera que ya llegará a la misma conociendo el tema a desarrollar durante la clase.
+\\
+\bigskip
+\pause
+\begin{alertblock}{Aviso importante}
+Daremos por entendido de que el alumno realizará la lectura y/o actividades.
+\end{alertblock}
+\end{frame}
+\begin{frame} 
+\frametitle{Metodología de Enseñanza - 2}
+\textbf{Durante la clase.}
+\\
+\vspace{0.5em}
+Se dará un tiempo para la exposición con diálogo y discusión del material de trabajo con los temas a cubrir durante el semestre. Se busca que sea un curso práctico por lo que se va a trabajar con los equipos de cómputo del laboratorio, de tal manera que habrá ejercicios para desarrollar durante la clase.
+\end{frame}
+\begin{frame} 
+\frametitle{Metodología de Enseñanza - 2}
+\textbf{Durante la clase.}
+\\
+\vspace{0.5em}
+Un curso de este tipo requiere que el alumno le de solución a problemas mediante un algoritmo computacional, de tal forma que va a requerir \enquote{ejecutar} su algoritmo para verificar la funcionalidad del mismo, así como revisar la congruencia de la solución.
+\end{frame}
+\begin{frame} 
+\frametitle{Metodología de Enseñanza - 2}
+\textbf{Durante la clase.}
+\\
+\medskip
+Considere que el curso no está enfocado al desarrollo de habilidades y/o técnicas de programación con un lenguaje en particular. En un primer momento se revisará un planteamiento general de la solución, para posteriormente, implementarlo en la sintaxis del lenguaje \textcolor{blue}{\texttt{python}}.
+\end{frame}
+\begin{frame} 
+\frametitle{Metodología de Enseñanza - 2}
+\textbf{Durante la clase.}
+\\
+\vspace{0.5em}
+Si cuentan con una experiencia previa en programación (con cualquier lenguaje), será conveniente para el trabajo en clase; pero si no han programado, se verán en la necesidad de dedicarle más tiempo tanto para revisar los materiales adicionales, así como para resolver los problemas y ejercicios.
+\end{frame}
+\begin{frame}
+\frametitle{Herramienta de programación}
+Será necesario utilizar una herramienta computacional para resolver ejercicios y problemas que se revisen en clase.
+\\
+\bigskip
+Usaremos el lenguaje de programación \textcolor{blue}{\texttt{python}} dada su versatilidad y facilidad de manejo.
+\end{frame}
+\begin{frame}
+\frametitle{Herramienta de programación}
+Las técnicas de programación que vayan adquiriendo serán el reflejo de su trabajo fuera de clase. En caso de no trabajar o dedicarle el tiempo al curso, se complicará bastante, situación que esperamos no se presente.
+\end{frame}
+\begin{frame}
+\frametitle{Guías adicionales de apoyo.}
+Se han elaborado guías de apoyo complementarias para la consulta tanto de los conceptos principales de la física involucrada en el problema, así como de programación con \textcolor{blue}{\texttt{python}}.
+\end{frame}
+\begin{frame}
+\frametitle{Guías adicionales de apoyo.}
+De esta manera tendrán una referencia adicional, por su cuenta deberán consultar otros materiales para complementar y conceptualizar el problema así como su solución.
+\end{frame}
+\subsection{¿Programación?}
+\begin{frame}
+\frametitle{¿Programación?}
+La solución de un problema requiere en un primer paso:  realizar una abstracción del mismo, es decir, debemos de plantear el problema físico, a un problema que permita ser resuelto numéricamente mediante un algoritmo.
+\end{frame}
+\begin{frame}
+\frametitle{¿Programación?}
+El algoritmo que se proponga como solución, en un segundo paso deberá \enquote{ejecutarse} por lo que debemos de revisar la solución, además de la congruencia de la misma con la física y sobre todo, el margen de error que devuelve la solución numérica.
+\end{frame}
+\begin{frame}
+\frametitle{¿Programación?}
+El curso de Física Computacional \textoazul{NO es un curso de programación bajo algún lenguaje en particular}.
+\\
+\bigskip
+Es altamente recomendable que cuenten con conocimientos de programación básicos en algún lenguaje o software.
+\end{frame}
+\begin{frame}
+\frametitle{Ya se programar!!}
+Cuentan con la completa libertad de elegir el lenguaje o software para trabajar durante el curso:
+\begin{multicols}{2}
+\begin{itemize}
+\item Fortran
+\item Java
+\item C++
+\item C
+\item Delphi
+\item Wolfram
+\item Mathematica
+\item Maple
+\item Matlab
+\item Scilab
+\item Octave
+\end{itemize}
+\end{multicols}
+\end{frame}
+\begin{frame}
+\frametitle{Ya se programar!!}
+Si es el caso que ya programen con algún otro lenguaje o software, deberán de entregar su código fuente y el archivo ejecutable.
+\end{frame}
+\begin{frame}
+\frametitle{Software para el curso}
+Usaremos dentro del curso la suite \textoazul{Anaconda}, que es de distribución libre y contiene una serie de herramientas y programas con lo que programar con \textcolor{blue}{\texttt{python}}, será una tarea más sencilla.
+\end{frame}
+\begin{frame}
+\frametitle{Anaconda}
+La suite incluye un \emph{entorno de desarrollo}, terminales, sistema de debug y de consulta.
+\\
+\bigskip
+Como es multiplataforma, se puede utilizar en entornos linux, iOS y Windows. En los equipos del laboratorio tienen instalado Linux y la distribución es Fedora.
+\end{frame}
+\begin{frame}
+\frametitle{Tema 0: Breve introducción a python.}
+En el curso utilizaremos \textcolor{blue}{\texttt{python}} para programar, se dará un curso muy breve de programación básica, este tema que no será evaluado ni formará parte de la calificación final.
+\end{frame}
+\begin{frame}
+\frametitle{Tema 0: Breve introducción a python.}
+Tendremos con el Tema 0, un panorama general del uso del lenguaje, pero NO debemos de confiarnos y pensar que con esto, ya podremos programar con facilidad, mientras más práctica tengan, poco a poco mejorarán sus técnicas de programación.
+\end{frame}
+\begin{frame}
+\frametitle{Opcionales}
+Pueden traer una laptop para el trabajo en el curso, no es requisito, ya que tenemos equipos suficientes en el laboratorio.
+\\
+\medskip
+Se recomienda que cuenten en sus equipos con el mismo software, las guías que hemos comentado, les brindarán la información para instalar los programas.
+\end{frame}
+\begin{frame}
+\frametitle{Reglas dentro del aula de clase}
+Habrá que seguir una serie de puntos tanto académicos como \enquote{administrativos} dentro del aula de clase para un buen desenvolvimiento y tener una clase amena. 
+\end{frame}
+\begin{frame}
+\frametitle{Puntos académicos}
+Consideren los siguientes puntos:
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item La clase inicia a las 6 pm.
+\item Se utilizarán los equipos de cómputo del laboratorio.
+\item Los equipos cuentan con conexión a internet, pero se espera que se utilice para atender la clase. En caso de que se detecte una actividad ajena al curso (facebook, chats, etc.) se hará una primera llamada de aviso.
+\item A la segunda llamada de aviso, se cancelará la evaluación correspondiente.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Puntos administrativos}
+En lo que corresponde a la parte administrativa:
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item No se permite el consumo de alimentos y/o bebidas dentro del aula.
+\item Se solicita dejen en modo silencioso el celular.
+\item En caso de alguna eventualidad, se atenderán los protocolos de seguridad.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Trabajo durante la clase}
+Los alumnos del curso contarán con una cuenta de acceso a los equipos.
+\\
+\bigskip
+\pause
+El uso y manejo de cada equipo pasa a ser responsabilidad de cada alumno. En caso de que algún periférico no funcione debidamente, se les pide lo reporten para que se solicite al área respectiva, su reparación o reemplazo.
+\end{frame}
+\begin{frame}
+\frametitle{Metodología de Enseñanza - 3}
+\textbf{Después de la clase.}
+\\
+\medskip
+El curso \alert{requiere que le dediquen al menos el mismo número de horas de trabajo en casa}, es decir:
+\pause
+\begin{exampleblock}{Dedicación al curso}
+Les va a demandar al menos seis horas de trabajo como mínimo.
+\end{exampleblock}
+\end{frame}
+\begin{frame}
+\frametitle{Metodología de Enseñanza - 3}
+Si cuentan con una experiencia en programación, tienen un paso adelantado, pero si no han programado, se verán en la necesidad de dedicarle más tiempo.
+\end{frame}
+\begin{frame}
+\frametitle{Apoyo con la plataforma Edmodo}
+Hoy en día es necesario contar con el apoyo de herramientas TIC's, la plataforma \textoazul{Edmodo} brinda los elementos necesarios que servirán de apoyo para el curso.
+\end{frame}
+\begin{frame}
+\frametitle{Características de Edmodo}
+La plataforma permite:
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Comunicación sincrónica y asincrónica.
+\item Flexibilidad de horarios.
+\item Aprendizaje colaborativo.
+\item Construcción del conocimiento constante, dinámica y compartida.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{La plataforma Edmodo}
+Dentro de Edmodo se tendrán disponibles las notas del curso, los materiales adicionales de consulta, y servirá como medio de entrega para las actividades tales como ejercicios y tareas.
+\end{frame}
+\begin{frame}
+\frametitle{La plataforma Edmodo}
+Considera que para la entrega de una actividad, se programa tanto la fecha como hora de entrega, una vez que se alcanza la hora definida, la plataforma ya no permitirá la carga de archivos.
+\\
+\bigskip
+\pause
+No se recibirán las actividades que se envíen por correo electrónico. La plataforma será el canal de comunicación.
+\end{frame}
+\section{Temario oficial}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Contenido del temario}
+\begin{frame}
+\frametitle{Temario del curso}
+Llevaremos el temario oficial del curso, que está disponible en la página de la Facultad \href{http://www.fciencias.unam.mx/asignaturas/715.pdf}{- Temario -}, haciendo un ajuste en el orden de los temas, siendo entonces:
+\end{frame}
+\subsection*{Tema 1}
+\begin{frame}
+\frametitle{\textbf{Tema 1: Escalas, condición y estabilidad}}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Introducción.
+\item Sistemas numéricos de punto flotante y lenguajes.
+\item Dimensiones y escalas.
+\item Errores numéricos y su amplificación.
+\item Condición de un problema y estabilidad de un método.
+\end{enumerate}
+\end{frame}
+\subsection*{Tema 2}
+\begin{frame}
+\frametitle{\textbf{Tema 2: Operaciones matemáticas básicas}}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Interpolación y extrapolación.
+\item Diferenciación numérica.
+\item Integración numérica.
+\item Evaluación numérica de soluciones.
+\end{enumerate}
+\end{frame}
+\subsection*{Tema 3}
+\begin{frame}
+\frametitle{\textbf{Tema 3: Ecuaciones diferenciales ordinarias}}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Métodos simples.
+\item Métodos implícitos y de multipasos.
+\item Métodos de Runge-Kutta.
+\item Estabilidad de las soluciones.
+\item Orden y caos en el movimiento de dos dimensiones.
+\end{enumerate}
+\end{frame}
+\subsection*{Tema 4}
+\begin{frame}
+\frametitle{\textbf{Tema 4: Análisis numérico de problemas matriciales}}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Inversión de matrices y número de condición.
+\item Valores propios de matrices tridiagonales.
+\item Discretización de la ecuación de Laplace y métodos iterativos de solución.
+\item Solución numérica de ecuaciones diferenciales elípticas en una y dos dimensiones.
+\end{enumerate}
+\end{frame}
+\subsection*{Tema 5}
+\begin{frame}
+\frametitle{\textbf{Tema 5: Problemas clásicos y cuánticos de valores propios}}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Algoritmo de Numerov.
+\item Integración de problemas con valores en la frontera.
+\item Formulación matricial para problemas de valores propios.
+\item Formulaciones variacionales.
+\end{enumerate}
+\end{frame}
+\subsection*{Tema 6}
+\begin{frame}
+\frametitle{\textbf{Tema 6: Simulación computacional}}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Método de Monte Carlo.
+\item Dinámica molecular.
+\item Otros algoritmos de simulación.
+\item Aplicación a problemas de física de interés actual.
+\end{enumerate}
+\end{frame}
+\subsection*{Tema 7}
+\begin{frame}
+\frametitle{\textbf{Tema 7: Ecuaciones de evolución}}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item La ecuación de ondas y su discretización en diferencias finitas. Criterio de Courant.
+\item La ecuación de Fourier para el calor y su discretización en diferencias finitas. Estabilidad del esquema.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Sobre el contenido del curso}
+Como se ha revisado en el contenido de cada tema, vamos a considerar que ya cuentan con una formación correspondiente al sexto semestre de la carrera de Física.
+\\
+\bigskip
+\pause
+Por lo que en cada ejercicio o problema, el análisis y formalización de una expresión matemática se dará por hecho, así como su correspondiente solución analítica.
+\end{frame}
+\begin{frame}
+\frametitle{Sobre el contenido del curso}
+El alumno deberá de corroborar el planteamiento para el abordaje y solución de un problema de la física, considerando que está cursando el séptimo semestre de la carrera.
+\end{frame}
+\section{Evaluación del curso}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Evaluación}
+\begin{frame}
+\frametitle{Evaluación}
+Se distribuye de la siguiente manera:
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Ejercicios en clase $\mathbf{10\%}$
+\item Tareas $\mathbf{50\%}$
+\item Exámenes en salón $\mathbf{40\%}$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicios en clase $\mathbf{10\%}$}
+Durante la clase se trabajarán ejercicios, algunos de ellos se dejarán para que completen la solución, de tal forma que deberán de entregarlo resuelto para la siguiente sesión.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicios en clase $\mathbf{10\%}$}
+Para que el ejercicio resuelto se considere dentro de este porcentaje, se requiere que el alumno asista a la clase, en caso de que el alumno no asista y se entere del ejercicio, solamente se le revisará el ejercicio que entregue, pero no se le tomará en cuenta para el porcentaje, (moraleja: hay que asistir a clase).
+\end{frame}
+\begin{frame}
+\frametitle{Tareas $\mathbf{50\%}$}
+Serán tres tareas durante el curso, se les proporcionará de manera adelantada y con fecha de entrega definida, no se recibirán tareas extemporáneas. 
+\\
+\bigskip
+\pause
+Para que la tarea se considere, deberá de entregar el $100\%$ de los ejercicios resueltos. En caso contrario, sólo se revisarán los ejercicios, pero no se tomará en cuenta como parte de la calificación por tareas.
+\end{frame}
+\begin{frame}
+\frametitle{Trabajo en equipo}
+Podrán reunirse y colaborar para discutir, debatir, proponer y bosquejar la solución a los ejercicios de las tareas.
+\\
+\bigskip
+En el dado caso de encontrar códigos idénticos, se cancelarán no sólo los ejercicios tipo copy-paste, sino la tarea completa del(los) alumnos involucrados.
+\end{frame}
+\begin{frame}
+\frametitle{Exámenes $\mathbf{40\%}$}
+Habrá tres exámenes en clase, de tipo teórico-prácticos. Se indicará oportunamente el día del examen y los temas correspondientes, que se resolverán y entregarán durante la clase.
+\\
+\bigskip
+Se aplicarán en el aula de cómputo y el trabajo será individual.
+\end{frame}
+\begin{frame}
+\frametitle{Reposición de un examen}
+Considerando que sólo habrá tres exámenes en el semestre, se considera la posibilidad de presentar una única reposición, correspondiente a los temas que conforman ese examen parcial, si y sólo si se cumplen los siguientes puntos:
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones para la reposición de examen}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Se presentaron los tres exámenes parciales.
+\item Se entregaron las tres tareas del curso.
+\item Sólo en un examen parcial se obtuvo una calificación no aprobatoria, es decir, que la calificación del examen parcial sea menor a $6$ (seis).
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Calificación para aprobar el curso}
+En caso de contar con un promedio final aprobatorio, es decir, una calificación mayor o igual a $6$ (seis) del curso con los tres exámenes parciales aprobados, las tres tareas entregadas y el porcentaje de ejercicios en clase, \alert{no aplica una reposición de algún examen} para subir el promedio final del curso.
+\end{frame}
+\begin{frame}
+\frametitle{Examen final}
+El examen final del curso se presentará si y sólo si:
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Se presentaron los tres exámenes parciales.
+\item Se entregaron las tres tareas del curso.
+\item Hay dos exámenes parciales (o los tres exámenes) con calificación menor a seis.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Aplicación del examen final}
+De acuerdo al Reglamento General de Estudios Profesionales de la UNAM, habrá dos rondas para presentar el examen final, si en la primera de ellas no se acredita el examen, será posible presentarlo en una segunda y última ronda.
+\\
+\bigskip
+\pause
+Se aclara los siguiente: \alert{para tener derecho al segundo examen, se debe de presentar necesariamente el primero.}
+\end{frame}
+\begin{frame}
+\frametitle{Calificación del examen final}
+La calificación obtenida en el examen final, es la que se asentará en el acta de calificaciones del curso de Física Computacional.
+\\
+\bigskip
+\pause
+Esta calificación no se promediará con las tareas ni con los ejercicios de clase.
+\\
+\bigskip
+\pause
+Si la calificación final obtenida es no aprobatoria (menor a $6$), se asentará en el acta \alert{5, (cinco)}
+\end{frame}
+\begin{frame}
+\frametitle{\textbf{¿En qué caso tendría NP o 5?}}
+\emph{En caso de haber presentado al menos un examen parcial y/o haber entregado al menos una tarea}, y no se tenga calificación de los demás exámenes, así como de las otras tareas, se promediarán los exámenes y tareas, por lo que el promedio no sería aprobatorio, y se asentaría en el acta: \alert{5, (cinco)}
+\end{frame}
+\begin{frame}
+\frametitle{\textbf{¿En qué caso tendría NP o 5?}}
+Sólo se asentará en el acta de calificaciones \textoazul{NP} si el(la) alumno(a) inscrito al curso, no entrega tarea alguna y no presenta algún examen. (¿?)
+\end{frame}
+\begin{frame}
+\frametitle{Más importante}
+De acuerdo al Reglamento General de Exámenes de la UNAM, se considera una calificación aprobatoria aquella que sea mayor o igual a $6$ seis.
+\end{frame}
+\begin{frame}
+\frametitle{Más importante}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item No \enquote{se guardan calificaciones}.
+\item No se renuncia a una calificación.
+\end{enumerate}
+\end{frame}
+\section{Notas importantes}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Consideraciones importantes}
+\begin{frame}
+\frametitle{Consideraciones importantes 1}
+\fontsize{12}{12}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item El cupo para el curso es de 25 alumnos.
+\item Se le dará prioridad en la inscripción a los alumnos que están cursando regularmente la carrera, es decir, alumnos que están inscritos en el séptimo semestre.
+\item Si consideran quedarse en el curso y se les firma la tira de materias, entendemos que completarán en el curso, si quieren revisar otras opciones de horarios o profesores, se les pide amablemente no requieran la firma, para darle oportunidad a quienes ya están seguros de llevar el curso.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Consideraciones importantes 2}
+\fontsize{12}{12}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\conti
+\item Si alguien desea participar como oyente sin inscripción, podrá hacerlo siempre y cuando haya espacio de trabajo o traiga laptop, pero NO se guardarán calificaciones.
+\item Les pedimos gentilmente que revisen detalladamente la organización de sus horarios, para evitar empalmes con otras asignaturas, el curso de Física Computacional les exigirá la atención y trabajo necesarios.
+\end{enumerate}
+\end{frame}
+\subsection{Fechas importantes}
+\begin{frame}
+\frametitle{Fechas importantes}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Lunes 27 de enero. Inicio del semestre 2020-2.
+\item \textcolor{red}{Del lunes 6 al viernes 10 de abril, Semana Santa.}
+\item Viernes 22 de mayo. Fin de Semestre.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Fechas importantes}
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\conti
+\item Del 25 al 29 de mayo, primera semana de finales.
+\item Del 1 al 5 de junio, segunda semana de finales.
+\end{enumerate}
+\end{frame}
+\end{document}\end{document}

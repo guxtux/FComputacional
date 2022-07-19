@@ -1,0 +1,23 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Mar 30 12:17:52 2017
+
+@author: Master Chief
+"""
+
+def taylor(deriv,x,y,xAlto,h):
+    X=[]
+    Y=[]
+    X.append(x)
+    Y.append(y)
+    while x<xAlto:
+        h= min(h,xAlto-x)
+        D= deriv(x,y)
+        H= 1.0
+        for j in range(4):
+            H = H*h /(j+1)
+            y = y + D[j]*H
+        x= x+h
+        X.append(x)
+        Y.append(y)
+    return array(X), array(Y)

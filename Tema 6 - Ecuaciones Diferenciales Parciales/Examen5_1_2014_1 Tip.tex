@@ -1,0 +1,100 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{float}
+%\usepackage{tkz-euclide}
+%\usetkzobj{all}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{matrix}
+\usepackage{xy}
+\usepackage{siunitx}
+\usepackage[american,cuteinductors,smartlabels]{circuitikz}
+\usetikzlibrary{calc}
+\usepackage{color}
+%\numberwithin{equation}{list}
+\marginsize{2cm}{2cm}{0cm}{2cm}  
+\title{Tarea Examen 1/3 - Ecuaciones diferenciales parciales \\ \begin{large}Curso de Física Computacional\end{large}}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+La ecuación de Poisson en coordenadas polares es
+\[ \nabla^{2} u = \dfrac{\partial^{2}u}{\partial r^{2}} + \dfrac{1}{r} \dfrac{\partial u}{\partial r} + \dfrac{1}{r^{2}} \dfrac{\partial^{2}u}{\partial \theta^{2}} = - \dfrac{\rho (r,\theta)}{\epsilon_{0}} \]
+Sean $i$ y $j$ los índices para las direcciones $r$ y $\theta$, respectivamente, la expresión en diferencias finitas para la ecuación de Poisson es
+\[ \begin{split}
+ \nabla^{2} u =& \dfrac{u(i-1,j)-2u(i,j)+ u(i+1,j)}{\Delta r^{2}} + \\
+ +& \dfrac{1}{r_{i}} \dfrac{u(i+1,j)-u(i-1,j)}{2\Delta r} \\
+ +& \dfrac{1}{r_{i}^{2}} \dfrac{u(i,j-1)- 2u(i,j)+u(i,j+1)}{\Delta \theta^{2}} = - \dfrac{\rho (r,\theta)}{\epsilon_{0}}
+\end{split} \]
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[font=\small]
+	%\tkzDefPoint(0,0){O}
+	%\tkzDefPoint(0,5){A}
+	\draw (0,0) -- (10,0);
+	\draw (5,0) -- (5,5);
+	\draw (5,0) -- (2.5,5);
+	\draw (5,0) -- (7.5,5);
+	\draw [red](10,0) arc[radius=5, start angle=0, end angle=180];
+	\draw [red](9,0) arc[radius=4, start angle=0, end angle=180];
+	\draw [red](8,0) arc[radius=3, start angle=0, end angle=180];
+	\draw [red](7,0) arc[radius=2, start angle=0, end angle=180];
+	\draw [fill=black](5,2) circle (0.05) node[above=0.3]{$i-1,j$};
+	\draw [fill=black](5,3) circle (0.05) node[above=0.3]{$i,j$};;
+	\draw [fill=black](5,4) circle (0.05) node[above=0.3]{$i+1,j$};
+	\draw [fill=black](3.65,2.7) circle (0.05) node[left=0.3]{$i,j-1$};
+	\draw [fill=black](6.35,2.7) circle (0.05) node[right=0.3]{$i,j+1$};
+	%\tkzDrawArc (O,A)(180)
+\end{tikzpicture}
+\end{center}
+\caption{Notación de los índices en coordenadas polares.}
+\label{fig:mediocirculo}
+\end{figure}
+El valor para el punto $(i,j)$ se puede calcular de
+\[ \begin{split}
+ 2 \left[ \dfrac{1}{\Delta r^{2}} + \dfrac{1}{r^{2}_{i}\Delta \theta} \right] u(i,j) =& \dfrac{u(i-1,j)+u(i+1,j)}{\Delta r^{2}} + \\ 
++& \dfrac{1}{r_{i}} \dfrac{u(i+1,j)-u(i-1,j)}{2 \Delta r} + \\
++& \dfrac{1}{r_{i}^{2}} \dfrac{u(i,j-1)+u(i,j+1)}{\Delta \theta^{2}}
+\end{split} \]
+Lo que hay que aplicar es el cambio en $r$ y en $\theta$, revisar en dónde se mantiene la simetría del problema. En la figura (\ref{fig:mediocirculo}), se detalla media circunferencia; en el problema, tendrían que consierar que $0 \leq \theta \leq 2 \pi$, y que tenemos un anillo con radios $a$ y $b$.
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[font=\small]
+	%\tkzDefPoint(0,0){O}
+	%\tkzDefPoint(0,5){A}
+	\draw (0,0) -- (10,0);
+	\draw (5,0) -- (5,5);
+	\draw (5,0) -- (2.5,5);
+	\draw (5,0) -- (7.5,5);
+	\draw [blue](5,0) circle (4.5);	
+	\draw [blue](5,0) circle (2.5);
+	%\draw [blue](10,0) arc[radius=5, start angle=0, end angle=180];
+	%\draw [red](9,0) arc[radius=4, start angle=0, end angle=180];
+	%\draw [red](8,0) arc[radius=3, start angle=0, end angle=180];
+	%\draw [red](7,0) arc[radius=2, start angle=0, end angle=180];
+	%\draw [fill=black](5,2) circle (0.05) node[above=0.3]{$i-1,j$};
+	%\draw [fill=black](5,3) circle (0.05) node[above=0.3]{$i,j$};;
+	%\draw [fill=black](5,4) circle (0.05) node[above=0.3]{$i+1,j$};
+	%\draw [fill=black](3.65,2.7) circle (0.05) node[left=0.3]{$i,j-1$};
+	\draw [->, thick] (5,0) -- (6.13,2.22);
+	\draw [fill=black](6.13,2.22) circle (0.05) node[right=0.3]{$a$};
+	\draw [->, thick] (5,0) -- (3,4.05);
+	\draw [fill=black](3,4.05) circle (0.05) node[right=0.3]{$b$};
+	%\tkzDrawArc (O,A)(180)
+\end{tikzpicture}
+\end{center}
+\caption{Anillo circular en donde se debe de resolver la ecuación de Poisson.}
+\label{fig:anillocircular}
+\end{figure}
+Como se muestra en la figura (\ref{fig:anillocircular}), pueden ir variando el valor del radio $a$, el caso inicial sería cuando $a=0$ y queda en el origen como punto de inicio, e implementar su código, eso les ayudaría para dejar un valor diferente de cero.
+\end{document}

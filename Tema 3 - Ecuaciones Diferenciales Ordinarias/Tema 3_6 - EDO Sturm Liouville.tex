@@ -1,0 +1,717 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Warsaw_whale}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers_Warsaw_whale}
+\normalfont
+\newcommand{\highlight}[2][yellow]{\mathchoice%
+  {\colorbox{#1}{$\displaystyle#2$}}%
+  {\colorbox{#1}{$\textstyle#2$}}%
+  {\colorbox{#1}{$\scriptstyle#2$}}%
+  {\colorbox{#1}{$\scriptscriptstyle#2$}}}%
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{EDO tipo Sturm-Liouville}
+\subtitle{Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=1.75cm]{Imagenes/escudo-facultad-ciencias.jpg}\hspace*{4.75cm}~%
+   \includegraphics[width=1.75cm]{Imagenes/escudo-unam.jpg}
+}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+\section{Ecuaciones de Sturm-Liouville}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición}
+\begin{frame}
+\frametitle{EDO con valores propios}
+Diversos problemas con condiciones en la frontera conducen (mediante el método de separación de variables) a la misma ecuación diferencial ordinaria
+\[ X^{\prime \prime}(x) + \lambda \: X(x) = 0, \hspace{1cm} (0 < x < L)\]
+con el valor propio $\lambda$
+\end{frame}
+\begin{frame}
+\frametitle{EDO con valores propios}
+\[ X^{\prime \prime}(x) + \lambda \: X(x) = 0, \hspace{1cm} (0 < x < L)\]
+con el valor propio $\lambda$.
+\\
+\bigskip
+Pero con distintas condiciones en los extremos, según las condiciones de frontera:
+\setbeamercolor{item projected}{bg=purple!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item $X(0) = X(L) = 0$
+\item $X^{\prime}(0) = X^{\prime}(L) = 0$
+\item $X(0) = X^{\prime}(L) = 0$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de una varilla}
+Por ejemplo, en el problema de hallar la temperatura $u(x, t)$ de una varilla $0 \leq x \leq L$ con la temperatura inicial dada $u(x,0)=f(x)$.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de una varilla}
+Como problema con valores en la frontera, este problema es igual al problema de determinar la temperatura dentro de una lámina de gran tamaño que ocupe la región $0 \leq x \leq L$ en el espacio $x \ y \ z$.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de una varilla}
+Si la temperatura inicial de la varilla depende sólo de $x$ y es independiente de $y$, $z$ (es decir, si $u(x,0)= f(x)$, entonces lo mismo será cierto de su temperatura $u=u(x,y)$ en el instante $t$. 
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de una varilla}
+Sustituyendo
+\[u(x, t) = X(x) \; T(t)\]
+en la ecuación de calor
+\[ \dfrac{\partial u}{\partial t} = k \dfrac{\partial^{2} u}{\partial x^{2}}\]
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones en los extremos}
+Vemos que $X(x)$ satisface la condiciones en los extremos, si las caras $x=0$ y $x=L$ de la lámina se mantienen a temperatura cero.
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones en los extremos}
+Las condiciones de $X^{\prime}(0) = X^{\prime}(L) = 0$ si ambas caras están aisladas, y las de $X(0) = X^{\prime}(L) = 0$, si una cara está aislada y la otra se mantiene a temperatura cero.
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones en los extremos}
+Pero si cada cara de la varilla pierde calor hacia el medio ambiente (que se encuentra a temperatura cero), de acuerdo con la ley de enfriamiento de Newton, entonces las condiciones en los extremos asumen la forma
+\[h \; X(0) - X^{\prime}(0) = 0 = h \; X(L) + X^{\prime}(L)\]
+donde $h$ es un coeficiente de transferencia de calor no negativo.
+\end{frame}
+\begin{frame}
+\frametitle{Problema de valores propios}
+Al imponer diversas condiciones en los extremos sobre la solución del problema, obtenemos distintos problemas de valores propios, y por ello usamos distintos valores propios ${\lambda_{n}}$ y distintas funciones propias $X_{n}(x)$ en la construcción de una solución formal en términos de una serie de potencias
+\end{frame}
+\begin{frame}
+\frametitle{Problema de valores propios}
+\[ u(x, t) = \sum c_{n} \: X_{n}(x) \: T_{n}(x)\]
+del problema con valores en la frontera. El paso final en esta construcción es la elección del coeficiente ${c_{n}}$ en la ecuación anterior de modo que
+\[u(x,0) = \sum c_{n} \: T_{n}(0) \: X_{n}(x)= f(x) \]
+\end{frame}
+\begin{frame}
+\frametitle{Problema de valores propios}
+Por lo que necesitamos un desarrollo en términos de funciones propias de la función dada $f(x)$, en términos de las funciones propias del problema con valores en los extremos correspondientes.
+\end{frame}
+\subsection{Problemas de Sturm-Liouville}
+\begin{frame}
+\frametitle{Problemas de Sturm-Liouville}
+Para unificar y generalizar el método de separación de variables, es útil formular un tipo general de problema de valores propios que incluya como casos particulares a los ya mencionados.
+\end{frame}
+\begin{frame}
+\frametitle{Problemas de Sturm-Liouville}
+La ecuación inicial, con $y$ en vez de $X$ como variable dependiente, se puede escribir como
+\[ \dfrac{d}{dx} \left[ p(x) \dfrac{dy}{dx} \right] - q(x) y + \lambda r(x) y = 0\]
+donde $p(x)=r(x) \equiv 1$ y $q(x) \equiv 0$
+\end{frame}
+\begin{frame}
+\frametitle{Problemas de Sturm-Liouville}
+Podemos asegurar que casi cualquier EDO-2 lineal de la forma
+\[ A(x) \: y^{\prime \prime} + B(x) \: y^{\prime} + C(x) \: y + \lambda \: D(x) \: y = 0\]
+asume la forma indicada después de multiplicarla por un factor adecuado.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Si multiplicamos la ecuación paramétrica de Bessel de orden $n$
+\[ x^{2} \: y^{\prime \prime} + x \: y^{\prime} + (\lambda \: x^{2} - n^{2}) \: y = 0, \hspace{1cm} x > 0\]
+por $1/x$, podemos escribir el resultado como
+\[ \dfrac{d}{dx} \left[ x \: \dfrac{dy}{dx} \right] - \dfrac{n^{2}}{x} \: y + \lambda \: x \: y = 0\]
+que tiene la forma de Sturm-Liouville (S-L), con $p(x) = r(x) = x$ y $q(x) = n^{2}/x$
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones de frontera}
+Imponiendo sobre las soluciones de la ecuación anterior, en un intervalo abierto acotado $(a,b)$ las siguientes condiciones -lineales- homogéneas en los extremos:
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones de frontera}
+\[ \begin{split}
+\alpha_{1} \: y(a) - \alpha_{2} \: y^{\prime}(a) =& 0 \\
+\beta_{1} \: y(b) - \beta_{2} \: y^{\prime}(b) =& 0
+\end{split} \]
+donde los coeficientes $\alpha_{1},\alpha_{2},\beta_{1},\beta_{2}$ son constantes. 
+\end{frame}
+\begin{frame}
+\frametitle{Condiciones de frontera}
+Además de ser homogéneas, las condiciones están \textit{separadas}, en el sentido de que una de ellas implica los valores de $y(x)$ y $y'(x)$ en un extremo $x=a$, mientras que la otra implica los valores en el otro extremo $x=b$.
+\\
+\bigskip
+Nótese que las condiciones $y(a) = y^{\prime}(b) = 0$ son de la forma dada, con $\alpha_{1} = \beta_{2} = 1$ y $\alpha_{2} = \beta_{1} = 0$
+\end{frame}
+\subsection{Definición de un problema Sturm-Liouville}
+\begin{frame}
+\frametitle{Definición de un problema Sturm-Liouville}
+Un problema de Sturm-Liouville es un problema con valores en la frontera de la forma
+\[\dfrac{d}{dx} \left[ p(x) \: \dfrac{dy}{dx} \right] - q(x) \: y + \lambda \: r(x) \: y = 0, \hspace{1cm} a < x < b \]
+\[ \begin{split}
+\alpha_{1} \: y(a) - \alpha_{2} \: y^{\prime}(a) =& 0 \\
+\beta_{1}  \: y(b) - \beta_{2} \: y^{\prime}(b) =& 0
+\end{split} \]
+donde $\alpha_{1}$ y $\alpha_{2}$ como $\beta_{1}$ y $\beta_{2}$ son diferentes de cero.
+\end{frame}
+\begin{frame}
+\[\dfrac{d}{dx} \left[ p(x) \: \dfrac{dy}{dx} \right] - q(x) \: y + \lambda \: r(x) \: y = 0, \hspace{1cm} a < x < b \]
+\frametitle{Definición de un problema Sturm-Liouville}
+El parámetro $\lambda$ es el \textit{eingenvalor} cuyos posibles valores (constantes) se buscan.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Se obtienen diferentes problemas de Sturm-Liouville complementando la ecuación diferencial
+\[ y^{\prime \prime} + \lambda \: y = 0 \hspace{1cm} 0 < x < L\]
+con alguna de las diferentes condiciones de valores en la frontera homogéneas:
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+\setbeamercolor{item projected}{bg=purple!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item $y(0) = y(L) = 0$, donde $\alpha_{1} = \beta_{1} = 1$ y $\alpha_{2} = \beta_{2} = 0$
+\item $y^{\prime}(0) = y^{\prime}(L) = 0$, donde $\alpha_{1} = \beta_{1} = 0$ y $\alpha_{2} = \beta_{2} = 1$
+\item $y(0) = y^{\prime}(L) = 0$, donde $\alpha_{1} = \beta_{2} = 1$ y $\alpha_{2} = \beta_{1} = 0$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Solución no trivial}
+Nótese que el problema de una EDO tipo S-L siempre tiene la solución trivial $y \equiv 0$.
+\\
+\bigskip
+Por lo que se buscan los valores de $\lambda$ (eingenvalores) para los cuales este problema tiene una solución real \textit{no trivial} (una eigenfunción) y cada eigenvalor cuenta con su eigenfunción asociada (o eigenfunciones).
+\end{frame}
+\begin{frame}
+\frametitle{Solución no trivial}
+Puede verse que cualquier constante (diferente de cero) múltiplo de una eigenfunción será también una eigenfunción.
+\end{frame}
+\subsection{Eigenvalores de Sturm-Liouville}
+\begin{frame}
+\frametitle{Eigenvalores de Sturm-Liouville}
+Supongamos que las funciones $p(x), p^{\prime}(x), q(x)$ y $r(x)$ de la ecuación S-L son continuas en el intervalo $[a,b]$ y que tanto $p(x) > 0$ como $r(x) > 0$ en cada punto de $[a, b]$.
+\end{frame}
+\begin{frame}
+\frametitle{Eigenvalores de Sturm-Liouville}
+De este modo los eigenvalores del problema de S-L, constituyen una sucesión creciente
+\[ \lambda_{1} < \lambda_{2} < \lambda_{3} < \ldots < \lambda_{n-1} < \lambda_{n} < \ldots\]
+de números reales, con
+\[ \lim_{n \rightarrow \infty} \lambda_{n} = + \infty\]
+Salvo por un factor constante, solo una eigenfunción $y_{n}(x)$ se asocia con cada eigenvalor $\lambda_{n}$.
+\end{frame}
+\begin{frame}
+\frametitle{Propiedad de los eigenvalores}
+Además, si $q(x) \geq 0$ en $[a,b]$ y los coeficientes $\alpha_{1},\alpha_{2},\beta_{1},\beta_{2}$ en la definición de S-L, son todos no negativos, entonces, los eigenvalores son todos no negativos.
+\end{frame}
+\begin{frame}
+\frametitle{Propiedad de los eigenvalores}
+Algunas veces el problema de S-L se llama \textbf{regular} si se satisface el resultado anterior, en caso contrario, es \textbf{singular}.
+\end{frame}
+\subsection{Ejemplo: Una varilla delgada}
+\begin{frame}
+\frametitle{Una varilla delgada de metal}
+Sea una varilla delgada de metal con longitud $H$, sus extremos están conectados a distintas fuentes de calor:
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw [fill=blue!20](0,0) rectangle node {$T_{L}$} (2,4);
+\draw (2,1.8) rectangle (3.5,2.2);
+\draw (4,1.8) rectangle (5.5,2.2);
+\draw [fill=blue!20] (5.5,0) rectangle node {$T_{R}$} (7.5,4);
+\draw [<->](2,1.3) -- node [midway, below] {$x$}(3.5,1.3);
+\draw [dashed] (3.5,2.2) -- (3.5,1.25);
+\draw [dashed] (4,2.2) -- (4,1.25);
+\draw [<-](4,1.3) -- node [midway, below] {$dx$}(4.6,1.3);
+\draw [<->] (2,0.1) -- node [midway, above] {$H$} (5.5,0.1);
+\draw (3.5,4) node {$T_{\infty}$};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Una varilla delgada de metal}
+Si el calor sale de la superficie de la varilla únicamente por transferencia de calor, por medio de convección, la ecuación de temperatura es:
+\[ -A \: \dfrac{d}{dx} \: k(x) \: \dfrac{d}{dx} \: T(x) + h_{c} \: P \: T(x) = h_{c} \: P \: T_{\infty} + A \: S(x)\]
+donde
+\end{frame}
+\begin{frame}
+\frametitle{Una varilla delgada de metal}
+\setbeamercolor{item projected}{bg=purple!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item $T(x)$ es la temperatura del punto que se encuentra a una distancia $x$ del extremo izquierdo.
+\item $A$ es el área constante de una sección transversal de la varilla.
+\item $k$ es la conductividad térmica.
+\item $P$ es el perímetro de la varilla.
+\item $h_{c}$ es el coeficiente de transferencia de calor por convección.
+\item $T_{\infty}$ es la temperatura neta del aire.
+\item $S$ es la fuente de calor.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{CDF del problema}
+Las condiciones de frontera son:
+\[ \begin{split} T(0) =& T_{L} \\
+T(H) =& T_{R}
+\end{split} \]
+Si $T^{0}$ se define como:
+\[ T^{0} = T - T_{\infty} \]
+\end{frame}
+\begin{frame}
+\frametitle{Ecuación de temperatura}
+La ecuación de temperatura la podemos expresar como:
+\begin{equation*}
+\highlight[blue!30]{- \dfrac{d}{dx} \: k(x) \dfrac{d}{dx} \: T^{0}(x)} +  \highlight[red!30]{h_{c} \: \dfrac{P}{A} \: T^{0}(x)} =  \boxed{S(x)}
+ \end{equation*}
+\textcolor{blue}{El primer término representa la difusión del calor} \pause, \textcolor{red}{el segundo es la pérdida de calor en el aire por medio de la convección} y el lado derecho es la fuente de calor.
+\end{frame}
+\begin{frame}
+\frametitle{Otro ejemplo}
+Otro ejemplo de una EDO con forma similar es la ecuación de difusión de neutrones dada por:
+\[ - \dfrac{d}{dx} \: D(x) \dfrac{d}{dx} \: \Psi (x) + \Sigma_{a} \: \Psi (x) = S(x) \]
+Donde $\Psi$ es el flujo de neutrones, $D$ es el coeficiente de difusión y $S$ es la fuente de neutrones.
+\end{frame}
+\begin{frame}
+\frametitle{Otro ejemplo}
+\[ - \dfrac{d}{dx} \: D(x) \dfrac{d}{dx} \: \Psi (x) + \Sigma_{a} \: \Psi (x) = S(x) \]
+El primer término indica la difusión de neutrones, el segundo la pérdida por absorción y el lado derecho es la fuente de neutrones.
+\end{frame}
+\begin{frame}
+\frametitle{Problemas de difusión}
+Considerando en otros casos dentro de la física para problemas con difusión, si se expresa en términos de:
+\[- \dfrac{d}{dx} p(x) \dfrac{d}{dx} \phi (x) + q(x) \phi (x) = S(x)  \]
+siendo ésta, una ley de conservación de la difusión.
+\end{frame}
+\begin{frame}
+\frametitle{Solución a la ecuación}
+Integrando la ecuación anterior en el intervalo $[a,b]$, se obtiene que:
+\[ Z(b) - Z(a) + \int_{b}^{a} \: q(x) \: \phi (x) dx = \int_{b}^{a} S(x) dx \]
+donde
+\[ Z(x) = - p(x) \: \dfrac{d}{dx} \: \phi (x) \]
+\end{frame}
+\subsection{Problemas con CDF para varillas y láminas}
+\begin{frame}
+\frametitle{Problemas con CDF para varillas y láminas}
+Consideremos una EDO-2 con CDF
+\[ - \phi^{\prime \prime} (x) + q \: \phi (x) = S(x), \hspace{1cm} 0 < x < H \]
+con condiciones de frontera:
+\setbeamercolor{item projected}{bg=purple!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item $\phi^{\prime}(0) = 0$, condición de frontera izquierda.
+\item $\phi^{\prime}(H) = \phi^{\prime}_{R}$, condición de frontera derecha
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Malla para la solución}
+Si dividimos el dominio en $N$ intervalos de igual longitud, se obtiene una malla donde los intervalos miden $h = H/N$
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw (0,1) node {$\phi'=0$};
+\draw (7,1) node {$\phi'=\phi_{R}$};
+\draw (-1.3,0) -- (8,0);
+\foreach \x in {-1,...,7}
+	\draw [fill=red!25](\x,0) circle (0.05);
+\draw (-1.3,-0.5) node {$x=-h$};
+\draw (0,-0.5) node {$0$};
+\draw (1,-0.5) node {$h$};
+\draw (2,-0.5) node {$2h$};
+\draw (3,-0.5) node {$3h$};
+\draw (7,-0.5) node {$Nh=H$};
+\draw (-1.3,-1) node {$i=0$};
+\draw (0,-1) node {$1$};
+\draw (1,-1) node {$2$};
+\draw (2,-1) node {$3$};
+\draw (3,-1) node {$4$};
+\draw (6,-1) node {$N$};
+\draw (7,-1) node {$N=N+1$};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Aproximación por diferencias}
+Usando una aproximación por diferencias centrales al primer término de la EDO de segundo orden, obtenemos la ecuación en diferencias para
+la $i$-ésima retícula:
+\[ \dfrac{(-\phi_{i-1} + 2 \phi_{i} - \phi_{i+1})}{h^{2}} + q \phi_{i} = S_{i} \]
+donde $\phi_{i}=\phi(x_{i})$, $S_{i}=S(x_{i})$ y $q$ es constante.
+\end{frame}
+\begin{frame}
+\frametitle{Aproximación por diferencias}
+Al multiplicar por $h^{2}$
+\[ - \phi_{i-1} + (2-w) \phi_{i} - \phi_{i+1} = h^{2}S_{i} \]
+donde $w=qh^{2}$.
+\\
+\bigskip
+Esta ecuación se puede aplicar a todos los puntos de la retícula, excepto cuando $i = 1$ e $i = N+1$.
+\end{frame}
+\begin{frame}
+\frametitle{Condición adiabática}
+La condición de la frontera izquierda $\phi'(0) = 0$, es equivalente a una condición simétrica en la frontera llamada condición adiabática en la frontera en el caso de la transferencia de calor.
+\end{frame}
+\begin{frame}
+\frametitle{Condición adiabática}
+Si se considera un punto hipotético de la retícula $i = 0$ localizado en $x = -h$, la ecuación anterior en el caso $i = 1$ es:
+\[-\phi_{0} + (2+w)\phi_{1} - \phi_{2} = h^{2}S_{1} \]
+\end{frame}
+\begin{frame}
+\frametitle{Uso de la simetría del problema}
+En esta ecuación
+\[-\phi_{0} + (2+w)\phi_{1} - \phi_{2} = h^{2}S_{1} \]
+podemos hacer $\phi_{0} = \phi_{2}$ debido a la simetría. 
+\end{frame}
+\begin{frame}
+\frametitle{Uso de la simetría del problema}
+Dividiendo entre dos, obtenemos lo siguiente:
+\[ (1 + \dfrac{w}{2}) \phi_{1} - \phi_{2} = \dfrac{1}{2} h^{2}S_{1}\]
+como $\phi_{N+1}= \phi(H)=\phi_{R}$ en la frontera derecha, la ecuación con $i=N$ es:
+\[ -\phi_{N+1} + (2+w) \phi_{N} = h^{2}S_{N} + \phi_{R}\]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Arreglando los términos}
+Ordenando los términos anteriores:
+\\
+\medskip
+%\fontsize{10}{10}\selectfont
+\scalebox{0.65}{
+\begin{equation*}
+\begin{matrix}
+(1+\frac{w}{2})\phi_{1} & -\phi_{2}      &                &           &            & & = h^{2}\frac{S_{1}}{2} \\
+-\phi_{1}               & +(2 + w)\phi_{2} & -\phi_{3}      &           &            & & = h^{2} \: S_{2} \\
+                        & \phi_{2}       & +(2 + w) \: \phi_{3} & -\phi_{4} &            & & = h^{2} \: S_{3} \\
+                        &                &                &           &            & & \ldots \\
+                        &                &                &           &            & & \ldots \\
+                        &                &                &           & -\phi_{ N + 1} & +(2 + w) \: \phi_{N} & = h^{2} \: S_{N} + \phi_{R} 
+\end{matrix}
+\end{equation*}
+}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Representación matricial}
+Que en forma matricial, resulta
+\\
+\bigskip
+\hspace*{-0.5cm}
+\scalebox{0.85}{
+\begin{equation*}
+\begin{bmatrix}
+1+w/2 & -1 & 0 & 0 & 0 & 0 \\
+-1 & 2+w & -1 & 0 & 0 & 0 \\
+0 & -1 & 2+w & -1 & 0 & 0 \\
+0 & 0 & 0 + \ddots & -1 & 0 & 0 \\
+0 & 0 & 0 & 0 & -1 & 2+w
+\end{bmatrix} 
+\begin{bmatrix}
+\phi_{1} \\
+\phi_{2} \\
+\phi_{3} \\
+\ddots \\
+\phi_{N} \\
+\end{bmatrix} =
+\begin{bmatrix}
+h^{2}S_{1}/2 \\
+h^{2}S_{2} \\
+h^{2}S_{3} \\
+\ddots \\
+h^{2}S_{N}+\phi_{R} \\
+\end{bmatrix}
+\end{equation*}}
+\end{frame}
+\subsection{Solución de sistemas tridiagonales}
+\begin{frame}
+\frametitle{Solución de sistemas tridiagonales}
+Una ecuación tridiagonal la podemos escribir de la siguiente forma:
+\[
+\begin{bmatrix}
+B_{1} & C_{1} & 0 & 0 & 0 & 0 \\
+A_{2} & B_{2} & C_{2} & 0 & 0 & 0 \\
+0 & A_{3} & B_{3} & C_{3} & 0 & 0 \\
+0 & 0 & 0 & \ddots & 0 & 0 \\
+0 & 0 & 0 & 0 & A_{n}& B_{n} 
+\end{bmatrix}
+\begin{bmatrix}
+\phi_{1} \\
+\phi_{2} \\
+\phi_{3} \\
+\ddots \\
+\phi_{N} \\
+\end{bmatrix} =
+\begin{bmatrix}
+D_{1} \\
+D_{2} \\
+D_{3} \\
+\ddots \\
+D_{N} \\
+\end{bmatrix}
+\]
+\end{frame}
+\begin{frame}
+\frametitle{Solución numérica}
+El algoritmo de solución para esta matriz es el siguiente:
+\setbeamercolor{item projected}{bg=purple!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Se inicializan dos nuevas variables: $B^{\prime}_{1} = B_{1}$ y $D^{\prime}_{1} = D_{1}$.
+\item Se calculan de forma recursiva las siguientes ecuaciones, de $i$ hasta $N$:
+\[ \begin{split} R &= \dfrac{A_{i}}{B^{\prime}_{i-1}} \\
+B^{\prime}_{i} &= B_{i} -R \: C_{i - 1} \\
+D^{\prime}_{i} &= D_{i} - R \: D^{\prime}_{i - 1}, \hspace{1cm} i = 2, 3, \ldots, N
+\end{split} \]
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Solución numérica}
+\setbeamercolor{item projected}{bg=purple!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\conti
+\item Se calcula la solución para la última incógnita
+\[ \phi_{i} = \dfrac{(D^{\prime}_{i} - C_{i} \: \phi_{i + 1})}{B^{\prime}_{i}}, \hspace{1.5 cm} i = N - 1, N - 2, \ldots, 1 \]
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Determinar las ecuaciones en diferencias y su solución para el siguiente problema con valores en la frontera:
+\[ -2y^{\prime \prime}(x) + y(x) = e^{-0.2 \: x} \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+con las siguientes condiciones de frontera
+\[ \begin{split} 
+y(0) &= 1 \\
+y^{\prime}(10) &= -y(10)
+\end{split} \]
+Supongamos que los intervalos de la malla tienen longitud unitaria.
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+En la siguiente figura se muestra la malla
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw (-1.3,0) -- (8,0);
+\foreach \x in {-1,...,7}
+	\draw [fill=red!25](\x,0) circle (0.05);
+\draw (-1.3,-0.5) node {$x=0$};
+\draw (0,-0.5) node {$1$};
+\draw (1,-0.5) node {$2$};
+\draw (6,-0.5) node {$9$};
+\draw (7,-0.5) node {$x=10$};
+\draw (-1.3,-1) node {$i=0$};
+\draw (0,-1) node {$1$};
+\draw (1,-1) node {$2$};
+\draw (6,-1) node {$9$};
+\draw (7,-1) node {$10$};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Ecuaciones en diferencias}
+Las ecuaciones en diferencias para $i = 1, 2, \ldots, 9$, son:
+\[ 2(-y_{i - 1} + 2 \: y_{i} - y_{i + 1}) + y_{i} = e^{-0.2 \: i}, \hspace{1cm} x_{i} = i \]
+\end{frame}
+\begin{frame}
+\frametitle{Ecuaciones en diferencias}
+Para $i=1$, sustituimos la condición de frontera $y_{0}=y(0)=1$ en las ecuaciones anteriores, y resulta que:
+\[ 5 \: y_{1} - 2 \: y_{2} = e^{-0.2} + 2\]
+\end{frame}
+\begin{frame}
+\frametitle{Ecuaciones en diferencias}
+Para $i = 10$, aproximamos la ecuación diferencial por:
+\[ - \dfrac{2 \: (y^{\prime}(10)- y^{\prime}(9.5))}{\dfrac{1}{2}} + y(10) = e^{-2}\]
+\end{frame}
+\begin{frame}
+\frametitle{Aproximación a un valor}
+Por medio de la aproximación por diferencias centrales, el término $y^{\prime}(9.5)$ es
+\[ y^{\prime}(9.5) = \dfrac{y(10) - y(9)}{1}\]
+\pause
+Sustituimos el resultado anterior y la condición de frontera $y^{\prime}(10) = -y(10)$, para obtener
+\[ -2 \: y_{9} + 4.5 \: y_{10} =  0.5 \:  e^{-2} \]
+\end{frame}
+\begin{frame}
+\frametitle{Conjunto de ecuaciones}
+Las ecuaciones en diferencias son entonces
+\[ \begin{split}
+5 \: y_{1} - 2 \: y_{2} &= e^{-0.2} + 2 \\
+-2 \: y_{i - 1} + 5 \: y_{i} - 2 \: y_{i + 1} &= e^-0.2 \: x_{i}, \hspace{1cm} i = 2, \ldots, 9 \\
+-2 \: y_{9} + 4.5 \: y_{10} &= 0.5 \: e^{-2}
+\end{split} \]
+Donde $x_{i} = i$
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La matriz tridiagonal es}
+\scalebox{0.8}{
+\begin{equation*}
+\begin{bmatrix}
+5 & -2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+-2 & 5 & -2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & -2 & 5 & -2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & -2 & 5 & -2 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & -2 & 5 & -2 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0& -2 & 5 & -2 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & -2 & 5 & -2 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & -2 & 5 & -2 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & -2 & 5 & -2 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -2 & 4.5 
+\end{bmatrix}
+\begin{bmatrix}
+y_{1} \\
+y_{2} \\
+y_{3} \\
+y_{4} \\
+y_{5} \\
+y_{6} \\
+y_{7} \\
+y_{8} \\
+y_{9} \\
+y_{10} \\
+\end{bmatrix} =
+\begin{bmatrix}
+e^{-0.2} + 2 \\
+e^{-0.2 \: x_{2}} \\
+e^{-0.2 \: x_{3}} \\
+e^{-0.2 \: x_{4}} \\
+e^{-0.2 \: x_{5}} \\
+e^{-0.2 \: x_{6}} \\
+e^{-0.2 \: x_{7}} \\
+e^{-0.2 \: x_{8}} \\
+e^{-0.2 \: x_{9}} \\
+0.5 \:e^{-2}
+\end{bmatrix}
+\end{equation*}
+}
+\end{frame}
+\begin{frame}
+\frametitle{Pensando en el código}
+Qué tenemos que hacer para implementar un código con \python{} que nos resuelva el problema?
+\\
+\medskip
+\setbeamercolor{item projected}{bg=purple!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Debemos de crear el arreglo tridiagonal.
+\item Establecer las condiciones de frontera en el arreglo.
+\item Usar una rutina que resuelva el sistema tridiagonal.
+\item Presentar los resultados.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Paso 1: Creando el arreglo tridiagonal.}
+\begin{lstlisting}[caption=Definiendo el arreglo, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+a = np.zeros(n)
+b = np.zeros(n)
+c = np.zeros(n)
+d = np.zeros(n)
+
+for i in range(n):
+    a[i] = -2.0
+    b[i] = 5.
+    d[i] = np.exp(-0.2 * (i+_1_))
+
+c = a.copy()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Paso 1: Creando el arreglo tridiagonal.}
+Toma en cuenta que:
+\setbeamercolor{item projected}{bg=purple!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item No están definidas las condiciones de frontera.
+\item Las diagonales $a$ y $c$ son idénticas, que es un caso particular.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Paso 2: Definiendo las CDF}
+Toma en cuenta que los índices en \python{} comienzan en cero.
+\begin{lstlisting}[caption=Estableciendo las CDF, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+b[_9_] = 4.5
+d[_0_] = np.exp(-0.2) + 2
+d[_9_] = 0.5 * np.exp(-2)
+\end{lstlisting}
+\pause
+De esta manera se sustituyen los valores que en la diapositiva anterior se indicaron para todos los elementos del arreglo.
+\end{frame}
+\begin{frame}[plain, allowframebreaks, fragile]
+\frametitle{Paso 3: Resolviendo el sistema tridiagonal}
+\begin{lstlisting}[caption=La función TRDG, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+def TRDG(a,b,c,d):
+    nf = len(d)
+   
+    for it in xrange(1, nf):
+        mc = a[it]/b[it-_1_]
+        b[it] = b[it] - mc * c[it-_1_] 
+        d[it] = d[it] - mc * d[it-_1_]
+
+    xc = a
+    xc[-_1_] = d[-_1_]/b[-_1_]
+
+    for il in xrange(nf-2, -1, -1):
+         xc[il]= (d[il] - c[il] * xc[il+_1_])/b[il]
+        
+    del b, c, d 
+    return xc
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Veamos la función por partes}
+\begin{lstlisting}[style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+    for it in xrange(1, nf):
+        mc = a[it]/b[it-_1_]
+        b[it] = b[it] - mc * c[it-_1_] 
+        d[it] = d[it] - mc * d[it-_1_]
+\end{lstlisting}
+En esta parte lo que se resuelve es el cambio de los valores de los coeficientes del arreglo tridiagonal, como se explicó anteriomente.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Veamos la función por partes}
+\begin{lstlisting}[style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+    xc = a
+    xc[-_1_] = d[-_1_]/b[-_1_]
+
+    for il in xrange(nf-_2_, -_1_, -_1_):
+         xc[il]= (d[il] - c[il] * xc[il+_1_])/b[il]
+        
+    del b, c, d 
+    return xc
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Veamos la función por partes}
+Se crea el arreglo \textoazul{xc} a partir de una copia del arreglo \textoazul{a}.
+\\
+\bigskip
+Luego se calcula el último valor de la solución, para ello, se usa el índice \texttt{xc[-1]}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Veamos la función por partes}
+El otro ciclo \funcionazul{for} realiza la sustitución hacia atrás, por ello, usamos un paso negativo ya que el valor inicial es mayor que el valor final.
+\\
+\bigskip
+Se eliminan los arreglos \texttt{b},\texttt{c} y \texttt{d}. Se devuelve el arreglo \texttt{xc} con la solución.
+\end{frame}
+\begin{frame}[plain]
+\frametitle{Solución}
+Implementando el código en \python, tenemos los siguientes valores
+\\
+\medskip
+\begin{minipage}{4cm}
+\begin{tabular}{c | c}
+punto & solución \\ \hline
+$0$ & $1.00000000$ \\
+$1$ & $0.84643489$ \\
+$2$ & $0.70672186$ \\
+$3$ & $0.58520973$ \\
+$4$ & $0.48189665$ \\
+$5$ & $0.39486742$ \\
+\end{tabular}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{4cm}
+\begin{tabular}{c | c}
+punto & solución \\ \hline
+$6$ & $0.32133217$ \\
+$7$ & $0.25786591$ \\
+$8$ & $0.20003411$ \\
+$9$ & $0.14127111$ \\
+$10$ & $0.07049423$ \\
+ & 
+\end{tabular}
+\end{minipage}
+\end{frame}
+\end{document}

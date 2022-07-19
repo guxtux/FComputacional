@@ -1,0 +1,107 @@
+\documentclass[12pt]{beamer}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+%\usetheme{Warsaw}
+%\usepackage{euler}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{listings}
+\lstset{ %
+language=Python,                % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=2,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\%}{)}          % if you want to add a comment within your code
+}
+%\usepackage{epstopdf}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\renewcommand {\arraystretch}{1.5}
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+\title{Tema 1 - Propagaci\'{o}n de errores}
+\subtitle{Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+\date{}
+%\email{curso.fisica.comp@gmail.com}
+%\ptsize{10}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Modelos para el desastre}
+\begin{frame}
+\frametitle{Modelos para el desastre}
+Un c\'{a}lculo que utiliza n\'{u}meros que se almacenan de manera aproximada en la computadora, puede devolver una soluci\'{o}n aproximada.
+\\
+\bigskip
+Para demostrar este hecho, consideremos que hay un valor de incertidumbre, sea $x_{c}$ el valor representado en la computadora del valor exacto $x$, tal que:
+\[x_{c} \simeq  x(1+\epsilon_{x}) \]
+\end{frame}
+\begin{frame}
+Donde $\epsilon_{x}$ es el error relativo de $x_{c}$, el cual se espera que sea similar en magnitud al \'{e}psilon de la m\'{a}quina $\epsilon_{m}$.
+\\
+\bigskip
+Si usamos \'{e}sta notación para una diferencia entre dos valores, tenemos que:
+\begin{eqnarray*}
+a=b-c & \rightarrow a_{c} \simeq b_{c} - c_{c} \simeq b(1+\epsilon_{b}) - c(1+\epsilon_{c}) \\
+{} & \rightarrow \dfrac{a_{c}}{a} \simeq 1 + \epsilon_{b} \dfrac{b}{a} - \dfrac{c}{a} \epsilon_{c}
+\end{eqnarray*} 
+\end{frame}
+\begin{frame}
+Vemos que el error resultante en $a$ es un promedio de los errores en $b$ y $c$, y no hay seguridad en que los dos t\'{e}rminos se cancelen.
+\end{frame}
+\begin{frame}
+El error en $a_{c}$ se incrementa cuando se restan dos valores cercanos $(b \simeq c)$, dado que cuando se restan las cifras m\'{a}s significativas de ambos n\'{u}meros, el error de las cifras menos significativas toma la forma de:
+\[ \dfrac{a_{c}}{a}=1+\epsilon_{a} \simeq 1 + \dfrac{b}{a}(\epsilon_{b} - \epsilon_{c}) \simeq 1 + \dfrac{b}{a} max(\vert \epsilon_{b} \vert, \vert \epsilon_{c} \vert) \]
+\end{frame}
+\subsection{Ejercicio 1}
+\begin{frame}
+\frametitle{Ejercicio 1}
+Aprendimos en la secundaria a resolver la ecuaci\'{o}n homog\'{e}nea de segundo grado:
+\[ ax^{2} + bx + c = 0\]
+que tiene una soluci\'{o}n anal\'{i}tica que se puede escribir como
+\\
+\medskip
+\begin{minipage}{5cm}
+\[ x_{1,2} = \dfrac{-b \pm \sqrt{b^{2} - 4ac}}{2a}\]
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{5cm}
+\[ x_{1,2} = \dfrac{-2c}{b \pm \sqrt{b^{2}-4ac}}\]
+\end{minipage}
+\end{frame}
+\begin{frame}
+Revisando la expresi\'{o}n anterior vemos que la cancelación de la diferencia (y por tanto, un incremento en el error) aumenta cuando $b^{2} >> 4ac$ debido a que la ra\'{i}z cuadrada y el siguiente t\'{e}rmino est\'{a}n muy pr\'{o}ximas a cancelarse.
+\end{frame}
+\begin{frame}
+\frametitle{Manos al c\'{o}digo}
+\begin{enumerate}
+\item Escribe un programa que calcule las cuatro soluciones para valores arbitrarios de $a$, $b$ y $c$.
+\item Revisa c\'{o}mo los errores obtenidos en los c\'{a}lculos, aumentan conforme hay una cancelaci\'{o}n de la diferencia de t\'{e}rminos y su relaci\'{o}n con la precisi\'{o}n de la m\'{a}quina. Prueba con los siguientes valores $a=1$, $b=1$, $c=10^{n}, n=1,2,3,\ldots$
+\item C\'{o}mo mejorar\'{i}as el programa para obtener la mayor precisi\'{o}n en tu respuesta?
+\end{enumerate}
+\end{frame}
+\end{document}

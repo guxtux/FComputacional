@@ -1,0 +1,37 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{anysize}
+\usepackage{graphicx}
+\marginsize{2cm}{2cm}{0cm}{2cm}
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{Ecuaciones Diferenciales Ordinarias \\ \begin{large}Curso Física Computacional\end{large}}
+\date{ }
+\begin{document}
+\maketitle
+Una varilla de 1 m de longitud colocada en el vacío, se caliente mediante una corriente eléctrica aplicada a la misma. La temperatura en los extremos se fija en 273 K. El calor se disipa de la superficie mediante la transferencia de calor por radición hacia al ambiente, cuya temperatura es de 273 K. Con las siguiente constantes, determinar la distribución de temperatura en dirección del eje.
+\begin{description}
+\item[$ k= 60 W/mK$ conductividad térmica]
+\item[$Q=50 W/m$ tasa de generación de calor por unidad de longitud de la barra]
+\item[$\sigma = 5.67 \times 10^{-8} W/m^{2}K^{4}$ constante de Stefan-Boltzmann]
+\item[$A=0.0001 m^{2}$ área de sección transversal]
+\item[$P=0.01 m$ perímetro de la varilla]
+\end{description}
+La ecuación de conducción de calor en la dirección del eje x es
+\[ -Ak \dfrac{d^{2}}{dx^{2}} T + P \sigma (T^{4}-273^{4})=Q \hspace{1cm} 0<x<1.0 \]
+con las condiciones en la frontera dadas por:
+\[ T(0) = T(1.0) = 273 K \]
+Este problema es un problema condiciones en la frontera (específicamente en $x=0$ y $x=1$), pero se puede resolver como un problmea de condición inicial sobre la prueba de base y error. Definimos $y_{1}$ y $y_{2}$ como
+\begin{eqnarray*}
+y_{1} & = & T(x) \\
+y_{2} & = & T'(x) 
+\end{eqnarray*}
+La ecuación de conducción se puede re-escribir como un conjunto de dos EDO de primer orden como
+\begin{eqnarray*}
+y'_{1} & = & y_{2} \\
+y'_{2} & = & \dfrac{P}{Ak} \sigma (y^{4} - 273^{4}) - \dfrac{Q}{kA})
+\end{eqnarray*}
+Solo se obtiene una condición inicial $y_{1}(0)=273$, a partir de las condiciones en la frontera -$y_{2}(0)$ no se conoce-. Por ello, se resuelve la ecuación inicial con valores de prueba para $y_{2}(0)$ hasta satisfacer la condición en la frontera para el extremo derecho $y_{1}(1) = 273$. Este enfoque se llama \textit{método de disparo}.
+\\¿Para qué valor de $y_{2}(0)$ se satisface la condición correcta en la frontera?\end{document}

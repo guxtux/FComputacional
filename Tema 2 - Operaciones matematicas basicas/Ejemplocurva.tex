@@ -1,0 +1,10 @@
+\documentclass{article}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}
+    \draw[->] (-2,0) -- (2,0);
+    \draw[->] (0,-2) -- (0,2);
+    \draw[thick] plot [smooth,tension=1.5] coordinates{(1,1) (1.4,0.5) (0.4,-0.2) (0.6,-0.2) (0.2,-1.4) (-0.5,-1.1) (-1,-1.6) (-1.4,0.4)};
+\end{tikzpicture}
+\end{document}

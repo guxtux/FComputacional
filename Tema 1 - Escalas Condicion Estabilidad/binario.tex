@@ -1,0 +1,58 @@
+\documentclass[pdf, azure]{prosper}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\title{Curso de Física Computacional}
+\subtitle{Acumulación de errores}
+\author{M. en C. Gustavo Contreras Mayén}
+\email{curso.fisica.comp@gmail.com}
+\ptsize{10}
+\begin{document}
+\maketitle
+\begin{slide}{Números reales}
+El formato para un número real en una computadora difiere según el diseño de hardware y software.
+\\
+Los números reales se almacenan en el formato de punto flotante normalizado en binario. En precisión simple, se usan 4 bytes, es decir, 32 bits. Si se introduce un número decimal como dato, primero se convierte al binario más cercano en el formato normalizado:
+\[ ( \pm 0.abbbbbbbb \ldots bbbb )_{2} \times 2^{2} \]
+donde \textit{a} siempre es 1, cada \textit{b} es un dígito binario $(0,1)$ y \textit{z} es un exponente que también se expresa en binario.
+\end{slide}
+\begin{slide}{Distribución de dígitos}
+Existen 24 dígitos para la mantisa, incluyendo la \textit{a} y las \textit{b}
+\\ 
+Los 32 bits se distribuyen de la siguiente manera:
+\begin{itemize}
+\item El primer bit se usa para el signo de la mantisa.
+\item Los siguientes 8 bits para el exponente \textit{z}.
+\item Los últimos 23 para la mantisa.
+\end{itemize}
+\[ 11111111 \hspace{0.5cm} 11111111 \hspace{0.5cm} 11111111 \hspace{0.5cm}11111111 \]
+En el formato de punto flotante  normalizado, el primer dígito de la mantisa siempre es 1, por lo que no se almacena físicamente, por tanto, una mantisa de 24 bits, se almacena en 23.
+\end{slide}
+\begin{slide}{Exponentes en binario}
+Si los 8 dígitos asignados al exponente se usan sólo para enteros positivos, el exponente puede representar desde $0$ hasta $2^{8}-1=225$, aunque puede incluir a números negativos.
+\\
+Para el manejo de exponentes positivos o negativos, el exponente en decimal es sesgado (o sumado) con 128 y después convertido en binario (completo a dos)
+\\Por ejemplo, si el exponente es $-3$, entonces $-3+128=125$ que se convierte a binario y se almacena en los 8 bits.
+\\
+Los exponentes que se pueden almacenar en 8 bits, van desde $0-128=-128$ hasta $255-128=127$.
+\end{slide}
+\begin{slide}{Errores por redondeo}
+\ptsize{10}
+Consideremos el cálculo de $1+0.00001$. Las representaciones binarias de $1$ y $0.00001$ son, respectivamente:
+\begin{eqnarray}
+(1)_{10} &=& (0.1000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0000)_{2} \times 2^{1} \nonumber \\
+(0.00001)_{10} &=& (0.1010 \hspace{0.1cm} 0111 \hspace{0.1cm}  1100 \hspace{0.1cm}  0101 \hspace{0.1cm} 1010 \hspace{0.1cm} 1100)_{2} \times 2^{-16} \nonumber
+\end{eqnarray}
+La suma de estos dos números es:
+\begin{eqnarray}
+(1)_{10}+(0.00001)_{10} \nonumber \\
+{} = (0.1000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0101 \hspace{0.1cm} 0011 \hspace{0.1cm} 1110 \hspace{0.1cm} 0010 \hspace{0.1cm} 1101 \hspace{0.1cm} 0110 \hspace{0.1cm} 0)_{2} \times 2^{1} \nonumber
+\end{eqnarray}
+Sin embargo, éste número se redondea ya que la mantisa usa 24 bits, por lo que el número se guarda como
+\[ (0.1000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0000 \hspace{0.1cm} 0101 \hspace{0.1cm} 0100)_{2} \times 2^{1} \]
+que es equivalente a $(1.0000 1001 36)_{10}$
+\end{slide}
+\begin{slide}{Conclusión}
+Por lo que siempre que se sume 0.00001 a 1, el resultado agrega 0.0000000136 como error, al repetir 10 000 veces la suma de 0.00001 a 1, se genera un error de diezmil veces.
+\end{slide}
+\end{document}

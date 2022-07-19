@@ -1,0 +1,135 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\decimalpoint
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{nccmath}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{color}
+\usepackage{listings}
+\renewcommand{\arraystretch}{1.5}
+\lstset{ %
+language=Python,                % choose the language of the code
+basicstyle=\normalsize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=4,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\#}{)}          % if you want to add a comment within your code
+}
+\marginsize{1.5cm}{1.5cm}{0cm}{2cm}  
+\title{C\'{o}digos del tema C\'{a}lculo de ra\'{i}ces. \\ Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\section{Incrementos sucesivos}
+\begin{lstlisting}
+def buscaraiz(f,a,b,dx):
+    x1 = a; f1 = f(a)
+    x2 = a + dx; f2 = f(x2)
+    while f1*f2 > 0.0:
+        if x1 >= b: return None
+        x1 = x2; f1 = f2
+        x2 = x1 + dx; f2 = f(x2)
+    else:
+        return x1,x2
+\end{lstlisting}
+\section{Bisecci\'{o}n}
+\begin{lstlisting}
+	def bisect(f,x1,x2,switch,epsilon=1.0e-9):
+    f1 = f(x1)
+    if f1 == 0.0: return x1
+    f2 = f(x2)
+    if f2 == 0.0: return x2
+    
+    if f1*f2 > 0.0: print 'La raiz no se ha identificado en un intervalo'
+
+    n = ceil(log(abs(x2 - x1)/epsilon)/log(2.0))
+	
+	for i in np.arange(n):
+        x3 = 0.5*(x1 + x2); f3 = f(x3)
+        if (switch == 0) and (abs(f3) > abs(f1)) \
+                        and (abs(f3) > abs(f2)):
+            return None
+        if f3 == 0.0: return x3
+        if f2*f3 < 0.0:
+            x1 = x3; f1 = f3
+        else:
+            x2 =x3; f2 = f3
+    return (x1 + x2)/2.0
+\end{lstlisting}
+\subsection{Estrategia de soluci\'{o}n}
+\begin{lstlisting}
+def f(x): return x**3-10*x**2+5
+
+a,b,dx = (-2.0,11.0,0.02)
+	
+print 'Intervalo (x1,x2)   raiz'
+while 1:
+    try:
+        x1, x2 = buscaraiz(f,a,b,dx)
+    except Exception, e:
+        print e; break
+    if x1 != None:
+        a = x2
+        root = bisect(f,x1,x2,0)
+        if raiz != None: print '(%2.4f, %2.4f) %2.8f' %(x1, x2, raiz)
+    else:
+        print '\nHecho'
+        break
+\end{lstlisting}
+\section{Newton-Raphson}
+\begin{lstlisting}
+def newtonRaphson(f,df,a,b,tol=1.0e-9):
+    fa = (f(a)
+    if fa == 0.0: return a
+    fb = f(b)
+    if f(b) == 0.0: return b
+    if fa*fb > 0.0: print 'La raiz no esta en el intervalo'
+    x = 0.5 * (a + b)
+    
+    for i in range(30):
+        fx = f(x)
+        if abs(fx) < tol: return x
+
+        if fa*fx < 0.0:
+            b = x
+        else:
+            a = x; fa = fx
+    	dfx = df(x)
+        
+        try: dx = -fx/dfx
+        except ZeroDivisionError: dx = b - a
+        x =  x + dx
+        
+        if(b - x)*(x - a) < 0.0:
+            dx = 0.5*(b-a)
+            x = a + dx
+        
+        if abs(dx) < tol*max(abs(b),1.0): return x
+    
+    print 'Son demasiadas iteraciones'
+\end{lstlisting}
+%\section{Falsa posici\'{o}n}
+%Aqu\'{i} va el c\'{o}digo para el m\'{e}todo de la falsa posici\'{o}n y falsa posici\'{o}n modificada.
+%\section{M\'{e}todo de la secante}
+%Aqu\'{i} va el m\'{e}todo de la secante.
+\end{document}

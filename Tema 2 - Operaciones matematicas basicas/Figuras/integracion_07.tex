@@ -1,0 +1,18 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{positioning, shapes.geometric, arrows}
+\usepackage[T1]{fontenc}
+\renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+\begin{document}
+	 \begin{tikzpicture}
+		\matrix (m)
+		  {
+		     \node {$R_{i - 1, j - 1}$}; & & & &  \\
+		     & \node {$\searrow$}; & & & \\
+		     & & \node {$\alpha$}; & & \\
+		     & & & \node {$\searrow$}; & \\
+		     \node {$R_{i,j-1}$}; & \node {$\rightarrow$}; & \node {$\beta$}; & \node {$\rightarrow$}; & \node {$R_{i,j}$}; \\
+		  };
+	\end{tikzpicture}
+\end{document}

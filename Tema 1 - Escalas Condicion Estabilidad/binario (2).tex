@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{color}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{anyfontsize}
+\usepackage{anysize}
+\spanishdecimal{.}
+\marginsize{1.5cm}{1.5cm}{2cm}{2cm}
+\author{Abraham Lima Buendía. \\
+\texttt{abraham3081@ciencias.unam.mx}}
+\title{CONVERTIDOR BINARIO DECIMAL.}
+\date{ }
+\begin{document}
+%\renewcommand\theenumii{\arabic{theenumii.enumii}}
+\renewcommand\labelenumii{\theenumi.{\arabic{enumii}}}
+\maketitle
+\fontsize{12}{12}\selectfont
+\begin{center}
+\fontsize{16}{16}\selectfont
+\textbf{OBJETIVO.}
+\end{center}
+\
+La idea del presente escrito es crear una guía de tips y elementos para que puedas realizar un programa que convierta numeros de decimal a binario y viceversa, con una precisión de 32 bits.
+\section{Convertir decimal a binario.}
+La parte central del algoritmo consiste en reproducir las operaciones básicas de conversión de decimal a binario, sólo debes tomar en cuenta tres cosas la primera de ellas consiste en el bit de signo es decir el usuario te proporcionara un número real con signo y deberás poder identificar el bit que debes asignarle, es de capital importancia que el caso del 0 pues podría cometerse el error de tomar $+0=-0$.
+\\
+\\
+La siguiente parte a desarrollar, es separar la parte entera de la parte decimal, es decir los elementos enteros del número proporcionado por el usuario deben convertirse mediante un proceso y la parte decimal mediante otro, en este último deberá proporcionar ocho dígitos de precisión, los procesos de conversión son los discutidos en clase.
+\\
+\\
+La finalidad del proceso es mostrar el número debidamente normalizado, de esa manera podrías almacenar los resultados de las operaciones en una lista e imprimir el bit de signo, los números de la mantisa y el exponente.
+\\
+\\
+Es decir deberás concluir mostrando un número de la forma:
+\begin{center}
+${(0.abcdefgh)_2}\times2^{n}$
+\end{center}
+El cero corresponde a un número positivo, mientras que para el inverso aditivo del mismo valor se presentará de la forma:
+\begin{center}
+${(1.abcdefgh)_2}\times2^{n}$
+\end{center}
+No es necesario presentar el resultado del algoritmo impreso en terminal en este formato, sin embargo tu terminal deberá mostrar los elementos antes señalados debidamente (bit de signo, mantisa, exponente, etc).    
+\section{Convertidor binario a decimal.}
+Los elementos para realizar la conversión de binario a decimal comienzan por que el usuario debe proporcionarte un numero binario correctamente normalizado, una vez que tienes esto el primer punto a tomar en cuenta es analizar el bit de signo correspondiente, así como la base y el exponente.
+\\
+\\
+La mantisa del número puede ser introducida en una lista, luego de esto deberás comenzar el proceso de conversión adecuado para poder imprimirlo en pantalla, dado que el proceso de conversión requiere solo de realizar una combinación lineal de potencias de la base, esta puede realizarse mediante un bucle que realice estas combinaciones de potencias, tomando como coeficientes de la combinación los digítos del número binario.
+\\
+\\
+De esa forma el procedimiento tiene inicio con una expresión de la forma: 
+\begin{center}
+${(0.abcdefgh)_2}\times2^{n}$
+\end{center}
+De esa forma el número decimal será, para el orden del ejemplo es:
+\begin{center}
+$h\times2^{0-n}+g\times2^{1-n}+f\times2^{2-n}+e\times2^{3-n}+....+a\times2^{9-n}$
+\end{center}
+Este conjunto de operaciones te devolverá un valor decimal de la forma:
+\begin{center}
+$\alpha\beta\gamma\delta\zeta.\kappa\theta\vartheta\kappa\lambda$
+\end{center}
+Deberás mostar el valor decimar en terminal con su signo correcto.
+\end{document}

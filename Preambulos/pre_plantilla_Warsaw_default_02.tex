@@ -1,0 +1,59 @@
+%Se usa la plantilla Warsaw modificada con spruce
+% \mode<presentation>
+% {
+%   \usetheme{Warsaw}
+%   \setbeamertemplate{headline}{}
+%   \useoutertheme{default}
+%   %\usecolortheme{beaver}
+%   \setbeamercovered{invisible}
+
+% }  
+%\AtBeginSection[]
+%{
+%\begin{frame}<beamer>{Contenido}
+%\normalfont\mdseries
+%\tableofcontents[currentsection]
+%\end{frame}
+%}
+
+% \setbeamertemplate{section in toc}[sections numbered]
+% \setbeamertemplate{subsection in toc}[subsections numbered]
+% \setbeamertemplate{subsection in toc}{\leavevmode\leftskip=3.2em\rlap{\hskip-2em\inserttocsectionnumber.\inserttocsubsectionnumber}\inserttocsubsection\par}
+% % \setbeamercolor{section in toc}{fg=blue}
+% \setbeamercolor{subsection in toc}{fg=blue}
+% \setbeamertemplate{navigation symbols}{}
+% \setbeamercolor{frametitle}{fg=yellow}
+\definecolor{UBCgrey}{rgb}{0.3686, 0.5255, 0.6235} % UBC Grey (secondary)
+\setbeamercolor{textoblanco}{fg=white}
+
+\mode<presentation> {
+
+\usetheme{Warsaw}
+\usecolortheme{default}
+\setbeamertemplate{headline}{}
+
+% \setbeamercolor{section in head/foot}{bg=blue!0!black,fg=white}
+
+% \setbeamerfont{footline}{size=\fontsize{6}{6}\selectfont}
+%\setbeamercolor{section in head/foot}{fg=white}
+%\setbeamercolor{subsection in foot}{bg=blue, fg=yellow!90!white}
+
+\setbeamertemplate{footline}
+{
+ \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{textoblanco}{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertsection
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertsubsection
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+
+  \vskip0pt%
+}
+
+\setbeamertemplate{navigation symbols}{}
+}

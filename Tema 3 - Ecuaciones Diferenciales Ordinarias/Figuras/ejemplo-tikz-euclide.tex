@@ -1,0 +1,24 @@
+\documentclass[tikz]{standalone}
+\usepackage[utf8x]{inputenc}
+\usepackage{tkz-euclide,tikz}
+\usetkzobj{all}
+
+\begin{document}
+\begin{tikzpicture}
+\newcommand{\myangle}{150}
+\tkzInit[xmin=-2,xmax=2,xstep=1,ymin=-2,ymax=2,ystep=1]
+\tkzDrawX \tkzDrawY
+\tkzDefPoint(0,0){c}
+\tkzDefPoint(1,1){a0}
+\tkzRadius=1 cm
+\tkzDrawCircle[R,thick,color=blue](c,\tkzRadius)
+\tkzDefPointBy[rotation=center c angle \myangle](a0)
+\tkzGetPoint{a}
+\tkzTangent[from with R = a](c,\tkzRadius)
+\tkzGetPoints{e}{f}
+\tkzDrawLine[add = 1 and 2,color=green,thick](a,f)
+\tkzGrid
+% \tkzDrawSegment(c,f)
+%\tkzDrawPoints[size=3,fill](f,c)
+\end{tikzpicture}
+\end{document}

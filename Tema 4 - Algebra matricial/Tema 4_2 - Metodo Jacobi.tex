@@ -1,0 +1,410 @@
+\include{pre_documento}
+\include{pre_codigo}
+\include{pre_define_footers}
+\normalfont
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{Algebra matricial 2}
+\subtitle{Curso de Física Computacional}
+\author[]{M. en C. Gustavo Contreras Mayén}
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\resetcounteronoverlays{saveenumi}
+
+\begin{document}
+\newcommand{\localtextbulletone}{\textcolor{gray}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Métodos iterativos}
+\subsection{El método de Jacobi}
+\begin{frame}
+\frametitle{El método de Jacobi}
+El método de Jacobi es un procedimiento iterativo relativamente simple que extrae todos los valores propios y vectores propios de una matriz simétrica.
+\\
+\bigskip
+Es útil cuando se tienen matrices pequeñas (digamos, menos de $50 \times 50$), porque el esfuerzo computacional se incrementa muy rápidamente con el tamaño de la matriz.
+\\
+\medskip
+\emph{La fuerza principal del método es su robustez.}
+\end{frame}
+\subsubsection{Transformación de Similitud y Diagonalización}
+\begin{frame}
+\frametitle{Transformación de Similitud y Diagonalización}
+Consideremos el problema estándar de valores propios de la matriz
+\begin{equation}
+\mathbf{A \; x} = \lambda \; \mathbf{x}
+\label{eq:ecuacion_09_04}
+\end{equation}
+donde la matriz $\mathbf{A}$ es simétrica. Apliquemos la transformación
+\begin{equation}
+\mathbf{x} = \mathbf{P \; x^{*}}
+\label{eq:ecuacion_09_05}
+\end{equation}
+donde $\mathbf{P}$ es una matriz no singular.
+\end{frame}
+\begin{frame}
+Sustituyendo la ec. (\ref{eq:ecuacion_09_05}) en la ec. (\ref{eq:ecuacion_09_04}) y multiplicando por la izquierda de cada lado de la igualdad por $\mathbf{P}^{-1}$, se obtiene
+\[ \mathbf{P}^{-1} \; \mathbf{A \; P \; x^{*}} = \lambda \; \mathbf{P}^{-1} \; \mathbf{P \; x}^{*} \]
+\pause
+o equivalentemente
+\begin{equation}
+\mathbf{A}^{*} \; \mathbf{x}^{*} = \lambda \; \mathbf{x}^{*}
+\label{eq:ecuacion_09_06}
+\end{equation}
+donde $\mathbf{A}^{*} = \mathbf{P}^{-1} \; \mathbf{A \; P}$
+\end{frame}
+\begin{frame}
+Dado que $\lambda$ no se modifica/altera durante la transformación, los valores propios de $\mathbf{A}$ son los mismos valores propios de $\mathbf{A}^{*}$.
+\\
+\bigskip
+Las matrices que tienen los mismos valores propios se consideran similares, y la transformación entre ellas se llama transformación de similitud.
+\end{frame}
+\begin{frame}
+Las transformaciones de similitud se utilizan con frecuencia para cambiar un problema de valores propios a una forma que es más fácil de resolver.
+\end{frame}
+\begin{frame}
+Supongamos que nos arreglamos por algo para encontrar una matriz $\mathbf{P}$ que diagonaliza $\mathbf{A}^{*}$.
+\\
+\bigskip
+Las ecuaciones (\ref{eq:ecuacion_09_06}) son entonces
+\[  \begin{bmatrix}
+A_{11}^{*} - \lambda & 0          & \ldots & 0 \\
+0          & A_{22}^{*} - \lambda & \ldots & 0 \\
+\vdots 	   & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & A_{nn}^{*} - \lambda
+\end{bmatrix} = 
+\begin{bmatrix}
+x_{1}^{*} \\
+x_{2}^{*} \\
+\vdots \\
+x_{n}^{*} 
+\end{bmatrix} = 
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+0
+\end{bmatrix}\]
+\end{frame}
+\begin{frame}
+Que tiene por soluciones
+\begin{equation}
+\lambda_{1} =  A_{11}^{*} \hspace{1cm} \lambda_{2} =  A_{22}^{*} \hspace{1cm} \lambda_{n} =  A_{nn}^{*}
+\label{eq:ecuacion_09_07}
+\end{equation}
+\[ \mathbf{x}_{1}^{*} = \begin{bmatrix}
+1 \\
+0 \\
+\vdots \\
+0
+\end{bmatrix} \hspace{1.5cm}
+\mathbf{x}_{2}^{*} = \begin{bmatrix}
+0 \\
+1 \\
+\vdots \\
+0
+\end{bmatrix} \ldots \hspace{1.5cm}
+\mathbf{x}_{n}^{*} = \begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+1
+\end{bmatrix} \]
+\pause
+o
+\[ \mathbf{X^{*}} = \left[ \mathbf{x}_{1}^{*} \hspace{0.4cm} \mathbf{x}_{2}^{*} \hspace{0.4cm} \ldots \hspace{0.4cm} \mathbf{x}_{n}^{*} \right] = \mathbf{I} \]
+\end{frame}
+\begin{frame}
+De acuerdo a la ec. (\ref{eq:ecuacion_09_05}), los valores propios de $\mathbf{A}$ son
+\begin{equation}
+\mathbf{X} = \mathbf{P \; X}^{*} = \mathbf{P \; I} = \mathbf{P}
+\label{eq:ecuacion_09_08}
+\end{equation}
+Por lo tanto la matriz de transformación $\mathbf{P}$ contiene los vectores propios de $\mathbf{A}$, y los valores propios de $\mathbf{A}$ son los elementos de la diagonal de $\mathbf{A}^{*}$.
+\end{frame}
+\subsubsection{Rotación de Jacobi}
+\begin{frame}
+\frametitle{Rotación de Jacobi}
+Una transformación especial de similitud es la rotación plana
+\begin{equation}
+\mathbf{x} = \mathbf{R \; x}^{*}
+\label{eq:ecuacion_09_09}
+\end{equation}
+donde
+\end{frame}
+\begin{frame}
+\begin{equation}
+\mathbf{R} = 
+\begin{blockarray}{ccccccccc}
+ &  & k &  & \ell &  & & \\
+\begin{block}{(cccccccc)c}
+  1 & 0 & 0  & 0 & 0 & 0 & 0 & 0 &   \\
+  0 & 1 & 0  & 0 & 0 & 0 & 0 & 0 &   \\
+  0 & 0 & c  & 0 & 0 & s & 0 & 0 & k \\
+  0 & 0 & 0  & 1 & 0 & 0 & 0 & 0 &   \\
+  0 & 0 & 0  & 0 & 1 & 0 & 0 & 0 &   \\
+  0 & 0 & -s & 0 & 0 & c & 0 & 0 & \ell   \\
+  0 & 0 & 0  & 0 & 0 & 0 & 1 & 0 &   \\
+  0 & 0 & 0  & 0 & 0 & 0 & 0 & 1 &   \\
+\end{block}
+\end{blockarray}
+\end{equation}
+\end{frame}
+\begin{frame}
+La matriz $\mathbf{R}$ se llama \emph{matriz de rotación de Jacobi}.
+\\
+\bigskip
+Nótese que $\mathbf{R}$ es una matriz de identidad modificada por los términos $c = \cos \theta$ y $s = \sin \theta$ que aparecen en las intersecciones de columnas/filas $k$ y $\ell$, donde $\theta$ es el ángulo de rotación.
+\end{frame}
+\begin{frame}
+La matriz de rotación tiene la propiedad útil de ser ortogonal, lo que significa que
+\begin{equation}
+\mathbf{R}^{-1} = \mathbf{R}^{T}
+\label{eq:ecuacion_09_11}
+\end{equation}
+Una consecuencia de la ortogonalidad es que la transformación en la ecuación (\ref{eq:ecuacion_09_05}) tiene la característica esencial de una rotación: \emph{conserva la magnitud del vector}, es decir $\vert \mathbf{x} \vert = \vert \mathbf{x}^{*} \vert$
+\end{frame}
+\begin{frame}
+La transformación de similitud correspondiente al plano de rotación en la ec. (\ref{eq:ecuacion_09_09}) es
+\begin{equation}
+\mathbf{A}^{*} = \mathbf{R}^{-1} \; \mathbf{A \; R} = \mathbf{R}^{T} \; \mathbf{A \; R}
+\label{eq:ecuacion_09_12}
+\end{equation}
+\pause
+La matriz $\mathbf{A}^{*}$ no solo tiene los mismos valores propios de la matriz original $\mathbf{A}$, sino que también por la ortogonalidad de $\mathbf{R}$, es simétrica.
+\end{frame}
+\begin{frame}
+La transformación en la ec. (\ref{eq:ecuacion_09_12}) cambia solo los renglones/columna $k$ y $\ell$ de $\mathbf{A}$.
+\\
+\bigskip
+Las fórmulas para esos cambios son
+\fontsize{12}{12}\selectfont
+\begin{equation}
+\begin{aligned}
+A_{k k}^{*} &= c^{2} \; A_{k k} + s^{2} \; A_{\ell \ell} - 2 \; c \; s \; A_{k \ell} \\
+A_{\ell \ell}^{*} &= c^{2} \; A_{\ell \ell} + s^{2} \; A_{k k} + 2 \; c \; s \; A_{k \ell} \\
+A_{k \ell}^{*} &= A_{\ell k}^{*} = (c^{2} - s^{2}) \; A_{k \ell} + c \; s \; (A_{k k} - A_{\ell \ell}) \\
+A_{k i}^{*} &= A_{i k}^{*} = c \; A_{k i } - s \; A_{k i} \hspace{1cm} i \neq k, i \neq \ell \\
+A_{\ell i}^{*} &= A_{i \ell}^{*} = c \; A_{\ell i } + s \; A_{k i} \hspace{1cm} i \neq k, i \neq \ell
+\end{aligned}
+\label{eq:ecuacion_09_13}
+\end{equation}
+\end{frame}
+\subsubsection{Diagonalización de Jacobi}
+\begin{frame}
+\frametitle{Diagonalización de Jacobi}
+El ángulo $\theta$ en la matriz de rotación de Jacobi se puede elegir de modo que $A_{k \ell}^{*} = A_{\ell k}^{*} = 0$.
+\\
+\bigskip
+Esto sugiere la siguiente idea: ¿Por qué no diagonalizar $\mathbf{A}$ haciendo un bucle a través de todos los términos por fuera de la diagonal y cero uno por uno?
+\end{frame}
+\begin{frame}
+Esto es exactamente lo que hace el método de Jacobi.
+\\
+\bigskip
+Sin embargo, hay un inconveniente importante: la transformación que aniquila un término fuera de la diagonal deshace algunos de los ceros previamente creados.
+\end{frame}
+\begin{frame}
+Afortunadamente, resulta que los términos fuera de la diagonal que reaparecen serán menores que antes.
+\\
+\bigskip
+Así, el método de Jacobi es un procedimiento iterativo que aplica repetidamente las rotaciones de Jacobi hasta que los términos fuera de la diagonal se anulan.
+\end{frame}
+\begin{frame}
+La matriz final de transformación $\mathbf{P}$ es la acumulación de rotaciones individuales $\mathbf{R}_{i}$
+\begin{equation}
+\mathbf{P} = \mathbf{R}_{1} \cdot \mathbf{R}_{2} \cdot \mathbf{R}_{2} \ldots
+\label{eq:ecuacion_09_14}
+\end{equation}
+Las columnas de $\mathbf{P}$ terminan siendo los vectores propios de $\mathbf{A}$, y los elementos diagonales de $\mathbf{A}^{*} = \mathbf{P}^{T} \; \mathbf{A \; P}$ se convierten en los vectores propios.
+\end{frame}
+\begin{frame}
+Veamos un poco más a detalle la rotación de Jacobi.
+\\
+\bigskip
+De la ec. (\ref{eq:ecuacion_09_13}) vemos que $A_{k \ell}^{*} = 0$ si
+\begin{equation}
+(c^{2} - s^{2}) \; A_{k \ell} + c \; s \; (A_{k k} - A_{\ell \ell}) = 0
+\label{eq:ecuacion_a}
+\end{equation}
+Usando las identidades trigonométricas
+\begin{align*}
+c^{2} - s^{2} &= \cos^{2} \theta - \sin^{2} \theta = \cos 2 \theta \\
+c \: s &= \cos \theta \; \sin \theta = \dfrac{1}{2} \sin 2 \: \theta
+\end{align*}
+\end{frame}
+\begin{frame}
+La ec. (\ref{eq:ecuacion_a}) queda como
+\begin{equation}
+\tan 2 \theta = - \dfrac{2 A_{k \ell}}{A_{k k} - A_{\ell \ell}}
+\label{eq:ecuacion_b}
+\end{equation}
+la cual podría ser resuelta para $\theta$, seguida por el cálculo de $c = \cos \theta$ y $s = \sin \theta$.
+\end{frame}
+\begin{frame}
+Sin embargo, el procedimiento descrito a continuación conduce a un mejor algoritmo.
+\\
+\bigskip
+Introducimos la notación
+\begin{equation}
+\phi = \cot 2 \theta = - \dfrac{A_{k k} - A_{\ell \ell}}{2 \; A_{k \ell}}
+\label{eq:ecuacion_09_15}
+\end{equation}
+y usando la identidad trigonométrica
+\[ \tan 2 \theta = \dfrac{2}{(1 - t^{2})} \]
+donde $t = \tan \theta$
+\end{frame}
+\begin{frame}
+La ec. (\ref{eq:ecuacion_b}) puede escribirse como
+\[ t^{2} +  2 \phi \; t - 1 = 0 \]
+la cual tiene raíces
+\[ t =  - \phi \pm \sqrt{\phi^{2} + 1} \]
+\end{frame}
+\begin{frame}
+Se ha encontrado que la raíz $\vert t \vert \leq 1$, que corresponde a $\vert \theta \vert \leq 45\si{\degree}$, conduce a la transformación más estable.
+\\
+\bigskip
+Por lo tanto, elegimos el signo más si $\phi > 0$  y el signo menos si $\phi \leq 0$.
+\end{frame}
+\begin{frame}
+Lo que equivale a usar
+\[ t = sgn(\phi) \left( - \vert \phi \vert + \sqrt{\phi^{2} + 1} \right) \]
+\pause
+Para evitar un error excesivo por el redondeo si $\phi$ es grande, multiplicamos ambos lados de la ecuación por $\vert \phi \vert + \sqrt{\phi^{2} + 1}$, lo que nos lleva a
+\begin{equation}
+t = \dfrac{sgn(\phi)}{\vert \phi \vert + \sqrt{\phi^{2} + 1}}
+\label{eq:ecuacion_09_16a}
+\end{equation}
+\end{frame}
+\begin{frame}
+En el caso de que $\phi$ sea muy grande, debemos de sustituir la ec. (\ref{eq:ecuacion_09_16a}) por la aproximación
+\begin{equation}
+t = \dfrac{1}{2 \; \phi}
+\label{eq:ecuacion_09_16b}
+\end{equation}
+\pause
+para prevenir un desborde en el cálculo de $\phi^{2}$.
+\\
+\bigskip
+Una vez calculado $t$, podemos usar la relación trigonométrica $\tan \theta = \sin \theta / \cos \theta = \sqrt{1 - \cos^{2}} / \cos \theta$
+\end{frame}
+\begin{frame}
+Para obtener
+\begin{equation}
+c = \dfrac{1}{\sqrt{1 + t^{2}}},\hspace{1cm} s = t \: c
+\label{eq:ecuacion_09_17}
+\end{equation}
+\end{frame}
+\begin{frame}
+Ahora podemos mejorar las fórmulas de transformación en las ecs. (\ref{eq:ecuacion_09_13}).
+\\
+\bigskip
+Resolviendo de la ec. (\ref{eq:ecuacion_a}) para $A_{\ell \ell}$, se obtiene
+\begin{equation}
+A_{\ell \ell} = A_{k k} + A_{k \ell} \: \dfrac{c^{2} - s^{2}}{c \: s}
+\label{eq:ecuacion_c}
+\end{equation}
+\end{frame}
+\begin{frame}
+Re-emplazando todas las veces que aparece $A_{\ell \ell}$ de la ec. (\ref{eq:ecuacion_c}) y simplificando, las fórmulas de transformación de la ec. (\ref{eq:ecuacion_09_13}) se pueden escribir como
+\fontsize{12}{12}\selectfont
+\begin{align}
+\begin{aligned}
+A_{k k}^{*} &= A_{k k} - t \; A_{k \ell} \\
+A_{\ell \ell}^{*} &= A_{\ell \ell} - t \; A_{k \ell} \\
+A_{k \ell}^{*} &= A_{\ell k}^{*} = 0 \\
+A_{k i}^{*} &= A_{i k}^{*} = A_{k i} - s \; A_{\ell i} + \tau A_{k i} \hspace{0.5cm} i \neq k, i \neq \ell \\
+A_{\ell i}^{*} &= A_{i \ell}^{*} = A_{\ell i} - s \; A_{k i} + \tau A_{\ell i} \hspace{0.5cm} i \neq k, i \neq \ell \\
+\end{aligned}
+\label{eq:ecuacion_09_18}
+\end{align}
+\fontsize{14}{14}\selectfont
+donde
+\fontsize{12}{12}\selectfont
+\begin{equation}
+\tau = \dfrac{s}{1 + c}
+\label{eq:ecuacion_09_19}
+\end{equation}
+\end{frame}
+\begin{frame}
+La introducción de $\tau$ nos permitió expresar cada fórmula en la forma, (valor original) $+$ (cambio), que es útil para reducir el error por redondeo.
+\\
+\bigskip
+Al inicio del proceso de diagonalización de Jacobi, la matriz de transformación $\mathbf{P}$ se inicializa a la matriz de identidad.
+\end{frame}
+\begin{frame}
+Cada rotación de Jacobi cambia esta matriz de $\mathbf{P}$ a $\mathbf{P}^{*} = \mathbf{P \: R}$.
+\\
+\bigskip
+Los cambios correspondientes en los elementos de $\mathbf{P}$ puede demostrarse que son (sólo las columnas $k$ y $\ell$ son afectadas) 
+\begin{equation}
+\begin{aligned}
+P_{i k}^{*} &= P_{i k} - s (P_{i \ell} + \tau P_{i k}) \\
+P_{i \ell}^{*} &= P_{i \ell} - s (P_{i k} + \tau P_{i \ell})
+\end{aligned}
+\label{eq:ecuacion_09_20}
+\end{equation}
+\end{frame}
+\begin{frame}
+Todavía tenemos que decidir el orden en que los elementos fuera de la diagonal de $\mathbf{A}$ deben ser eliminados.
+\\
+\bigskip
+La idea original de Jacobi era atacar el elemento más grande porque hacerlo resulta en el menor número de rotaciones.
+\end{frame}
+\begin{frame}
+El problema aquí es que $\mathbf{A}$ se tiene que buscar para el elemento más grande antes de cada rotación, que es un proceso que consume mucho tiempo.
+\\
+\bigskip
+Si la matriz es grande, es más rápido recorrerla por filas o columnas y anular todos los elementos por encima de un valor \textcolor{blue}{umbral}. En el siguiente barrido, de disminuye el umbral y el proceso se repite.
+\end{frame}
+\begin{frame}
+Hay varias maneras de elegir el \textcolor{blue}{umbral}.
+\\
+\bigskip
+Calculamos la suma $S$ de los elementos por encima de la diagonal principal de $\mathbf{A}$:
+\begin{equation}
+S = \sum_{i = 1}^{n - 1} \sum_{j = i + 1}^{n} \vert A_{i j} \vert
+\label{eq:ecuacion_(a)}
+\end{equation}
+\pause
+Dado que hay $n(n - 1)/2$ de tales elementos, la magnitud promedio de los elementos fuera de la diagonal es
+\[ \dfrac{2 \: S}{n(n - 1)} \]
+\end{frame}
+\begin{frame}
+El \textcolor{blue}{umbral} que usaremos es
+\begin{equation}
+\mu = \dfrac{0.5 \: S}{n(n - 1)}
+\label{eq:ecuacion_(b)}
+\end{equation}
+que representa la cuarta parte de la magnitud promedio de los elementos que están por fuera de la diagonal.
+\end{frame}
+\begin{frame}
+En resumen, el procedimiento de barrido de Jacobi (usa solamente la parte superior de la matriz), es el siguiente:
+\\
+\fontsize{11}{11}\selectfont
+Calcular el \textcolor{blue}{umbral} $\mu$ usando las ecs. (\ref{eq:ecuacion_(a)}) y (\ref{eq:ecuacion_(b)})
+\\
+Hacer un barrido de los elementos por fuera de la diagonal de $\mathbf{A}$:
+\\
+\hspace{0.5cm} Si $\vert A_{ij} \vert \geq \mu$:
+\\
+\hspace{1cm} Calcular $\phi$, $t$, $c$ y $s$ de las ecs. (\ref{eq:ecuacion_09_15})-(\ref{eq:ecuacion_09_17})
+\\
+\hspace{1cm} Calcular $\tau$ de la ec. (\ref{eq:ecuacion_09_19})
+\\
+\hspace{1cm} Modificar los elementos de $\mathbf{A}$ de acuerdo a las ecs. (\ref{eq:ecuacion_09_18})
+\\
+\hspace{1cm} Actualizar la matriz de transformación $\mathbf{P}$ usando las ecs. (\ref{eq:ecuacion_09_20})
+\\
+\\
+El barrido se realiza hasta que $\mu \leq \varepsilon$, donde $\varepsilon$ es la tolerancia. Normalmente se requieren de 6-10 barridos para alcanzar la convergencia.
+\end{frame}
+
+\end{document}

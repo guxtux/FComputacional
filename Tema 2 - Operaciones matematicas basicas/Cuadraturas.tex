@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{anysize}
+\marginsize{2cm}{2cm}{0cm}{2cm}
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{Ejercicios para el Tema 2.\\ Operaciones matemáticas básicas\\ \begin{large}Curso Física Computacional\end{large}}
+\date{ }
+\begin{document}
+\maketitle
+\section{Cuadraturas de Gauss-Legendre.}
+Las cuadraturas de Gauss-Legendre son métodos de integración numérica que utilizan puntos de Legendre (raíces de polinomios de Legendre); las cuadraturas de Gauss no se pueden utilizar para integrar una función dad de la forma de tabla con intervalos de separación uniforme debido a que los puntos de Legendre no están separados de esa manera, sin embargo, son más adecuados para integrar funciones analíticas.
+\\
+La cuadratura de Gauss que se extiende en el intervalo $[-1,1]$ está dada por
+\begin{equation}{\label{eq:integral}}
+\int_{-1}^{1} f(x) dx = \sum_{k=1}^{N}w_{k}f(x_{k})
+\end{equation}
+donde $N$ es el número de puntos de Gauss, los $w_{i}$ son los pesos y las $x_{i}$ son los puntos de Gauss, que se indican en la siguiente tabla: \\
+\\
+\begin{tabular}{c l l}
+ & $\pm x_{i}$ & $w_{i}$ \\
+\hline N=2 & 0.577350269  & 1,000000000 \\
+\hline N=3 & 0            & 0.888888889 \\
+    & 0.7745986669 & 0.555555556 \\
+\hline N=4 & 0.339981043  & 0.652145155 \\
+    & 0.861136312  & 0.347854845 \\
+\hline N=5 & 0            & 0.568888889 \\
+    & 0.538469310  & 0.478628670 \\
+    & 0.906179846  & 0.236926885 \\
+\hline N=6 & 0.238619186  & 0.467913935 \\
+    & 0.661209387  & 0.360761573 \\
+    & 0.932469514  & 0.171324492 \\
+\hline N=8 & 0.183434642  & 0.362683783 \\
+    & 0.525532410  & 0.313706646 \\
+    & 0.796666478  & 0.222381034 \\
+    & 0.960289857  & 0.101228536 \\
+\hline N=10& 0.148874339  & 0.295524225 \\
+    & 0.433395394  & 0.269266719 \\
+    & 0.865063367  & 0.149451349 \\
+    & 0.973906528  & 0.066671344 \\
+\end{tabular}
+\\
+\\
+Los signos $\pm$ en la tabla significan que los valores de $x$ de los puntos de Gauss aparecen son pares, uno de los cuales es positivo y el otro negativo.
+\\
+\\
+La fórmula de integración de Gauss puede aplicarse a cualquier intervalo arbitrario $[a,b]$ con la transformación
+\begin{equation}{\label{eq:lasx}}
+ x = \dfrac{2z-a-b}{b-a}
+ \end{equation}
+donde $z$ es la coordenada original en $a<z<b$ y x es la coordenada normalizada en $-1<x<1$. La transformación de $x$ en $z$ es
+\begin{equation}{\label{eq:lasz}}
+ z = \dfrac{(b-a)x+a+b}{2}
+\end{equation}
+Por medio de ésta transformación, la integral puede escribirse como
+\begin{equation}{\label{eq:cambiovar}}
+\int_{a}^{b} f(z) dz = \int_{-1}^{1} {f(z)} \dfrac{dz}{dx} dx  = \dfrac{b-a}{2} \sum_{k=1}^{N} w_{k}f(z_{k})
+\end{equation}
+donde $\dfrac{dz}{dx}=\dfrac{b-a}{2}$. Los valores de $x_{k}$ se obtienen al sustituir $x$ en la ecuación (\ref{eq:lasz}) por los puntos de Gauss, a saber:
+\begin{equation}
+z_{k} = \dfrac{(b-a)x_{k}+a+b}{2}
+\end{equation}
+\section{Otras cuadraturas de Gauss.}
+Las cuadraturas de Gauss analizadas en la sección anterior se llaman cuadraturas de Gauss-Legendre por que se basan en la ortogonalidad de los polinomios de Legendre. Existen cuadraturas análogas con base en polinomos de Hermite, de Laguerre y de Chebyshev, que reciben por nombre cuadraturas de Gauss-Hermite, Gauss-Laguerre y Gauss-Chebyshev, respectivamente.
+\\
+Las cuadraturas de Gauss-Hermite son adecuadas para
+\begin{equation}
+\int_{-\infty}^{\infty} exp(-x^{2}) f(x) dx
+\end{equation}
+y están dadas por
+\begin{equation} {\label{eq:hermite}}
+\int_{-\infty}^{\infty} exp(-x^{2}) f(x) dx = \sum_{k=1}^{N}w_{k}f(x_{k})
+\end{equation}
+\\
+En la ecuación (\ref{eq:hermite}) los $x_{k}$ son raíces del polinomio de Hermite de orden $N$ y los $w_{k}$ son los pesos (\textbf{Nota:} no son los mismos puntos de la tabla que se presentaron en la Sección 1. Consulta una referencia de tablas matemáticas.)
+\\
+\\
+Las cuadraturas de Gauss-Laguerre son adecuadas para
+\begin{equation}
+\int_{0}^{\infty} exp(-x) f(x) dx
+\end{equation}
+y están dadas por
+\begin{equation}
+\int_{0}^{\infty} exp(-x) f(x) dx = \sum_{k=1}^{N}w_{k}f(x_{k})
+\end{equation}
+donde los $x_{k}$ son raíces del polinomio de Laguerre de orden $N$ y los $w_{k}$ son los pesos.
+\\
+\\
+Las cuadraturas de Gauss-Chebyshev son adecuadas para
+\begin{equation}
+\int_{-1}^{1} \dfrac{1}{\sqrt{1-x^{2}}} f(x) dx
+\end{equation}
+y están dadas por
+\begin{equation} {\label{eq:cheby}}
+\int_{-1}^{1} \dfrac{1}{\sqrt{1-x^{2}}} f(x) dx = \sum_{k=1}^{N} w_{k} f(x_{k})
+\end{equation}
+En la ecuación (\ref{eq:cheby}) los $x_{k}$ son las raíces de los polinomios de Chebyshev de orden $N$ y los $w_{k}$ son los pesos. Las raíces de los polinomios de Chebyshev de orden $N$ son
+\begin{equation}
+x_{k} = \cos \dfrac{k-1/2}{N} \pi, \hspace{1cm} k=1,2,\ldots,N
+\end{equation}
+Los pesos son
+\begin{equation}
+w_{k} = \dfrac{\pi}{N} \hspace{1cm} \text{para toda k}
+\end{equation}
+Así la ecuación (\ref{eq:cheby}) se reduce a
+\begin{equation}
+\int_{-1}^{1} \dfrac{1}{\sqrt{1-x^{2}}} f(x) dx = \dfrac{\pi}{N} \sum_{k=1}^{N} f(x_{k})
+\end{equation}
+Los límites de integración de $[-1,1]$ se pueden cambiar a un dominio arbitrario $[a,b]$, mediante la ecuación (\ref{eq:cambiovar}).
+\end{document}

@@ -1,0 +1,69 @@
+\include{pre_documento}
+\include{pre_codigo}
+\title{Ecuaciones diferenciales ordinarias 3\\ Métodos multipasos}
+\subtitle{Curso de Física Computacional}
+\author[]{M. en C. Gustavo Contreras Mayén}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Métodos multipaso}
+\begin{frame}
+\frametitle{Métodos multipaso}
+Los métodos que hemos explicado hasta ahora se llaman \emph{métodos de un paso}, por que la aproximación del punto $x_{i+1}$ contiene información proveniente de un solo de los puntos anteriores $x_{i}$.
+\\
+\medskip
+Aunque estas técnicas pueden usar la información relativa a la evaluación de funciones en los puntos entre $x_{i}$ y $x_{i+1}$, no la conservan para utilizarla directamente en aproximaciones futuras.
+\\
+\medskip
+Toda la información que emplean se obtiene dentro del intervalo en el que va a aproximarse la función.
+\end{frame}
+\begin{frame}
+Como la solución aproximada $w_{j}$ está disponible en cada uno de los puntos $x_{0}, x_{1},\ldots,x_{i}$ antes de obtener la aproximación en $x_{i+1}$ y como el error $\vert w_{j} - y(x_{j}) \vert$ tiende a aumentar con $j$, para razonable desarrollar métodos que usen estos datos precedentes más precisos al aproximar la solución en $x_{i+1}$.
+\\
+\medskip
+Se conoce como \emph{métodos multipaso} a aquellos que emplean la aproximación en más de uno de los puntos precedentes para determinar la aproximación en el siguiente punto.
+\end{frame}
+\subsection{Método multipaso de paso $m$}
+\begin{frame}
+\frametitle{Método multipaso de paso $m$}
+Un \emph{Método multipaso de paso $m$} para resolver el problema con valores iniciales
+\[ y' = f(x,y),\hspace{0.5cm} a \leq x \leq b, \hspace{0.5cm} y(a) = \alpha \]
+tiene una ecuación en diferencias para obtener la aproximación $w_{i+1}$ en el punto $x_{i+1}$, representada por la siguiente expresión, donde $m>1$:
+\[ \begin{split}
+w_{i+1} &= a_{m-1} w_{i} + a_{m-2 }w_{i-1} + \ldots + a_{0} w_{i+1-m} + \\ 
+&+ h[b_{m} f(x_{i+1},w_{i+1}) + b_{m-1} f(x_{i},w_{i}) + \\
+&+ \ldots + b_{0} f(x_{i+1-m}, w_{i+1-m})]
+\end{split} \]
+\end{frame}
+\begin{frame}
+\[ \begin{split}
+w_{i+1} &= a_{m-1} w_{i} + a_{m-2 }w_{i-1} + \ldots + a_{0} w_{i+1-m} + \\ 
+&+ h[b_{m} f(x_{i+1},w_{i+1}) + b_{m-1} f(x_{i},w_{i}) + \\
+&+ \ldots + b_{0} f(x_{i+1-m}, w_{i+1-m})]
+\end{split} \]
+para $i=m-1,m,\ldots,N-1$, donde $h=(b-a)/N$, las $a_{0},a_{1},\ldots,a_{m-1}$ y $b_{0}, b_{1},\ldots,b_{m}$ son constantes y los valores iniciales
+\[ w_{0} = \alpha, \hspace{0.2cm} w_{1} = \alpha_{1}, \hspace{0.2cm} w_{2} = \alpha_{2}, \hspace{0.2cm}, \ldots, \hspace{0.2cm} w_{m-1} = \alpha_{m-1} \]
+están especificadas.
+\end{frame}
+\begin{frame}
+Cuando $b_{m}=0$, el método es \textbf{explícito} o \textbf{abierto}, ya que la ecuación anterior da entonces el valor de $w_{i+1}$ de manera explícita en términos de los valores previamente determinados.
+\\
+\medskip
+\pause
+Cuando $b_{m} \neq 0$, el método es llamado \textbf{implícito} o \textbf{cerrado}, ya que el valor de $w_{i+1}$ se encuentra en ambos lados de la ecuación y se especifica sólo implícitamente.
+\end{frame}
+\subsection{Método de Adams-Bashforth de 4 orden}
+\begin{frame}
+\frametitle{Método de Adams-Bashforth de 4 orden}
+Las ecuaciones
+\[ \begin{split}
+w_{i+1} &= w_{i} + \dfrac{h}{24} [ 55 f(x_{i},w_{i}) - 59 f(x_{i-1},w_{i-1}) + \\
+&+ 37 f(x_{i-2},w_{i-2}) - 9 f(x_{i-3},w_{i-3}) ]
+\end{split} \]
+para cada $i=3,4,\ldots, N-1$ definen un método explícito de cuatro pasos llamado \textbf{método de Adams-Bashforth de cuarto orden}.
+\end{frame}
+\end{document}

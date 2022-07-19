@@ -1,0 +1,449 @@
+\include{pre_documento}
+\include{pre_codigo}
+\begin{document}
+\title{Tema 2 - Operaciones matem\'{a}ticas b\'{a}sicas}
+\subtitle{Integraci\'{o}n num\'{e}rica II}
+%\subsubtitle{Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+%\email{curso.fisica.comp@gmail.com}
+%\ptsize{10}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Reglas de Simpson}
+\subsection{Regla de $1/3$ de Simpson}
+\begin{frame}
+\frametitle{Regla de $1/3$ de Simpson}
+La regla de $1/3$ de Simpson se obtiene de las f\'{o}rmulas de Newton-Cotes con $n=2$, es decir, haciendo una interpolaci\'{o}n con una par\'{a}bola a trav\'{e}s de tres nodos, como se muestra en la siguiente figura:
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw [->] (0,0) -- node [near end, left] {$f(x)$}(0,4);
+\draw [->] (0,0) -- (5,0);
+\draw [red] (1,2.3) .. controls (2.5,2.8) ..  (4,2.8);
+%\draw (1,2.3) -- (4,2.8);
+\draw [dashed] (1,0) -- (1,2.3);
+\draw [dashed] (2.5,0) -- (2.5,2.75);
+\draw [dashed] (4,0) -- (4,2.8);
+\draw (1,2.3) circle (0.05);
+\draw (2.5,2.75) circle (0.05);
+\draw (4,2.8) circle (0.05);
+\draw [<->] (1,0.5) -- node [midway, above] {h} (2.5,0.5);
+\draw [<->] (2.5,0.5) -- node [midway, above] {h} (4,0.5);
+\draw (3.3,2) node {$\xi$};
+\draw [->](2.5,2) -- (3.1,2);
+\draw (0.7,-0.3) node {$x_{0}=a$};
+\draw (2.4,-0.3) node {$x_{1}$};
+\draw (4.2,-0.3) node {$x_{2}=b$};
+%\draw (2.2,1.7) node {Area=I};
+\draw (2,3.4) node {Par\'{a}bola};
+\draw [->] (2,3.1) -- (2.3,2.7);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}
+El \'{a}rea debajo de la curva representa una aproximaci\'{o}n a la integral $\int_{a}^{b} f(x)$:
+\[ I = \left[ f(a) + 4 f \left( \dfrac{a+b}{2} \right) + f(b) \right] \dfrac{h}{3} \]
+\end{frame}
+\subsection{Regla compuesta de $1/3$ de Simpson}
+\begin{frame}
+\frametitle{Regla compuesta de $1/3$ de Simpson}
+Para obtener la regla compuesta de $1/3$ de Simpson, se divide el intervalo de integraci\'{o}n $[a,b]$ en $n$ bloques ($n$ par) de ancho $h=(b-a)/n$
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw [->] (0,0) -- node [near end, left]{$f(x)$} (0,3);
+\draw [->] (0,0) -- (7,0);
+\draw (7.4,0) node {x};
+\draw [red] (1,0.5) .. controls(2.5,2) .. (6,0.4);
+\foreach \x in {1,1.5,...,6} \draw (\x,0) circle (0.03cm);
+\draw (1,-0.3) node {$x_{0}$};
+\draw (1,-0.7) node {a};
+%\draw (1.5,-0.3) node {$x_{1}$};
+%\draw (2,-0.3) node {$x_{2}$};
+\draw (2.5,-0.3) node {$x_{i}$};
+\draw (3,-0.7) node {$x_{i+1}$};
+\draw (3.5,-0.3) node {$x_{i+2}$};
+\draw (5.5,-0.3) node {$x_{n-1}$};
+\draw (6,-0.3) node {$x_{n}$};
+\draw (6,-0.7) node {b};
+\draw [dashed] (1,0) -- (1,0.5);
+\draw [dashed] (1.5,0) -- (1.5,1.05);
+\draw [dashed] (2,0) -- (2,1.37);
+\draw [dashed] (2.5,0) -- (2.5,1.6);
+\draw [dashed] (3,0) -- (3,1.56);
+\draw [dashed] (3.5,0) -- (3.5,1.48);
+\draw [dashed] (4,0) -- (4,1.27);
+\draw [dashed] (4.5,0) -- (4.5,1.09);
+\draw [dashed] (5,0) -- (5,0.85);
+\draw [dashed] (5.5,0) -- (5.5,0.65);
+\draw [dashed] (6,0) -- (6,0.43);
+\draw (1,0.5) circle (0.05);
+\draw (1.5,1.05) circle (0.05);
+\draw (2,1.37) circle (0.05);
+\draw (2.5,1.6) circle (0.05);
+\draw (3,1.56) circle (0.05);
+\draw (3.5,1.48) circle (0.05);
+\draw (4,1.27) circle (0.05);
+\draw (4.5,1.09) circle (0.05);
+\draw (5,0.85) circle (0.05);
+\draw (5.5,0.65) circle (0.05);
+\draw (6,0.43) circle (0.05);
+\draw [<->] (2.5,1) -- node [midway, below] {h} (3,1);
+\draw [<->] (3,1) -- node [midway, below] {h} (3.5,1);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}
+Aplicando la f\'{o}rmula anterior a dos bloques adyacentes, tenemos:
+\[ \int_{x_{i}}^{x_{i+2}} f(x) dx \simeq \left[ f(x_{i}) + 4 f(x_{i+1}) + f(x_{i+2}) \right] \dfrac{h}{3} \]
+sustituyendo la ecuaci\'{o}n a todo el intervalo
+\[ \int_{a}^{b} f(x) dx = \int_{x_{0}}^{x_{m}} f(x) dx = \sum_{i=0,2,\ldots}^{n} \left[ \int_{x_{i}}^{x_{i+2}} f(x) dx \right] \]
+\end{frame}
+\begin{frame}
+Por lo que
+\[ \begin{split}
+\int_{a}^{b} f(x) dx \simeq I = \left[ f(x_{0}) + 4 f(x_{1}) + 2 f(x_{2}) + \ldots  \right. \\
+\left. \ldots + 2 f(x_{n-2}) + 4 f(x_{n-1}) + f(x_{n}) \right] \dfrac{h}{3}
+\end{split} \]
+es quiz\'{a}s el m\'{e}todo m\'{a}s conocido de integraci\'{o}n num\'{e}rica. Aunque su reputaci\'{o}n es algo inmerecido, ya que la regla del trapecio es m\'{a}s robusta, y la integraci\'{o}n de Romberg es m\'{a}s eficiente.
+\end{frame}
+\begin{frame}
+\frametitle{El error en la regla de $1/3$ de Simpson}
+El error en la regla compuesta de Simpson viene dado por:
+\[ E = \dfrac{(b-a)h^{4}}{180} f^{(4)}(\xi) \]
+de donde inferimos que la integral obtenida por el m\'{e}todo, es exacta si el polinomio es de grado tres o menor.
+\end{frame}
+\subsection{Regla de $3/8$ de Simpson}
+\begin{frame}
+\frametitle{Regla de $3/8$ de Simpson}
+La regla de $1/3$ de Simpson necesita que el n\'{u}mero de bloques $n$ sea par.
+\\
+\bigskip
+Si la condici\'{o}n no se cumple, podemos integrar sobre los primeros (o \'{u}ltimos) tres bloques con la regla de $3/8$ de Simpson:
+\[ I = [f(x_{0}) + 3 f(x_{1}) + 3 f(x_{2}) + f(x_{3})] \dfrac{3h}{8} \]
+y aplicar la regla de $1/3$ de Simpson en los bloques restantes.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Estimar la integral $\int_{0}^{2.5} f(x) dx$ a partir de los siguientes datos:
+\fontsize{12}{12}\selectfont
+\begin{center}
+\begin{tabular}{c | c | c | c | c | c | c}
+\hline
+$x$ & 0 & 0.5 & 1.0 & 1.5 & 2.0 & 2.5 \\ \hline
+$f(x)$ & 1.5000 & 2.0000 & 2.0000 & 1.6364 & 1.25000 & 0.9565 \\ \hline
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Soluci\'{o}n}
+Usaremos las reglas de Simpson:
+\begin{enumerate}[<+->]
+\item Dado que el n\'{u}mero de bloques es impar, calculamos la integral sobre los primeros tres bloques con la regla $3/8$ de Simpson.
+\item Usamos la regla de $1/3$ de Simpson en los dos \'{u}ltimos bloques.
+\[ \begin{split}
+\visible<3->{I =& [f(0) + 3 f(0.5) + 3f(1.0) + f(1.5)]\dfrac{3(0.5)}{8}} \\
+\visible<4->{+& [f(1.5) + 4 f(2.0) + f(2.5)] \dfrac{0.5}{3}} \\
+\visible<5->{=& 2.8381 + 1.2655 = 4.1036}
+\end{split} \]
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Eval\'{u}a la integral
+\[ \int_{-1}^{1} \cos(2 \cos^{-1} x) dx \]
+con la regla de Simpson de $1/3$ usando 2, 4 y 6 bloques. Explica tus resultados.
+\end{frame}
+\section{Integraci\'{o}n de Romberg}
+\begin{frame}
+\frametitle{Integraci\'{o}n de Romberg}
+La integraci\'{o}n de Romberg combina la regla del trapecio con la extrapolaci\'{o}n de Richardson. Usemos la siguiente notaci\'{o}n:
+\[ R_{i,1} = I_{i} \]
+donde $I_{i}$ representa el valor aproximado de $\int_{a}^{b}f(x)dx$ calculado con la regla recursiva del trapecio, usando $2^{i-1}$ bloques.
+\\
+\bigskip
+Recordemos que el error en esta aproximaci\'{o}n es $E= c_{1}h^{2}+ c_{2}h^{4}+ \ldots$ donde
+\[ h = \dfrac{b-a}{2^{i-1}} \]
+es el ancho del bloque.
+\end{frame}
+\begin{frame}
+La integraci\'{o}n de Romberg inicia con el c\'{a}lculo de $R_{1,1} = I_{1}$ (un bloque) y $R_{2,1} = I_{2}$ (dos bloques) a partir de la regla del trapecio.
+\\
+\bigskip
+El t\'{e}rmino dominante $c_{1}h^{2}$ es entonces eliminado por la extrapolaci\'{o}n de Richardson. Usando $p=2$ (el exponente en el t\'{e}rmino dominante) e indicando el resultado por $R_{2,2}$, tenemos:
+\[ R_{2,2} = \dfrac{2^{2}R_{2,1} - R_{1,1}}{2^{2}-1} = \dfrac{4}{3} R_{2,1} - \dfrac{1}{3} R_{1,1} \]
+\end{frame}
+\begin{frame}
+Es conveniente guardar los resultados en un arreglo con la forma
+\[ \begin{bmatrix}
+R_{1,1} & \\
+R_{2,1} & R_{2,2}
+\end{bmatrix} \]
+El siguiente paso es calcular $R_{3,1}= I_{3}$ (cuatro bloques) y repetir la extrapolaci\'{o}n de Richardson con $R_{2,1}$ y $R_{3,1}$, guardando los resultados como $R_{3,2}$:
+\[ R_{3,2} = \dfrac{4}{3} R_{3,1} - \dfrac{1}{3} R_{2,1} \]
+\end{frame}
+\begin{frame}
+Los elementos del arreglo $R$ calculados hasta el momento son:
+\[ \begin{bmatrix}
+R_{1,1} & \\
+R_{2,1} & R_{2,2} \\
+R_{3,1} & R_{3,2}
+\end{bmatrix} \]
+Los elementos de la segunda columna tienen un error del orden $c_{2}h^{4}$, el cual puede ser eliminado con la extrapolaci\'{o}n de Richardson.
+\end{frame}
+\begin{frame}
+Usando $p=4$, obtenemos:
+\[ R_{3,3} = \dfrac{2^{4}R_{3,2}-R_{2,2}}{2^{4}-1} = \dfrac{16}{15} R_{3,2} - \dfrac{1}{15}R_{2,2} \]
+El resultado tiene ahora un error del orden $O(h^{6})$. El arreglo se ha expandido ahora como
+\[ \begin{bmatrix}
+R_{1,1} &  & \\
+R_{2,1} & R_{2,2} & \\
+R_{3,1} & R_{3,2} & R_{3,3}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+Luego de otra ronda de c\'{a}lculos, se tiene
+\[ \begin{bmatrix}
+R_{1,1} &  & & \\
+R_{2,1} & R_{2,2} & & \\
+R_{3,1} & R_{3,2} & R_{3,3} & \\
+R_{4,1} & R_{4,2} & R_{4,3} & R_{4,4}
+\end{bmatrix} \]
+donde el error en $R_{4,4}$ es del orden de $O(h^{8})$.
+\\
+\bigskip
+N\'{o}tese que la estimaci\'{o}n con mayor precisi\'{o}n es siempre el \'{u}ltimo t\'{e}rmino de la diagonal.
+\end{frame}
+\begin{frame}
+Este proceso continua hasta que la diferencia entre dos t\'{e}rminos sucesivos de la diagonal son lo suficientemente pequeños.
+\\
+\bigskip
+La f\'{o}rmula general para la extrapolaci\'{o}n es:
+\[ R_{i,j} = \dfrac{4^{j-1} R_{i,j-1} - R_{i-1,j-1} }{4^{j-1}-1} \hspace{1cm} i>1, \hspace{0.3cm} j=2,3,\ldots,i \]
+\end{frame}
+\begin{frame}[fragile]
+Esquem\'{a}ticamente lo que tenemos es:
+\begin{center}
+\begin{tikzpicture}
+\matrix (m)
+  {
+     \node {$R_{i-1,j-1}$}; & & & &  \\
+     & \node {$\searrow$}; & & & \\
+     & & \node {$\alpha$}; & & \\
+     & & & \node {$\searrow$}; & \\
+     \node {$R_{i,j-1}$}; & \node {$\rightarrow$}; & \node {$\beta$}; & \node {$\rightarrow$}; & \node {$R_{i,j}$}; \\
+  };
+\end{tikzpicture}
+\end{center}
+Donde los multiplicadores $\alpha$ y $\beta$ dependen de $j$ de la siguiente manera:
+\fontsize{12}{12}\selectfont
+\begin{center}
+\begin{tabular}{c | c | c | c | c | c}
+\hline
+j & 2 & 3 & 4 & 5 & 6 \\ \hline
+$\alpha$ & $-1/3$ & $-1/15$ & $-1/63$ & $-1/255$ & $-1/1023$ \\ \hline
+$\beta$ & $4/3$ & $16/15$ & $64/63$ & $256/255$ & $1024/1023$ \\ \hline
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+El arreglo triangular es conveniente para manipularlo computacionalmente hablando. La aplicaci\'{o}n del algoritmo de Romberg puede llevarse dentro de una matriz de una dimensi\'{o}n.
+\\
+\bigskip
+Luego de la primera extrapolaci\'{o}n, $R_{1,1}$ ya no se ocupa de nuevo, por lo que podemos re-emplazarla con $R_{2,2}$, por tanto, tenemos en el arreglo
+\[ \begin{bmatrix}
+R'_{1} = R_{2,2} \\
+R'_{2} = R_{2,1}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+En la segunda extrapolaci\'{o}n, $R_{3,2} $ sobre-escribe a $R_{2,1}$ y $R_{3,3}$ re-emplaza a $R_{2,2}$, entonces el arreglo queda
+\[ \begin{bmatrix}
+R'_{1} = R_{3,3} \\
+R'_{2} = R_{3,2} \\
+R'_{3} = R_{3,1}
+\end{bmatrix} \] 
+Y as\'{i} podemos continuar. $R'_{1}$ contiene siempre el mejor resultado. La f\'{o}rmula de extrapolaci\'{o}n para el k-\'{e}sima vuelta, es:
+\[ R'_{j} = \dfrac{4^{k-j}R'_{j+1}- R'_{j}}{4^{k-j}-1}, \hspace{0.8cm} j=k-1, k-2, \ldots,1 \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Usando la integraci\'{o}n de Romberg, eval\'{u}a
+\[ \int_{0}^{\pi} f(x) dx\]
+donde $f(x)=\sin(x)$
+\end{frame}
+\begin{frame}
+\frametitle{Primera parte: Regla del trapecio recursiva}
+\fontsize{12}{12}\selectfont
+\begin{eqnarray*}
+R_{1,1} &=& I(\pi) = \frac{\pi}{2} [f(0) + f(\pi)] = 0 \\
+\visible<2->{R_{2,1} &=& I \left(\frac{\pi}{2}\right) = \frac{1}{2} I(\pi) +  \frac{\pi}{2} f \left(\frac{\pi}{2} \right) = 1.5708} \\
+\visible<3->{R_{3,1} &=& I \left(\frac{\pi}{4} \right) = \frac{1}{2} I \left(\frac{\pi}{2} \right) + \frac{\pi}{4} \left[ f \left(\frac{\pi}{4} \right) + f \left(\frac{3\pi}{4} \right) \right] = 1.8961} \\
+\visible<4->{R_{4,1} &=& I \left( \frac{\pi}{8} \right) = \frac{1}{2} I \left( \frac{\pi}{4} \right) + \frac{\pi}{8} \left[ f \left( \frac{\pi}{8} \right) + f \left( \frac{3\pi}{8} \right) +  f \left( \frac{5 \pi}{8} \right) \right. } \\ 
+\visible<4->{ &+& \left. f \left( \frac{7\pi}{8} \right) \right] = 1.9742}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Segunda parte: Extrapolaci\'{o}n de Richardson}
+Usando las f\'{o}rmulas de extrapolaci\'{o}n, construimos la siguiente tabla:
+\fontsize{12}{12}\selectfont
+\[
+\begin{bmatrix}
+R_{1,1} &         &         & \\
+R_{2,1} & R_{2,2} &         & \\
+R_{3,1} & R_{3,2} & R_{3,3} & \\
+R_{4,1} & R_{4,2} & R_{4,3} & R_{4,4} 
+\end{bmatrix}
+=
+\begin{bmatrix}
+0      &        &        & \\
+1.5708 & 2.0944 &        & \\
+1.8961 & 2.0046 & 1.9986 & \\
+1.9742 & 2.0003 & 2.0000 & 2.0000
+\end{bmatrix}
+\]
+\fontsize{14}{14}\selectfont
+De acuerdo al procedimiento, vemos que converge, por tanto $\int_{0}^{\pi} \sin(x) dx = R_{4,4}= 2.0000$, que es el resultado exacto.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Usando la integraci\'{o}n de Romberg, eval\'{u}a la siguiente integral:
+\[ \int_{0}^{\sqrt{\pi}} 2 x^{2} \cos(x^{2}) dx\]
+Aqu\'{i} hay dos caminos:
+\begin{enumerate}[<+->]
+\item Elaborar un c\'{o}digo completo para resolver el problema.
+\item Apoyarnos en las ventajas que nos da Python.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Camino 1}
+\begin{lstlisting}
+from numpy import zeros
+from math import *
+
+def trapecio(f,a,b,Iviejo,k):
+    if k == 1:Inueva = (f(a) + f(b))*(b - a)/2.0
+    else:
+        n = 2**(k - 2) 
+        h = (b - a)/n 
+        x = a + h/2.0 
+        sum = 0.0
+        for i in range(n):
+            sum = sum + f(x)
+            x = x + h
+        Inueva = (Iviejo + h*sum)/2.0
+    return Inueva
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+def romberg(f,a,b,tol=1.0e-6):
+    def richardson(r,k):
+        for j in range(k-1,0,-1):
+            const = 4.0**(k-j)
+            r[j] = (const*r[j+1] - r[j])/(const - 1.0)
+        return r
+
+    r = zeros(21)
+    r[1] = trapecio(f,a,b,0.0,1)
+    r_viejo = r[1]
+    for k in range(2,21):
+        r[k] = trapecio(f,a,b,r[k-1],k)
+        r = richardson(r,k)
+        if abs(r[1]-r_viejo) < tol*max(abs(r[1]),1.0):
+            return r[1], 2**(k-1)
+            r_viejo = r[1]
+    print 'La integracion de Romberg no converge'
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+def f(x): return 2.0*(x**2)*cos(x**2)
+
+I,n = romberg(f,0,sqrt(pi))
+print 'Integral = ', I
+print ' nBloques = ',n
+\end{lstlisting}
+El c\'{o}digo anterior nos dar\'{i}a el resultado esperado. Veamos ahora la segunda manera de resolver el problema, explotando al m\'{a}ximo Python.
+\end{frame}
+\section{Librer\'{i}a Scipy}
+\begin{frame}
+\frametitle{Librer\'{i}a Scipy}
+SciPy es un conjunto de algoritmos matem\'{a}ticos y funciones de conveniencia construidos en la extensi\'{o}n NumPy para Python.
+\\
+\bigskip
+Se agrega un poder significativo a la sesi\'{o}n interactiva de Python mediante la exposici\'{o}n del usuario a comandos de alto nivel y clases para la manipulaci\'{o}n y visualizaci\'{o}n de datos.
+\end{frame}
+\subsection{Integraci\'{o}n (\texttt{scipy.integrate})}
+\begin{frame}
+\frametitle{Integraci\'{o}n (\texttt{scipy.integrate})}
+El subpaquete \texttt{scipy.integrate} proporciona varias t\'{e}cnicas de integraci\'{o}n.
+\fontsize{12}{12}\selectfont
+\begin{tabular}{l | p{8cm}}
+quad 		& Integraci\'{o}n en general. \\ \hline
+dblquad 	& Integraci\'{o}n doble en general. \\ \hline
+tplquad 	& Integraci\'{o}n triple en general. \\ \hline
+fixed-quad 	& Integraci\'{o}n de f(x) usando cuadraturas gaussianas de orden n. \\ \hline
+quadrature 	& Integra con tolerancia dada usando cuadratura gaussiana. \\ \hline
+romberg 	& Integra una funci\'{o}n mediante la integraci\'{o}n de Romberg.
+\end{tabular}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{\texttt{scipy.integrate.romberg}}
+\fontsize{12}{12}\selectfont
+\verb|scipy.integrate.romberg(function, a, b, show=False)|
+\\
+\bigskip
+\fontsize{14}{14}\selectfont
+Es la integraci\'{o}n de Romberg de una funci\'{o}n.
+\\
+\medskip
+Devuelve la integral de una funci\'{o}n (funci\'{o}n de una variable) en el intervalo $[a,b]$.
+\\
+\medskip
+Si \texttt{show} es 1, se muestra el arreglo triangular de resultados intermedios.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{C\'{o}digo con scipy}
+\begin{lstlisting}
+from scipy import *
+from scipy.integrate import romberg
+
+
+def f(x): return 2.0*(x**2)*cos(x**2)
+
+resultado = romberg(f,0,sqrt(pi),show=True)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Tabla de resultados}
+\fontsize{6}{6}\selectfont
+\begin{tabular}{c c c c c c c c c c}
+ Steps	&	StepSize	&	Results	 \\ \hline							
+     1	&	1.772454	&	-5.568328 \\ \hline 
+     2	&	0.886227	&	-1.799813	&	-0.543642 \\ \hline
+     4	&	0.443113	&	-1.034769	&	-0.779755	&	-0.795496 \\ \hline
+     8	&	0.221557	&	-0.925214	&	-0.888695	&	-0.895958	&	-0.897553 \\ \hline
+    16	&	0.110778	&	-0.902166	&	-0.894484	&	-0.894870	&	-0.894852	&	-0.894842 \\ \hline
+    32	&	0.055389	&	-0.896649	&	-0.894810	&	-0.894832	&	-0.894831	&	-0.894831	&	-0.894831 \\ \hline
+    64	&	0.027695	&	-0.895285	&	-0.894830	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831 \\ \hline
+   128	&	0.013847	&	-0.894945	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831 
+\end{tabular}
+\fontsize{12}{12}\selectfont
+The final result is $-0.894831469484$ after $129$ function evaluations.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio de clase}
+Eval\'{u}a la siguiente integral con el procedimiento de Romberg:
+\[ \int_{0}^{\frac{\pi}{4}} \dfrac{dx}{\sqrt{\sin x}} \]
+Vemos que la integral es impropia, por lo que hay que manejarla de tal manera que se remueva la singularidad, en este caso, mediante un cambio de variable, para luego usar \texttt{scipy.integrate.romberg} con los respectivos l\'{i}mites de integraci\'{o}n.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Eval\'{u}a la integral
+\[ \int_{0}^{2} (x^{5} + 3 x^{3} - 2) dx\]
+por el m\'{e}todo de integraci\'{o}n de Romberg.
+\end{frame}
+\end{document}

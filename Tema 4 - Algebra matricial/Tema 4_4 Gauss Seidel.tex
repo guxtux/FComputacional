@@ -1,0 +1,249 @@
+\include{pre_documento}
+\include{pre_codigo}
+\include{pre_define_footers}
+\normalfont
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{Algebra matricial - El método de Gauss-Seidel}
+\subtitle{Curso de Física Computacional}
+\author[]{M. en C. Gustavo Contreras Mayén}
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+\resetcounteronoverlays{saveenumi}
+\begin{document}
+\newcommand{\localtextbulletone}{\textcolor{gray}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Método Gauss-Seidel}
+\subsection{Introducción}
+\begin{frame}
+\frametitle{Método Gauss-Seidel}
+Las ecuaciones $\mathbf{A \; x} = \mathbf{b}$ en su forma escalar, se escriben de la siguiente manera:
+\[ \sum_{j=1}^{n} A_{ij} \;  x_{j} = b_{i} \hspace{1cm} i = 1,2,\ldots,n \]
+Despejando el término que contiene a $x_{i}$ de la suma, obtenemos
+\[ A_{ii} \; x_{i} + \sum_{\substack{j=1 \\ j \neq i}}^{n} A_{ij} \; x_{j} = b_{i} \hspace{1cm} i= 1, 2,\ldots,n \]
+\end{frame}
+\begin{frame}
+Resolviendo para $x_{i}$, resulta
+\[ x_{i} = \dfrac{1}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} \; x_{j} \right) \hspace{1cm} i = 1, 2, \ldots, n \]
+\end{frame}
+\begin{frame}
+La ecuación anterior sugiere el siguiente esquema iterativo:
+\[ x_{i}\leftarrow \dfrac{1}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij}  \; x_{j} \right) \hspace{1cm} i = 1, 2, \ldots, n \]
+Iniciamos eligiendo un vector $\mathbf{x}$. Si la suposición inicial no fue buena, podemos elegir de manera aleatoria a $\mathbf{x}$.
+\end{frame}
+\begin{frame}
+La ecuación anterior se utiliza nuevamente para calcular cada uno de los elementos de $x$, utilizando siempre los últimos valores disponibles de $x_{j}$.
+\\
+\bigskip
+Esto completa un ciclo de iteración.
+\end{frame}
+\begin{frame}
+El procedimiento se repite hasta que los cambios en $\mathbf{x}$ con cada iteración sucesiva se  vuelven lo suficientemente pequeños.
+\\
+\medskip
+Es posible mejorar la convergencia del método de Gauss-Seidel con una técnica conocida como \emph{\textcolor{blue}{relajación}}.
+\end{frame}
+\begin{frame}
+\frametitle{La relajación}
+La idea es tomar un nuevo valor de $x_{i}$ como un promedio ponderado de su valor anterior y el valor predicho por la ecuación anterior. La correspondiente fórmula iterativa, es
+\[  x_{i}\leftarrow \dfrac{\omega}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) + (1 - \omega) x_{i} \hspace{0.75cm} i=1,2,\ldots,n \]
+donde $\omega$ es el \emph{factor de relajación}.
+\end{frame}
+\begin{frame}
+Nótese que
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item  Si $\omega=1$, no se presenta la relajación.
+\item Si $\omega<1$, la ecuación de relajación, representa una interpolación entre los valores anteriores de $x_{i}$ y el valor dado por la ecuación inicial. A esto se le llama \emph{subrelajación}.
+\item Si $\omega>1$, tenemos una extrapolación o sobrerelajación.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+No hay ningún método práctico para determinar el valor óptimo de $\omega$ de antemano, sin embargo, una buena estimación se puede calcular en tiempo de ejecución.
+\end{frame}
+\begin{frame}
+Sea
+\[ \Delta x^{k} = \vert \mathbf{x}^{(k-1)} - \mathbf{x}^{(k)} \vert \]
+la magnitud del cambio de $\mathbf{x}$ durante la $k$-ésima iteración (sin relajación, i.e. $\omega=1$).
+\\
+\medskip
+Si $k$ es lo suficientemente grande ($k\geqslant5$), se puede demostrar que una aproximación para el valor óptimo de $\omega$ es
+\[ \omega_{\mbox{opt}} \simeq \dfrac{2}{1 + \sqrt{1- (\Delta x^{(k+p)} / \Delta x^{(k)})^{1/p}}} \]
+donde $p$ es un entero positivo.
+\end{frame}
+\begin{frame}
+\frametitle{Método de GS con relajación}
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Realizar $k$ iteraciones con $\omega=1$ ($k=10$ es razonable).
+\item Luego de la $k$-ésima iteración, guardar $\Delta x^{(k)}$.
+\item Ejecutar $p$ iteraciones adicionales.
+\item Guardar $\Delta x^{(k+p)}$ en la última iteración.
+\item Ejecutar las demás iteraciones con $\omega = \omega_{\mbox{opt}}$, donde $\omega_{\mbox{opt}}$ se calcula como se indicó anteriormente.
+\end{enumerate}
+\end{frame}
+\subsubsection{Algorimto para Gauss-Seidel}
+\begin{frame}
+\frametitle{Algorimto para Gauss-Seidel}
+La función \texttt{gaussSeidel} es una implementación del método de Gauss-Seidel con relajación. Se calcula automáticamente el valor de$\omega_{\mbox{opt}}$ utilizando $k = 10$ y $p = 1$.
+\end{frame}
+\begin{frame}
+El usuario debe proporcionar la función \texttt{iterEqs} que calcula la mejora de $\mathbf{x}$ a partir de las fórmulas iterativas.
+\\
+\bigskip
+La función devuelve el vector solución $\mathbf{x}$, el número de iteraciones llevadas a cabo y el valor de $\omega_{\mbox{opt}}$ utilizado.
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\small, columns=fullflexible]
+def gaussSeidel(iterEqs, x, tol = 1.0e-9):
+    omega = 1.0
+    k = 10
+    p = 1
+    
+    for i in range(1,501):
+        xVieja = x.copy()
+        x = iterEqs(x, omega)
+        dx = np.sqrt(np.dot(x - xVieja, x - xVieja))
+        if dx < tol: return x, i, omega
+        
+# se calcula el relajamiento luego de k +p iteraciones
+        if i == k: dx1 = dx
+        if i == k + p:
+            dx2 = dx
+            omega = 2.0/(1.0 + np.sqrt(1.0 - (dx2/dx1)**(1.0/p)))
+	print 'No converge Gauss-Seidel'
+\end{lstlisting} 
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función \texttt{iterEqs}}
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\small, columns=fullflexible]
+def iterEqs(x, omega):
+    n = len(x)
+    x[0] = omega*(x[1] - x[n-1])/2.0 + (1.0 - omega)*x[0]
+    
+    for i in range(1, n - 1):
+        x[i] = omega*(x[i-1] + x[i+1])/2.0 + (1.0 - omega)*x[i]
+    
+    x[n-1] = omega*(1.0 - x[0] + x[n-2])/2.0 + (1.0 - omega)*x[n-1]
+
+    return x
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+\fontsize{12}{12}\selectfont
+Resolver el siguiente sistema de $n$ ecuaciones simultáneas por el método de Gauss-Seidel con relajación (el programa deberá resolver para cualquier valor de $n$)
+\fontsize{11}{11}\selectfont
+\[ \begin{bmatrix}
+2 & -1 & 0 & 0 & \ldots & 0 & 0 & 0 & 1 \\
+-1 & 2 & -1 & 0 & \ldots & 0 & 0 & 0 & 0 \\
+0 & -1 & 2 & -1 & \ldots & 0 & 0 & 0 & 0 \\
+\vdots & \vdots & \vdots & \vdots & & \vdots & \vdots & \vdots & \vdots \\
+0 & 0 & 0 & 0 & \ldots & -1 & 2 & -1 & 0 \\
+0 & 0 & 0 & 0 & \ldots & 0 & -1 & 2 & -1 \\
+1 & 0 & 0 & 0 & \ldots & 0 & 0 & -1 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+\vdots \\
+x_{n-2} \\
+x_{n-1} \\
+x_{n} 
+\end{bmatrix} = 
+\begin{bmatrix}
+0 \\
+0 \\
+0 \\
+\vdots \\
+0 \\
+0 \\
+1 
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Ejecutar el programa con $n=20$, la solución exacta es
+\[ x_{i} = - \dfrac{n}{4} + \dfrac{i}{2} \hspace{1cm} \mbox{ con } i = 1, 2, \ldots, n \]
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué necesitamos?}
+Necesitamos desarrollar las fórmulas iterativas a partir de:
+\[  x_{i}\leftarrow \dfrac{\omega}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) + (1 - \omega) x_{i} \hspace{1cm} i=1,2,\ldots,n \]
+Para $x_{1}$, tenemos
+\[ \begin{split}
+x_{1} =& \dfrac{\omega}{2} \left( (1)(x_{2})-(1)(x_{n}) \right) + (1-\omega)x_{1} \\
+x_{1} =& \dfrac{\omega(x_{2}-x_{n})}{2} + (1 - \omega)x_{1}
+\end{split} \]
+\end{frame}
+\begin{frame}
+\[ \begin{split}
+x_{1} =& \dfrac{\omega(x_{2}-x_{n})}{2} + (1 - \omega)x_{1} \\
+\pause
+x_{i} =& \dfrac{\omega(x_{i-1}+x_{i+1})}{2} + (1 - \omega)x_{i} \hspace{1cm} i=2,3,\ldots,n-1 \\
+x_{n} =& \dfrac{\omega(1-x_{1} + x_{n-1})}{2} + (1-\omega)x_{n}
+\end{split} \]
+Estas expresiones son las que serán evaluadas en la función \texttt{iterEqs}.
+\end{frame}
+\begin{frame}
+\emph{Nota: } Cada matriz $\mathbf{A}$ requiere de la construcción de sus ecuaciones de iteración, revisa que se necesita conocer los valores de la diagonal principal $\mathbf{d}$, así como del vector de coeficientes $\mathbf{b}$.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Código principal}
+\begin{lstlisting}[basicstyle=\linespread{0.9}\ttfamily\small, columns=fullflexible]
+n = eval(input('Numero de ecuaciones ==> '))
+
+x = np.zeros((n), dtype='float64')
+
+x, numIter, omega = gaussSeidel(iterEqs, x)
+
+print ('\nNumero de iteraciones =', numIter)
+
+print ('\nFactor de relajacion =', omega)
+
+print ('\nLa solucion es :\n', x)
+\end{lstlisting}
+\end{frame}
+\begin{frame}{fragile}
+\frametitle{Solución al problema}
+La solución que nos devuelve el algoritmo, con $n=20$ es:
+\\
+\medskip
+\texttt{
+Número de ecuaciones = 20 
+\\
+\medskip
+Número de iteraciones = 259 
+\\
+\medskip
+Factor de relajación = 1.70545231071
+}
+\end{frame}
+\begin{frame}
+\frametitle{Explorando la solución I.}
+Como podemos ver en la solución, el número de iteraciones es elevado, ¿a qué se debe?
+\\
+\medskip
+Revisando la configuración del arreglo, notamos que no es dominante diagonal, por lo que en gran medida, el procedimiento de iteración es elevado, ahora: ¿qué podemos hacer?
+\end{frame}
+\begin{frame}
+Podemos reconfigurar el arreglo de tal manera en que sea \textcolor{blue}{dominante diagonal} y podríamos revisar cuántas iteraciones requiere y compararlas contra la manera inicial.
+\end{frame}
+\begin{frame}
+La convergencia es muy lenta, porque la matriz de coeficientes carece de dominancia diagonal.
+\\
+\bigskip
+Si cambiamos cada término diagonal del coeficiente de $2$ a $4$, la matriz $\mathbf{A}$ sería diagonalmente dominante y la solución convergería en...¿?
+\end{frame}
+\end{document}

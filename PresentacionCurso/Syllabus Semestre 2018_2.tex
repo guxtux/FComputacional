@@ -1,0 +1,121 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[autostyle,spanish=mexican]{csquotes}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{anyfontsize}
+\usepackage{anysize}
+\usepackage{cite}
+\renewcommand{\baselinestretch}{1.5}
+\marginsize{1.5cm}{1.5cm}{1cm}{2cm}
+\author{M. en C. Gustavo Contreras Mayén. \texttt{curso.fisica.comp@gmail.com}\\
+M. en C. Abraham Lima Buendía. \texttt{abraham3081@ciencias.unam.mx}}
+\title{Curso de Física Computacional\\{\large Semestre 2018-2 Grupo 8212}}
+\date{ }
+\makeatletter
+\renewcommand{\@biblabel}[1]{}
+\renewenvironment{thebibliography}[1]
+     {\section*{\refname}%
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{}%
+           {\labelwidth=0pt
+            \labelsep=0pt
+            \leftmargin1.5em
+            \itemindent=-1.5em
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            }%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+\makeatother
+\usepackage{breakcites}	
+\begin{document}
+%\renewcommand\theenumii{\arabic{theenumii.enumii}}
+\renewcommand\labelenumii{\theenumi.{\arabic{enumii}}}
+\maketitle
+\fontsize{12}{12}\selectfont
+\textbf{Lugar: }Laboratorio de Enseñanza en Cómputo de Física, Edificio Tlahuizcalpan.
+\\
+\textbf{Horario: } Martes y Jueves de 18 a 21 horas.
+\\
+\\
+\textbf{Objetivos y Temario:} Se trabajará el temario oficial de la asignatura, que está disponible en: \href{http://www.fciencias.unam.mx/asignaturas/715.pdf}{http://www.fciencias.unam.mx/asignaturas/715.pdf}
+\section{Metodología de Enseñanza}
+\textbf{Antes de la clase.}
+\\
+Para facilitar la discusión en el aula, el alumno revisará el material de trabajo que se le proporcionará oportunamente, de tal manera que llegará conociendo el tema a desarrollar a la clase. Daremos por entendido de que el alumno realizará la lectura y actividades establecidas.
+\\
+\textbf{Durante la clase.}
+\\
+Se dará un tiempo para la exposición con diálogo y discusión del material de trabajo con los temas a cubrir durante el semestre. Se busca que sea un curso totalmente práctico por lo que se va a trabajar con los equipos de cómputo del laboratorio.
+\\
+\textbf{Después de la clase.}
+\\
+El curso requiere que le dediquen al menos el mismo número de horas de trabajo en casa, es decir, les va a demandar seis horas como mínimo; si cuentan con una experiencia en programación, tienen un paso adelantado, pero si no han programado, se verán en la necesidad de dedicarle más tiempo.
+\section{Evaluación}
+Los elementos y la proporción de la calificación del curso, se distribuyen de la siguiente manera:
+\begin{itemize}
+\item \textbf{Ejercicios en clase $\mathbf{10\%}$:} para tener derecho a este porcentaje se requiere estar presente en la clase, es decir, el ejercicio se entregará en la clase o se dejará para la siguiente, en caso de que no asistan y se enteren del ejercicio, se les revisará el trabajo que entreguen, pero no se les tomará en cuenta para el porcentaje, (moraleja: hay que asistir a clase) 
+\item \textbf{Tareas $\mathbf{50\%}$} : Serán seis tareas durante el curso, se les proporcionará de manera adelantada y con fecha de entrega definida, no se reciben tareas extemporáneas, ni por correo. Para evaluar las tareas, éstas deberán de contar con al menos el $50\%$ de los ejercicios resueltos. 
+\item \textbf{Exámenes $\mathbf{40\%}$} : Habrá tres exámenes en clase, de tipo teórico-prácticos. 
+\end{itemize}
+La calificación final se obtendrá de los porcentajes indicados para los ejercicios en clase, de las tareas y de los exámenes. En el caso de obtener un promedio mayor o igual a $6$, es el que se asentará en el acta, que corresponde a la calificación definitiva del curso.
+\section{Reposición}
+Considerando que sólo habrá tres exámenes en el semestre, se considera la posibilidad de presentar una única reposición si y sólo si se cumplen los siguientes puntos:
+\begin{itemize}
+	\item Sólo un examen parcial tenga una calificación no aprobatoria, es decir, que la calificación del examen parcial sea menor a $6$ (seis)
+	\item Se debieron de haber presentado los otros dos exámenes parciales.
+	\item Se debieron de haber entregado las tres tareas completas.
+\end{itemize}
+En caso de contar con un promedio final aprobatorio del curso (los tres exámenes parciales aprobados), no se aplicará una reposición de algún examen para subir el promedio final del curso.
+\section{Examen final}
+El examen final del curso se presentará si y sólo si:
+\begin{itemize}
+\item Se presentaron los tres los exámenes parciales.
+\item Entregaron las tres tareas del curso.
+\item Hay dos exámenes parciales con calificación menor a seis.
+\end{itemize}
+La calificación obtenida en el examen final, es la que se asentará en el acta de calificaciones del curso de Física Computacional.
+\\
+\\
+Ya no se promediará con las tareas ni con los ejercicios de clase.\\
+\\
+\emph{En caso de haber presentado al menos un examen parcial y/o haber entregado al menos una tarea} se promediarán respectivamente las tareas y exámenes.
+\\
+\\
+Sólo se asentará en el acta de calificaciones \textcolor{blue}{NP} si el(la) alumn{@} no entrega tarea alguna y no presenta algún examen. (¿?)
+\\
+\\
+De acuerdo al Reglamento General de Exámenes de la UNAM, se considera una calificación aprobatoria aquella que sea mayor o igual a $6$ seis.
+\begin{itemize}
+\item No \enquote{se guardan calificaciones}.
+\item No se renuncia a una calificación.
+\end{itemize}
+\section{Fechas importantes}
+\begin{itemize}
+\item Lunes 29 de enero. Inicio del semestre 2018-2.
+\item Lunes 26 al viernes 29 de marzo, Semana Santa.
+\item Martes 1 de mayo, Día del Trabajo - Feriado.
+\item Jueves 10 de mayo, Día de la Madre - Feriado.
+\item Martes 15 de mayo, Día del Maestro - Feriado.
+\item Viernes 29 de mayo. Fin de Semestre.
+\item Del 28 de mayo al 1 de junio, primera semana de finales.
+\item Del 4 al 8 de junio, segunda semana de finales.
+\end{itemize}
+\newpage
+\section{Bibliografía.}
+Se recomienda la consulta de los siguientes textos, en cada uno de los temas se propocionará bibliografía adicional para una mejor comprensión del tema.
+\nocite{*}
+\bibliographystyle{apalike-es}
+\bibliography{LibrosFC}
+\end{document}

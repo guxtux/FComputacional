@@ -1,0 +1,400 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Madrid_beaver}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers_Madrid_beaver_2}
+\title{Integración numérica}
+\subtitle{Tema 2 - Operaciones matemáticas básicas}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=1.75cm]{Imagenes/escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=1.75cm]{Imagenes/escudo-unam}
+}
+\newtheorem{miteorema}{Teorema}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\setbeamercolor{frametitle}{bg=blue!30!white}
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+\section{Cuadraturas Gaussianas}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición de cuadraturas}
+\begin{frame}
+\frametitle{Cuadraturas Gaussianas}
+Hemos visto que las fórmulas de Newton-Cotes para aproximar la intregral
+\[ \int_{a}^{b} f(x) dx\]
+trabajan muy bien si $f(x)$ es una función suave, como los polinomios.
+\end{frame}
+\begin{frame}
+\frametitle{Cuadraturas Gaussianas}
+También aplica para las cuadraturas Gaussianas, ya que son buenas para estimar integrales de la forma:
+\[ \int_{a}^{b} w(x) f(x) dx\]
+donde $w(x)$ se denomina \emph{función de ponderación} que puede contener singularidades, siempre y cuando sean integrables.
+\end{frame}
+\begin{frame}
+\frametitle{Cuadraturas Gaussianas}
+Un ejemplo de este tipo, es la integral
+\[ \int_{0}^{1} \left(1+x^{2} \right) ln x \; dx \]
+\\
+\bigskip
+\pause
+Cuando tenemos límites de integración infinitos
+\[ \int_{0}^{\infty} \exp(-x) \sin x dx \]
+éstos se pueden reacomodar para calcular la integral.
+\end{frame}
+\begin{frame}
+\frametitle{Fórmulas de integración Gaussianas}
+Las fórmulas de integración Gaussianas tiene la misma forma de las reglas de Newton-Cotes:
+\[I = \sum_{i=0}^{n} A_{i} f(x_{i})\]
+donde $I$ representa la aproximación al valor de la integral, la diferencia radica en la forma en que se determinan los pesos $A_{i}$ y abscisas nodales $x_{i}$.
+\end{frame}
+\begin{frame}
+\frametitle{Fórmulas de integración Gaussianas}
+En la integración de Newton-Cotes los nodos se espacian uniformemente en $(a, b)$, es decir, estaban ya predeterminadas sus ubicaciones.
+\\
+\bigskip
+En la cuadratura de Gauss, se eligen los nodos y los pesos de modo que la ecuación para $I$, se obtiene la integral exacta si $f(x)$ es un polinomio de grado $2n + 1$ o menor, es decir:
+\end{frame}
+\begin{frame}
+\[ \int_{a}^{b} w(x) P_{m}(x) dx = \sum_{i=0}^{n} A_{i}P_{m}(x_{i}), \hspace{1cm} m \leq 2n+1\]
+\pause
+Una manera de determinar los pesos y las abscisas es sustituir $P_{0}(x)=1$, $P_{1}(x)=x,\ldots$, $P_{2n+1}(x) = x^{2n+1}$ en la ecuación anterior y resolver el sistema de $2n+2$ ecuaciones:
+\[ \int_{a}^{b} w(x) x^{j}dx = \sum_{i=0}^{n} A_{i}x_{i}^{j}, \hspace{1cm} j=0,1,\ldots,2n+1 \]
+para las incógnitas $A_{i}$ y $x_{i}$.
+\end{frame}
+\begin{frame}
+Como ejemplo veamos: sea $w(x)= \exp(-x)$, $a=0$, $b=\infty$ y $n=1$. Las cuatro ecuaciones que determinan $x_{0}$, $x_{1}$, $A_{0}$ y $A_{1}$ son:
+\begin{eqnarray*}
+\int_{0}^{\infty} \exp(-x) dx &=& A_{0}+A_{1} \\
+\pause
+\int_{0}^{\infty} \exp(-x) x dx &=& A_{0} x_{0} + A_{1} x_{1} \\
+\pause
+\int_{0}^{\infty} \exp(-x) x^{2} dx &=& A_{0} x_{0}^{2}+ A_{1} x_{1}^{2} \\
+\pause
+\int_{0}^{\infty} \exp(-x) x^{3} dx &=& A_{0} x_{0}^{3} + A_{1} x_{1}^{3} \\
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+Evaluando las integrales, obtenemos
+\begin{eqnarray*}
+A_{0} + A_{1} &=& 1 \\
+A_{0} x_{0} + A_{1} x_{1} &=& 1 \\
+A_{0} x_{0}^{2} + A_{1} x_{1}^{2} &=& 2 \\
+A_{0} x_{0}^{3} + A_{1} x_{1}^{3} &=& 6
+\end{eqnarray*}
+Cuya solución es:
+\begin{eqnarray*}
+x_{0} = 2 - \sqrt{2} \hspace{0.75cm} A_{0} \dfrac{\sqrt{2}+1}{2\sqrt{2}} \\
+x_{1} = 2 + \sqrt{2} \hspace{0.75cm} A_{1} \dfrac{\sqrt{2}-1}{2\sqrt{2}}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+Por tanto la fórmula de integración obtenida es:
+\begin{eqnarray*}
+\int_{0}^{\infty} \exp(-x) f(x) dx & \simeq \dfrac{1}{2\sqrt{2}} \left[ \left( \sqrt{2}+1 \right) f \left(2 - \sqrt{2}\right) + \right. \\ 
+&+ \left. \left( \sqrt{2}-1 \right) f\left(2 +\sqrt{2} \right) \right]
+\end{eqnarray*}
+\pause
+Debido a la no linealidad de las ecuaciones, este enfoque no va a funcionar bien para valores grandes de $n$.
+\end{frame}
+\begin{frame}
+Hay métodos prácticos para calcular $x_{i}$ y $A_{i}$ que requieren un cierto conocimiento de los polinomios ortogonales y su relación con la cuadratura de Gauss.
+\\
+\bigskip
+Hay, sin embargo, varias fórmulas \enquote{clásicas} de integración Gaussianas para los cuales, las abscisas y pesos han sido calculados y tabulados con gran precisión.
+\end{frame}
+\begin{frame}
+Estas fórmulas se pueden utilizar sin conocer la teoría detrás de ellas, ya que todo lo que uno necesita para la integración de Gauss son los valores de $x_{i}$ y $A_{i}$.
+\end{frame}
+\subsection{Polinomios ortogonales}
+\begin{frame}
+\frametitle{Polinomios ortogonales}
+Los polinomios ortogonales se utilizan en muchas áreas de la física, de la matemática y del análisis numérico; se han estudiado a fondo y muchas de sus propiedades ya son conocidas. 
+\end{frame}
+\subsection{Polinomios ortogonales}
+\begin{frame}
+\frametitle{Polinomios ortogonales}
+Los polinomios $\varphi_{n}(x)$, con $n = 0, 1, 2,\ldots$ ($n$ es el grado del polinomio) se dice que forman un conjunto ortogonal en el intervalo $(a, b)$ con respecto a la función de peso $w(x)$ si
+\[ \int_{a}^{b} w(x) \varphi_{m}(x) \varphi_{n}(x) dx = 0, \hspace{0.5cm} m \neq n \]
+\end{frame}
+\begin{frame}
+El conjunto se determina (con excepción de un factor constante) por: la elección de la función de peso y los límites de integración.
+\\
+\bigskip
+Es decir, cada conjunto de polinomios ortogonales se asocia con ciertos $w(x)$, $a$ y $b$. El factor constante se especifica de manera estandarizada.
+\end{frame}
+\begin{frame}
+A continuación se enlistan algunos de los polinomios ortogonales clásicos, la última columna indica la estandarización usada.
+\end{frame}
+\begin{frame}
+\frametitle{Polinomios ortogonales}
+\fontsize{12}{12}\selectfont
+\begin{tabular}{| l | c | c | c | c | c |}
+\hline
+Nombre & Símbolo & a & b & $w(x)$ & $\int_{a}^{b} \left[ \varphi_{n} (x)\right]^{2} dx $ \\ \hline
+Legendre & $p_{n}(x)$ & $-1$ & $1$ & $1$ & $2/(2n+1)$ \\
+Chebyshev & $T_{n}(x)$ & $-1$ & $1$ & $(1-x^{2})^{-1/2}$ & $\pi/2 \hspace{0.2cm} (n>0)$ \\
+Laguerre & $L_{n}(x)$ & $0$ & $\infty$ & $e^{-x}$ & $1$ \\
+Hermite & $H_{n}(x)$ & $-\infty$ & $\infty$ & $e^{x^{2}}$ & $\sqrt{\pi} 2^{n} n!$ \\ \hline
+\end{tabular}
+\end{frame}
+\begin{frame}
+Los polinomios ortogonales cumplen relaciones de recurrencia de la forma
+\[ a_{n} \varphi_{n+1} (x) = (b_{n} + c_{n} x) \varphi_{n} (x) - d_{n} \varphi_{n-1} (x)  \]
+Si los dos primeros polinomios del conjunto se conocen, los otros elementos del conjunto pueden calcularse de la ecuación anterior. 
+\end{frame}
+\begin{frame}
+Los coeficientes en la fórmula de recurrencia, junto con $\varphi_{0}(x)$ y $\varphi_{1}(x)$ son:
+\fontsize{12}{12}\selectfont
+\begin{tabular}{| l | c | c | c | c | c | c |}
+\hline
+Nombre & $\varphi_{0}(x)$ & $\varphi_{1}(x)$ & $a_{n}$ & $b_{n}$ & $c_{n}$ & $d_{n}$ \\ \hline
+Legendre & $1$ & $x$ & $n+1$ & $0$ & $2n+1$ & n \\
+Chebyshev & $1$ & $x$ & $1$ & $0$ & $2$ & $1$ \\
+Laguerre & $1$ & $1-x$ & $n+1$ & $2n+1$ & $-1$ & $n$ \\
+Hermite & $1$ & $2x$ & $1$ & $0$ & $2$ & $2$ \\ \hline
+\end{tabular}
+\end{frame}
+\begin{frame}
+\frametitle{Otra manera para obtener los polinomios}
+Los polinomios ortogonales clásicos también se pueden obtener de las fórmulas:
+\begin{eqnarray*}
+p_{n}(x) &=& \dfrac{(-1)^{n}}{2^{n}n!} \dfrac{d^{n}}{dx^{n}} \left[ \left( 1-x^{2} \right)^{n} \right] \\
+T_{n}(x) &=& \cos(n\cos^{-1}x), \hspace{0.3cm} n>0 \\
+L_{n}(x) &=& \dfrac{e^{x}}{n!} \dfrac{d^{n}}{dx^{n}} \left( x^{n} e^{-x} \right) \\
+H_{n}(x) &=& (-1)^{n} e^{x^{2}} \dfrac{d^{n}}{dx^{n}} \left(e^{x^{2}} \right)
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Derivadas de los polinomios ortogonales}
+Las derivadas de los polinomios anteriores se pueden calcular de:
+\begin{eqnarray*}
+(1-x^{2}) p'_{n}(x) &=& n[-x p_{n}(x) + p_{n-1}(x) ] \\
+(1-x^{2}) T'_{n}(x) &=& n[-x T_{n}(x) + n p T{n-1}(x) ] \\
+x L'_{n} (x) &=& n [ L_{n}(x) - L_{n-1}(x) ] \\
+H'_{n}(x) &=& 2 n H_{n-1}(x)
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Propiedades de los polinomios}
+Algunas propiedades los polinomios ortogonales que son relevantes para la preceso de integración Gaussiana son:
+\setbeamercolor{item projected}{bg=yellow!70!black,fg=black}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item $\varphi(x)$ tiene $n$ distintos ceros en el intervalo $(a,b)$
+\item Los ceros de $\varphi_{n}(x)$ están entre los ceros de $\varphi_{n+1}(x)$
+\item Cualquier polinomio $P_{n}(x)$ de grado $n$ puede expresarse de la forma:
+\[ P_{n}(x) =  \sum_{i=0}^{n} c_{i} \varphi_{i} (x) \]
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Propiedades de los polinomios}
+\setbeamercolor{item projected}{bg=yellow!70!black,fg=black}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}
+\conti
+\item Se deduce de la ecuación anterior y de la propiedad de ortogonalidad que:
+\fontsize{12}{12}\selectfont
+\[ \int_{a}^{b} w(x) P_{n}(x) \varphi_{n+m} (x) dx = 0, \hspace{0.4cm} m \geq 0 \]
+\end{enumerate}
+\end{frame}
+\subsection{Deduciendo las abscisas nodales y los pesos}
+\begin{frame}
+\frametitle{Deduciendo las abscisas nodales y los pesos}
+Hay dos teoremas importantes que son de gran utilidad para apoyarnos y tomar sus resultados para la integración Gaussiana, la demostración es relativamente sencilla, pero no los demostraremos aquí, puede ser un buen ejercicio fuera de clase.
+\end{frame}
+\begin{frame}
+\frametitle{Teorema 1}
+\begin{miteorema}
+Las abscisas nodales $x_{0},x_{1},\ldots,x_{n}$ son los ceros del polinomio $\varphi_{n+1}(x)$  que pertenece al conjunto ortogonal definido por
+\[ \int_{a}^{b} w(x) \varphi_{m}(x) \varphi_{n}(x) dx = 0, \hspace{0.5cm} m \neq n \]
+\end{miteorema}
+\end{frame}
+\begin{frame}
+\frametitle{Teorema 2}
+\begin{miteorema}
+\[ A_{i} = \int_{a}^{b} w(x) \mathcal{L}_{i} (x) dx, \hspace{1cm} i=0,1,\ldots,n \]
+donde $\mathcal{L}_{i} (x)$ son las funciones cardinales de Lagrange que abarcan los nodos $x_{0},x_{1},\ldots,x_{n}$.
+\end{miteorema}
+\end{frame}
+\begin{frame}
+No es difícil calcular los ceros $x_{i}$, $i=0,1,\ldots,n$ de un polinomio $\varphi_{n+1} (x)$ que pertenece a un conjunto ortogonal, podemos usar alguno de los métodos discutidos en la parte de cálculo de raíces.
+\\
+\bigskip
+Una vez conocidos los ceros, los pesos $A_{i}$, $i=0,1,\ldots,n$ pueden calcularse de la ecuación anterior.
+\end{frame}
+\begin{frame}
+\frametitle{Fórmulas para calcular los pesos}
+Se puede demostrar que los pesos se pueden calcular a partir de:
+\begin{eqnarray*}
+\mbox{Gauss-Legendre   }  A_{i} &=& \dfrac{2}{(1-x^{2}_{i})\left[P'_{n+1} (x_{i}) \right]^{2}} \\
+\mbox{Gauss-Laguerre   } A_{i} &=& \dfrac{1}{x_{i} \left[L'_{n+1} (x_{i}) \right]^{2}} \\
+\mbox{Gauss-Hermite   } A_{i} &=& \dfrac{2^{n+2}(n+1)! \sqrt{\pi}}{\left[ H'_{n+1} (x_{i}) \right]^{2}}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Abscisas y pesos para cuadraturas gaussianas}
+Vamos a mencionar la expresión para algunas fórmulas de integración por cuadraturas gaussianas.
+\\
+\bigskip
+La tabla de abscisas y pesos que se presenta a continuación, cubre para $n=1$ a $5$, y se redondea a seis decimales.
+\end{frame}
+\begin{frame}
+Las operaciones con estos valores, se considera que funcionan bien si se hacen las cuentas a mano, en caso de requerir una mayor precisión o incluir un número  mayor de nodos, será necesario usar la computadora.
+\end{frame}
+\subsection{Error en la cuadratura gaussiana}
+\begin{frame}
+\frametitle{Error en la cuadratura gaussiana}
+El error debido al truncamiento
+\[ E = \int_{a}^{b} w(x) f(x) dx  - \sum_{i=0}^{n} A_{i} f(x_{i})\]
+es de la forma $E= K(n) f^{2n+2} (c) $, donde $a<c<b$, el valor de $c$ no se conoce, solamente los extremos.
+\end{frame}
+\begin{frame}
+\frametitle{Error en la cuadratura gaussiana}
+La expresión para $K(n)$ depende de la cuadratura en particular que se esté utilizando.
+\\
+\bigskip
+Si las derivadas de $f(x)$ se pueden evaluar, el error de las fórmulas es útil para estimar el error en el intervalo.
+\end{frame}
+\begin{frame}[plain]
+\frametitle{Cuadratura de Gauss-Legendre}
+\[ \int_{-1}^{1} f(\xi) d \xi \approx \sum_{i=0}^{n} A_{i} f(\xi_{i}) \]
+\fontsize{10}{10}\selectfont
+\begin{center}
+\begin{tabular}{|c c c | c c c|}
+\hline
+$\pm \xi_{i}$ &       & $A_{i}$    & $\pm \xi_{i}$ &       & $A_{i}$ \\ \hline
+             & $n=1$ &            &               & $n=4$ &         \\ %\hline
+$0.577350$    &       & $1.000000$ & $0.000000$    &       & $0.568889$ \\ %\hline
+             & $n=2$ &            & $0.538469$    &       & $0.478629$ \\ %\hline
+$0.000000$    &       & $0.888889$ & $0.906180$    &       & $0.236927$ \\ %\hline
+$0.774597$    &       & $0.555556$ &               & $n=5$ &            \\ %\hline
+             & $n=3$ &            & $0.238619$    &       & $0.467914$ \\ %\hline
+$0.339981$    &       & $0.652145$ & $0.661209$    &       & $0.360762$ \\ %\hline
+$0.861136$    &       & $0.347855$ & $0.932470$    &       & $0.171324$ \\ \hline
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Cuadratura de Gauss-Legendre}
+La cuadratura de Gauss-Legendre es la más utilizada. 
+\\
+\bigskip
+Nótese que los nodos están colocados simétricamente sobre $\xi=0$, y los pesos asociados al par de nodos simétricos, son iguales, i.e. para $n=1$, tenemos que $\xi_{0} = - \xi_{1}$ y $A_{0} = A_{1}$.
+\end{frame}
+\begin{frame}
+\frametitle{Error en la cuadratura}
+El error de truncamiento está dado por:
+\[ E = \dfrac{2^{2n+3} [(n+1)!]^{4}}{(2n+3)[(2n+2)!]^{3}} f^{2n+2} (c), \hspace{1cm} -1 < c < 1 \]
+\end{frame}
+\begin{frame}
+Para usar la cuadratura de Gauss-Legendre en la integral $\int_{a}^{b} f(x) dx$, primero hay que \enquote{mapear} el intervalo de integración $(a,b)$ al intervalo \enquote{estándar} $(-1,1)$, para ello, usamos la transformación
+\[ x = \dfrac{b+a}{2} + \dfrac{b-a}{2} \xi \]
+\end{frame}
+\begin{frame}
+Ahora $dx = d \xi (b-a)/2$, y la cuadratura toma la expresión
+\[ \int_{a}^{b} f(x) dx \approx \dfrac{b-a}{2} \sum_{i=0}^{n} A_{i} f(x_{i}) \]
+\end{frame}
+\begin{frame}
+El error por truncamiento, se expresa como
+\[ E = \dfrac{(b-a)^{2n+3} [(n+1)!]^{4}}{(2n+3)[(2n+2)!]^{3}} f^{(2n+2)} (c), \hspace{0.7cm} a<c<b \]
+\end{frame}
+% \begin{frame}
+% \frametitle{Ejercicio para el examen}
+% Te pedimos que entregues una lista con los pesos y nodos para las siguientes cuadraturas:
+% \begin{enumerate}
+% \item Gauss-Chebyshev
+% \[\int_{1}^{1} (1-x^{2})^{-1/2} f(x) \approx \dfrac{\pi}{n+1} \sum_{i=0}^{n} f(x_{i}) \]
+% \item Gauss-Laguerre
+% \[  \int_{0}^{\infty} e^{-x} f(x) dx \approx \sum_{i=0}^{n} A_{i} f(x_{i}) \]
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Ejercicio para el examen}
+% \begin{enumerate}
+% \item Gauss-Hermite
+% \[ \int_{-\infty}^{\infty} e^{-x^{2}} f(x) dx \approx \sum_{i=0}^{n} A_{i} f(x_{i}) \]
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{¿Aquí termina todo respecto a la integración numérica?}
+% Como sabemos de los cursos de cálculo, podemos considerar ahora un proceso de integración para calcular integrales de funciones con dos y hasta tres variables, recurriendo a las técnicas mostradas.
+% \\
+% \medskip
+% ¿Cómo construimos un algoritmo para ello?
+% \\
+% \medskip
+% El proceso no es complicado pero requiere una revisión cuidadosa, con \python{} podemos hacer el proceso más sencillo para calcular una integral doble o triple, pero no está demás que te las ingenies para desarrollar un código!!
+% \end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Evaluar la integral
+\[ \int_{-1}^{1} (1 - x^{2})^{3/2} \; dx \]
+con la mayor precisión posible, usando una cuadratura gaussiana.
+\end{frame}
+\begin{frame}
+\frametitle{Modo clásico}
+El modo normal de resolver mediante una cuadratura gaussiana, es calcuar los nodos para una cuadratura de tipo Gauss-Legendre.
+\\
+\bigskip
+Por lo que tendríamos que ocupar las expresiones que nos devuelvan los ceros de los polinomios. 
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Usando \texttt{scipy.integrate.quadrature}}
+Para usar la función \azulfuerte{integrate.cuadrature} contenida en el módulo \azulfuerte{scipy}, hay que considerar lo siguiente:
+\begin{verbatim}
+scipy.integrate.quadrature(func, a, b, 
+tol=1.49e-08, maxiter=50)
+\end{verbatim}
+\pause
+Esta función calcula la integral definida usando una cuadratura gaussina con tolerancia fija.
+\end{frame}
+\begin{frame}
+\frametitle{Argumentos de \texttt{quadrature}}
+% \newcommand{\localtextbulletone}{\textcolor{red}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+% \renewcommand{\labelitemi}{\localtextbulletone}
+Los argumentos son:
+\begin{itemize}
+\setbeamercolor{local structure}{fg=red}
+\item \texttt{func} : una función, ya sea una función de \python{} o una expresión.
+\item \texttt{a} : dato de tipo \texttt{float}, que representa el límite inferior de integración.
+\item \texttt{b} : dato de tipo \texttt{float}, que representa el límite superior de integración.
+\item \texttt{maxiter} : dato de tipo \texttt{int}, este argumento es opcional, representa el orden máximo para la quadratura gaussiana.
+\end{itemize}
+\end{frame}
+\begin{frame}
+% \newcommand{\localtextbulletone}{\textcolor{blue}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+% \renewcommand{\labelitemi}{\localtextbulletone}
+\frametitle{Valores que devuelve la función}
+Devuelve:
+\begin{itemize}
+	\setbeamercolor{local structure}{fg=blue}
+\item \texttt{val} : dato de tipo \texttt{float}, que representa la aproximación a la integral.
+\item \texttt{err} : dato de tipo \texttt{float}, que representa el error en las últimas dos estimaciones de la integral.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Código}
+\begin{lstlisting}[caption=Código para cuadratura gaussiana, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+from scipy.integrate import quadrature
+
+def g(x):
+    return (1 - x**2)**(3/2.)
+
+print(quadrature(g, -1., 1)[0])
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+El valor de la integral es $1.1781$
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Imagenes/cuadratura_01.eps}
+	\caption{El área debajo de la curva, representa el valor de la integral.}
+\end{figure}
+\end{frame}
+\end{document}
+

@@ -1,0 +1,133 @@
+\documentclass[border=10pt,multi,tikz]{standalone}
+\usetikzlibrary{shapes.geometric}
+\begin{document}
+
+\tikzset{
+treenode/.style = {draw,ellipse, align=left,
+                 top color=white, bottom color=blue!20},
+root/.style     = {treenode, font=\large, bottom color=white},
+env/.style      = {treenode, font=\ttfamily\normalsize},
+dummy/.style    = {circle,draw}
+}
+\begin{tikzpicture}
+[  
+ level 1/.style={ edge from parent path={
+        (\tikzparentnode) to[out=0, in=180] (\tikzchildnode)
+        -- (\tikzchildnode)
+    },},
+level 2/.style={minimum width=200pt, edge from parent path={
+        (\tikzparentnode.east) to[out=0, in=180] (\tikzchildnode.south west)
+        -- (\tikzchildnode.south east)
+    },
+    sibling distance=0.6cm},
+level 1/.append style={level distance=4.5cm},
+level 2/.append style={level distance=6.5cm},
+%edge from parent/.style = {draw, -latex},
+%every node/.style       = {font=\footnotesize},
+sloped,
+     ]
+
+ \node [root] {Algorithm}
+[grow=right]
+  child [sibling distance=4.0cm] { node{Clustering} 
+            child { node  {k-Means}}
+            child { node  {k-Medians}}
+            child { node  {Expectation Maximisation (EM)}}
+            child { node  {Hierarchical Clustering}}
+           }
+child [sibling distance=4.5cm] { node {Bayesian}
+            child { node  {Naive Bayes}}
+            child { node  {Gaussian Naive Bayes}}
+            child { node  {Multinomial Naive Bayes}}
+            child { node  {Averaged One-Depen. Esti. (AODE)}}
+            child { node  {Bayesian Belief Network (BBN)}}
+            child { node  {Bayesian Network (BN)}}
+           }
+ child [sibling distance=0.5cm] { node {Decision Tree}
+            child { node  {Classification and Regression Tree (CART)}}
+            child { node  {Iterative Dichotomiser 3 (ID3)}}
+            child { node  {C4.5 and C5.0}} 
+            child { node  {Chi-squared Auto.Inte. Det. (CHAID)}}
+            child { node  {Decision Stump}}
+            child { node  {M5}}
+            child { node  {Conditional Decision Trees}}
+           } 
+ child [sibling distance=5.5cm]{ node {Dimesionality Reduction}
+            child { node  {[Principal Component Analysis (PCA)}}
+            child { node  {Principal Component Regression (PCR)}}
+            child { node  {Partial Least Squares Regression\\(PLSR)}}
+            child { node  {Sammon Mapping}}
+            child { node  {Multidimensional Scaling (MDS)}}
+            child { node  {Projection Pursuit}}
+            child { node  {Linear Discriminant Analysis (LDA)}}
+            child { node  {Mixture Discriminant Analysis (MDA)}}
+            child { node  {Quadratic Discriminant Analysis (QDA)}}
+            child { node  {Flexible Discriminant Analysis (FDA)}}
+           }               
+ child [sibling distance=5.cm] { node  {Regularisation}
+            child { node  {Ridge Regression}}
+            child { node  {Least Abs. Shr. and Sel. Ope. (LASSO)}}
+            child { node  {Elastic Net}}
+            child { node  {Least-Angle Regression (LARS)}}
+           };               
+\tikzset{
+level 1/.style={ edge from parent path={
+        (\tikzparentnode) to[out=180, in=0] (\tikzchildnode)
+        -- (\tikzchildnode)
+    }},
+level 2/.style={minimum width=200pt,align=left, edge from parent path={
+        (\tikzparentnode) to[out=180, in=0] (\tikzchildnode.south east)
+        -- (\tikzchildnode.south west)
+    },
+    sibling distance=0.6cm},
+level 1/.append style={level distance=4.5cm},
+level 2/.append style={level distance=5.5cm},
+%edge from parent/.style = {draw, -latex},
+%every node/.style       = {font=\footnotesize},
+sloped,
+     }
+  \node [root]{Algorithm}
+ [grow=left]
+ child [sibling distance=3.1cm]{ node{Deep Learning} 
+            child { node  {Deep Boltzmann Machine (DBM)}}
+            child { node  {Deep Belief Network (DBN)}}
+            child { node  {Convolutional Neural Network (CNN)}}
+            child { node  {Stacked Auto-Encoders}}
+           }
+   child [sibling distance=2.8cm]{ node {Ensamble}
+            child { node  {Boosting}}
+            child { node  {Bootstrapped Aggregation (Bagging)}}
+            child { node  {AdaBoost}}
+            child { node  {Stacked Generalization (blending)}}
+            child { node  {Gradient Boosting Machines (GBM)}}
+            child { node  {Gradient Boosted Regr. Trees (GBRT)}}
+            child { node  {Random Forest}}
+           }
+    child { node{Neural Networks} 
+            child { node  {Perceptron}}
+            child { node  {Back-Propagation}}
+            child { node  {Hopfield Network}}
+            child { node  {Radial Basis Function Net. (RBFN)}}
+           }
+   child[sibling distance=3.9cm] { node {Insatnce Based}
+           child { node  {k-Nearest Neighbour(KNN)}}
+           child { node  {Learning vector quantization(LVQ)}}             
+           child { node  {self-organised map}}
+           child { node  {Locally Weighted Learning(LWL)}}
+           }
+  child[sibling distance=3.2cm] { node {Rule system}
+           child { node  {Cubist}}
+           child { node  {One Rule (OneR)}}             
+           child { node  {Zero Rule (ZeroR)}}
+           child { node  {Rep.Inc.Pr2pro. Err. Red. (RIPPER)}}
+           }                            
+  child [sibling distance=3.3cm]{ node  {Regression}
+            child { node  {Linear}}
+            child { node  {Ordinary Least Squares}}
+            child { node  {Logistic}}
+            child { node  {Stepwise}}
+            child { node  {Locally Esti.Scatt. Smoo.(LOESS)}}
+            child { node  {Multi. Ada. Reg.Splines (MARS)}} 
+            };
+ \end{tikzpicture}
+\end{document}

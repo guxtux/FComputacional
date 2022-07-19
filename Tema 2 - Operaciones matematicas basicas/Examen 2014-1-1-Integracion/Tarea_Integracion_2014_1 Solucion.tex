@@ -1,0 +1,186 @@
+\documentclass[12pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{etex}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{nccmath}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+% Introduce a new counter for counting the nodes needed for circling
+\newcounter{nodecount}
+% Command for making a new node and naming it according to the nodecount counter
+\newcommand\tabnode[1]{\addtocounter{nodecount}{1} \tikz \node (\arabic{nodecount}) {#1};}
+% Some options common to all the nodes and paths
+\tikzstyle{every picture}+=[remember picture,baseline]
+\tikzstyle{every node}+=[inner sep=0pt,anchor=base,
+minimum width=2.2cm,align=center,text depth=.15ex,outer sep=1.5pt]
+\tikzstyle{every path}+=[thick, rounded corners]
+\usepackage{color}
+\usepackage{listings}
+\renewcommand*{\multirowsetup}{\centering}
+\usetikzlibrary{arrows}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{hyperref}
+\renewcommand {\arraystretch}{1.5}
+\mode<presentation>
+{
+  \usetheme{Warsaw}  
+  %\usetheme{CambridgeUS}
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+  
+  \setbeamertemplate{headline}{}
+  %\useoutertheme{infolines}
+  \useoutertheme{default}
+  \setbeamercovered{invisible}
+  % or whatever (possibly just delete it)
+}
+\include{pre_codigo}
+%\graphicspath{Examen 2014-1-1-Integracion/}
+\begin{document}
+\title{Examen 2 - Operaciones matem\'{a}ticas b\'{a}sicas}
+\subtitle{Integraci\'{o}n - Soluci\'{o}n}
+%\subsubtitle{Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+%\email{curso.fisica.comp@gmail.com}
+%\ptsize{10}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Problema 1}
+\begin{frame}
+\frametitle{Problema 1}
+Usa la regla del trapecio recursiva para evaluar
+\[ \int_{0}^{\frac{\pi}{4}} ln(1 + \tan(x)) dx\]
+Explica tus resultados.
+\end{frame}
+\begin{frame}[fragile]
+Graficamos la funci\'{o}n para tener una idea de lo que buscamos:
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Problema1_01.eps}<1>
+	\includegraphics[scale=0.5]{Problema1_02.eps}<2>
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+Usando el algoritmo recursivo del trapecio, para k=1, tenemos que la integral vale:
+\begin{verbatim}
+Integral =  0.272198261288 
+nPaneles =  2
+\end{verbatim}
+Y corroborando el resultado, usamos \texttt{scipy.integrate}, donde obtenemos:
+\begin{verbatim}
+Usando scipy.integrate.quad = 0.272198261288
+\end{verbatim}
+\end{frame}
+\section{Problema 2}
+\begin{frame}
+\frametitle{Problema 2}
+La siguiente tabla indica la potencia $P$ propocionada por las ruedas de un carro como funci\'{o}n de la velocidad $v$. Si la masa del carro es $m=2000$ kg, calcula el tiempo $\Delta t$ necesario para que el carro acelere de $1$ m/s a $6$ m/s. Usa la regla del trapecio para integrar. Tip:
+\[ \Delta t = m \int_{1s}^{6s} \left( \dfrac{v}{P} \right) dv\]
+que se puede obtener de la ley de Newton $F= m/(dv/dt)$ y por la definici\'{o}n de potencia, $P=Fv$.
+\begin{center}
+\begin{tabular}{c | c | c | c | c | c | c | c | c}
+$v$ (m/s) & 0 & 1.0 & 1.8 & 2.4 & 3.5 & 4.4 & 5.1 & 6.0 \\ \hline
+$P$ (kW)  & 0 & 4.7 & 12.2 & 19.0 & 31.8 & 40.1 & 43.8 & 43.2 
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+
+\end{frame}
+\section{Problema 3}
+\begin{frame}
+\frametitle{Problema 3}
+Evalúa la integral
+\[ \int_{-1}^{1} \cos \left( 2 cos^{-1} x \right) dx\]
+con la regla de Simpson de $1/3$, usando 2,4 y 6 paneles. Explica tus resultados.
+\end{frame}
+\section{Problema 4}
+\begin{frame}
+\frametitle{Problema 4}
+La siguiente tabla proporciona el empuje $F$ del arco como funci\'{o}n del desplazamiento $x$. Si la cuerda tiene un desplazamiento de $0.5$ m, calcula la velocidad de una flecha de $0.075$ kg, cuando sale del arco. Tip: la energ\'{i}a cin\'{e}tica de la flecha es igual al trabajo hecho al estirar la cuerda, que es:
+\[ m \dfrac{v^{2}}{2} = \int_{0}^{0.5m} F dx\]
+\begin{center}
+\begin{tabular}{c | c | c | c | c | c | c |}
+$x$ (m) & 0.00 & 0.05 & 0.10 & 0.15 & 0.20 & 0.25  \\ \hline
+$F$ (N)  & 0 & 37 & 71 & 104 & 134 & 161
+\end{tabular}
+\end{center}
+\begin{center}
+\begin{tabular}{c | c | c | c | c | c | }
+$x$ (m) & 0.30 & 0.35 & 0.40 & 0.45 & 0.50 \\ \hline
+$F$ (N)  & 185 & 207 & 225 & 239 & 250 
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\begin{center}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Integral_01_Arco.eps} 
+	\caption{Flecha para el ejercicio}
+\end{figure}
+\end{center}
+\end{frame}
+\section{Problema 5}
+\begin{frame}
+\frametitle{Problema 5}
+El per\'{i}odo de un p\'{e}ndulo de longitud $L$ es $\tau = 4 \sqrt{\frac{L}{g}} h(\theta_{0})$, donde $g$ es la aceleraci\'{o}n debida a la gravedad, $\theta_{0}$, representa la amplitud angular y 
+\[ h(\theta_{0}) =  \int_{0}^{\frac{\pi}{2}} \dfrac{d\theta}{\sqrt{1 - \sin^{2} \left( \frac{\theta_{0}}{2}\right) \sin^{2} \theta}} \]
+Calcular $h(15^{\circ})$, $h(30^{\circ})$ y $h(45^{\circ})$; compara esos valores con $h(0^{\circ}) = \frac{\pi}{2}$ (la aproximaci\'{o}n usada para pequeñas amplitudes)
+\end{frame}
+\section{Problema 6}
+\begin{frame}[fragile]
+\frametitle{Problema 6}
+La f\'{o}rmula de Debye para la capacidad calor\'{i}fica $C_{v}$ de un s\'{o}lido, es $C_{v} = 9 Nkg(u)$, donde
+\[g(u) = u^{3} \int_{0}^{1/u} \dfrac{x^{4}e^{x}}{(e^{x}-1)}dx\]
+los t\'{e}rminos de la ecuaci\'{o}n son:
+\\
+\medskip
+\fontsize{10}{10}\selectfont
+\begin{minipage}{4cm}
+\begin{eqnarray*}
+N &=& \text{N\'{u}mero de part\'{i}culas en el s\'{o}lido} \\
+k &=& \text{Constante de Boltzmann} \\
+u &=& \frac{T}{\Theta_{D}}
+\end{eqnarray*}
+\end{minipage}
+\hspace{1.5cm}
+\begin{minipage}{4cm}
+\begin{eqnarray*}
+T &=& \text{temperatura absoluta} \\
+\Theta_{D} &=& \text{Temperatura de Debye}
+\end{eqnarray*}
+\end{minipage}
+\fontsize{12}{12}\selectfont
+Calcular $g(u)$ para $u=0$ a $1.0$ en intervalos de $0.05$, grafica los resultados.
+\end{frame}
+\section{Problema 7}
+\begin{frame}
+\frametitle{Problema 7}
+Una masa $m$ est\'{a} unida a un resorte de longitud $b$ y rigidez $k$. Se puede demostrar que la aceleraci\'{o}n de la masa es $\ddot{x} = -f(x)$, donde
+\[f(x) = \mu g + \dfrac{k}{m} (\mu b + x) \left( 1 - \dfrac{b}{\sqrt{b^{2} + x^{2}}} \right)\]
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{Integral_02_Resorte.eps}
+	\caption{Masa unida a un resorte.}
+\end{figure}
+\end{frame}
+\begin{frame}
+Si la masa se libera del reposo en $x=b$, y la velocidad en $x=0$ est\'{a} a por
+\[ v_{0} = \sqrt{2 \int_{o}^{b} f(x) dx}\]
+Calcular mediante integraci\'{o}n num\'{e}rica el valor de $v_{0}$, usando $m=0.8$ k, $b=0.4$ m, $\mu=0.3$, $k=80$ N/m y $g=9.81$ $m/s^{2}$.
+\end{frame}
+\end{document}

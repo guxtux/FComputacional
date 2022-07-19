@@ -1,0 +1,14 @@
+\documentclass[tikz]{standalone}
+\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\begin{document}
+\begin{tikzpicture}
+	\draw [dashed](0,0) -- (6,0);
+	\draw [dashed](3,-3) -- (3,3);
+	\draw [draw=black, fill=black!25](2.5,-0.5) rectangle (3.5,0.5);
+	\draw (3.7,0.7) node  {$1 V$};
+	\draw (0.5,-2.5) rectangle (5.5,2.5);
+	\draw (5.7,2.7) node  {$0 V$};
+\end{tikzpicture}
+\end{document}

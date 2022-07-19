@@ -1,0 +1,59 @@
+\section{Instrucciones de entrada/salida}
+\begin{frame}[fragile]
+\frametitle{{Instrucciones de entrada y salida}
+Entrada de datos:
+\begin{itemize}
+\item \verb|raw_input("entrada")|: lee una l\'{i}nea de entrada que es convertida a \texttt{string}.
+\item \verb|eval(string)| : convierte \texttt{string} en un valor num\'{e}rico.
+\end{itemize}
+\fontsize{12}{12}\selectfont
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<1->
+	\verb|a = raw_input("Ingrese a: ")| \\
+	\pause
+	\texcolor{blue}{\texttt{Ingrese a: 2}}
+\end{exampleblock}
+\begin{exampleblock}{}<2->
+	\verb|print a| \\
+	\pause
+	\textcolor{blue}{2}
+\end{exampleblock}
+\begin{exampleblock}{}<3->
+	\verb|a| \\
+	\pause
+	\textcolor{blue}{'a'}
+\end{exampleblock}
+\begin{exampleblock}{}<4->
+	\verb|type(a)| \\
+	\pause
+	\textcolor{blue}{\texttt{<type 'str'>}}
+\end{exampleblock}
+\begin{exampleblock}{}<5->
+	\verb|b = eval(a)|
+\end{exampleblock}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{5.5cm}
+\begin{exampleblock}{}<6->
+	\verb|print b, type(b)| \\
+	\pause
+	\textcolor{blue}{\texttt{2 <type 'int'>}}
+\end{exampleblock}
+\begin{exampleblock}{}<7->
+	\verb|s=eval(raw_input("Ingrese s :"))| \\
+	\pause
+	\textcolor{blue}{\texttt{Ingrese s: 2*3}}
+\end{exampleblock}
+\begin{exampleblock}{}<8->
+	\verb|print s, type(s)| \\
+	\pause
+	\textcolor{blue}{\texttt{6 <type 'int'>}}
+\end{exampleblock}
+\begin{exampleblock}{}<9->
+	\verb|m=eval(raw_input("Ingrese m :"))| \\
+	\pause
+	\textcolor{blue}{\texttt{Ingrese s: hola}}
+\end{exampleblock}
+\end{minipage}
+\end{frame}
+\end{document}

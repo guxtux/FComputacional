@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{matrix}
+\usepackage{xy}
+\usepackage{siunitx}
+\usepackage[american,cuteinductors,smartlabels]{circuitikz}
+\usetikzlibrary{calc}
+\usepackage{float}
+\renewcommand{\baselinestretch}{1.2}
+\spanishdecimal{.} 
+\marginsize{1.5cm}{1.5cm}{0cm}{2cm}  
+\title{Examen Reposición 3: Ecuaciones diferenciales ordinarias \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\begin{enumerate}
+\item En la teoría de propagación de enfermedades contagiosas, se puede utilizar una ED relativamente elemental para predecir el número de individuos infectados de la población en cualquier tiempo, siempre y cuando se hagan las suposiciones de simplificación adecuada. En particular, supongamos que todos los individuos de una población fija tienen la misma probabilidad de infectarese y que una vez infectados permanecen en ese estado. Si con $x(t)$ denotamos el número de individuos vulnerables en el tiempo $t$ y con $y(t)$ denotamos al número de infectados, podemos suponer razonablemente, que la rapidez con que el número de los infectados cambia es proporcional al producto de $x(t)$ y $y(t)$, por que la rapidez depende del número de individuos infectados y del número de individuos vulnerables que existen en ese tiempo. Si la población es lo suficientemente numerosa para suponer que $x(t)$ y $y(t)$ son variables continuas, podemos expresar el problema como
+\[y'(t) = k x(t) y(t)\]
+donde $k$ es una constante y $x(t)+ y(t) = m$ es la población total. Se puede re-escribir esta ecuación para que contenga sólo $y(t)$ como
+\[ y'(t) = k (m-y(t)) y(t)\]
+\begin{enumerate}
+\item Suponiendo que $m=100000$, $y(0)=1000$, $k=2 \times 10^{-6}$, y que el tiempo se mide en días, encuentra una aproximación al número de individuos infectados al cabo de 30 días.
+\item La ED del inciso anterior, se denomina \emph{ecuación de Bernoulli} y puede transformarse en una ED lineal en $u(t) = (y(t))^{-1}$. Usa ese método para encontrar una solución exacta de la ecuación, con los mismos supuestos del inciso anterior; compara el valor verdadero de $y(t)$ con la aproximación dada. ¿Qué es $\displaystyle\lim_{t \rightarrow \infty} y(t)$
+\item En el ejercicio anterior todos los individuos infectados permanecieron en la población y propagaron la enfermedad. Una respuesta más realista consiste en introducir una tercera variable $z(t)$ que representa el número de personas a quienes en un tiempo dado $t$ se les separa de la población infectada por aislamiento, recuperación y la subsecuente inmunidad o fallecimiento. Esto viene a complicar más el problema, pero se puede demostrar que una solución aproximada está dada por
+\[ x(t) = x(0) \exp\left(- \frac{k_{1}}{k_{2}}z(t)\right) \hspace{1cm} y(t) =m - x(t) - z(t) \]
+donde $k_{1}$ es la rapidez de la infección, $k_{2}$ es la rapidez de aislamiento y $z(t)$ se obtiene de la ED
+\[ z'(t) = k_{2} \left( m - z(t) - x(0) \exp \left( - \frac{k_{1}}{k_{2}} z(t) \right) \right)\]
+No se conoce un método para resolver directamente este problema, po lo cual es necesario apoyarse con un procedimiento numérico. Obtén una aproximación a $z(30)$, $y(30)$, $x(30)$ suponiendo que $m=100000$, $x(0)=99000$, $k_{1} = 2 \times 10^{-6}$ y $k_{2} = 10^{-4}$. Para cada uno de los incisos, discute tus resultados.
+\end{enumerate}
+\item Se dispara un proyectil al aire con un ángulo de $45^{\circ}$ con respecto al suelo, con $u=v=150 m/s$, donde $u$ y $v$ son las velocidades horizontal y vertical, respectivamente. Las ecuaciones de movimiento están dadas por
+\begin{eqnarray*}
+u^{'} & = & -c Vu, \hspace{1.5cm} u(0)=150 m/s \\
+v^{'} & = & -g - cVv, \hspace{1.5cm} v(0)=150 m/s
+\end{eqnarray*}
+donde $u$ y $v$ son funciones del tiempo, $u=u(t)$ $y v=v(t)$ y
+\begin{eqnarray*}
+V & = & \sqrt{u^{2} + v^{2}} \\
+c & = & 0.005 \hspace{2cm} \text{(coeficiente de arrastre)} \\
+g & = & 9.9 m/s^{2}
+\end{eqnarray*}
+Las ecuaciones de movimiento se pueden resolver mediante alguno de los métodos de Runge-Kutta. La trayectoria del proyectil se puede determinar al integrar
+\[ x' = u \hspace{2cm} \text{y} \hspace{2cm} y' = v \]
+o bien
+\begin{eqnarray*}
+x & = & \int^{t}_{0} u(t') dt' \\
+y & = & \int^{t}_{0} v(t') dt'
+\end{eqnarray*}
+\begin{enumerate}
+\item Resuelve y grafica la trayectoria del proyectil, usando el método RK3.
+\item Resuelve y grafica la trayectoria del proyectil, usando el método RK4, compara las soluciones de ambos incisos.
+\end{enumerate}
+\item El movimiento del sistema de masas que se muestra en la figura (1) está dado por:
+\[ y'' + 2 \zeta \omega y' + \omega^{2}y = \dfrac{F(t)}{M}\]
+donde \\ 
+$\omega = \left( \dfrac{k}{M} \right)^{2}$ (frecuencia natural sin amortiguamiento, $s^{-1}$) \\
+$\zeta = \dfrac{c}{2M\omega}=0.5$ (factor de amortiguamiento) \\
+$k = 3.2$ (constante del resorte, $\frac{kg}{s^{2}}$ \\
+$M=5$ (masa, kg) \\
+$F(t) = 0$ (fuerza, Newtons)
+\begin{center}
+\begin{tikzpicture}
+\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.1cm,post
+  length=0.1cm,segment length=6}]
+\draw (0,0) -- (6,0);
+\draw (1,0.3) circle (0.3);
+\draw (3.5,0.3) circle (0.3);
+\draw (0.5,0.6) rectangle (4,2);
+\draw [->](-0.5,1.3) -- node [midway, above] {F(t)} (0.5,1.3);
+\draw[spring] (4,1.7) -- node [above] {k} (6,1.7);
+\draw (4,1) -- (4.8,1);
+\draw (4.8,0.8) -- (4.8,1.2);
+\draw (4.6,0.7) -- (5.2,0.7);
+\draw (4.6,1.3) -- (5.2,1.3);
+\draw (5.2,0.7) -- (5.2,1.3);
+\draw (5.2,1) -- (6,1);
+\draw [pattern=north east lines] (6,0) rectangle (7,3.5);
+\draw [<->] (4,3) -- node [midway, above] {y} (6,3);
+\draw (4,2.8) -- (4,3.2);
+\end{tikzpicture}
+\end{center}
+Si $F(t)$ es una función escalonada de magnitud $F_{0}=1$ kg y cuya duración es 1 segundo, determina el movimiento de la masa para $0<t<10$ segundos por medio del método de Runge-Kutta de cuarto orden.
+\item Determina la respuesta y carga dinámica del sistema amortiguado del problema anterior sujeto a un pulso de fuerza triangular
+\begin{equation*}
+F(t) =
+	\begin{cases}
+2F_{0}t,  & 0 \leq t \leq 1 s\\
+2F_{0}(1-t), & 1 \leq t \leq 2 s\\
+0, & t>2 s
+\end{cases}
+\end{equation*}
+Donde $F_{0}=1$ Kg (fuerza). Utiliza el método RK4.
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+

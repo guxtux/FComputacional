@@ -1,0 +1,61 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\marginsize{1cm}{2cm}{2cm}{2cm}  
+\title{Examen 1: Errores, condición y estabilidad. \\ Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\textbf{Indicaciones: } Para cada uno de los problemas, deber\'{a}s de entregar un archivo .py que al momento de ejecutarse, lo haga debidamente, adem\'{a}s de incluir gr\'{a}ficas si es que lo menciona la pregunta.
+\\
+\\
+En caso de que tengas alguna complicaci\'{o}n para resolver el problema, comenta dentro del mismo c\'{o}digo para que sepamos en d\'{o}nde se te presenta la dificultad.
+\begin{enumerate}
+\item \textbf{(1.5 puntos) }Un problema cl\'{a}sico en c\'{o}mputo cient\'{i}fico, es la suma de una serie para evaluar una funci\'{o}n. Sea la serie de potencias para la funci\'{o}n exponencial:
+\[e^{-x} = 1 - x + \dfrac{x^{2}}{2!} + \dfrac{x^{3}}{3!} +\cdots \hspace{1.5cm} (x^{2} < \infty)  \]
+Utiliza la serie anterior para calcular el valor de $e^{-x}$ para $x=0.1,1,10, 100, 1000$ con un error absoluto para cada caso, menor a $10^{-8}$.
+\item \textbf{(1.5 puntos) }Usando el m\'{é}todo de Horner, env\'{i}a la tabla de valores tanto de los puntos de evaluaci\'{o}n, como los de funci\'{o}n evaluada a un archivo de datos, el polinomio es:
+\[p(x)= 2x^{4} - 20x^{3} + 70x^{2}+ 100x+48 \]
+para valores de $x$ en el intervalo $[-4,-1]$, con saltos de $x$ de valor $\Delta x = 0.5$.
+\\
+\\
+Grafica los puntos obtenidos y el polinomio $p(x)$, interpreta los resultados obtenidos.
+\item \textbf{(1.5 puntos) }Para iniciar la fabricaci\'{o}n en masa de rodamientos de alta calidad, un ingeniero debe medir, con la mayor precisi\'{o}n posible, el radio \textbf{\textit{r}} de una pequeña esfera met\'{a}lica que forma parte del prototipo. Para ello dispone de tres alternativas:
+\begin{itemize}
+\item Medir el di\'{a}metro $D$ con un pie de rey (vernier) y obtener el radio $r$ como $r = \frac{D}{2}$
+\item Medir la superficie $S$ mediante t\'{e}cnicas indirectas y obtener el radio como $r = \sqrt{\frac{S}{4\pi}}$
+\item Medir el volumen $V$ sumergiendo la esfera en un l\'{i}quido y obtener el radio como $r = \sqrt[3]{\frac{3V}{4\pi}}$
+\end{itemize}
+Se pide:
+\begin{enumerate}
+\item Efectuar un estudio completo de propagaci\'{o}n de errores, para cada una de las tres alternativas.
+\item Obtener el error relativo en el radio $r$, para cada una de las tres alternativas.
+\end{enumerate}
+El ingeniero sabe que el error relativo inherente de las medidas experimentales (es decir, el error que se obtiene al usar los instrumentos de medida) $D$, $S$ y $V$ es de $10^{-3}$. Para efectuar los cálculos, utiliza un sencillo programa en FORTRAN, que trabaja con variables REAL*4. Ciertos condicionantes de diseño exigen la obtención del radio r con un error relativo máximo del $0.05 \%$.
+\item \textbf{(2.5 puntos) } Haremos el estudio de un gota de agua en un campo gravitacional uniforme con una fuerza resistiva $\textbf{f}_{r} = - \kappa \nu \textbf{v} $, donde $\nu(\textbf{v})$ es la velocidad de la part\'{i}cula y $\kappa$ es un par\'{a}metro positivo.  Analiza la dependencia de la altura y velocidad de la gota de agua para diferentes $\frac{m}{\kappa}$, donde $m$ es la masa de la gota, consid\'{e}rala constante para mayor simplicidad.
+\\
+\\
+Grafica la velocidad terminal de la gota contra $\frac{m}{\kappa}$, compara \'{e}ste resultado contra la ca\'{i}da libre de la gota.
+\item \textbf{(1.5 puntos) }Supongamos una barra de hierro de longitud $l$ y sección rectangular $a \times b$ fija por uno de sus extremos. Si sobre el extremo libre aplicamos una fuerza $F$ perpendicular a la barra, la flexión $s$ que ésta experimenta viene dada por la expresión: 
+\[s = \dfrac{4}{E} \dfrac{l^{3}}{ab^{3}} F\]
+en donde $E$ es una constante que depende sólo del material, denominada \textit{módulo de Young}. Conociendo que una fuerza de $140$ Kp aplicada sobre una barra de $125$ cm de longitud y sección
+cuadrada de $2.5$ cm produce una flexión de $1.71$ mm.
+\\
+\\ Calcular el módulo de Young y el intervalo de error. Suponer que los datos vienen afectados por un error máximo correspondiente al de aproximar por truncamiento las cifras dadas.
+\item \textbf{0.5 puntos } Los dos problemas sobre las sumas que se pidieron en la clase pasada.
+\item El valor de $\pi$ se puede calcular aproximando el \'{a}rea de un c\'{i}rculo unitario como el l\'{i}mite de una sucesi\'{o}n $p_{1}, p_{2}, \ldots$ descrita a continuaci\'{o}n:
+\\
+Se divide un c\'{i}rculo unitario en $2^{n}$ sectores (en el ejemplo, $n=3$). Se aproxima el \'{a}rea del sector por el \'{a}rea del tri\'{a}ngulo is\'{o}celes. El \'{a}ngulo $\theta_{n}$ es $2 \pi / 2^{n}$. El \'{a}rea del tri\'{a}ngulo es $1/2 \sin \theta_{n}$.
+\\
+La en\'{e}sima aproximaci\'{o}n a $\pi$ es: $p_{n}= 2^{n-1} \sin \theta_{n}$. Demuestra que
+\[\sin \theta_{n} =  \sin \dfrac{\sin \theta_{n-1}}{\left\lbrace 2 \left[ 1 + (1 - \sin^{2})^{\frac{1}{2} \right]} \right\lbrace^{\frac{1}{2}
+}\]
+\end{enumerate}
+\end{document}

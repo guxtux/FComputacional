@@ -1,0 +1,116 @@
+\include{pre_documento}
+\include{pre_codigo}
+\begin{document}
+\title{Examen 2 - Operaciones matem\'{a}ticas b\'{a}sicas}
+\subtitle{Soluci\'{o}n}
+%\subsubtitle{Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+%\email{curso.fisica.comp@gmail.com}
+%\ptsize{10}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Problema 1}
+\begin{frame}
+\frametitle{Problema 1}
+La funci\'{o}n gamma $\Gamma (x)$, se define como la siguiente integral
+	\[ \Gamma (x) = \int_{0}^{\infty} t^{x-1} e^{-t} dt\]
+	que converge para todo $x$ positivo, pese a que para $0<x<1$ el integrando tiene una divergencia en $t=0$.
+	\\
+	Calcula num\'{e}ricamente a partir de la definci\'{o}n anterior, la $\Gamma$ para $x=10$ y $x=1/2$, valores para los cuales se conocen los resultados anal\'{i}ticos:
+	\begin{eqnarray*}
+		\Gamma(10) &=& 9! = 362880 \\
+		\Gamma(1/2) &=& \sqrt{\pi}
+	\end{eqnarray*}
+\end{frame}
+\begin{frame}
+En cada caso debes:
+	\begin{enumerate}
+		\item indicar el cambio de variable utilizado.
+		\item el n\'{u}mero de puntos utilizados en la discretizaci\'{o}n.
+		\item el m\'{e}todo de integraci\'{o}n.
+		\item el resultado obtenido.
+		\item el error cometido respecto al valor anal\'{i}tico.
+	\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Problema 1, inciso a)}
+	\begin{enumerate}
+		\item No se requiere cambio de variable.
+		\item Con $n=10$.
+		\item Usando el m\'{e}todo del trapecio.
+		\item El resultado es: $362877.41$
+		\item El error relativo es: $7.1408 \times 10^{-6}$
+	\end{enumerate}
+La funci\'{o}n gamma al igual que otras funciones, vienen contenidas en el m\'{o}dulo \texttt{special} de \texttt{scipy}:
+\medskip
+\begin{verbatim}
+from scipy import special
+special.gamma(x)
+\end{verbatim}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio 1, inciso b)}
+De la definici\'{o}n de la funci\'{o}n $\Gamma (x)$, tenemos para $x=1/2$:
+\[ \Gamma(1/2) = \int_{0}^{\infty} t^{1/2-1} e^{-t} dt\]
+por tanto
+\[ \Gamma(1/2) = \int_{0}^{\infty} t^{-1/2} e^{-t} dt\]
+y aqu\'{i} es donde tendremos problemas, ya que aunque hagamos integraci\'{o}n por partes, llegaremos de nuevo a un producto con $t$ elevada a una fracci\'{o}n.
+\end{frame}
+\begin{frame}[fragile]
+Hagamos el siguiente cambio de variable
+\begin{eqnarray*}
+	t &=& z^{2} \\
+	dt &=& 2z dz
+\end{eqnarray*}
+Por lo que al sustituir en la integral inicial y revisando los nuevos l\'{i}mites de integraci\'{o}n, resulta que
+\[  \Gamma(1/2) = \int_{0}^{\infty} t^{-1/2} e^{-t} dt = \int_{0}^{\infty} \left( z^{2} \right)^{-1/2} e^{-z^{2}} 2zdz \]
+\end{frame}
+\begin{frame}
+Por tanto
+\[ \Gamma(1/2) = \int_{0}^{\infty} z^{-1/2} e^{-z^{2}} 2z dz  \]
+es decir
+\[ \Gamma(1/2) = 2 \int_{0}^{\infty} e^{-z^{2}} dz  \]
+Que es la funci\'{o}n de inter\'{e}s para integrar.
+\\
+\medskip
+Con $n=20$ y usando el m\'{e}todo del trapecio, tenemos que el valor de la integral es: $1.752927$ con un error relativo de $1.952674 \times 10^{-2}$
+\end{frame}
+\section{Problema 2}
+\begin{frame}
+\frametitle{Problema 2}
+Eval\'{u}a num\'{e}ricamente las siguientes integrales:
+	\begin{eqnarray*}
+		I_{1} &=& \int_{0}^{\infty} e^{-x} ln x dx \\
+		I_{2} &=& \int_{0}^{1} \dfrac{1+x}{1-x^{3}} ln\dfrac{1}{x} dx
+	\end{eqnarray*}
+	El problema consiste en resolver las integrales con alg\'{u}n cambio de variable para tener un integrando suave en un intervalo finito.
+\end{frame}
+\begin{frame}
+	Se debe de obtener un resultado razonablemente bueno, teniendo que evaluar el integrando final con el menor n\'{u}mero ($N$) de veces que sea posible. Como criterio de convergencia debes de usar alguna cantidad como
+	\[ \epsilon = \dfrac{I - I_{N}}{I} < 10^{-n}\]
+	con n = $2,3,4,5,6$
+\end{frame}
+\begin{frame}
+En cada caso debes:
+\begin{enumerate}
+	\item indicar el(los) cambio(s) de variable utilizado(s).
+	\item el n\'{u}mero de puntos utilizados en la discretizaci\'{o}n.
+	\item el m\'{e}todo de integraci\'{o}n.
+	\item el resultado obtenido.
+	\item el error cometido respecto al valor de I.
+\end{enumerate}
+Nota: no se vale usar integraci\'{o}n por partes.
+\end{frame}
+\begin{frame}
+\frametitle{Para la integral I$_{1}$}
+El cambio de variable propuesto es:
+\begin{eqnarray*}
+x &=& e^{u} \\
+dx &=& u e^{u}
+\end{eqnarray*}
+\end{frame}
+\end{document}

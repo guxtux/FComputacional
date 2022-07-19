@@ -1,0 +1,44 @@
+\section{Errores numéricos}
+\begin{frame}[fragile]
+\frametitle{Errores numéricos}
+Los errores causados por problemas numéricos han producido catástrofes que han derivado en cuantiosas pérdidas humanas y económicas.
+\pause
+\begin{itemize}[<+->]
+\item Sonda espacial Mars.
+\item Misil Patriot.
+\item Explosión del Arianne 5.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Sonda Mars Climate Observer}
+\begin{itemize}[<+->]
+\item El 23 de septiembre de 1999 la sonda espacial Mars Climate Observer se pierde en la órbita marciana.
+\item La falla se debió al ''omitir'' la conversión de unidades inglesas (millas) en unidades métricas en uno de los módulos del sistema de navegación.
+\item La sonda entró a la atmósfera marciana 49 segundos antes de lo previsto con una velocidad superior a la prevista, con lo que se desintegró.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Fallo en misil Patriot}
+\begin{itemize}[<+->]
+\item El 25 de febrero de 1991 durante la Guerra del Golfo.
+\item Un misil Patriot falla al interceptar un misil Scud, y cae en un campamento americano, matando a 28 soldados.
+\item El contador de tiempo monitorizaba la posición cada $1/10$ segundos (pregunta: ¿la representación de $1/10$ en binario es periódica?)
+\item El misil utilizaba registros de 24 bits.
+\item El error que se generaba era de $0.000000095$ segundos.
+\item Autonomía del misil Patriot: 100 horas.
+\item Error total: $0.34$ segundos.
+\item Velocidad del misil: 1676 m/s
+\item Error de posición: $\sim500$ metros.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Explosión del Arianne 5}
+\begin{itemize}[<+->]
+\item El 4 de junio de 1996, un cohete Arianne 5 explotó 40 segundos después del lanzamiento.
+\item Las pérdidas económicas se calcularon en 500 millones de euros (actualizado)
+\item El sistema de control de la posición horizontal en el que el lanzamiento actuaba sobre los motores para evitar que se inclinara.
+\item La posición se obtenía como un número real de 64 bits, pero se truncaba a un tipo de dato entero con signo.
+\item Cuando la velocidad horizontal superó esta cantidad (\emph{overflow}), el sistema produjo un error de ejecución.
+\item Curiosamente, una vez superados los primeros segundos, este sistema dejaba de ser importante.
+\end{itemize}
+\end{frame}

@@ -1,0 +1,10 @@
+\documentclass[margin=5mm, tikz]{standalone}
+\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+    \draw (0, 0) rectangle node [pos=0.5] {$\underbrace{b_{1}}_{\mbox{signo}}$} (1.5, 2);
+    \draw (1.5, 0) rectangle node [pos=0.5] {$\underbrace{b_{2} \, b_{3} \, \ldots \, b_{12}}_{\mbox{exponente}}$} (4.5, 2);
+    \draw (4.5, 0) rectangle node [pos=0.5] {$\underbrace{b_{13} \, b_{14} \, \ldots \, b_{64}}_{\mbox{mantisa}}$} (7.5, 2);
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,121 @@
+\input{../Preambulos/preambulo_tarea}
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{Ejercicios de Tarea del Tema 1 \\ Curso de Física Computacional}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\textbf{Indicaciones: } Cada ejercicio debe de resolverse con un código en \python, recuerda que la solución debe de ser la más simple posible, es aquí en donde tendrás una primera referencia sobre la manera en que estás resolviendo un problema y esperamos que durante el curso, desarrolles las técnicas de programación necesarias para también mejorar tus códigos.
+\begin{enumerate}
+\item La distancia entre dos puntos $(x_{1},y_{1})$ y $(x_{2},y_{2})$ en el plano cartesiano está dada por la expresión:
+\begin{align*}
+d = \sqrt{(x_{1} - x_{2})^{2} + (y_{1} - y_{2})^{2}}
+\end{align*}
+Escribe un programa que calcule la distancia entre dos puntos cualesquiera $(x_{1}, y_{1})$ y $(x_{2}, y_{2})$ proporcionados por el usuario, el programa debe de calcular $d$ y se debe de presentar una gráfica con los puntos así como el valor de la distancia.
+\item A menudo los ingenieros miden la relación entre dos medidas de potencia en \textit{decibeles} o dB. La ecuación para esa relación de potencias en decibeles, está dada por
+\[ dB = 10 \log_{10} \dfrac{P_{2}}{P_{1}} \]
+donde $P_{2}$ es la nivel de potencia medido y $P_{1}$ es un nivel de potencia de referencia.
+\par
+Supongamos que el nivel de potencia de referencia $P_{1}$ es de 1 miliWatt, escribe un programa que acepte un valor de potencia $P_{2}$ y que convierta el valor de salida dB, con respecto al nivel de referencia de 1mW.
+\item Escribe un programa para evaluar la siguiente función para cualquier valor de $x$ que ingrese el usuario, donde $\ln$ es el logaritmo natural.
+\begin{align*}
+y(x) = \ln \left( \dfrac{1}{1-x} \right)
+\end{align*}
+El programa se debe de repitir para valores de $x$ válidos, en caso de que se ingrese un valor de $x$ inválido (que genere una indeterminación), mediante una excepción el programa se detiene avisando al usuario que introdujo un valor no válido.
+\item Estás apoyando a un biólogo a realizar un experimento en el cual se mide la tasa de crecimiento de una bacteria que se reproduce en diferentes medios de cultivo.
+\par
+El experimento muestra que en el medio \textbf{A}, la bacteria se reproduce cada $60$ minutos, en el medio \textbf{B} la bacteria se reproduce cada $90$ minutos. Supongamos que se coloca al inicio del experimento sólo una bacteria en cada medio de cultivo.
+\par
+Escribe un programa que calcule y escriba el número de bacterias presentes en cada medio de cultivo en intervalos de $3$ horas a partir del inicio del experimento, hasta haber completado un ciclo de $24$ horas. ¿Cuántas bacterias hay en cada medio de cultivo luego de las $24$ horas?
+\item La \textit{media geométrica} de un conjunto de valores $x_{1}$ a $x_{n}$ se define como la raíz n-ésima del producto de los valores
+\[ \text{media geométrica = } \sqrt[n]{x_{1}x_{2}x_{3} \ldots x_{n}}\]
+Escribe un programa que acepte un número arbitrario de valores positivos y que calcule tanto la media aritmética (el promedio) como la media geométrica.
+\par
+Usa un bucle para introducir los valores positivos, se le debe de preguntar al usuario si desea seguir introduciendo valores, si responde que no, se muestran los resultados de las medias aritméticas y geométricas. En caso de que el usuario proporcione un valor negativo, el programa se detiene y muestra los valores de las medias de los datos que haya introducido.
+\item Otro problema clásico en cómputo científico que involucra una serie infinita para evaluar una función, es el que considera la serie infinita de potencias para la función exponencial:
+\[e^{-x} = 1 + x + \dfrac{x^{2}}{2!} + \dfrac{x^{3}}{3!} +\cdots \hspace{1cm} (x^{2} < \infty)  \]
+Utiliza la serie anterior para calcular el valor de $e^{-x}$ para $x=0.1, 1, 10, 100, 1000$ con un error absoluto para cada caso, menor a $10^{-8}$.
+\item Usando el método de Horner, evalúa el polinomio $f(x)$ para valores de $x$ en el intervalo $[-3,3]$, con saltos de $x$ de valor $\Delta x = 0.5$, para:
+\begin{enumerate}
+\item $f(x) = 2 \: x^{4} - 20\: x^{3} + 70 \: x^{2} + 100 \: x + 48$
+\item $f(x) = x^{4} - 2 \: x^{3} - 12 \: x^{2} + 16 \: x - 40$
+\item $f(x) = x^{3} - 7 \: x^{2} + 14 \: x - 6$
+\item $f(x) = x^{3} + 2 \: x^{2} -  7 \: x + 4$
+\end{enumerate}
+Grafica cada una de las funciones así como los puntos obtenidos por el método de Horner, interpreta los resultados obtenidos.
+\item \label{problema_08} El valor de $\pi$ se puede calcular aproximando el área de un círculo unitario como el límite de una sucesión $p_{1}, p_{2}, \ldots$ descrita a continuación:
+\begin{enumerate}
+\item[a)] Se divide un círculo unitario en $2^{n}$ sectores (en el ejemplo, $n=3$).
+\item[b)] Se aproxima el área del sector por el área del triángulo isóceles.
+\item[c)] El ángulo $\theta_{n}$ es $2 \pi / 2^{n}$.
+\item[d)] El área del triángulo es $1/2 \sin \theta_{n}$.
+\end{enumerate}
+\begin{figure}[H]
+\centering
+\includestandalone{Figuras/circulo_pi}
+\caption{División en $n$ sectores.}
+\end{figure}
+La enésima aproximación a $\pi$ es: $p_{n}= 2^{n-1} \sin \theta_{n}$.
+\begin{enumerate}
+\item Demuestra que
+\[\sin \theta_{n} = \dfrac{\sin \theta_{n - 1}}{\left( 2 \left[ 1 + (1 - \sin^{2}\theta_{n - 1})^{\frac{1}{2}} \right] \right)^{\frac{1}{2}}} \]
+\item Usa esta relación de recurrencia para generar las sucesiones $\sin \theta_{n}$ y $p_{n}$ en el rango $3 \leq n \leq 20$ iniciando con $\sin \theta_{2} = 1$. Compara tus resultados con el valor de $\pi = 4.0 \: \arctan(1.0)$
+\end{enumerate}
+\item La sucesión de Fibonacci $1, 1, 2, 3, 5, 8, 13,\ldots$ está definida por la relación de recurrencia lineal
+\begin{equation*}
+\begin{cases}
+\lambda_{1} = 1 \hspace{0.5cm} \lambda_{2}= 1 \\
+\lambda_{n} = \lambda_{n - 1} + \lambda_{n - 2} \hspace{0.5cm} (n \geq 3)
+\end{cases}
+\end{equation*}
+Una fórmula para obtener el n-ésimo número de Fibonacci es
+\[ \lambda_{n} = \dfrac{1}{\sqrt{5}} \left\lbrace \left[ \dfrac{1}{2} (1 + \sqrt{5}) \right]^{n} - \left[ \dfrac{1}{2} (1 - \sqrt{5}) \right]^{n} \right\rbrace \]
+Calcula $\lambda_{n}$ en $3\leq n \leq 50$ usando tanto la relación de recurrencia como la fórmula. Discute los resultados obtenidos.
+\item La dinámica de un cometa está sometida por la fuerza gravitacional entre el cometa y el Sol, 
+\[ \textbf{f} = -G \: M \: m \:  \dfrac{\textbf{r}}{r^{3}} \]
+donde $ G= \num{6.67e11} \si{\newton\square\meter\per\square\kilo\gram}$ es la constante gravitacional, $M = \SI{1.99e30}{\kilo\gram}$ es la masa del Sol, \textit{m} es la masa del cometa, \textbf{r} es el vector posición del cometa medido desde el Sol, y \textit{r} es la magnitud de \textbf{r}.
+\par
+Escribe un programa para estudiar el movimiento del cometa Halley que tiene un afelio (el punto más alejado del Sol) de $\SI{5.28e12}{\meter}$ y la velocidad en el afelio es de $\SI{9.12e2}{\meter\per\second}$.
+\begin{enumerate}
+\item ¿Cuáles son las unidades tanto de tiempo como de longitud más pertinentes en el problema?
+\item Discute el error que se genera por el programa en cada período del cometa Halley.
+\item Grafica la trayectoria del cometa.
+\end{enumerate}
+\item Se te pide que propongas un modelo de estudio para describir un salto en motocicleta. La resistencia del aire de un objeto en movimiento está dada por 
+\[ \textbf{f}_{r} = - c \: A \: \rho \: v(\textbf{v})/2 \]
+donde $v(\textbf{v})$ es la velocidad y \textit{A} es la sección de área transversal del objeto en movimiento, $\rho$ es la densidad del aire y \textit{c} es un coeficiente en el orden de $1$, para los demás factores que no se enlistan. Si la sección de área transversal es $A = \SI{0.93}{\square\meter}$, la velocidad máxima con la que despega la motocicleta es de $\SI{67}{\meter\per\second}$, la densidad del aire es $\rho = \SI{1.2}{\kilo\gram\per\cubed\meter}$, la masa combinada de la motocicleta y la persona que maneja es de $\SI{250}{\kilo\gram}$, y el coeficiente $c = 1$.
+\par
+Calcula el ángulo de inclinación de la rampa de despegue, para que se consiga la mayor distancia de recorrido. Presenta una gráfica para ese valor de ángulo así como la trayectoria de la motocicleta.
+\item Consideremos una partícula bajo un campo gravitatorio uniforme vertical y una fuerza de resistencia $\mathbf{f}_{r} = - \kappa \: \nu(\mathbf{v})$, donde $\nu(\mathbf{v})$ es la velocidad de la partícula y $\kappa$ es un parámetro positivo.
+\par
+Analiza la dependencia de la altura y la velocidad de una gota de agua con diferentes $m/\kappa$, donde $m$ es la masa de la gota de agua, para simplificar, considera la razón como una constante. Grafica la velocidad terminal de la gota de lluvia contra $m/\kappa$, y compáralo con el resultado de una caída libre.
+\item Algunas constantes matemáticas son utilizadas con frecuencia en la física, tales como $\pi$, $e$ (la base de los logaritmos neperianos) y la constante de Euler que viene dada por
+\begin{align*}
+\gamma = \lim_{n \rightarrow \infty} \left( \sum_{k = 1}^{n} k^{ - 1} - \ln n \right)
+\end{align*}
+\begin{enumerate}
+\item Encuentra una forma para crear cada una de las constantes $\pi$ (que no sea la que se utilizó en el problema \ref{problema_08}), $e$ y $\gamma$.
+\item Después, considerando ya los elementos del lenguaje de programación, determina: la precisión y eficiencia. 
+\item Si se requiere utilizar los valores de las constantes dentro del código, ¿se debe generar en una sola ocasión y almacenarlo en un variable o se debe de generar en cada ocasión que se requiera?
+\end{enumerate}
+\end{enumerate}
+\section*{Cómo entregar los ejercicios}
+Se entrega un archivo *.py por cada ejercicio, si el ejercicio tiene varios incisos, deberán de nombrar el problema y agregar un sufijo con el inciso: Problema1\_1, Problema1\_2, etc.
+\par
+Cada archivo del ejercicio se dejará dentro de una carpeta cuyo nombre corresponde al ejercicio:
+\par
+\directory{Nombre\_Tarea\_01}
+\dirtree{%
+.1 /.
+.2 Problema\_01.
+.3 problema1\_1.py.
+.3 problema1\_2.py.
+.2 Problema\_02.
+.3 Problema2\_1.py.
+.3 Problema2\_2.py.
+.3 Problema2\_3.py.
+.2 {...}.
+.2 Problema\_n.
+}
+Se recibirán los ejercicios en una memoria USB el día que se indique como fecha de entrega, no se reciben por la plataforma Edmodo, ni por correo.	
+\end{document}

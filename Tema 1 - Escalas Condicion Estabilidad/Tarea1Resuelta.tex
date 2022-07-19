@@ -1,0 +1,90 @@
+\include{preambulo}
+\include{pream_codigo}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\renewcommand {\arraystretch}{1.5}
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+\title{Tema 1 - Problemas de la Tarea}
+\subtitle{Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+%\email{curso.fisica.comp@gmail.com}
+%\ptsize{10}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Problema 1}
+\begin{frame}
+\frametitle{Problema 1}
+La din\'{a}mica de un cometa est\'{a} sometida por la fuerza gravitacional entre el cometa y el Sol, 
+\[   \textbf{f} = -GMm \textbf{r}/r^{3} \]
+donde $ G=6.67 \times 10^{11} Nm^{2}/kg^{2}$ es la constante gravitacional, $M=1.99 \times 10^{30} kg$ es la masa del Sol, \textit{m} es la masa del cometa, \textbf{r} es el vector posici\'{o}n del cometa medido desde el Sol, y \textit{r} es la magnitud de \textbf{r}. Escribe un programa para estudiar el movimiento del cometa Halley que tiene un afelio (el punto m\'{a}s alejado del Sol) de $5.28 \times 10^{12}m$ y la velocidad en el afelio es de $9.12 \times 10^{2} m/s$
+\end{frame}
+\begin{frame}
+\begin{enumerate}
+\item ¿Cu\'{a}les son las unidades tanto de tiempo como de longitud m\'{a}s pertinentes en el problema?
+\item Discute el error que se genera por el programa en cada per\'{i}odo del cometa Halley.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+Para el primer inciso, las unidades de longitud m\'{a}s convenientes para el problema son las Unidades Astron\'{o}micas: $149597870700$ metros = \textbf{UA}
+\\
+\medskip
+Por lo que la distancia del afelio es 37.29 UA
+\end{frame}
+\begin{frame}
+\frametitle{Soluci\'{o}n}
+Considerando la segunda ecuaci\'{o}n de Newton, tenemos que:
+\[ f = ma = m \dfrac{dv}{dt} \]
+donde $a$ y $v$ son la aceleraci\'{o}n y velocidad del cuerpo o part\'{i}cula respectivamente, y $t$ es el tiempo.
+\end{frame}
+\begin{frame}
+Si dividimos el tiempo en cantidades pequeñas, del mismo tamaño de intervalo $\tau = t_{i+1} - t_{i}$, sabemos de nuestros cursos de mec\'{a}nica cl\'{a}sica que la velocidad al tiempo $t_{i}$ est\'{a} dada por el promedio de velocidad en el intervalo de tiempo $[t_{i},t_{i+1}]$
+\[ v_{i} \simeq \dfrac{x_{i+1} -x_{i}}{t_{i+1}-t_{i}} = \dfrac{x_{i+1}-x_{i}}{\tau}\]
+donde $\tau$ sea lo suficientemente pequeño.
+\end{frame}
+\begin{frame}
+Un algoritmo sencillo para encontrar la posici\'{o}n y la velocidad del objeto o part\'{i}cula en el tiempo $t_{i+1}$ con las variables mencionadas al tiempo $t_{i}$, es combinar las ecuaciones anteriores para obtener:
+\[ \begin{split}
+x_{i+1} &= x_{i} + \tau v_{i} \\
+v_{i+1} &= v_{i} + \dfrac{\tau}{m} f_{i}
+\end{split} \]
+\end{frame}
+\section{Problema 2}
+\begin{frame}
+\frametitle{Problema 2}
+Hay personas que luego no tienen nada qu\'{e} hacer, y algunos se dedican a saltar en motocicletas, se te pide que propongas un modelo de estudio para estos saltos. La resistencia del aire de un objeto en movimiento est\'{a} dada por 
+\[ \textbf{f}_{r} = - cA \rho v(\textbf{v})/2 \]
+donde $v(\textbf{v})$ es la velocidad y \textit{A} es la secci\'{o}n de \'{a}rea transversal del objeto en movimiento, $\rho$ es la densidad del aire y \textit{c} es un coeficiente en el orden de $1$, para los dem\'{a}s factores que no se enlistan. Si la secci\'{o}n de \'{a}rea transversal es $A=0.93m^{2}$, la velocidad m\'{a}xima con la que despega la motocicleta es de $67 m/s$, la densidad del aire es
+ $\rho = 1.2 kg/m^{3}$, la masa combinada de la motocicleta y la persona que maneja es de $250$ kg, y el coeficiente $c=1$, encuentra el \'{a}ngulo de inclinaci\'{o}n de la rampa de despegue, para que se consiga la mayor distancia de recorrido.
+\end{frame}
+\section{Problema 3}
+\begin{frame}
+\frametitle{Problema 3}
+El 25 de febrero de 1991, durante la guerra del Golfo, una bater\'{i}a de misiles Patriot americanos en Dharan (Arabia Saudita) no lograron interceptar un misil Scud iraqu\'{i}. Murieron 28 soldados americanos. La causa: los errores num\'{e}ricos por utilizar truncado en lugar de redondeo en el sistema que calcula el momento exacto en que debe ser lanzado el misil.
+\\
+\medskip
+Las computadoras de los Patriot que han de seguir la trayectoria del misil Scud, la predicen punto a punto en funci\'{o}n de su velocidad conocida y del momento en que fue detectado por última vez en el radar. La velocidad es un número real. El tiempo es una magnitud real pero el sistema la calculaba mediante un reloj interno que contaba d\'{e}cimas de segundo, por lo que representaban el tiempo como una variable entera. Cuanto m\'{a}s tiempo lleva el sistema funcionando m\'{a}s grande es el entero que representa el tiempo.
+\end{frame}
+\begin{frame}
+Los ordenadores del Patriot almacenan los números reales representados en punto flotante con una mantisa de 24 bits. Para convertir el tiempo entero en un número real se multiplica \'{e}ste por $1/10$, y se trunca el resultado (en lugar de redondearlo). El número $1/10$ se almacenaba truncado a 24 bits. El pequeño error debido al truncado, se hace grande cuando se multiplica por un número (entero) grande, y puede conducir a un error significativo. La bater\'{i}a de los Patriot llevaba en funcionamiento m\'{a}s de 100 horas, por lo que el tiempo entero era un número muy grande y el número real resultante tendr\'{a} un error cercano a $0.34$ segundos.
+\\
+\medskip
+Explica a detalle qu\'{e} fue lo que ocurri\'{o}.
+\end{frame}
+\section{Problema 4}
+\begin{frame}
+\frametitle{Problema 4}
+\end{frame}
+\section{Problema 5}
+\begin{frame}
+\frametitle{Problema 5}
+\end{frame}
+\end{document}

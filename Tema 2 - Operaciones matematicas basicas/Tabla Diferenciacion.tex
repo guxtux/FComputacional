@@ -1,0 +1,36 @@
+\documentclass[12pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{anysize}
+\marginsize{2cm}{2cm}{0cm}{2cm}
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{Tabla para el ejercicio de diferenciación \\ \begin{large}Curso Física Computacional\end{large}}
+\date{ }
+\begin{document}
+\maketitle
+Calcula la primera derivada de $\tan(x)$ en $x=1$ mediante las cinco aproximaciones por diferencias, utilizando $h=0.1,0.05,0.02$.\\
+Estima el error relativo de cada aproximación, usando el valor exacto.
+\begin{center}
+\begin{tabular}{l c c c c}
+Algoritmo & & $h=0.1$ & $h=0.05$ & $h=0.02$ \\
+\hline
+dif. hacia atrás & valor & & & \\
+ & error rel. & & & \\
+ \hline
+dif. hacia adelante &valor & & & \\
+ & error rel. & & & \\
+ \hline
+dif. centrales &valor & & & \\
+ & error rel. & & & \\
+ \hline
+dif. hacia atrás 3 puntos & valor& & & \\
+ & error rel. & & & \\
+ \hline
+dif. hacia adelante 3 puntos & valor& & & \\
+ & error rel. & & & \\
+ \hline
+\end{tabular}
+\end{center}
+\end{document}

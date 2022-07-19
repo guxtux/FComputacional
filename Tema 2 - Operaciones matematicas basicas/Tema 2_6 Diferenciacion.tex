@@ -1,0 +1,322 @@
+\include{pre_documento}
+\include{pre_codigo}
+\begin{document}
+\title{Tema 2 - Operaciones matemáticas básicas}
+\subtitle{Diferenciación numérica}
+\author[]{M. en C. Gustavo Contreras Mayén}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\begin{frame}{Contenido}
+\tableofcontents[pausesections]
+\end{frame}
+\section{Problema inicial}
+\begin{frame}
+\frametitle{Problema inicial}
+Dada una función $f(x)$ y un valor $x$, queremos calcular
+\[\dfrac{d^{n}f}{dx^{n}} \]
+\end{frame}
+\begin{frame}
+Usamos la diferenciación numérica para el siguente problema: se nos da una función $y=f(x)$ y deseamos obtener una de sus derivadas en el punto $x=x_{k}$.
+\\
+\bigskip
+Cuando decimos ''dada" significa que, o bien tenemos un algoritmo para calcular la función, o contamos con un conjunto de puntos discretos $(x_{i}, y_{i})$, $i = 0, 1,\ldots,N$. En cualquier caso, tenemos acceso a un número finito de pares de datos $(x, y)$ a partir del cual, podemos calcular la derivada.
+\end{frame}
+\begin{frame}
+Si estás pensando en que la diferenciación numérica se relaciona con interpolación, tienes toda la razón. Ya que es un medio para encontrar la derivada a partir de una aproximación con un polinomio, y luego diferenciar.
+\end{frame}
+\begin{frame}
+Una herramienta igualmente eficaz es el desarrollo en serie de Taylor de $f(x)$ sobre el punto de $x_{k}$, lo que representa como ventaja de que nos proporciona información acerca del error cometido en la aproximación.
+\\
+\bigskip
+La diferenciación numérica no es un proceso particularmente exacto: se presentan un conflicto entre los errores de redondeo (debido a la precisión de la máquina) y los errores inherentes a la interpolación. Por esta razón, la derivada de una función no debe de ser calculada con la misma precisión que la propia función.
+\end{frame}
+\section{Aproximación por diferencias finitas}
+\begin{frame}
+\frametitle{Aproximación por diferencias finitas}
+La derivación por aproximación por diferencias finitas de las derivadas de $f(x)$, se basa en el desarrollo de series de Taylor hacia adelante y hacia atrás de $f(x)$ alrededor de $x$:
+\fontsize{11}{11}\selectfont
+\begin{eqnarray*}
+f(x+h) &=& f(x) + hf'(x) + \dfrac{h^{2}}{2!}f''(x) + \dfrac{h^{3}}{3!}f'''(x) + \dfrac{h^{4}}{4!}f^{4}(x) + \ldots \\
+\visible<2->{f(x-h) &=& f(x) - hf'(x) + \dfrac{h^{2}}{2!}f''(x) - \dfrac{h^{3}}{3!}f'''(x) + \dfrac{h^{4}}{4!}f^{4}(x) - \ldots} \\
+\visible<3->{f(x+2h) &=& f(x) + 2hf'(x) + \dfrac{(2h)^{2}}{2!}f''(x) + \dfrac{(2h)^{3}}{3!}f'''(x) + \dfrac{(2h)^{4}}{4!}f^{4}(x) + \ldots} \\
+\visible<4->{f(x-2h) &=& f(x) - 2hf'(x) + \dfrac{(2h)^{2}}{2!}f''(x) - \dfrac{(2h)^{3}}{3!}f'''(x) + \dfrac{(2h)^{4}}{4!}f^{4}(x) - \ldots}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Suma de las diferencias}
+\fontsize{12}{12}\selectfont
+\begin{eqnarray*}
+f(x+h)+f(x-h) &=& 2f(x) + h^{2}f''(x) + \dfrac{h^{4}}{12}f^{4}(x) + \ldots \\
+\visible<2->{f(x+h) - f(x-h) &=& 2h f'(x) + \dfrac{h^{3}}{3} f'''(x) + \ldots} \\
+\visible<3->{f(x+2h) + f(x-2h) &=& 2f(x)+4h^{2}f''(x) + \dfrac{4h^{4}}{3}f^{4}(x) +\ldots} \\
+\visible<4->{f(x+2h)-f(x-2h) &=& 4hf'(x) + \dfrac{8h^{3}}{3} f'''(x) + \ldots }
+\end{eqnarray*}
+\end{frame}
+\subsection{Aproximación por diferencias centrales}
+\begin{frame}
+\frametitle{Aproximación por diferencias centrales}
+Tomando la segunda suma de la lista anterior, de donde despejamos $f'(x)$, tenemos
+\[ f'(x) = \dfrac{f(x+h) - f(x-h)}{2h} - \dfrac{h^{2}}{6} f'''(x) - \ldots \]
+equivalentemente
+\[ f'(x) = \dfrac{f(x+h)-f(x-h)}{2h} + O(h^{2})\]
+que es llamada \textcolor{blue}{aproximación por diferencias centrales} de $f'(x)$.
+\end{frame}
+\begin{frame}
+De manera similar, obtenemos la aproximación por diferencias centrales de $f''(x)$:
+\[  f''(x) =  \dfrac{f(x+h)- 2f(x) + f(x-h)}{h^{2}} + \dfrac{h^{2}}{12}f^{4}(x) + \ldots\]
+es decir:
+\[ f''(x) =  \dfrac{f(x+h)- 2f(x) + f(x-h)}{h^{2}} + O(h^{2})\]
+\end{frame}
+\section{Aproximación por diferencias hacia adelante/atrás}
+\begin{frame}
+\frametitle{Aproximación por diferencias hacia adelante/atrás}
+Las aproximaciones por diferencias centrales  no siempre son útiles. Por ejemplo, considera la situación en que se da la función en los  $n$ puntos discretos $x_{0}, x_{1}, \ldots,x_{n}$.  Dado que las diferencias centrales utilizan valores de la función en cada lado de $x$, no sería posible calcular las derivadas en $x_{0}$ y $x_{n}$.
+\\
+\bigskip
+Es cierto, que necesitamos una expresión para diferencias finitas que evalúe la función en un solo lado de $x$. Estas expresiones son llamadas aproximaciones por diferencias finitas \textcolor{red}{hacia adelante} y \textcolor{blue}{hacia atrás}.
+\end{frame}
+\begin{frame}
+Despejamos $f'(x)$ de la primera lista de expresiones por diferencias, para obtener:
+\[ f'(x) = \dfrac{f(x+h)-f(x)}{h} - \dfrac{h}{2} f''(x) - \dfrac{h^{2}}{6} f'''(x) - \ldots \]
+Manteniendo los primeros términos, tenemos la aproximación por diferencias centrales hacia adelante:
+\[ f'(x) = \dfrac{f(x+h)-f(x)}{h} + O(h) \]
+\end{frame}
+\begin{frame}
+De manera análoga, obtenemos la aproximación por diferencias hacia atrás:
+\[ f'(x) = \dfrac{f(x)-f(x-h)}{h} + O(h) \]
+Hay que hacer notar que el error es $O(h)$, que no es tan bueno como $O(h^{2})$ en la aproximación por diferencias centrales.
+\end{frame}
+\section{Segunda aproximación por diferencias centrales}
+\begin{frame}
+\frametitle{Segunda aproximación por diferencias centrales}
+Las aproximaciones por diferencias centrales del tipo $O(h)$ no son tan populares debido a que es más común usar expresiones del tipo $O(h^{2})$.
+\\
+\bigskip
+Para obtener una fórmula con diferencias centrales con ese orden de error, tenemos que incluir más términos de la serie de Taylor.
+\end{frame}
+\begin{frame}
+\fontsize{11}{11}\selectfont
+Consideremos
+\begin{eqnarray*}
+f(x+h) &=& f(x) + hf'(x) + \dfrac{h^{2}}{2!}f''(x) + \dfrac{h^{3}}{3!}f'''(x) + \dfrac{h^{4}}{4!}f^{4}(x) + \ldots \\
+f(x+2h) &=& f(x) + 2hf'(x) + \dfrac{(2h)^{2}}{2!}f''(x) + \dfrac{(2h)^{3}}{3!}f'''(x) + \dfrac{(2h)^{4}}{4!}f^{4}(x) + \ldots
+\end{eqnarray*}
+Eliminamos $f''(x)$ multiplicando la primera ecuación y restándola de la segunda, para obtener:
+\[ f(x+2h) - 4f(x+h) = -3 f(x) - 2 hf'(x) + \dfrac{2h^{3}}{3} f'''(x) + \ldots\]
+\end{frame}
+\begin{frame}
+Por lo tanto
+\[ f'(x) = \dfrac{-f(x+2h) + 4 f(x+h) - 3 f(x)}{2h} + \dfrac{h^{2}}{3}f'''(x) + \ldots\]
+que es
+\[ f'(x) = \dfrac{-f(x+2h) + 4 f(x+h) - 3 f(x)}{2h} + O(h^{2})\]
+siendo la expresión para la segunda aproximación por diferencias finitas hacia adelante.
+\end{frame}
+\section{Errores en las aproximaciones por diferencias finitas}
+\begin{frame}
+\frametitle{Errores en las aproximaciones por diferencias finitas}
+El efecto del error por redondeo puede ser profundo, si $h$ es muy pequeña, valores de $f(x)$, $f(x \pm h)$, $f(x \pm 2h)$, etc. serán aproximadamente iguales.
+\\
+\bigskip
+Cuando se multiplican por los coeficientes y se suman, podemos perder un número grande de términos. Por otro lado, no debemos de hacer muy grande el valor de $h$, ya que el error debido al truncamiento, sería excesivo.
+\end{frame}
+\begin{frame}
+Para manejar esta situación que siempre se va a presentar, podemos apoyarnos con las siguientes opciones:
+\begin{enumerate}
+\item Usar doble precisión.
+\item Usar diferencias finitas en donde se alcance el orden de $O(h^{2})$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Veamos un ejemplo:}
+Calcular la segunda derivada de $f(x)=exp(-x)$ en $x=1$ a partir de la fórmula de diferencias centrales; calcula el error relativo, el valor exacto es $f''(1) = exp(-1) = 0.36787944$
+\end{frame}
+\begin{frame}
+\fontsize{12}{12}\selectfont
+\begin{center}
+\begin{tabular}{c | l | l}
+\hline
+h & Segunda derivada & Error \\ \hline
+$0.64$ & $0.380609096726$ & $0.0127296567262$ \\ \hline
+$0.32$ & $0.371029413951$ & $0.00314997395074$ \\ \hline
+$0.16$ & $0.368664920656$ & $0.000785480656265$ \\ \hline
+$0.08$ & $0.368075685401$ & $0.000196245401341$ \\ \hline
+$0.04$ & $0.36792849438$ & $4.90543797212e-05$ \\ \hline
+$0.02$ & $0.367891703983$ & $1.22639830198e-05$ \\ \hline
+$0.01$ & $0.367882506844$ & $3.0668437197e-06$ \\ \hline
+$0.005$ & $0.367880207588$ & $7.67587933936e-07$ \\ \hline
+$0.0025$ & $0.367879632774$ & $1.92774403829e-07$ \\ \hline
+$0.00125$ & $0.36787948904$ & $4.90404901687e-08$ \\ \hline
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+El siguiente arreglo tiene por dimensiones $a=100$ mm, $b=120$ mm, $c=150$ mm y $d=180$ mm
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw (0,0) node [above left] {A} circle (0.05);
+\draw (1.8,2) node [above left] {B} circle (0.05);
+\draw (3.5,2.5)node [above right] {C} circle (0.05);
+\draw (6,0) node [above right] {D} circle (0.05);
+\draw [dashed] (0,0) -- node [midway, below] {d} (6,0);
+\draw [thick] (0,0) -- node [midway, above] {a} +(1.8,2) -- node [midway, above] {b}(3.5,2.5) -- node [midway, above] {c} (6,0);
+\draw [pattern= north east lines](-0.2,-0.2) rectangle (0.2,0);
+\draw [pattern= north east lines](5.8,-0.2) rectangle (6.2,0);
+\draw [->](0.5,0) arc (0:27:1cm);
+\draw (0.7,0.3) node {$\alpha$};
+\draw (2,2) -- (3.1,2);
+\draw [->](2.8,2) arc (0:17:1cm);
+\draw (3.3,2.1) node {$\beta$};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}
+Se puede demostrar a partir de la geometría del problema que la relación entre los ángulos $\alpha$ y $\beta$ es:
+\[ (d - a \cos \alpha - b \cos \beta)^{2} + (a \sin \alpha + b \sin \beta)^{2} - c^{2} = 0\]
+Para un valor dado de $\alpha$, podemos resolver la ecuación para $\beta$, mediante alguno de los métodos para encontrar raíces que ya hemos visto. Haciendo para $\alpha=0^{\circ}, 5^{\circ}, 10^{\circ},\ldots, 30^{\circ}$, los resultados son:
+\begin{center}
+\fontsize{10}{10}\selectfont
+\begin{tabular}{c | c | c | c | c | c | c | c}
+$\alpha$ (grados) & $0$ & $5$ & $10$ & $15$ & $20$ & $25$ & $30$  \\ \hline
+$\beta$ (rad) & $1.6595$ & $1.5434$ & $1.4186$ & $1.2925$ & $1.1712$ & $1.0585$ & $0.9561$
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+Si el segmento AB gira con velocidad angular constante de 25 rad/s, con el método de diferencias finitas de orden $O(h^{2})$, calcula la velocidad angular $d\beta / dt$ del segmento BC contra el ángulo $\alpha$
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+La velocidad angular de BC es:
+\[ \dfrac{d\beta}{dt} = \dfrac{d\beta}{d\alpha}\dfrac{d\alpha}{dt} = 25\dfrac{d\beta}{d\alpha} \text{rad/s}\]
+donde $d\beta/d\alpha$ se puede estimar con una aproximación de diferencias finitas, tomando los datos de la tabla anterior. Para los puntos extremos se usarían las diferencias hacia adelante y hacia atrás de orden $O(h^{2})$, mientras que para los puntos de en medio, el cálculo se hace con las diferencias centrales.
+\end{frame}
+\begin{frame}
+Nótese que el incremento de $\alpha$ es
+\[h = (5 \text{ grados}) \left( \frac{\pi}{180} \text{ rad} / \text{grados} \right) = 0.087266 \text{ rad}\]
+Así tenemos que:
+\begin{eqnarray*}
+\dot{\beta}(0^{\circ}) &=&  25 \dfrac{-3 \beta(0^{\circ})+ 4 \beta(5^{\circ})-\beta(10^{\circ})}{2h} = -32.01 \text{rad} \\
+\dot{\beta}(5^{\circ}) &=& \dfrac{\beta(10^{\circ})- \beta(0^{\circ})}{2h} = -34.51 \text{rad/s}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio para entregar: Completa la tabla}
+\begin{center}
+\fontsize{12}{12}\selectfont
+\begin{tabular}{c | c | c | c | c | c | c | c}
+$\alpha$ (grados) & $0$ & $5$ & $10$ & $15$ & $20$ & $25$ & $30$  \\ \hline
+$\dot{\beta}$ (rad/s) & $-32.01$ & $-34.51$ &  &  &  &  & 
+\end{tabular}
+\end{center}
+\textcolor{red}{Debes de entregar la tabla y el código en \python.}
+\end{frame}
+%\begin{frame}
+%\frametitle{Ejercicio resuelto}
+%\begin{center}
+%\fontsize{12}{12}\selectfont
+%\begin{tabular}{c | c | c | c | c | c | c | c}
+%$\alpha$ (grados) & 0 & 5 & 10 & 15 & 20 & 25 & 30  \\ \hline
+%$\dot{\beta}$ (rad/s) & -32.01 & -34.51 & -35.94 & -35.44 & -33.52 & -30.81  & -27.86 
+%\end{tabular}
+%\end{center}
+%\textcolor{red}{Debe de entregarse la tabla y el código en python.}
+%\end{frame}
+%
+\section{Extrapolación de Richardson}
+\begin{frame}
+\frametitle{Extrapolación de Richardson}
+La Extrapolación de Richardson es un método sencillo para aumentar la precisión de ciertos procedimientos numéricos, incluyendo las aproximaciones por diferencias finitas.
+\\
+\bigskip
+Supongamos que tenemos la forma de calcular una cantidad $G$. Por otra parte, si consideramos que el resultado depende de un parámetro $h$, hagamos la aproximación por $g(h)$, tenemos que $G=g(h)+E(h)$, donde $E(h)$ representa el error.
+\end{frame}
+\begin{frame}
+La extrapolación de Richardson puede remover el error, siempre que tenga la forma $E(h) = ch^{p}$, donde $c$ y $p$ son constantes. Iniciamos el cálculo para varios valores de $h$, digamos $h=h_{1}$, así
+\[ G = g(h_{1}) + c h_{1}^{p}\]
+Repetimos el cálculo con $h=h_{2}$, por tanto:
+\[ G = g(h_{2}) + c h_{2}^{p} \]
+\end{frame}
+\begin{frame}
+Eliminando $c$ y resolviendo para $G$, tenemos:
+\[ G = \dfrac{(h_{1}/h_{2})^{p} g(h_{2}) - g(h_{1})}{(h_{1}/h_{2})^{p}-1}\]
+que es la fórmula de Extrapolación de Richardson. En la práctica se usa $h_{2} = h_{1}/2$, quedando
+\[ G = \dfrac{2^{p} g(h_{1}/2) - g(h_{1})}{2^{p}-1}\]
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Usemos el ejemplo de $(exp(-x))''$ en $x=1$, consideremos los valores de la tabla con seis dígitos.
+\\
+\bigskip
+Dado que la extrapolación contine errores por truncamiento, debemos limitarnos a los valores de $h$ que producen redondeo insignificante.
+\end{frame}
+\begin{frame}
+De la tabla anterior que calculamos, tenemos que:
+\[ g(0.64) = 0.380609 \hspace{2cm} g(0.32) = 0.371029\]
+El error de truncamiento en la aproximación central por diferencias finitas es:
+\[E(h) = O(h^{2}) = c_{1}h^{2} + c_{2}h^{4} + c_{3}h^{6} + \ldots\]
+\end{frame}
+\begin{frame}
+Por lo que podemos eliminar el primer término del error (dominante), si usamos $p=2$ y $h_{1}=0.64$, así
+\[ \begin{split}
+G =& \dfrac{2^{2}g(0.32)- g(0.64}{2^{2}-1} = \dfrac{4(0.371035)-0.380610}{3} \\
+ =& 0.367843
+\end{split} \]
+Que es una aproximación de $(exp(-x))''$ con un error $=O(h^{4})$. Que es el mejor valor obtenido en comparación de los obtenidos con precisión de ocho dígitos.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Teniendo en cuenta los puntos de datos uniformemente espaciados:
+\begin{center}
+\begin{tabular}{c | c | c | c | c | c }
+x & $0$ & $0.1$ & $0.2$ & $0.3$ & $0.4$ \\ \hline
+f(x) & $0.0000$ & $0.0819$ & $0.1341$ & $0.1646$ & $0.1797$
+\end{tabular}
+\end{center}
+Calcular $f'(x)$ y $f''(x)$ en $x=0$ y $x=0.2$, usando la aproximación por diferencias finitas de orden $O(h^{2})$.
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+Usando la aproximación por diferencias finitas de orden $O(h^{2})$, de la lista de diferencias hacia adelante, tenemos:
+\[ \begin{split} 
+f'(0) =& \dfrac{-3f(0) + 4f(0.1) - f(0.2)}{2(0.1)} = 0.967 \\
+f''(0) =& \dfrac{2 f(0) - 5f(0.1) + 4f(0.2) - f(0.3)}{(0.1)^{2}} = -3.77
+\end{split} \]
+\end{frame}
+\begin{frame}
+Si usamos ahora la aproximación por diferencias centrales:
+\[ \begin{split}
+f'(0.2) =& \dfrac{-f(0.1) + f(0.3)}{2(0.1)} = 0.4135 \\
+f''(0.2) =& \dfrac{f(0.1)-2f(0.2) + f(0.3)}{(0.1)^{2}} = -2.17
+\end{split} \]
+\end{frame}
+\begin{frame}
+\frametitle{Otro Ejemplo}
+Usando los siguientes datos(del ejemplo anterior):
+\begin{center}
+\begin{tabular}{c | c | c | c | c | c }
+x & $0$ & $0.1$ & $0.2$ & $0.3$ & $0.4$ \\ \hline
+f(x) & $0.0000$ & $0.0819$ & $0.1341$ & $0.1646$ & $0.1797$
+\end{tabular}
+\end{center}
+Calcular $f'(0)$ con la mayor precisión posible.
+\\
+\medskip
+Una solución es usar el método de extrapolación de Richardson con aproximación de diferencias finitas.
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+Iniciamos con la segunda aproximación por diferencias hacia adelante de orden $O(h^{2})$ para $f'(0)$: usamos en una $h=0.2$ y en otra $h=0.1$
+\[ \begin{split}
+g(0.2) =& \dfrac{-3f(0) + 4f(0.2) - f(0.4)}{2(0.2)} = 0.8918 \\
+g(0.1) =& \dfrac{-3f(0) + 4f(0.1) - f(0.2)}{2(0.1)} = 0.9675
+\end{split} \]
+Recordemos que el error en ambas aproximaciones, es de la forma $E(h) = c_{1}h^{2} + c_{2} h^{4} + c_{3}h^{5} + \ldots$. 
+\end{frame}
+\begin{frame}
+Usamos la extrapolación de Richardson para eliminar el término dominante. Con $p=2$, resulta
+\[ f'(0) \simeq G = \dfrac{2^{2}g(0.1)-g(0.2)}{2^{2}-1}=0.9927 \]
+la cual es una aproximación por diferencias finitas de orden $O(h^{4})$.
+\end{frame}
+\end{document}

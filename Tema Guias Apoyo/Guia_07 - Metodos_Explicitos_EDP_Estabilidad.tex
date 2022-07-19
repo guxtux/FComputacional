@@ -1,0 +1,242 @@
+\input{../Preambulos/pre_guia_doc}
+\input{../Preambulos/pre_codigo_guia}
+\title{Análisis de estabilidad de Von Neumann y métodos implícitos para EDP \\ \begin{Large}Curso de Física Computacional - Guía de apoyo \end{Large}}
+\author{M. en C. Gustavo Contreras Mayén.}
+%\input{../Preambulos/pre_codigo_guia}
+\begin{document}
+\fontsize{14}{14}\selectfont
+\maketitle
+\section{Análisis de estabilidad de Von Neumann.}
+La técnica estándar para evaluar la estabilidad de los esquemas de diferencias finita aplicadas a las EDP lineales (generalmente dependientes del tiempo) es el denominado \emph{análisis de estabilidad de von Neumann}.
+\par
+La estabilidad de un esquema numérico esencialmente se refiere a la forma en que los errores evolucionan durante la propagación recursiva de la solución. Se considera que un enfoque es inestable si los errores asociados crecen por acumulación sucesiva más allá de límites manejables, produciendo eventualmente una solución ilimitada.
+\par
+El análisis de von Neumann se basa en los siguientes supuestos:
+\begin{enumerate}
+\item la EDP tiene coeficientes constantes (o varían tan lentamente como para considerarse constantes)
+\item la EDP se resuelve sujeto a condiciones de frontera periódicas (implicando valores vinculados en la frontera opuesta)
+\end{enumerate}
+No obstante, el análisis resulta útil incluso en los casos en que las condiciones de frontera son en realidad no periódicas. El análisis funciona con el error de redondeo local, definido como la diferencia entre \emph{la solución de precisión finita} $\tilde{u}_{i}^{n}$ y \emph{la solución discreta exacta} $u_{i}^{n}$ (lo que resulta en la ausencia de errores de redondeo):
+\begin{equation}
+\varepsilon_{i}^{n} \equiv \tilde{u}_{i}^{n} - u_{i}^{n}
+\label{eq:ecuacion_13_55}
+\end{equation}
+Con esto, el error debe satisfacer la misma ecuación diferencial que la solución exacta.
+\par
+Para las condiciones de frontera periódicas sobre el dominio $[0, L]$, el error se puede representar como una serie discreta de Fourier:
+\begin{equation}
+\varepsilon (x, t) = \sum_{m} \xi_{m} (t) \: e^{\ell \: k_{m} \: x}
+\label{eq:ecuacion_13_56}
+\end{equation}
+con el número real de onda $k_{m} = 2 \: \pi \: m / L$ definida por los enteros $m = 1, 2, \ldots, N_{x}$ donde $N_{x} = [ L / h_{x} +  1]$.
+\par
+En particular, el error asociado para el nodo espacial $x_{i} = (i - 1) \: h_{x}$ y el tiempo $t_{n} = n \: h_{t}$, está dado por
+\begin{align*}
+\varepsilon_{i}^{n} \equiv \sum_{m} \xi_{m} (n \: h_{t}) \: \exp \left[ \ell \: k_{m} \: i \: h_{x} \right]
+\end{align*}
+donde $\ell = \sqrt{-1}$ es la unidad imaginaria (para no confundirla con el índice $i$), y cada coeficinete $\xi_{m}$ también incorpora un factor independiente de posición $\exp(-\ell \: k_{m} \: h_{x})$ que se origina a partir de la definición de los nodos.
+\par
+Los coeficientes $\xi$ obviamente dependen sólo del tiempo (índice $n$) y del vector de onda (índice $m$), mientras que las exponenciales dependen de la posición (índice $i$) y del vector de onda (índice $m$).
+\par
+Para las ecuaciones de diferencias lineales (que provienen de derivadas de EDP lineales), resulta suficiente analizar la estabilidad de un único armónico de Fourier del término de error, con el número de onda denotado simplemente por $k$.
+\par
+Tal modo propio genérico (solución independiente) de la ecuación de diferencias puede escribirse bajo la forma general:
+\begin{equation}
+\varepsilon_{i}^{n} = \varepsilon(k)^{n} \: \exp(\ell \: k \: i \: h_{x})
+\label{eq:ecuacion_13_57}
+\end{equation}
+donde el factor de amplificación $\xi$ es en general una función compleja de $k$. Una característica esencial del análisis de von Neumann es la dependencia de la ley de potencias del modo propio en el tiempo, es decir, por la enésima potencia del factor de amplificación después de $n$ pasos de tiempo. La propagación temporal es obviamente \emph{estable} sólo si el valor absoluto del factor de amplificación es subunitario:
+\begin{equation}
+\vert \xi (k) \vert < 1
+\label{eq:ecuacion_13_58}
+\end{equation}
+dado que, de tal manera, no pueden existir modos propios del término de error que crecen exponencialmente.
+\par
+Como procedimiento general para establecer si, o en qué condiciones, se cumple el criterio de estabilidad (\ref{eq:ecuacion_13_58}), se sustituye el modo propio genérico (\ref{eq:ecuacion_13_57}) en la ecuación de diferencias resultante discretizando la EDP, y expresa $\xi(k)$ a partir del mismo. Específicamente, en el caso de la ecuación de difusión discretizada por el esquema FCTS explícito, los modos propios deben satisfacer (revisa la presentación que se mostró en clase)
+\begin{equation}
+u_{i}^{n + 1} = \lambda \: u_{i - 1}^{n} + (1 - 2 \lambda) \: u_{i}^{n} + \lambda \: u_{i + 1}^{n} \hspace{0.5cm} i = 2, 3, \ldots, N_{x} -1
+\label{eq:ecuacion_13_46}
+\end{equation}
+por lo que
+\begin{equation}
+\varepsilon_{i}^{n + 1} = \lambda \: \varepsilon_{i - 1}^{n} + (1 - 2 \lambda) \: \varepsilon_{i}^{n} + \lambda \: \varepsilon_{i + 1}^{n}
+\label{eq:ecuacion_13_59}
+\end{equation}
+sustituyendo en la ec. (\ref{eq:ecuacion_13_57}) para los modos propios genéricos, resulta
+\begin{align*}
+\varepsilon = \lambda \: \exp (- \ell \: k \: h_{x}) + (1 - 2 \: \lambda) + \lambda \: \exp(\ell \: k \: h_{x})
+\end{align*}
+Combinando las exponenciales para obtener $2 \: \cos (k \: h_{x})$, usando además la identidad $1 - \cos \: x =  2 \: \sin^{2} (x/2)$, obtenemos la expresión para el factor de amplificación:
+\begin{equation}
+\varepsilon = 1 - 4 \: \lambda \:  \sin^{2} (k \: h_{x} / 2)
+\label{eq:ecuacion_13_60}
+\end{equation}
+Considerando que $0 \leq \sin^{2}(k \: h_{x} / 2) \leq 1$, el criterio de estabilidad de von Neumann (\ref{eq:ecuacion_13_58}), sólo se puede cumplir si el parámetro de discretización $\lambda$ satisface la siguiente condición:
+\begin{equation}
+0 < \lambda < 1/2
+\label{eq:ecuacion_13_61}
+\end{equation}
+Teniendo en cuenta la expresión de $\lambda$ (revisa de nuevo la presentación de la clase):
+\begin{equation}
+\lambda =  \dfrac{D \: h_{t}}{h_{x}^{2}}
+\label{eq:ecuacion_13_47}
+\end{equation}
+la condición de estabilidad es
+\begin{equation}
+h_{t} < \dfrac{1}{2} \: \dfrac{h_{x}^{2}}{D}
+\label{eq:ecuacion_13_62}
+\end{equation}
+Por lo tanto, el tamaño de paso de tiempo $h_{t}$ que asegura la estabilidad del algoritmo FTCS está limitado por arriba de la mitad del \emph{tiempo de difusión} característico a través de la distancia $h_{x} (\tau_{D}^{} = h_{x}^{2} / D$).
+En consecuencia, el método explícito basado en el esquema de discretización FTCS es \emph{condicionalmente estable}, por lo cual, el valor crítico $\lambda = 1/2$ separa los regímenes estable e inestable.
+\newpage
+\section{Método implícito de diferencias finitas.}
+Con referencia al método explícito de FTCS desarrollado en la clase, al introducir un cambio aparentemente menor, refiriéndose al paso de tiempo, $t_{n}$ contra $t_{n+1}$, en el que las derivadas discretizadas de tiempo y espacio se igualan, se produce un cambio cualitativo en la estabilidad de la propagación temporal de la solución, es decir, conduce a un método \emph{incondicionalmente estable}.
+\par
+De hecho, tomando como referencia $t_{n+1}$, la misma aproximación discreta de la derivada de tiempo ahora se convierte en un esquema de diferencia hacia atrás:
+\begin{equation}
+\left( \dfrac{\partial u}{\partial t} \right)_{i, n+1} = \dfrac{u_{i}^{n+1} - u_{i}^{n}}{h_{t}} + O(h_{t})
+\label{eq:ecuacion_13_63}
+\end{equation}
+La derivada espacial, a su vez, debe construirse de acuerdo con los valores del paso de tiempo $t_{n+1}$:
+\begin{equation}
+\left( \dfrac{\partial^{2} u}{\partial x^{2}} \right)_{i, n+1} = \dfrac{u_{i+1}^{n+1} - 2\: u_{i}^{n+1} + u_{i-1}^{n+1}}{h^{2}} + O(h_{x}^{2})
+\label{eq:ecuacion_13_64}
+\end{equation}
+La ecuación en diferencias resultantes para el punto espacio-temporal $(x_{i}, t_{n+1}$ es
+\begin{equation}
+\dfrac{u_{i}^{n+1} - u_{i}^{n}}{h_{t}} =  D \: \dfrac{u_{i+1}^{n+1} - 2\: u_{i}^{n+1} + u_{i-1}^{n+1}}{h_{x}^{2}}
+\label{eq:ecuacion_13_65}
+\end{equation}
+la ecuación anterior, representa el llamado \emph{método espacio - temporal hacia atrás}, \textcolor{blue}{Backward-Time Central-Space (BTCS)} y es, análogo al método FTCS, una aproximación para la ecuación de difusión de orden $O(h_{x}^{2} + h_{t})$.
+\begin{figure}[H]
+	\centering
+	\includestandalone{Figuras/mallaSolucionEDP_05}
+	\caption{Esquemas de discretización, en esta guía se revisa el BTCS y el de Crack-Nicholson.}
+	\label{fig:figura_01}
+\end{figure}
+Al re-agrupar los términos, vemos con antes que $\lambda = D \: h_{t} / h_{x}^{2}$, se obtienen los componentes $u_{i}^{n+1}$ de la solución propagada en los puntos interiores de la malla
+\begin{equation}
+- \lambda \: u_{i-1}^{n+1} + (1 + 2 \: \lambda) \: u_{i}^{n+1} - \lambda \: u_{i+1}^{n+1} = u_{i}^{n}, \hspace{0.5cm} i = 2, 3, \ldots, N_{x} - 1
+\label{eq:ecuacion_13_66}
+\end{equation}
+Este sistema debe resolverse junto con las condiciones iniciales y de frontera apropiadas. En particular, las condiciones de Dirichlet,
+\begin{equation}
+u_{1}^{n+1} = u_{1}^{n} = u_{0}^{0}, \hspace{1cm} u_{N_{x}}^{n+1} = u_{N_{x}}^{n} = u_{L}^{0}
+\label{eq:ecuacion_13_67}
+\end{equation}
+manteniendo los valores constantes en las fronteras.
+\par
+Dado que, a diferencia del método FTCS, los componentes de la solución propagada no pueden expresarse de forma independiente, sino que resultan en cada paso del tiempo resolviendo el sistema lineal (\ref{eq:ecuacion_13_66}) - (\ref{eq:ecuacion_13_67}), se dice que el esquema BTCS es un \emph{método implícito}, y el flujo de información característica entre los pasos de tiempo $t_{n}$ y $t_{n+1}$ también se puede revisar de la figura (\ref{fig:figura_01}).
+\par
+En notación matricial, el sistema lineal del método BTCS toma la forma:
+\begin{equation}
+\mathbf{A} \cdot \mathbf{u}^{n+1} = \mathbf{u}^{n}, \hspace{1cm} n = 0, 1, 2, \ldots
+\label{eq:ecuacion_16_68}
+\end{equation}
+por lo cual, la solución anterior $\mathbf{u}^{n}$ desempeña el papel de vector constante y la matriz del sistema es tridiagonal:
+\begin{equation}
+\mathbf{A} = \begin{bmatrix}
+1 & 0 & & &  \\
+-\lambda & 1 + 2 \: \lambda & - \lambda & & \\
+  & \ddots & \ddots & \ddots & \\
+  & & - \lambda & 1 + 2 \: \lambda & - \lambda \\
+  & & & 0 & 1
+\end{bmatrix}
+\label{eq:ecuacion_13_69}
+\end{equation}
+Dado que $\lambda > 0$ por definición, la matriz $\mathbf{A}$ es diagonal dominante y definida positiva, por lo que resolver el sistema (\ref{eq:ecuacion_16_68}) - (\ref{eq:ecuacion_13_69}) se puede realizar de manera más eficiente mediante una descomposición $LU$.
+\par
+Al revisar la estabilidad del método implícito BTCS, al conectar el modo propio genérico $\varepsilon_{i}^{n} = \xi(k)^{n} \: \exp(\ell \: k \: i \: h_{x})$ en la ecuación de diferencias (\ref{eq:ecuacion_13_66}), se encuentra:
+\begin{align*}
+\xi [ - \lambda \: \exp(- \ell \: k \: h_{x}) + (1 + 2 \: \lambda) - \lambda \: \exp(\ell \: k \: h_{x}) ] = 1
+\end{align*}
+Combinando las exponenciales en $2 \: \cos(k \: h_{x})$ y junto con la identidad $1 - \cos x = 2 \: \sin^{2} (x/2)$, se obtiene la expresión para el factor de amplificación:
+\begin{equation}
+\xi = \dfrac{1}{1 + 4 \: \lambda \: \sin^{2}(k \: h_{x} / 2)}
+\label{eq:ecuacion_13_70}
+\end{equation}
+Ya que $0 \leq \sin^{2}(k \: h_{x} / 2) \leq 1$ y $\lambda > 0$, el denominador excede la unidad, por lo que $\xi$ es invariablemente menor a $1$, como lo requiere el criterio de estabilidad de von Neumann $(\vert \xi (k) \vert < 1)$.
+\par
+En consecuencia, a diferencia del método FTCS, el método implícito BTCS es \emph{incondicionalmente estable} para cualquier tamaño de paso de tiempo $h_{t}$.
+\par
+Sin embargo, cabe señalar que la estabilidad incondicional del esquema BTCS tampoco garantiza un grado de precisión predefinido. Debido al bajo orden $O(h_{t})$ con respecto al tiempo, el método BTCS requiere pasos de tiempo bastante pequeños para alcanzar niveles aceptables de precisión, y esto sigue siendo una debilidad considerable de este método.
+\section{El método Crank-Nicholson.}
+El inconveniente mencionado del método implícito BTCS de ser solo de precisión de primer orden en el tiempo se puede remediar, usando como referencia el paso de tiempo intermedio $t_{n+1/2} \equiv t_{n} + h_{t} / 2$ al discretizar la ecuación de difusión.
+\par
+El esquema de diferencias resultante es de segundo orden, tanto en el espacio como en el tiempo. Consideremos para este propósito las expansiones de las series de Taylor de la solución en $t_{n}$ y $t_{n+1}$ usando como referencia $t_{n + 1/2}$:
+\begin{align*}
+u_{i}^{n} &= u_{i}^{n+1/2}	- \left( \dfrac{h_{t}}{2} \right) \: \left( \dfrac{\partial u}{\partial t} \right)_{{i, n+1/2}} + \dfrac{1}{2} \: \left( \dfrac{h_{t}}{2} \right)^{2} \: \left( \dfrac{\partial^{2} u}{\partial t^{2}} \right)_{{i, n+1/2}} + O(h_{t}^{3}) \\
+u_{i}^{n+1} &= u_{i}^{n+1/2} + \left( \dfrac{h_{t}}{2} \right) \: \left( \dfrac{\partial u}{\partial t} \right)_{{i, n+1/2}} + \dfrac{1}{2} \: \left( \dfrac{h_{t}}{2} \right)^{2} \: \left( \dfrac{\partial^{2} u}{\partial t^{2}} \right)_{{i, n+1/2}} + O(h_{t}^{3})
+\end{align*}
+Al restar estas expansiones, tanto la solución $u_{i}^{n+1/2}$ y la segunda derivada con respecto al tiempo $(\partial^{2} u / \partial t^{2})_{i, n+1/2}$ en $t_{n+1/2}$ se cancelan exactamente y obtenemos por la primera derivada del \emph{esquema de diferencias centrales de segundo orden}:
+\begin{equation}
+\left( \dfrac{\partial u}{\partial t} \right)_{i, n+1/2} = \dfrac{u_{i}^{n+1} - u_{i}^{n}}{h_{t}} + O(h_{t}^{2})
+\label{eq:ecuacion_13_71}
+\end{equation}
+La segunda deriva espacial al tiempo $t_{n+1/2}$ se puede obtener sencillamente, aproximando el promedio de los esquemas de diferencias para los pasos de tiempo $t_{n}$ y $t_{n+1}$:
+\begin{equation}
+\left( \dfrac{\partial^{2} u }{\partial x^{2}} \right)_{i, n+1/2} = \dfrac{1}{2} \: \left[ \dfrac{u_{i+1}^{n+1} - 2 \: u_{i}^{n+1} + u_{i-1}^{n+1}}{h_{x}^{2}} + \dfrac{u_{i+1}^{n} - 2 \: u_{i}^{n} + u_{i-1}^{n}}{h_{x}^{2}} \right] + O(h_{x}^{2})
+\label{eq:ecuacion_13_72}
+\end{equation}
+De esta manera, la ecuación de difusión se puede convertir en una forma discretizada:
+\begin{equation}
+\dfrac{u_{i}^{n+1} - u_{i}^{n}}{h_{t}} = \dfrac{D}{2} \: \dfrac{( u_{i+1}^{n+1} - 2 \: u_{i}^{n+1} + u_{i-1}^{n+1}) + (u_{i+1}^{n} - 2 \: u_{i}^{n} + u_{i-1}^{n})}{h_{x}^{2}}
+\label{eq:ecuacion_13_73}
+\end{equation}
+Este \emph{esquema de espacio temporal de tiempo central} se conoce como el \textcolor{blue}{método de Crank-Nicolson}. Aunque formalmente representa el promedio de los esquemas FTCS y BTCS, el método Crank-Nicolson tiene un orden de precisión mejorado: $O (h_{t}^{2} + h_{x}^{2})$.
+\par
+Separando los términos para los pasos de tiempo $t_{n}$ y $t_{n+1}$ se tiene por resultado el siguiente sistema lineal, teniendo como incógnitas las componentes de la solución propagada:
+\begin{equation}
+- \lambda \: u_{i-1}^{n+1} + (1 + 2 \: \lambda) \: u_{i}^{n+1} - \lambda \: u_{i+1}^{n+1} = \lambda \: u_{i-1}^{n} +(1 - 2 \: \lambda) \: u_{i}^{n} + \lambda \: u_{i+1}^{n}
+\label{eq:ecuacion_13_74}
+\end{equation}
+con $i = 2, 3, \ldots, N_{x}-1$. Donde
+\begin{equation}
+\lambda = \dfrac{1}{2} \: \dfrac{D \: h_{t}}{h_{x}^{2}}
+\label{eq:ecuacion_13_75}
+\end{equation}
+El sistema discretizado (\ref{eq:ecuacion_13_74}) junto con las condiciones de frontera adjuntas pueden representarse en forma matricial como
+\begin{equation}
+\mathbf{A} \cdot \mathbf{u}^{n+1} = \mathbf{B} \cdot \mathbf{u}^{n} \hspace{1cm} n = 0, 1, 2, \ldots
+\label{eq:ecuacion_13_76}
+\end{equation}
+donde las matrices $\mathbf{A}$ y $\mathbf{B}$ son tridiagonales y, en el caso de las condiciones de frontera de Dirichlet, están dadas respectivamente por las ecuaciones
+\begin{equation}
+\mathbf{B} = \begin{bmatrix}
+1 & 0 & & & 0 \\
+\lambda & 1 - 2 \lambda & \lambda & & & \\
+ & \ddots & \ddots & \ddots & \\
+ & & \lambda & 1 - 2 \lambda & \lambda \\
+ 0 & & & 0 & 1
+\end{bmatrix},
+\hspace{0.3cm}
+\mathbf{u}^{n} = 
+\begin{bmatrix}
+u_{1}^{n} \\
+u_{2}^{n} \\
+\vdots \\
+u_{N_{x} - 1}^{n} \\
+u_{N_{x}}^{n} 
+\end{bmatrix}
+\label{eq:ecuacion_13_50}
+\end{equation}
+y por la ec. (\ref{eq:ecuacion_13_69}).
+\par
+La matriz $\mathbf{A}$ es diagonal dominante y definida positiva, por lo tanto, es no singular. Así que la solución propagada $u^{n+1}$ puede calcularse, como en el caso del método implícito, por medio del algoritmo de factorización $LU$ para sistemas tridiagonales.
+\par
+En comparación con el método implícito, existe, sin duda, una sobrecarga de operación debido a la multiplicación de la matriz adicional implicada por los términos constantes.
+\par
+Siguiendo la metodología general del análisis de estabilidad de von Neumann, sustituyendo el modo propio genérico $\varepsilon_{i}^{n} = \xi(k)^{n} \: \exp(\ell \: k \: i \: h_{x})$ en la ecuación por diferencias (\ref{eq:ecuacion_13_74}), se tiene que
+\begin{align*}
+\xi \: [ - \lambda \exp(- \ell \: k \: h_{x}) &+ (1 + 2 \: \lambda) - \lambda \: \exp(\ell \: k \: h_{x})] =  \\
+&{} \lambda \: \exp(- \ell \: k \: h_{x}) + (1 - 2 \: \lambda) + \lambda \: \exp(\ell \: k \: h_{x})
+\end{align*}
+Combinando en las dos exponenciales de ambos lados de la igualdad en $2 \: \cos(k \: h_{x})$ y utlizando la identidad $1 - \cos x = 2 \: \sin^{2}(x/2)$, se tiene que el factor de amplificación es:
+\begin{equation}
+\xi = \dfrac{1 - 4 \: \lambda \: \sin^{2}(k \: h_{x}/2)}{1 + 4 \: \lambda \: \sin^{2}(k \: h_{x}/2)}
+\label{eq:ecuacion_13_77}
+\end{equation}
+Como $\vert 1 - 4 \: \lambda \: \sin^{2} (k \: h_{x}/2) \vert \leq \vert 1 + 4 \: \lambda \: \sin^{2} (k \: h_{x} / 2) \vert$ en cualquier circunstancia, en acuerdo al criterio de estabilidad de Von Neumann $(\vert \xi(k) < 1)$, el método de Crank-Nicolson es \emph{incondicionalmente estable} para cualquier valor de paso temporal $h_{t}$.
+\par
+Además, debido al orden mejorado en relación con el tiempo, el esquema Crank-Nicolson es el método de elección para resolver las EDP de tipo parabólico.
+\end{document}

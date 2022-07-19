@@ -1,0 +1,1401 @@
+\input{../Preambulos/preambulo_presentacion}
+\title{Tema 0 - Introducción a \python{} - 2}
+\author[]{M. en C. Gustavo Contreras Mayén \\ M. en C. Abraham Lima Buendía}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=2cm]{escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=2cm]{escudo-unam}
+}
+\date{\today}
+\begin{document}
+\maketitle
+\section*{Contenido}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideallsubsections]}
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section{Instrucciones de entrada y salida}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Entrada de datos}
+\begin{frame}
+\frametitle{Ingreso de datos en un código}
+Una buena parte de la solución de problemas mediante el uso de un lenguaje, se realiza con los valores que se hayan ingresado previamente en el algoritmo.
+\\
+\bigskip
+Pero será muy común que proporcionemos como usuarios los valores manualmente, para que se ejecuten los cálculos.
+\end{frame}
+\begin{frame}\frametitle{Entrada estándar en un programa}
+Se le denomina \emph{entrada estándar} al procedimiento en el cual se ingresan valores en un programa.
+\\
+\bigskip
+El dispositivo estándar de entrada de una computadora, es el teclado. Existen otros dispositivos de entrada tales como los puertos serial, paralelo, usb, etc.
+\end{frame}
+\begin{frame}
+\frametitle{Instrucciones de entrada con \python}
+Existen dos maneras de ingresar valores a un programa de \python.
+\\
+\bigskip
+El usuario al concluir el ingreso de la información mediante el teclado, debe de presionar la tecla Enter \keys{\return}, para que continue la ejecución de las instrucciones.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función input()}
+La función \funcionazul{input(\ )} permite obtener texto escrito por teclado.
+\\
+\bigskip
+En la llamada a la función, el programa se detiene esperando que se escriba algo y se pulse la tecla Enter \keys{\return}, como muestra el siguiente ejemplo:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función input()}
+Veamos un ejemplo\footnote{En esta presentación se reinicia el contador de instrucciones.}
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[1]: }} \verb| nombre = input("¿Cómo te llamas? ")|
+\\
+\pause
+\verb|¿Cómo te llamas?|
+\\
+\pause
+\verb|¿Cómo te llamas? Gustavo|
+\\
+\pause
+\textcolor{ao}{\texttt{In[2]: }} \verb|print("Mucho gusto en conocerte:" , nombre)|
+\\
+\pause
+\textcolor{red}{\texttt{Out[2]: }} \verb| Mucho gusto en conocerte, Gustavo|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función input()}
+Consideremos ahora el caso en donde queremos ingresar un valor de velocidad inicial para un cálculo de caída libre:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[3]: }} \verb| vel = input("Ingresa la velocidad en m/s :")|
+\\
+\pause
+\verb|Ingresa la velocidad en m/s: |
+\\
+\pause
+\verb|Ingresa la velocidad en m/s:  3.5|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función input()}
+Parece que todo va bien, pero veamos qué ocurre cuando queremos realizar una operación aritmética con el contenido de la variable \textoazul{vel}:
+\\
+\pause
+\textcolor{ao}{\texttt{In[4]: }} \verb|vel / 10.0|
+\\
+\pause
+\fontsize{12}{12}\selectfont
+\begin{verbatim}
+TypeError    Traceback (most recent call last)
+<stdin> in <module>
+----> 1 velocidad_inicial/10.0
+
+TypeError: unsupported operand type(s) for /: 'str'
+and 'float'
+\end{verbatim}
+\end{frame}
+\begin{frame}
+\frametitle{La función input() devuelve cadenas}
+Se presenta un error debido a que no podemos realizar operaciones entre distintos tipos de datos, el tipo de dato contenido en \textoazul{vel}, es una cadena, mientras que el valor $10.0$ es un tipo de dato de punto flotante.
+\\
+\bigskip
+\pause
+¿Qué podemos hacer para realizar operaciones aritméticas con datos obtenidos con la función \textoazul{input()}?
+\end{frame}
+\begin{frame}
+\frametitle{Conversión de tipos de datos}
+De forma predeterminada, la función \funcionazul{input(\ )} convierte la entrada en un tipo de dato \textoazul{cadena}.
+\\
+\bigskip
+Si queremos que \python{} interprete la entrada con un tipo de dato en particular, debemos de usar la respectiva función que convierte el tipo de dato.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Funciones para conversión de tipos de dato}
+En \python{} se tienen tres funciones con las que podemos cambiar el tipo de dato y con ello, realizar las operaciones y/o funciones pertinentes, las funciones son
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item \textoazul{\texttt{int(arg)}}
+\item \textoazul{\texttt{float(arg)}}
+\item \textoazul{\texttt{srt(arg)}}
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función \texttt{int(\ )}}
+La función \funcionazul{int(arg)} convierte el argumento \texttt{(arg)} a un tipo de dato entero.
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[5]: }} \verb|a = int(input("Ingrese un entero: "))|
+\\
+\pause
+\verb| Ingrese un entero: |
+\\
+\pause
+\verb| Ingrese un entero: 10|
+\\
+\pause
+\textcolor{ao}{\texttt{In[6]: }} \verb| a + 123|
+\\
+\pause
+\textcolor{red}{\texttt{Out[6]: }} \verb| 133|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función \texttt{float(\ )}}
+La función \funcionazul{float(arg)} convierte el argumento \texttt{(arg)} a un tipo de dato de punto flotante.
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[7]: }} \verb|b = float(input("Ingrese un valor real: "))|
+\\
+\pause
+\verb| Ingrese un valor real: |
+\\
+\pause
+\verb| Ingrese un valor real: 3.14|
+\\
+\pause
+\textcolor{ao}{\texttt{In[8]: }} \verb| b**2|
+\\
+\pause
+\textcolor{red}{\texttt{Out[8]: }} \verb| 9.8596|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función \texttt{str(\ )}}
+La función \funcionazul{str(arg)} convierte el argumento \texttt{(arg)} a un tipo de dato de cadena.
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[9]: }} \verb|c = str(input("Ingrese el dia del mes: "))|
+\\
+\pause
+\verb| Ingrese el dia del mes: |
+\\
+\pause
+\verb| Ingrese el dia del mes: 14|
+\\
+\pause
+\textcolor{ao}{\texttt{In[10]: }} \verb|'Febrero ' + c + ' de 2020'|
+\\
+\pause
+\textcolor{red}{\texttt{Out[10]: }} \verb| 'Febrero 14 de 2020'|
+\end{frame}
+\subsection{Salida de datos}
+\begin{frame}
+\frametitle{Salida de datos en \python.}
+La salida estándar de datos en \python{} es a través de la pantalla, en donde se espera que la información se muestre de manera legible para otros usuarios.
+\\
+\bigskip
+Otros tipos de salida son: la impresora, a un archivo de datos, un plotter, etc.
+\end{frame}
+\begin{frame}
+\frametitle{La función \texttt{print()}}
+Hasta ahora hemos usado la función \funcionazul{print(\ )} para mostrar información en la terminal.
+\\
+\bigskip
+Frecuentemente necesitaremos mostrar los datos en pantalla con cierto formato, no sólo que se vean los valores separados por espacios.
+\end{frame}
+\begin{frame}
+\frametitle{Maneras de dar formato de salida}
+Hay dos maneras de formatear la salida de datos:
+\setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item La primera es mediante el uso de literales de formato de cadena \emph{(Formatted string literals)}, que permite incluir un valor de una expresión en una cadena, para ello se antepone la letra \textoazul{f o F}, y escribimos la expresión como \textoazul{\texttt{\{expresion\}}}.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo con \texttt{Formatted string literals}}
+Veamos el siguiente ejemplo, las unidades de distancia son en metros, y para el tiempo en segundos:
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[11]: }} \verb|distancia =  200|
+\\
+\pause
+\textcolor{ao}{\texttt{In[12]: }} \verb|tiempo = 15|
+\\
+\pause
+\textcolor{ao}{\texttt{In[13]: }} \verb|velocidad = distancia/tiempo|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo con \texttt{Formatted string literals}}
+Veamos ahora la salida en la pantalla:
+\\
+\bigskip
+\pause
+\fontsize{13}{13}\selectfont
+\textcolor{ao}{\texttt{In[14]: }} \verb|print(f'la velocidad del objeto es {velocidad}')|
+\\
+\pause
+\textcolor{red}{\texttt{Out[14]: }} \verb|la velocidad del objeto es 13.333333333333334|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo con \texttt{Formatted string literals}}
+Hagamos una modificación en el formato de salida
+\\
+\bigskip
+\pause
+{\fontsize{13}{13}\selectfont
+\textcolor{ao}{\texttt{In[15]: }} \verb|print(f'la velocidad del objeto es {velocidad:.3f}')|
+\\
+\pause
+\textcolor{red}{\texttt{Out[15]: }}
+\begin{verbatim}
+la velocidad del objeto es la velocidad del objeto
+ es 13.333
+\end{verbatim}
+}
+Veremos más adelante cómo funciona el formato $.3f$
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Segundo método de formato de salida}
+El tipo de dato \funcionazul{string (cadena)} contiene algunos métodos útiles para establecer las cadenas a un determinado ancho.
+\\
+\bigskip
+Para ello se utiliza el método \funcionazul{str.format(\ )}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo de salida con \texttt{.format()} }
+En el siguiente ejemplo veremos la manera de utilizar el método \funcionazul{.format( )}
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[16]: }} 
+\begin{verbatim}
+print('El objeto recorrio {} metros, en un 
+tiempo de {} segundos'.format(distancia, 
+tiempo))
+\end{verbatim}
+\pause
+\textcolor{red}{\texttt{Out[16]: }}
+\begin{verbatim}
+El objeto recorrio 200 metros, 
+en un tiempo de 15 segundos
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El método \texttt{.format ()}}
+Los caracteres dentro de llaves se reemplazan con los objetos que se incluyen en el método \funcionazul{.format()}.
+\\
+\bigskip
+Un número dentro de las llaves se usa como referencia de la posición del objeto que se indica en el método:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El método \texttt{.format ()}}
+Veamos los ejemplos:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[17]: }} \verb|print('{0} y {1}'.format(velocidad, tiempo))|
+\\
+\bigskip
+\pause
+\textcolor{red}{\texttt{Out[17]: }} \verb|13.333333333333334 y 15|
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[18]: }} \verb|print('{1} y {0}'.format(velocidad, tiempo))|
+\\
+\bigskip
+\pause
+\textcolor{red}{\texttt{Out[18]: }} \verb| 15 y 13.333333333333334|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Caracteres especiales}
+Para mostrar la información en la salida con un mayor espaciamiento, podemos utilizar una \emph{tabulación} \funcionazul{\textbackslash t}, que nos define una separación de $4$ espacios en blanco.
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[19]: }} \verb| cadena1 = ('Espacios\tcon\ttabulaciones')|
+\\
+\pause
+\textcolor{ao}{\texttt{In[20]: }} \verb| print(cadena1)|
+\\
+\pause
+\textcolor{red}{\texttt{Out[20]: }} \verb| Espacios     con     tabulaciones|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Caracteres especiales}
+En ocasiones será necesario que la información mostrada en la salida se presente en otro renglón, para ello usaremos el \emph{salto de línea} \funcionazul{\textbackslash n}:
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[21]: }} \verb| cadena2 = ('Laboratorio\nReporte\nPractica')|
+\\
+\pause
+\textcolor{ao}{\texttt{In[22]: }} \verb| print(cadena2)|
+\\
+\pause
+\textcolor{red}{\texttt{Out[22]: }}
+\fontsize{13}{13}\selectfont
+\begin{verbatim}
+Laboratorio
+Reporte
+Practica
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo más elaborado}
+En el siguiente ejemplo se presenta un ejemplo más completo del método \funcionazul{.format( )}, se utiliza un \emph{bucle} \funcionazul{for} que se discutirá más adelante.
+\\
+\bigskip
+Se va a crear un bloque de código, nos daremos cuenta de ello ya que al final de la primera instrucción, el prompt cambia a \verb\...:\ , \python{} espera que completemos el bloque, se escribe entonces la segunda la instrucción \funcionazul{print}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo más elaborado}
+{\fontsize{11}{11}\selectfont
+\textcolor{ao}{\texttt{In[23]: }} \verb|for x in range(1, 11):|
+\pause
+\begin{verbatim}
+...:  print('{0:2d} {1:3d} {2:4d}'.format(x, x*x, x*x*x))
+...:
+\end{verbatim}}
+\pause
+Vemos que dentro de \funcionazul{print} se hace referencia con un índice a cada expresión de \funcionazul{format}, también se indica un formato $:2d$, $:3d$ y $:4d$, que define el número de espacios para ese valor.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Salida del ejemplo}
+Presionamos \emph{Enter} para salir del bloque:
+\fontsize{10}{10}\selectfont
+\begin{table}
+\begin{tabular}{ r r r}
+$1$ & $1$ &  $1$ \\
+$2$ & $4$ &  $8$ \\
+$3$ & $9$ &  $27$ \\
+$4$ & $16$ & $64$\\
+$5$ & $25$ & $125$ \\
+$6$ & $36$ & $216$ \\
+$7$ & $49$ & $343$ \\
+$8$ & $64$ & $512$ \\
+$9$ & $81$ & $729$ \\
+$10$ & $100$ & $1000$
+\end{tabular}
+\end{table}  
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El mismo ejemplo con formato manual}
+Se va a repetir el mismo ejemplo que muestra la lista de números, su cuadrado y su cubo, pero con un formato completamente manual, pero cuya visualización es idéntica a la anterior.
+\\
+\bigskip
+\pause
+\fontsize{12}{12}\selectfont
+\textcolor{ao}{\texttt{In[24]: }} 
+\begin{lstlisting}
+for x in range(1, 11):
+...:    print(repr(x).rjust(2), repr(x * x).rjust(3), end=' ')
+...     print(repr(x * x * x).rjust(4))
+...
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Salida en la terminal}
+{\fontsize{13}{13}\selectfont
+La salida es idéntica que con el método \funcionazul{.format ()}: }
+\fontsize{10}{10}\selectfont
+\begin{table}
+\begin{tabular}{ r r r}
+$1$ & $1$ &  $1$ \\
+$2$ & $4$ &  $8$ \\
+$3$ & $9$ &  $27$ \\
+$4$ & $16$ & $64$\\
+$5$ & $25$ & $125$ \\
+$6$ & $36$ & $216$ \\
+$7$ & $49$ & $343$ \\
+$8$ & $64$ & $512$ \\
+$9$ & $81$ & $729$ \\
+$10$ & $100$ & $1000$
+\end{tabular}
+\end{table}  
+\end{frame}
+\begin{frame}
+\frametitle{Observaciones}
+Este último ejemplo muestra el método \funcionazul{str.rjust(\ )} de los objetos cadena, el cual ordena una cadena a la derecha en un campo del ancho dado llenándolo con espacios a la izquierda.
+\\
+\bigskip
+Hay dos métodos similares \funcionazul{str.ljust(\ )} y  \funcionazul{str.center(\ )}. Estos métodos no escriben nada, sólo devuelven la cadena ordenada.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Formatos de salida}
+En dos ejemplos anteriores, se utilizaron formatos del tipo
+$\{ :.3f \}$ y $\{ :2d \}$
+\\
+\bigskip
+\pause
+\begin{itemize}[<+->]
+\item En el primer caso: $\{ :.3f \}$, se van a mostrar tres dígitos después del punto decimal, por lo que la letra \funcionazul{f}, representará tipo de número de punto flotante.
+\item En el segundo caso: $\{ :2d \}$, se van \enquote{apartan} dos espacios para mostrar un número entero, por ello se utiliza el caracter \funcionazul{d}.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Formatos de salida}
+\fontsize{12}{12}\selectfont
+La siguiente lista muestra el correspondiente caracter y el tipo de dato que muestra en la salida:
+\fontsize{11}{11}\selectfont
+\begin{table}
+\begin{tabular}{l | l}
+s & Tipo cadena, es el tipo por defecto. \\ \hline
+d & Decimales enteros, en base 10. \\ \hline
+e & Notación exponencial, la letra \emph{e} indica el exponente. \\ \hline
+E & Notación exponencial, la letra \emph{E} es el separador. \\ \hline
+f & De punto flotante, muestra un número con punto decimal. \\ \hline
+b & Formato binario, en base $2$. \\ \hline
+o & Formato octal, en base $8$. \\ \hline
+x & Formato hexadecimal, en base $16$.
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo de combinación de formatos}
+El siguiente ejemplo muestra un formato de salida combinado:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[25]: }} 
+\begin{lstlisting}
+"int: {0:d};  hex: {0:x};  oct: {0:o};  bin: {0:b}".format(42)
+\end{lstlisting}
+\pause
+\textcolor{red}{\texttt{Out[25]: }} 
+\begin{lstlisting}
+'int: 42;  hex: 2a;  oct: 52;  bin: 101010'
+\end{lstlisting}
+\end{frame}
+\section{Uso de Spyder como IDE de \python}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\begin{frame}[fragile]
+\frametitle{Iniciando Spyder}
+Para iniciar \funcionazul{Syper} como una interfaz de desarrollo integrado \emph{(IDE)}, desde \textoazul{Anaconda}, damos click en el botón \emph{Launch}:
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{spyder_01.png}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El entorno de Spyder}
+\begin{figure}
+    \centering
+    \includestandalone[scale=0.8]{Figuras/entorno_spyder_01}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El editor de código de \texttt{spyder}}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.15]{spyder_editor_01.png}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El explorador de archivos de \texttt{spyder}}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{spyder_editor_02.png}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El explorador de variables de \texttt{spyder}}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{spyder_editor_03.png}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La ventana de ayuda en \texttt{spyder}}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.25]{spyder_editor_04.png}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La terminal \texttt{ipyhton} de  \texttt{spyder}}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.25]{spyder_editor_05.png}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Utilizando spyder para el curso}
+De aquí en adelante usaremos \funcionazul{spyder} para generar los archivos con el código en \python.
+\\
+\bigskip
+La extensión por defecto para \python es \texttt{*.py}, que deberá de guardarse en la máquina y posteriormente ejecutarse, al presionar la tecla \textoazul{F5} el código se ejecutará y se visualizará el resultado en la terminal.
+\end{frame}
+\section{Estructuras de control}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\begin{frame}
+\frametitle{Estructuras de control}
+En cualquier lenguaje de programación se incluye una serie de estructuras de control para ampliar las posibilidades de ejecución de un programa.
+\\
+\bigskip
+En \python, manejaremos las más comunes, que son relativamente sencillas de usar, cuidado siempre la sintaxis respectiva.
+\end{frame}
+\subsection{Condicionales}
+\begin{frame}
+\frametitle{Condicionales}
+Una sentencia condicional permite ejecutar una serie de instrucciones si se cumple que cierta condición tenga un valor \textoazul{\texttt{True}}.
+\\
+\bigskip
+En caso de que el valor de la condición no se cumpla, es decir, tiene un valor \textcolor{red}{\texttt{False}}, no se ejecutan la instrucciones contenidas y pasa a la siguiente línea de código.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El condicional if}
+El condicional \funcionazul{if} requiere de una expresión inicial que va a evaluar, como ya se mencionó, en caso de que no se cumpla el valor \textoazul{\texttt{True}}, no se ejecutan las instrucciones contenidas.
+\begin{verbatim}
+if expresion:
+    instruccion1
+    instruccion2
+
+siguiente línea código
+\end{verbatim}
+\end{frame}
+\begin{frame}
+\frametitle{El bloque else:}
+Cuando tenemos un condicional con \funcionazul{if} y la  expresión que se evalúa tiene un valor \textcolor{red}{False}, sabemos que saldría del bloque condicional.
+\\
+\bigskip
+Pero si queremos que se ejecute un bloque de código a pesar de que la expresión evaluada sea \textcolor{red}{False}, recurrimos a la instrucción \funcionazul{else:} que permite que se ejecuten las instrucciones contenidas dentro de este bloque.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El bloque \texttt{else:}}
+\begin{verbatim}
+if expresion1:
+    instruccion1
+    instruccion2
+else:
+    instruccion-else-1
+    instruccion-else-2
+
+siguiente línea código
+\end{verbatim}
+\end{frame}
+\begin{frame}
+\frametitle{El condicional \texttt{elif:}}
+El condicional \funcionazul{if} evalúa una expresión, en ocasiones se puede incluir la evaluación de una segunda expresión mediante
+\\
+\bigskip
+\funcionazul{elif} \texttt{expresion2} :
+\\
+\bigskip
+Si \texttt{expresion2} devuelve un valor \textoazul{\texttt{True}}, entonces se ejecutan las instrucciones contenidas en el bloque.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El condicional elif}
+\begin{verbatim}
+if expresion1:
+    instruccion1
+    instruccion2
+elif expresion2:
+    otra-instruccion1
+    otra-instruccion2
+
+siguiente línea código
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Combinación en un bloque condicional}
+Podemos ocupar en un bloque condicional la evaluación de dos expresiones, en caso de que ambas sean falsas, se ejecuta el código contenido en \funcionazul{else:}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Combinación en un bloque condicional}
+\fontsize{13}{13}\selectfont
+\begin{verbatim}
+if expresion1:
+    instruccion1
+    instruccion2
+elif expresion2:
+    instruccion-elif-1
+    instruccion-elif-2
+else:
+    instruccion-else-1
+    instruccion-else-2
+
+siguiente línea código
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo de condicional}
+\begin{lstlisting}
+a = int(input('Introduce el valor de a'))
+if a > 0:
+    print ("a es positivo")
+    a = a + 1
+elif a == 0: 
+    print ("a es 0")
+else:
+    print ("a es negativo")
+\end{lstlisting}
+\end{frame}
+\subsection{Bucles o Loops}
+\begin{frame}
+\frametitle{Bucles}
+Un bucle es una sentencia que repite un número determinado de veces, un conjunto de instrucciones.
+\\
+\bigskip
+Se evalúa inicialmente una condición, en caso de que se cumple (valor \funcionazul{True}) se ejecutan las instrucciones contenidas.
+\end{frame}
+\begin{frame}
+\frametitle{Bucles}
+Posteriormente, se revisa el valor de la condición, mientras sea verdadero, las instrucciones se ejecutan nuevamente, el bucle termina cuando que el valor de la condición sea un valor \textcolor{red}{\texttt{False}}.
+\end{frame}
+\begin{frame}
+\frametitle{¿Cuántas veces se va a repetir?}
+Hay que considerar que se puede conocer de antemano el número de veces que se va a repetir el ciclo.
+\\
+\bigskip
+\pause
+Cuando no se conoce el número de veces que se va a repetir, hay que ser cuidadosos y evitar los bucles infinitos.
+\end{frame}
+\subsection{Sentancia \texttt{for ... in}}
+\begin{frame}\frametitle{Sentencia for ... in}
+Es una forma genérica de iterar sobre una secuencia.
+\\
+\bigskip
+Podemos usar como secuencia: tanto listas como tuplas o generar una para ejecutar el bucle un número determinado de veces.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo}
+Usaremos un objeto lista y el ciclo \funcionazul{for}
+\pause
+\begin{lstlisting}
+secuencia = ["uno", "dos", "tres"]
+for elemento in secuencia:
+    print (elemento)
+\end{lstlisting}
+\pause
+En este ejemplo la instrucción \funcionazul{print} se ejecutará tantas veces como elementos haya en la lista, y en cada iteración la variable elemento tomará el valor de cada uno de los elementos de la lista secuencia.
+\end{frame}
+\begin{frame}
+\frametitle{Iteración sobre secuencia de números}
+¿Cómo le hacemos para iterar sobre una serie de números naturales consecutivos?
+\\
+\bigskip
+Por ejemplo de 1 a 20.
+\\
+\bigskip
+\pause
+ Para ello usaremos la función \funcionazul{range(\ )}. Esta función genera una lista con una progresión aritmética de números naturales.
+ \end{frame}
+\begin{frame}
+\frametitle{Argumentos de la función \texttt{range}}
+\setbeamercolor{item projected}{bg=green!70!black,fg=black}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Si le pasamos un único parámetro se generará una lista que va desde $0$ hasta $n-1$. 
+\item Si le damos dos argumentos: \funcionazul{(inicio,fin)}, generará una lista desde \textoazul{inicio} hasta \textoazul{fin - 1}.
+\item Si le damos tres argumentos: \funcionazul{(inicio,fin, paso)}, usará el \textoazul{paso} como incremento para generar los elementos de la lista.
+\end{enumerate}  
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplos de for ... in}
+Escribimos las instrucciones:
+\begin{lstlisting}
+print(list(range(10)))
+print(list(range(5, 10)))
+print(list(range(0, 10, 3)))
+\end{lstlisting}
+\pause
+La salida será:
+\begin{lstlisting}
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[5, 6, 7, 8, 9]
+[0, 3, 6, 9]
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplos de for ... in}
+En el siguiente ejemplo el programa imprimirá los números de $0$ a $5$ cada uno en una línea.
+\pause
+\begin{lstlisting}
+for i in range(6):
+    print(i)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplos de for ... in}
+Podemos usar una cadena de caracteres como secuencia, de forma que cada iteración del bucle tomaremos una letra de la cadena.
+\pause
+\begin{lstlisting}
+for char in 'ABCD':
+    print(char)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplos de for ... in}
+En caso de que necesitemos iterar sobre una lista y a la vez tener el índice de cada posición de la lista usaremos la función \funcionazul{enumerate( )} que devuelve dos valores: la posición y el contenido de la lista.
+\pause
+\begin{lstlisting}
+secuencia = ["manzanas", "peras", "platanos"]
+for posicion, elemento in enumerate(secuencia):
+    print (posicion, elemento)
+\end{lstlisting}
+\end{frame}
+\subsection{El bucle while}
+\begin{frame}
+\frametitle{El bucle \texttt{while}}
+Ese bucle repite un conjunto de instrucciones mientras se cumpla una determinada condición que se evalúa al principio de cada ejecución.
+\end{frame}
+\begin{frame}
+\frametitle{El bucle \texttt{while}}
+Es evidente que las instrucciones del interior del bucle tendrán que hacer algo que pueda cambiar esa condición hasta que en algún momento deje de cumplirse.
+\\
+\bigskip
+En caso contrario tendremos un bucle infinito y el programa no terminará nunca su ejecución.
+\end{frame}
+\begin{frame}
+\frametitle{El bucle \texttt{while}}
+Una de las características del bucle \funcionazul{while} es que no está fijado previamente el número de veces que se ejecutan las instrucciones del bucle.
+\\
+\bigskip
+Se ejecutarán todas las que sean necesarias mientras se cumpla la condición.
+\end{frame}
+
+\begin{frame}
+\frametitle{Forzar la salida del bucle \texttt{while}}
+Como hemos mencionado, el ciclo \funcionazul{while} va a iterar mientras se cumpla una condición.
+\\
+\bigskip
+Pero vamos a encontrar que en ocasiones, necesitamos \enquote{salir} del bucle sin que tengamos que esperar a que la condición cambie.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplos while}
+Hay dos palabras reservadas que se usan dentro de un bucle, se trata de \funcionazul{break} y \funcionazul{continue}.
+\\
+\bigskip
+\funcionazul{continue} hace que pasemos de nuevo al principio del bucle aunque no se haya terminado de ejecutar el ciclo anterior.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo con \texttt{while}}
+\begin{lstlisting}
+edad = 0
+while edad < 18:
+    edad = edad + 1
+    if edad % 2 == 0:
+        continue
+    print ("Felicidades, tienes " + str(edad))
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplos while}
+Por su parte \funcionazul{break} hace que salgamos del bucle \funcionazul{while} directamente sin necesidad de volver a evaluar la condición y aunque siga siendo cierta.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplos while}
+\begin{lstlisting}
+while True:
+    entrada = input("> ")
+    if entrada == "adios":
+        break
+    else:
+        print (entrada)
+\end{lstlisting}
+\end{frame}
+\section{Manejo de excepciones}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Control de errores}
+\begin{frame}[fragile]
+\frametitle{Manejo de excepciones}
+Cuando comenzamos a programar, nos podemos encontrar con mensajes de error al momento de ejecutar el programa, siendo las causas más comunes:
+\end{frame}
+\begin{frame}
+\frametitle{Manejo de excepciones}
+\begin{itemize}[<+->]
+\item Errores de dedo, escribiendo incorrectamente una instrucción, sentencia, variable o constante.
+\item Errores al momento de introducir los datos, por ejemplo, si el valor que se debe de ingresar es $123.45$, y si nosotros tecleamos $1234.5$, el resultado ya se considera un error.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Manejo de excepciones}
+\begin{itemize}[<+->]
+\item Errores que se muestran en tiempo de ejecución, es decir, todo está bien escrito y los datos están bien introducidos, pero hay un error debido a la lógica del programa o del método utilizado, ejemplo: división entre cero.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejo de errores}
+En el siguiente ejemplo, obtendremos de antemano un error por intentar una operación matemática no permitida.
+\\
+\bigskip
+\verb|c = 12.0/0.0| \\
+\pause
+%\begin{exampleblock}{}
+\verb|Traceback (most recent call last):| \\
+\verb|File ''<pyshell#0>'', line 1, in ?| \\
+\verb|c = 12.0/0.0| \\
+\verb|ZeroDivisionError: float division|
+%\end{exampleblock}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejo de excepciones}
+Veamos el siguiente ejemplo
+\begin{lstlisting}
+while True print('Hola mundo')
+
+  File "<stdin>", line 1
+    while True print('Hola mundo')
+                   ^
+SyntaxError: invalid syntax
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Información del error}
+\fontsize{13}{13}\selectfont
+El intérprete repite la línea culpable y muestra una pequeña \enquote{flecha} que apunta al primer lugar donde se detectó el error.
+\\
+\bigskip
+Este es causado por (o al menos detectado en) el símbolo que precede a la flecha: en el ejemplo, el error se detecta en la función \azulfuerte{print()}, ya que faltan dos puntos \azulfuerte{(:)} antes del mismo.
+\\
+\bigskip
+Se muestran el nombre del archivo y el número de línea para que sepas dónde mirar en caso de que la entrada venga de un programa.    
+\end{frame}
+\begin{frame}
+\frametitle{Tipos de error en \python}
+Es importante conocer los distintos tipos de error que pueden generarse en \python, en la documentación oficial, podremos encontrar una lista con el nombre del tipo de error y por qué se genera.
+\end{frame}
+\begin{frame}
+\frametitle{Errores aritméticos}
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item \funcionazul{OverflowError}
+\item \funcionazul{ZeroDivisionError}
+\item \funcionazul{FloatingPointError}
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Errores generales}
+\setbeamercolor{item projected}{bg=green!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item \funcionazul{ImportError}
+\item \funcionazul{IndexError}
+\item \funcionazul{KeyboardInterrupt}
+\item \funcionazul{NameError}
+\item \funcionazul{SyntaxError}
+\item \funcionazul{TabError}
+\item \funcionazul{ValueError}
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejando excepciones}
+Es posible escribir programas que manejen determinadas excepciones. 
+\\
+\bigskip
+En el siguiente ejemplo, se le pide al usuario una entrada hasta que ingrese un entero válido, pero permite al usuario interrumpir el programa (usando \keys{\ctrl} + \keys{C}) o lo que sea que el sistema operativo soporte)
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejando excepciones}
+\begin{lstlisting}
+while True:
+    try:
+        x = int(input("Por favor ingrese un numero: "))
+        break
+    except ValueError:
+        print("Oops! No era valido. Intente nuevamente...")
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{La declaración \texttt{try}}
+La declaración try funciona de la siguiente manera:
+\begin{itemize}[<+->]
+\item Primero, se ejecuta el bloque \azulfuerte{try} (el código entre las declaración \azulfuerte{try} y \azulfuerte{except}).
+\item  Si no ocurre ninguna excepción, el bloque \azulfuerte{except} se salta y termina la ejecución de la declaración \azulfuerte{try}.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{La declaración \texttt{try}}
+\begin{itemize}[<+->]
+\item  Si ocurre una excepción durante la ejecución del bloque \azulfuerte{try}, el resto del bloque se salta. Luego, si su tipo coincide con la excepción nombrada luego de la palabra reservada \azulfuerte{except}, se ejecuta el bloque \azulfuerte{except}, y la ejecución continúa luego de la declaración \azulfuerte{try}.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{La declaración \texttt{try}}
+\begin{itemize}[<+->]
+\item Si ocurre una excepción que no coincide con la excepción nombrada en el \azulfuerte{except}, esta se pasa a declaraciones \azulfuerte{try} de más afuera; si no se encuentra nada que la maneje, es una \emph{excepción no manejada}, y la ejecución se frena con un mensaje como los mostrados arriba.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejo de excepciones más elaborado}
+El siguiente código considera un manejo de excepciones por su tipo:
+\fontsize{12}{11}\selectfont
+\begin{verbatim}
+try:
+    <código suceptible de errores>
+except <ErrorTipo1>:
+    <bloque inscrito a ErrorTipo1>
+except< ErrorTipo2>:
+    <bloque inscrito a ErrorTipo2>
+except (<ErrorTipo3>, <ErrorTipo4>):
+    <bloque inscrito a ErrorTipo3 y ErrorTipo4>
+except:
+    <bloque inscrito a except general>
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Consideraciones sobre la gestión de excepciones}
+Con la inclusión de las excepciones hemos visto que el programa no se interrumpe cuando existe un error.
+\\
+\bigskip
+Es posible mostrar más información al usuario sobre el tipo de error, recordemos que habrá alguien que ocupe nuestro programa y al contar con más información, podrá resolver la situación.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Ejemplo}
+Veamos el siguiente ejemplo (las dos diapositivas contienen el código:
+\fontsize{11}{10}\selectfont
+\begin{lstlisting}
+ocurre_error = False
+
+try:
+    numero = float(input('Introduce un numero: '))
+    print("La raiz cuadrada de numero %f es %f" % (numero, numero ** 0.5))
+
+except TypeError as descripcion:
+    ocurre_error = True
+    print("Ocurrio un error previsto:", descripcion)
+
+except:
+    ocurre_error = True
+    print("!No se que paso!")
+
+if ocurre_error:
+    print("Lastima.")
+else:
+    print("Buen dia.")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecutando el código}
+Ahora introducimos algunos valores para revisar la operación del código:
+\\
+\bigskip
+\pause
+\verb|Introduce un numero: 12|
+\\
+\pause
+\begin{lstlisting}
+La raiz cuadrada del numero 12.000000 es 3.464102
+Buen dia.
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecutando el código}
+Ahora introducimos un valor que provocará un error:
+\\
+\bigskip
+\pause
+\verb|Introduce un numero: -6|
+\\
+\pause
+\begin{lstlisting}
+Ocurrio un error previsto: can't convert complex to float
+Lastima.
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecutando el código}
+Ejecutamos nuevamente el código e introducimos un valor que provocará un error:
+\\
+\bigskip
+\pause
+\verb|Introduce un numero: q|
+\\
+\pause
+\begin{verbatim}
+No se que paso
+Lastima.
+\end{verbatim}
+\end{frame}
+\begin{frame}
+\frametitle{Explicación del resultado}
+Cuando se introdujo un número negativo $(-1)$, sabíamos que se presentaría un \textcolor{red}{TypeError} ya que no se puede evaluar la raíz cuadrada de un número negativo.
+\\
+\bigskip
+\pause
+Este tipo de error coincide con el señalado en la sentencia \funcionazul{except}, por lo que se muestra la descripción del error a modo de mensaje.
+\end{frame}
+\begin{frame}
+\frametitle{Explicación del resultado}
+Mientras que al introducir un caracter (q), el tipo de error no corresponde con \textcolor{red}{TypeError}, por lo que no \enquote{entra} en la primera sentencia \funcionazul{except} y pasa a la siguiente sentencia \funcionazul{except} de tipo general.
+\end{frame}
+% \section{Funciones}
+% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Estructura de una función}
+% \begin{frame}
+% \frametitle{Funciones}
+% Con lo que hemos revisado sobre \python, tenemos elementos para iniciar la solución de problemas, con una manera particular de agrupar un conjunto de instrucciones, a través de funciones.
+% \\
+% \bigskip
+% Las funciones intrínsecas de cualquier lenguaje son pocas, pero podemos extenderlas con funciones definidas por el usuario.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Estructura de una función}
+% La palabra reservada \azulfuerte{def} se usa para definir funciones. 
+% \\
+% \bigskip
+% Debe seguirle el nombre de la función y la lista de parámetros formales entre paréntesis. Las sentencias que forman el cuerpo de la función empiezan en la línea siguiente, y deben estar con sangría.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Estructura de una función}
+% La estructura de una función en Python es la siguiente:
+% \begin{center}
+% \fontsize{12}{12}\selectfont
+% \begin{exampleblock}{}
+% \verb| def nombre_funcion(parametro1, parametro2, ...):|
+% \verb|     conjunto de instrucciones|
+% \verb|     return valores_devueltos|
+% \end{exampleblock}
+% \end{center}
+% donde parametro1, parametro2 son los parámetros. Un parámetro puede ser cualquier objeto de \python, incluyendo una función.
+% \end{frame}
+% \begin{frame}
+% Los parámetros pueden darse por defecto, por lo que en la función son opcionales. 
+% \\
+% \bigskip
+% Si no se utiliza la instrucción \azulfuerte{return}, la función devuelve un objeto de tipo \azulfuerte{None}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Ejemplo}
+% \begin{lstlisting}[numbers=none,basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% >>> def cuadrados(a):
+%         for i in range(len(a)):
+%             a[i] = a[i]**2
+
+
+% >>> a = [1, 2, 3, 4]
+% >>> cuadrados(a)
+% >>> print(a)
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Cálculo de la serie de Fibonacci}
+% La sucesión fue descrita por Fibonacci como la solución a un problema de la cría de conejos: 
+% \\
+% \bigskip
+% \enquote{Cierto hombre tenía una pareja de conejos juntos en un lugar cerrado y uno desea saber cuántos son creados a partir de este par en un año, cuando es su naturaleza parir otro par en un simple mes, y en el segundo mes los nacidos parir también}
+% \\
+% \bigskip
+% \pause
+% \textcolor{red}{cómo le hacemos?}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Propuesta de código}
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% def fib(n):
+%     a, b = 0, 1
+%     while b < n:
+%         print (b)
+%         a, b = b, a + b
+% \end{lstlisting}
+% \pause
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% >>> f = fib(2000)
+% >>> print(f)
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Propuesta de código}
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% >>> def fib2(n):
+%         resultado = []
+%         a, b = 0, 1
+%         while a < n:
+%             resultado.append(a)
+%             a, b = b, a + b
+%         return resultado
+% \end{lstlisting}
+% \pause
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% >>> f100 = fib2(100)
+% >>> print(f100)
+% \end{lstlisting}
+% \end{frame}
+% \subsection{Paso de argumentos}
+% \begin{frame}[fragile]
+% \frametitle{Paso de argumentos}
+% Para que una función sea en verdad útil (y reutilizable), es necesario que podamos pasarle entradas. 
+% \\
+% \bigskip
+% Los nombres de las entradas (o argumentos) que requiere una función se declaran a continuación del nombre en \azulfuerte{def} (siempre entre paréntesis)
+% \end{frame}
+% \begin{frame}[fragile]
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% def FuncionSuma (x, y):
+%     return x + y
+% |pause|
+% print FuncionSuma (5, 3)
+% print FuncionSuma (7, 42.0)
+% print FuncionSuma (" hola ", " mundo ")
+% \end{lstlisting}
+% \textbf{Nota:} 
+% \begin{itemize}
+% \item Nunca se mencionan los tipos de datos de $x$ e $y$, ni el tipo de datos que devuelve FuncionSuma.
+% \item Los argumentos y el valor devuelto son, tal como las variables, simples etiquetas a zonas de memoria.
+% \end{itemize}  
+% \end{frame}
+% \subsection{Paso de argumento con nombre}
+% \begin{frame}
+% \frametitle{Paso de argumentos con nombre}
+% Si la función que definimos tiene muchos argumentos, es fácil olvidar el orden en que fueron declarados.
+% \\
+% \medskip
+% Como un argumento no lleva asociado un tipo, \python{} no tiene manera de saber que los argumentos están cambiados.
+% \\
+% \medskip
+% Para evitar este tipo de errores, hay una manera de llamar a una función pasando los argumentos en cualquier orden arbitrario: se pasan usando el nombre usado en la declaración.
+% \end{frame}
+% \begin{frame}[fragile]
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% def Prueba (a, b, c):
+% # %r formatea automaticamente cualquier valor
+%     print "a = %r, b = %r, c = %r" % (a, b, c)
+
+% Prueba (1, 2, 3)
+% Prueba (b = 3, a = 2, c = 1)
+
+% a=1, b=2, c=3
+% a=2, b=3, c=1
+% \end{lstlisting}
+% \end{frame}
+% \subsection{Argumentos con valores por omisión}
+% \begin{frame}[fragile]
+% \frametitle{Argumentos con valores por omisión}
+% Para hacer que algunos argumentos sean opcionales, se les da valores por omisión en el momento de declararlos:
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% from math import sqrt
+% # argumento v es requerido , c es opcional
+% # c toma el valor 3.0e8 por omision
+% def Gamma (v, c = 3.0e+8):
+%     return sqrt (1.0 -(v/c)**2)
+
+% print (Gamma (0.1 , 1.0))
+% print (Gamma (1.e+7)) # usa c = 3.0e+8
+% \end{lstlisting}
+% \end{frame}
+% \subsection{Regresando varios valores en una función}
+% \begin{frame}[fragile]
+% \frametitle{Regresando varios valores en una función}
+% Para hacer que una función devuelva más de un valor, en lenguajes como Fortran, C o C++, lo que se hace es definir argumentos de entrada y argumentos de salida.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Regresando varios valores en una función}
+% Para devolver múltiples valores en \python, lo usual es devolver los valores \enquote{empaquetados} en una tupla:
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Regresando varios valores en una función}
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% from math import atan , sqrt
+
+% def ModuloArgumento (x, y):
+%     norm = sqrt (x**2 + y**2)
+%     arg = atan2 (y, x)
+%     return (norm, arg)
+    
+% n, a = ModuloArgumento (3.0,4.0)
+% print (" El modulo es:", n)
+% print (" El argumento es:", a)
+% \end{lstlisting}
+% \end{frame}
+% \subsection{Número variable de argumentos}
+% \begin{frame}[fragile]
+% \frametitle{Número variable de argumentos}
+% ¿Cómo le hacemos para que una función acepte un número no prefijado de argumentos?
+% \\
+% \medskip
+% Es posible pasar una lista o tupla, pero \python\ ofrece una mejor solución:
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Número variable de argumentos}
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% def atan(*args ):
+% # args es una tupla de argumentos
+%     if len(args) == 1:
+%         return math.atan(args[0])
+%     else :
+%         return math.atan2(args[0],args[1])
+
+% print (atan (0.2)) # 0.19739
+% print (atan (2.0,10.0)) # 0.19739
+% print (atan (-2.0,-10.0)) # -2.94419
+% \end{lstlisting}
+% \end{frame}
+% \subsection{Funciones lambda}
+% \begin{frame}
+% \frametitle{Funciones lambda}
+% \python\ admite una interesante sintaxis que permite definir funciones mínimas, de una línea, sobre la marcha. 
+% \\
+% \bigskip
+% Se trata de las denominadas funciones \azulfuerte{lambda}, que pueden utilizarse en cualquier lugar donde se necesite una función.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Funciones lambda}
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% >>> def f(x):
+%         return x*2
+
+% >>> f(3)
+% 6
+% >>> g = lambda x: x*2  1
+% >>> g(3)
+% 6
+% >>> (lambda x: x*2)(3) 2    
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Funciones lambda}
+% La primera función \azulfuerte{lambda} consigue el mismo efecto que la función \azulfuerte{f(x)}.
+% \\
+% \bigskip
+% Nótese que: la lista de argumentos no está entre paréntesis, y falta la palabra reservada \azulfuerte{return} (está implícita, ya que la función entera debe ser una única expresión). 
+% \\
+% \bigskip
+% Igualmente, la función no tiene nombre, pero puede ser llamada mediante la variable a que se ha asignado.
+% \end{frame}
+% \section{Módulos}
+% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Módulos en \python}
+% \begin{frame}[fragile]
+% \frametitle{Módulos}
+% Es una buena práctica almacenar las funciones en módulos.
+% \\
+% \bigskip
+% Un módulo es un archivo en donde se dejan las funciones, el nombre del módulo es el nombre del archivo.
+% \end{frame}
+% \begin{frame}[fragile]
+% Un módulo se carga al programa con la instrucción
+% \begin{center}
+% \verb|from nombre_modulo import *|
+% \end{center}
+% \python\ incluye un número grande de módulos que contienen funciones y métodos para varias tareas. La gran ventaja de los módulos es que están disponibles en internet y se pueden descargar, dependiendo de la tarea que se requiera atender.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Módulo \texttt{math}}
+% Muchas funciones matemáticas no se pueden llamar directo del intérprete, pero para ello existe el módulo \texttt{math}.
+% \\
+% \bigskip
+% Hay tres diferentes maneras en las que se puede llamar y utilizar las funciones de un módulo.
+% \begin{exampleblock}{}
+% \verb|from math import *|
+% \end{exampleblock}
+% \end{frame}
+% \begin{frame}
+% De esta manera, se importan todas las funciones definidas en el módulo \texttt{math}, siendo quizá un gasto innecesario de recursos, pero también generar conflictos con definiciones cargadas de otros módulos.
+% \end{frame}
+% \begin{frame}[fragile]
+% \begin{exampleblock}{}
+% \verb|from math import func1, func2,...|
+% \end{exampleblock}
+% \pause
+% \begin{exampleblock}{}
+% \verb|>>> from math import log,sin| \\
+% \verb|>>> print (log(sin(0.5)))| \\
+% \verb|-0.735166686385|
+% \end{exampleblock}
+% \end{frame}
+% \begin{frame}[fragile]
+% El tercer método que es el más usado en programación, es tener disponible el módulo:
+% \begin{center}
+% \verb|import math|
+% \end{center}
+% Las funciones en el módulo se pueden usar con el nombre del módulo como prefijo:
+% \begin{exampleblock}{}
+% \verb|>>> import math| \\
+% \verb|>>> print (math.log(math.sin(0.5)))|
+% \verb|-0.735166686385|
+% \end{exampleblock}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Contenido del módulo \texttt{math}}
+% Podemos ver el contenido de un módulo con la instrucción:
+% \\
+% \verb|>>> import math| \\
+% \verb|>>> dir(math)|
+% \fontsize{10}{10}\selectfont
+% \begin{verbatim}
+% ['__doc__', '__name__', '__package__', 'acos',
+% 'acosh',  'asin', 'asinh', 'atan', 'atan2',
+% 'atanh', 'ceil', 'copysign', 'cos', 'cosh',
+% 'degrees', 'e', 'erf', 'erfc', 'exp', 'expm1',
+% 'fabs', 'factorial', 'floor', 'fmod', 'frexp',
+% 'fsum', 'gamma', 'hypot', 'isinf', 'isnan',
+% 'ldexp', 'lgamma', 'log', 'log10', 'log1p',
+% 'modf', 'pi', 'pow', 'radians', 'sin', 'sinh',
+% 'sqrt', 'tan', 'tanh', 'trunc']
+% \end{verbatim}
+% \end{frame}
+% \section{Documentación del código}
+% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Generando la documentación propia}
+% \begin{frame}
+% \frametitle{Documentación del código}
+% Es una buena costumbre documentar el código que vayamos creando, en parte por que se va a reutilizar y aunque nosotros seamos los usuarios, la mejor manera de ir perfeccionado las técnicas de programación, es a través de los comentarios y observaciones de otros usuarios.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Documentación del código}
+% Tomen en cuenta que documentar el código, no es lo mismo que comentarlo, ya que los comentarios no se muestran como parte de la documentación que genera \python.
+% \\
+% \bigskip
+% Veremos que hay una manera de \enquote{leer} la documentación que se haya contenido dentro del código.
+% \end{frame}
+% \subsection{Convenciones para la documentación}
+% \begin{frame}
+% \frametitle{Convenciones para la documentación}
+% La primer línea debe ser siempre un resumen corto y conciso del propósito del objeto.
+% \\
+% \bigskip
+% Para ser breve, no se debe mencionar explícitamente el nombre o tipo del objeto, ya que estos están disponibles de otros modos (excepto si el nombre es un verbo que describe el funcionamiento de la función). Esta línea debe empezar con una letra mayúscula y terminar con un punto.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Convenciones para la documentación}
+% Si hay más líneas en la cadena de texto de documentación, la segunda línea debe estar en blanco, separando visualmente el resumen del resto de la descripción.
+% \\
+% \bigskip
+% Las líneas siguientes deben ser uno o más párrafos describiendo las convenciones para llamar al objeto, efectos secundarios, etc.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Ejemplo de documentación}
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]  
+% def mi_funcion():
+%     """No hace mas que documentar la funcion.
+
+%     No, de verdad. No hace nada.
+%     """
+%     pass
+
+% print(mi_funcion.__doc__)
+% \end{lstlisting}
+% \end{frame}
+% \section{Estilo de codificación}
+% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Guías de estilo}
+% \begin{frame}
+% \frametitle{Estilo de codificación}
+% Ahora que estás a punto de escribir códigos de \python{} más largos y complejos, es un buen momento para hablar sobre estilo de codificación.
+% \\
+% \bigskip
+% La mayoría de los lenguajes pueden ser escritos (o mejor dicho, formateados) con diferentes estilos; algunos son mas fáciles de leer que otros.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Estilo de codificación}
+% Hacer que tu código sea más fácil de leer por otros es siempre una buena idea, y adoptar un buen estilo de codificación ayuda tremendamente a lograrlo.
+% \\
+% \bigskip
+% Para \python, \azulfuerte{PEP 8} se erigió como la guía de estilo a la que más proyectos se adhirieron; promueve un estilo de codificación fácil de leer y visualmente agradable. Todos los que trabajan con \python{} deben leerlo en algún momento.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Puntos importantes PEP 8}
+% \begin{itemize}
+% \item Usar sangrías de 4 espacios, no tabs.
+% \item Recortar las líneas para que no superen los 79 caracteres.
+% \item Usar líneas en blanco para separar funciones y clases, y bloques grandes de código dentro de funciones.
+% \item Cuando sea posible, poner comentarios en una sola línea.
+% \item Usar docstrings.
+% \end{itemize}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Puntos importantes PEP 8}
+% \begin{itemize}
+% \item Usar espacios alrededor de operadores y luego de las comas, pero no directamente dentro de paréntesis: $a = f(1, 2) + g(3, 4)$.
+% \item Nombrar las clases, módulos y funciones consistentemente; la convención es usar NotacionCamello (Camel Case) para clases y minusculas\_con\_guiones\_bajos para funciones y métodos.
+% \end{itemize}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Puntos importantes PEP 8}
+% \begin{itemize}
+% \item No uses codificaciones estrafalarias si esperás usar el código en entornos internacionales. El default de \python, UTF-8, o incluso ASCII plano funcionan bien en la mayoría de los casos.
+% \item De la misma manera, no uses caracteres no-ASCII en los identificadores si hay incluso una pequeñísima chance de que gente que hable otro idioma tenga que leer o mantener el código.
+% \end{itemize}
+% \end{frame}
+
+\end{document}

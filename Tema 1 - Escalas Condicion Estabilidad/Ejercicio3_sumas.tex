@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm} 
+\usepackage{graphicx}
+\usepackage{anysize}
+%\renewcommand{\theequation}{\thesection. \arabic{equation}}
+%\numberwithin{equation}{section}
+\marginsize{1cm}{1cm}{0cm}{2cm} 
+\author{M. en C. Gustavo Contreras Mayén.}
+\title{Ejercicio sobre sumas y restas \\
+\begin{large}Curso de Física Computacional\end{large}}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\begin{enumerate}
+\item Aprendimos en la secundaria a resolver la ecuaci\'{o}n homog\'{e}nea de segundo grado:
+\[ ax^{2} + bx + c = 0\]
+que tiene una soluci\'{o}n anal\'{i}tica que se puede escribir como
+\\
+\begin{center}
+\begin{minipage}{5cm}
+\[ x_{1,2} = \dfrac{-b \pm \sqrt{b^{2} - 4ac}}{2a}\]
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}{5cm}
+\[ x_{1,2} = \dfrac{-2c}{b \pm \sqrt{b^{2}-4ac}}\]
+\end{minipage}
+\end{center}
+Revisando la expresi\'{o}n anterior vemos que la cancelaci\'{o}n de la diferencia (y por tanto, un incremento en el error) aumenta cuando $b^{2} >> 4ac$ debido a que la ra\'{i}z cuadrada y el siguiente t\'{e}rmino est\'{a}n muy pr\'{o}ximas a cancelarse.
+\begin{enumerate}
+\item Escribe un programa que calcule las cuatro soluciones para valores arbitrarios de $a$, $b$ y $c$.
+\item Revisa c\'{o}mo los errores obtenidos en los c\'{a}lculos, aumentan conforme hay una cancelaci\'{o}n de la diferencia de t\'{e}rminos y su relaci\'{o}n con la precisi\'{o}n de la m\'{a}quina. Prueba con los siguientes valores $a=1$, $b=1$, $c=10^{-n}, n=1,2,3,\ldots$
+\item C\'{o}mo mejorar\'{i}as el programa para obtener la mayor precisi\'{o}n en tu respuesta?
+\end{enumerate}
+\item Considera la suma finita
+\begin{equation}
+S^{(1)}_{N}= \sum^{2N}_{n=1} (-1)^{n} \dfrac{n}{n+1}
+\end{equation}
+Si sumamos de manera separada los valores impares y los pares de \textit{x}, tendremos dos sumas:
+\begin{equation}
+S^{(2)}_{N}= - \sum^{N}_{n=1} \dfrac{2n-1}{2n} + \sum^{N}_{n=1} \dfrac{2n}{2n+1}
+\end{equation}
+Podemos eliminar la diferencia mediante una combinación entre las dos sumas, quedando de la siguiente manera
+\begin{equation}
+S^{(3)}_{N}=  \sum^{N}_{n=1} \dfrac{1}{2n(2n+1)}
+\end{equation}
+Sabemos que aunque el valor de las tres sumas $S^{(1)}_{N}$, $S^{(2)}_{N}$, $S^{(3)}_{N}$, es el mismo, el resultado númerico puede ser diferente.
+\begin{enumerate}
+\item Escribe un programa que calcule $S^{(1)}_{N}$, $S^{(2)}_{N}$, $S^{(3)}_{N}$.
+\item Supongamos que $S^{(3)}_{N}$ es el valor exacto de la suma. Grafica el error relativo contra el número de términos en la suma (tip: usa una escala log-log). Comienza con $N=1$ hasta $N=1000000$. Describe la gráfica.
+\item Identifica en tu gráfica una región en donde la tendencia es casi lineal, ¿qué representa ésta sección con respecto al error?
+\end{enumerate}
+\item Aunque tengamos el apoyo de una buena computadora, el cálculo de la suma de una serie requiere reflexión y cuidado.
+\\
+Considera la serie:
+\[S^{(u)} = \sum_{n=1}^{N} \dfrac{1}{n} \]
+que será una suma finita mientras $N$ sea finito. Cuando hacemos la suma de manera analítica, no importa si se hace de manera ascendente: desde $n=1$, o descendente: desde $n=N$
+\[S^{(d)} = \sum_{n=N}^{1} \dfrac{1}{n} \]
+Sin embargo, debido a los errores por redondeo, cuando calculamos de manera analíticas, las sumas $S^{(u)} \neq S^{(d)}$
+\begin{enumerate}
+\item Escribe un programa que calcule $S^{(u)}$ y $S^{(d)}$ como función de  $N$.
+\item Grafica (log-log) la diferencia relativa entre la suma relativa contra $N$.
+\item Identifica en tu gráfica una región en donde la tendencia es casi lineal, ¿qué representa ésta sección con respecto al error?
+\end{enumerate}
+\end{enumerate}
+\end{document}

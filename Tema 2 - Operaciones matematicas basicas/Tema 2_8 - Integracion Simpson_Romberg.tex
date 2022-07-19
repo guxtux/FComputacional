@@ -1,0 +1,776 @@
+\input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Madrid_beaver}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers_Madrid_beaver}
+\title{Integración numérica}
+\subtitle{Tema 2 - Operaciones matemáticas básicas}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=1.75cm]{Imagenes/escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=1.75cm]{Imagenes/escudo-unam}
+}
+\newtheorem{miteorema}{Teorema}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+\section{Integración de Romberg}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición de la integración de Romberg}
+\begin{frame}
+\frametitle{Integración de Romberg}
+La integración de Romberg combina la regla del trapecio con la extrapolación de Richardson. 
+\\
+\bigskip
+Usemos la siguiente notación:
+\[ R_{i, 1} = I_{i} \]
+donde $I_{i}$ representa el valor aproximado de $\int_{a}^{b} \: f(x)dx$ calculado con la regla recursiva del trapecio, usando $2^{i - 1}$ bloques.
+\end{frame}
+\begin{frame}
+\frametitle{Integración de Romberg}
+Recordemos que el error en esta aproximación es $E = c_{1} \: h^{2} + c_{2} \: h^{4} + \ldots$ donde
+\[ h = \dfrac{b - a}{2^{i - 1}} \]
+es el ancho del bloque.
+\end{frame}
+\begin{frame}
+\frametitle{Inicio de la integración}
+La integración de Romberg inicia con el cálculo de $R_{1, 1} = I_{1}$ (un bloque) y $R_{2, 1} = I_{2}$ (dos bloques) a partir de la regla del trapecio.
+\end{frame}
+\begin{frame}
+\frametitle{Cancelación término dominante}
+El término dominante $c_{1} \: h^{2}$ es entonces eliminado por la extrapolación de Richardson.
+\\
+\bigskip
+Usando $p = 2$ (el exponente en el término dominante) e indicando el resultado por $R_{2, 2}$, tenemos:
+\[ R_{2, 2} = \dfrac{2^{2} \: R_{2, 1} - R_{1, 1}}{2^{2} - 1} = \dfrac{4}{3} \: R_{2, 1} - \dfrac{1}{3} \: R_{1, 1} \]
+\end{frame}
+\begin{frame}
+\frametitle{Notación para los cálculos}
+Es conveniente guardar los resultados en un arreglo con la forma
+\[ \begin{bmatrix}
+R_{1, 1} & \\
+R_{2, 1} & R_{2, 2}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Aumentando los bloques}
+El siguiente paso es calcular $R_{3, 1}= I_{3}$ (cuatro bloques) y repetir la extrapolación de Richardson con $R_{2, 1}$ y $R_{3, 1}$, guardando los resultados como $R_{3, 2}$:
+\[ R_{3, 2} = \dfrac{4}{3} \: R_{3,1} - \dfrac{1}{3} \: R_{2,1} \]
+\end{frame}
+\begin{frame}
+\frametitle{Elementos obtenidos}
+Los elementos del arreglo $R$ calculados hasta el momento son:
+\[ \begin{bmatrix}
+R_{1, 1} & \\
+R_{2, 1} & R_{2, 2} \\
+R_{3, 1} & R_{3, 2}
+\end{bmatrix} \]
+Los elementos de la segunda columna tienen un error del orden $c_{2} \: h^{4}$, el cual puede ser eliminado con la extrapolación de Richardson.
+\end{frame}
+\begin{frame}
+\frametitle{Usando un valor para \texttt{p}}
+Usando $p = 4$, obtenemos:
+\[ R_{3, 3} = \dfrac{2^{4} \: R_{3, 2}-R_{2, 2}}{2^{4} - 1} = \dfrac{16}{15} \: R_{3, 2} - \dfrac{1}{15} \: R_{2, 2} \]
+El resultado tiene ahora un error del orden $O(h^{6})$. El arreglo se ha expandido ahora como
+\[ \begin{bmatrix}
+R_{1, 1} &  & \\
+R_{2, 1} & R_{2, 2} & \\
+R_{3, 1} & R_{3, 2} & R_{3, 3}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Resultados de otro cálculo}
+Luego de otra ronda de cálculos, se tiene
+\[ \begin{bmatrix}
+R_{1, 1} &  & & \\
+R_{2, 1} & R_{2, 2} & & \\
+R_{3, 1} & R_{3, 2} & R_{3, 3} & \\
+R_{4, 1} & R_{4, 2} & R_{4, 3} & R_{4, 4}
+\end{bmatrix} \]
+donde el error en $R_{4, 4}$ es del orden de $O(h^{8})$.
+\\
+\bigskip
+\pause
+\textoazul{Nótese que la estimación con mayor precisión es siempre el último término de la diagonal}.
+\end{frame}
+\begin{frame}
+\frametitle{Punto de paro}
+Este proceso continua hasta que la diferencia entre dos términos sucesivos de la diagonal son lo suficientemente pequeños.
+\end{frame}
+\begin{frame}
+\frametitle{Fórmula general}
+La fórmula general para la extrapolación es:
+\[ R_{i, j} = \dfrac{4^{j - 1} \: R_{i, j - 1} - R_{i - 1, j - 1} }{4^{j - 1} - 1} \hspace{1cm} i > 1, \hspace{0.3cm} j = 2,3,\ldots,i \]
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El proceso de integración}
+Esquemáticamente lo que tenemos es:
+\begin{figure}
+  \centering
+  \includestandalone{Figuras/integracion_07}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Multiplicadores}
+Donde los multiplicadores $\alpha$ y $\beta$ dependen de $j$ de la siguiente manera:
+\fontsize{12}{12}\selectfont
+\begin{center}
+\begin{tabular}{c | c | c | c | c | c}
+\hline
+j & $2$ & $3$ & $4$ & $5$ & $6$ \\ \hline
+$\alpha$ & $-1/3$ & $-1/15$ & $-1/63$ & $-1/255$ & $-1/1023$ \\ \hline
+$\beta$ & $4/3$ & $16/15$ & $64/63$ & $256/255$ & $1024/1023$ \\ \hline
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Manejo triangular}
+El arreglo triangular es conveniente para manipularlo computacionalmente hablando.
+\\
+\bigskip
+La aplicación del algoritmo de Romberg puede llevarse dentro de una matriz de una dimensión.
+\end{frame}
+\begin{frame}
+\frametitle{Aprovechando las expresiones}
+Luego de la primera extrapolación, $R_{1,1}$ ya no se ocupa de nuevo, por lo que podemos re-emplazarla con $R_{2,2}$, por tanto, tenemos en el arreglo
+\[ \begin{bmatrix}
+R^{\prime}_{1} = R_{2, 2} \\
+R^{\prime}_{2} = R_{2, 1}
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}
+\frametitle{Aprovechando las expresiones}
+En la segunda extrapolación, $R_{3, 2} $ sobre-escribe a $R_{2, 1}$ y $R_{3, 3}$ re-emplaza a $R_{2, 2}$, entonces el arreglo queda
+\begin{align*} \begin{bmatrix}
+R^{\prime}_{1} = R_{3, 3} \\
+R^{\prime}_{2} = R_{3, 2} \\
+R^{\prime}_{3} = R_{3, 1}
+\end{bmatrix}
+\end{align*} 
+\pause
+Y así podemos continuar. $R^{\prime}_{1}$ contiene siempre el mejor resultado.
+\end{frame}
+\begin{frame}
+\frametitle{Expresión general para la extrapolación}
+La fórmula de extrapolación para el k-ésima vuelta, es:
+\[ R^{\prime}_{j} = \dfrac{4^{k - j} \: R^{\prime}_{j + 1} - R^{\prime}_{j}}{4^{k - j} - 1}, \hspace{0.8cm} j = k - 1, k - 2, \ldots, 1 \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Usando la integración de Romberg, evalúa
+\[ \int_{0}^{\pi} \: f(x) dx\]
+donde $f(x) = \sin(x)$
+\end{frame}
+\begin{frame}
+\frametitle{Primera parte: Regla del trapecio recursiva}
+\fontsize{12}{12}\selectfont
+\begin{eqnarray*}
+R_{1, 1} &=& I(\pi) = \frac{\pi}{2} [f(0) + f(\pi)] = 0 \\
+\visible<2->{R_{2, 1} &=& I \left(\frac{\pi}{2}\right) = \frac{1}{2} \: I(\pi) +  \frac{\pi}{2} \: f \left(\frac{\pi}{2} \right) = 1.5708} \\
+\visible<3->{R_{3, 1} &=& I \left(\frac{\pi}{4} \right) = \frac{1}{2} \: I \left(\frac{\pi}{2} \right) + \frac{\pi}{4} \left[ f \left(\frac{\pi}{4} \right) + f \left(\frac{3 \: \pi}{4} \right) \right] = 1.8961} \\
+\visible<4->{R_{4, 1} &=& I \left( \frac{\pi}{8} \right) = \frac{1}{2} \: I \left( \frac{\pi}{4} \right) + \frac{\pi}{8} \left[ f \left( \frac{\pi}{8} \right) + f \left( \frac{3 \: \pi}{8} \right) +  f \left( \frac{5 \: \pi}{8} \right) \right. } \\ 
+\visible<4->{ &+& \left. f \left( \frac{7 \: \pi}{8} \right) \right] = 1.9742}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Segunda parte: Extrapolación de Richardson}
+Usando las fórmulas de extrapolación, construimos la siguiente tabla:
+\fontsize{12}{12}\selectfont
+\[
+\begin{bmatrix}
+R_{1, 1} &         &         & \\
+R_{2, 1} & R_{2, 2} &         & \\
+R_{3, 1} & R_{3, 2} & R_{3, 3} & \\
+R_{4, 1} & R_{4, 2} & R_{4, 3} & R_{4, 4} 
+\end{bmatrix}
+=
+\begin{bmatrix}
+0      &        &        & \\
+1.5708 & 2.0944 &        & \\
+1.8961 & 2.0046 & 1.9986 & \\
+1.9742 & 2.0003 & 2.0000 & 2.0000
+\end{bmatrix}
+\]
+\end{frame}
+\begin{frame}
+\frametitle{Segunda parte: Extrapolación de Richardson}
+De acuerdo al procedimiento, vemos que converge, por tanto 
+\[ \int_{0}^{\pi} \: \sin(x) dx = R_{4, 4}= 2.0000 \]
+que es el resultado exacto.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Usando la integración de Romberg, evalúa la siguiente integral:
+\[ \int_{0}^{\sqrt{\pi}} 2 \: x^{2} \:  \cos(x^{2}) dx\]
+\pause
+Aquí hay dos caminos:
+\setbeamercolor{item projected}{bg=brown!70!white,fg=black}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Elaborar un código completo para resolver el problema.
+\item Apoyarnos en las ventajas que nos da \python.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Camino 1}
+Aquí tendrían que utilizar su propuesta de código para la regla recursiva del trapecio y luego la integración de Romberg.
+\\
+\bigskip
+Sería el camino \enquote{manual} para la solución.
+\end{frame}
+% \begin{frame}[allowframebreaks, plain, fragile]
+% \frametitle{Camino 1}
+% \begin{lstlisting}[caption=Código para la regla recursiva del trapecio, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+% from numpy import zeros
+% from math import *
+
+% def trapecio(f, a, b, Iviejo, k):
+%     if k == 1:Inueva = (f(a) + f(b))*(b - a)/2.0
+%     else:
+%         n = 2**(k - 2) 
+%         h = (b - a)/n 
+%         x = a + h/2.0 
+%         sum = 0.0
+%         for i in range(n):
+%             sum = sum + f(x)
+%             x = x + h
+%         Inueva = (Iviejo + h*sum)/2.0
+%     return Inueva
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}[allowframebreaks, plain, fragile]
+% \begin{lstlisting}[caption=Código para la integración de Romberg, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+% def romberg(f, a, b, tol=1.0e-6):
+%     def richardson(r, k):
+%         for j in range(k-1, 0, -1):
+%             const = 4.0**(k - j)
+%             r[j] = (const*r[j+1] - r[j])/(const - 1.0)
+%         return r
+
+%     r = zeros(21)
+%     r[!1!] = trapecio(f, a, b, 0.0, 1)
+%     r_viejo = r[!1!]
+%     for k in range(2, 21):
+%         r[k] = trapecio(f, a, b, r[k-1], k)
+%         r = richardson(r, k)
+%         if abs(r[!1!] - r_viejo) < tol*max(abs(r[!1!]),1.0):
+%             return r[!1!], 2**(k-1)
+%             r_viejo = r[!1!]
+%     print ('La integracion de Romberg no converge')
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}[fragile]
+% \begin{lstlisting}[caption=Código que evalúa la integral, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+% def f(x): return 2.0*(x**2)*cos(x**2)
+
+% I,n = romberg(f,0,sqrt(pi))
+% print ('Integral = ', I)
+% print ('Bloques = ',n)
+% \end{lstlisting}
+% El código anterior nos daría el resultado esperado.
+% \\
+% \bigskip
+% Veamos ahora la segunda manera de resolver el problema, explotando al máximo \python.
+% \end{frame}
+\subsection{La función \texttt{integrate.romberg}}
+\begin{frame}
+\frametitle{Usando la función \texttt{romberg} de \texttt{scipy}}
+En la presentación anterior ya hemos presentado de la libreria \funcionazul{scipy} el uso de la función \funcionazul{quad} para integrar una función.
+\\
+\medskip
+De la misma librería, tomamos la función \funcionazul{romberg}, que realiza una integración con la técnica de Romberg.
+\end{frame}
+\subsection{Integración (\texttt{scipy.integrate})}
+\begin{frame}
+\frametitle{Integración (\texttt{scipy.integrate})}
+El subpaquete \texttt{scipy.integrate} proporciona varias técnicas de integración.
+\fontsize{12}{12}\selectfont
+\begin{tabular}{l | p{8cm}}
+fixed-quad 	& Integración de f(x) usando cuadraturas gaussianas de orden $n$. \\ \hline
+quadrature 	& Integra con tolerancia dada usando cuadratura gaussiana. \\ \hline
+romberg 	& Integra una función mediante la integración de Romberg.
+\end{tabular}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{\texttt{scipy.integrate.romberg}}
+\fontsize{11}{11}\selectfont
+\funcionazul{scipy.integrate.romberg(function, a, b, show=False)}
+\\
+\bigskip
+\pause
+\fontsize{14}{14}\selectfont
+Es la integración de Romberg de una función.
+\\
+\medskip
+\pause
+Devuelve la integral de una función (función de una variable) en el intervalo $[a,b]$.
+\\
+\medskip
+\pause
+Si \funcionazul{show} es 1, se muestra el arreglo triangular de resultados intermedios.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Código con scipy}
+\begin{lstlisting}[caption=Integración Romeberg con scipy, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+from scipy import cos, pi
+from scipy.integrate import romberg
+
+
+def f(x): return 2.0 * (x**2) * cos(x**2)
+
+resultado = romberg(f, 0, sqrt(pi), show=True)
+
+print(resultado)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Tabla de resultados}
+\fontsize{6}{6}\selectfont
+\begin{tabular}{c c c c c c c c c c}
+ Steps	&	StepSize	&	Results	 \\ \hline							
+     1	&	1.772454	&	-5.568328 \\ \hline 
+     2	&	0.886227	&	-1.799813	&	-0.543642 \\ \hline
+     4	&	0.443113	&	-1.034769	&	-0.779755	&	-0.795496 \\ \hline
+     8	&	0.221557	&	-0.925214	&	-0.888695	&	-0.895958	&	-0.897553 \\ \hline
+    16	&	0.110778	&	-0.902166	&	-0.894484	&	-0.894870	&	-0.894852	&	-0.894842 \\ \hline
+    32	&	0.055389	&	-0.896649	&	-0.894810	&	-0.894832	&	-0.894831	&	-0.894831	&	-0.894831 \\ \hline
+    64	&	0.027695	&	-0.895285	&	-0.894830	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831 \\ \hline
+   128	&	0.013847	&	-0.894945	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831	&	-0.894831 
+\end{tabular}
+\\
+\bigskip
+\fontsize{12}{12}\selectfont
+The final result is $-0.894831469484$ after $129$ function evaluations.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio de clase}
+Evalúa la siguiente integral con el procedimiento de Romberg:
+\[ \int_{0}^{\frac{\pi}{4}} \dfrac{dx}{\sqrt{\sin x}} \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio de clase}
+Vemos que la integral es impropia, por lo que hay que manejarla de tal manera que se remueva la singularidad, en este caso, mediante un cambio de variable, para luego usar \funcionazul{scipy.integrate.romberg} con los respectivos límites de integración.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Evalúa la integral
+\[ \int_{0}^{2} (x^{5} + 3 \: x^{3} - 2) dx\]
+por el método de integración de Romberg.
+\end{frame}
+\section{Cuadraturas Gaussianas}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definiciones}
+\begin{frame}
+\frametitle{Cuadraturas Gaussianas}
+Hemos visto que las fórmulas de Newton-Cotes funcionan muy bien para aproximar la intregral
+\[ \int_{a}^{b} f(x) dx\]
+si $f(x)$ es una función suave, como los polinomios.
+\end{frame}
+\begin{frame}
+\frametitle{Cuadraturas Gaussianas}
+También aplica para las cuadraturas Gaussianas, ya que son buenas para estimar integrales de la forma:
+\[ \int_{a}^{b} w(x) f(x) dx\]
+donde $w(x)$ se denomina \emph{función de peso o ponderación}, éstas pueden contener singularidades, siempre y cuando sean integrables.
+\end{frame}
+\begin{frame}
+\frametitle{Cuadraturas Gaussianas}
+Un ejemplo de este tipo, es la integral
+\[ \int_{0}^{1} \left(1+x^{2} \right) \:  ln(x) \: dx \]
+\\
+\bigskip
+\pause
+En el caso de que algún (o ambos) límite(s) de integración sean infinitos
+\[ \int_{0}^{\infty} \exp(-x) \: \sin x \: dx \]
+éstos se pueden reacomodar para calcular la integral.
+\end{frame}
+\begin{frame}
+\frametitle{Fórmulas de integración Gaussianas}
+Las fórmulas de integración Gaussianas tiene la misma forma de las reglas de Newton-Cotes:
+\[I = \sum_{i=0}^{n} A_{i} f(x_{i})\]
+donde $I$ representa la aproximación al valor de la integral, la diferencia radica en la forma en que se determinan los pesos $A_{i}$ y abscisas nodales $x_{i}$.
+\end{frame}
+\begin{frame}
+\frametitle{Fórmulas de integración Gaussianas}
+En la integración de Newton-Cotes los nodos se espacian uniformemente en $(a, b)$, es decir, estaban ya predeterminadas sus ubicaciones.
+\\
+\bigskip
+En la cuadratura de Gauss, se eligen los nodos y los pesos de modo que la ecuación para $I$, se obtiene la integral exacta si $f(x)$ es un polinomio de grado $2n + 1$ o menor, es decir:
+\end{frame}
+\begin{frame}
+\frametitle{Expresión para la cuadratura}
+\[ \int_{a}^{b} w(x) P_{m}(x) dx = \sum_{i=0}^{n} A_{i}P_{m}(x_{i}), \hspace{1cm} m \leq 2n+1\]
+\pause
+Una manera de determinar los pesos y las abscisas es sustituir 
+\begin{align*}
+P_{0}(x) &= 1 \\
+P_{1}(x) &= x, \\
+&\ldots  \\
+P_{2 \: n + 1}(x) &= x^{2 \: n + 1}
+\end{align*}
+en la ecuación anterior.
+\end{frame}
+\begin{frame}
+\frametitle{Expresión para la cuadratura}
+Para luego resolver el sistema de $2 \: n + 2$ ecuaciones:
+\[ \int_{a}^{b} \: w(x) \: x^{j} \: dx = \sum_{i = 0}^{n} \: A_{i} \: x_{i}^{j}, \hspace{1cm} j = 0, 1, \ldots, 2 \: n + 1 \]
+para las incógnitas $A_{i}$ y $x_{i}$.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de una función $w(x)$}
+Sea 
+\[ w(x) = \exp(-x), \hspace{0.3cm} a = 0, \hspace{0.3cm} b = \infty , \hspace{0.3cm} n =  1\]
+Las cuatro ecuaciones ($j= 0, 1, 2, 3$) que determinan $x_{0}$, $x_{1}$, $A_{0}$ y $A_{1}$ son:
+\begin{eqnarray*}
+\int_{0}^{\infty} \exp(-x) dx &=& A_{0}+A_{1} \\
+\pause
+\int_{0}^{\infty} \exp(-x) x dx &=& A_{0} x_{0} + A_{1} x_{1} \\
+\pause
+\int_{0}^{\infty} \exp(-x) x^{2} dx &=& A_{0} x_{0}^{2}+ A_{1} x_{1}^{2} \\
+\pause
+\int_{0}^{\infty} \exp(-x) x^{3} dx &=& A_{0} x_{0}^{3} + A_{1} x_{1}^{3} \\
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Evaluando las integrales}
+Evaluando las integrales, obtenemos
+\begin{eqnarray*}
+A_{0} + A_{1} &=& 1 \\
+A_{0} x_{0} + A_{1} x_{1} &=& 1 \\
+A_{0} x_{0}^{2} + A_{1} x_{1}^{2} &=& 2 \\
+A_{0} x_{0}^{3} + A_{1} x_{1}^{3} &=& 6
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución del sistema}
+Cuya solución es:
+\begin{eqnarray*}
+x_{0} = 2 - \sqrt{2} \hspace{0.75cm} A_{0} \dfrac{\sqrt{2}+1}{2\sqrt{2}} \\
+x_{1} = 2 + \sqrt{2} \hspace{0.75cm} A_{1} \dfrac{\sqrt{2}-1}{2\sqrt{2}}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado de la integración}
+Por tanto la fórmula de integración obtenida es:
+\begin{eqnarray*}
+\int_{0}^{\infty} \exp(-x) f(x) dx & \simeq \dfrac{1}{2\sqrt{2}} \left[ \left( \sqrt{2}+1 \right) f \left(2 - \sqrt{2}\right) + \right. \\ 
+&+ \left. \left( \sqrt{2}-1 \right) f\left(2 +\sqrt{2} \right) \right]
+\end{eqnarray*}
+\pause
+Debido a la no linealidad de las ecuaciones, este enfoque no va a funcionar bien para valores grandes de $n$.
+\end{frame}
+\begin{frame}
+\frametitle{Calculando nodos y pesos}
+Hay métodos prácticos para calcular $x_{i}$ y $A_{i}$ que requieren un cierto conocimiento de los polinomios ortogonales y su relación con la cuadratura de Gauss.
+\\
+\bigskip
+Hay, sin embargo, varias fórmulas \enquote{clásicas} de integración Gaussianas para los cuales, las abscisas y pesos han sido calculados y tabulados con gran precisión.
+\end{frame}
+\begin{frame}
+\frametitle{Calculando nodos y pesos}
+Estas fórmulas se pueden utilizar sin conocer la teoría detrás de ellas, ya que todo lo que uno necesita para la integración de Gauss son los valores de $x_{i}$ y $A_{i}$.
+\end{frame}
+\subsection{Polinomios ortogonales}
+\begin{frame}
+\frametitle{Polinomios ortogonales}
+Los polinomios ortogonales se utilizan en muchas áreas de la física, de la matemática y del análisis numérico; se han estudiado a fondo y muchas de sus propiedades ya son conocidas. 
+\end{frame}
+\begin{frame}
+\frametitle{Polinomios ortogonales}
+Los polinomios $\varphi_{n}(x)$, con $n = 0, 1, 2,\ldots$ ($n$ es el grado del polinomio) se dice que forman un conjunto ortogonal en el intervalo $(a, b)$ con respecto a la función de peso $w(x)$ si
+\[ \int_{a}^{b} w(x) \varphi_{m}(x) \varphi_{n}(x) dx = 0, \hspace{0.5cm} m \neq n \]
+\end{frame}
+\begin{frame}
+\frametitle{Polinomios ortogonales}
+El conjunto se determina (con excepción de un factor constante) por: la elección de la función de peso y los límites de integración.
+\\
+\bigskip
+Es decir, cada conjunto de polinomios ortogonales se asocia con ciertos $w(x)$, $a$ y $b$.
+\\
+\bigskip
+El factor constante se especifica de manera estandarizada.
+\end{frame}
+\begin{frame}
+\frametitle{Polinomios ortogonales más utilizados}
+A continuación se enlistan algunos de los polinomios ortogonales clásicos, la última columna indica la estandarización usada.
+\end{frame}
+\begin{frame}
+\frametitle{Polinomios ortogonales}
+\fontsize{12}{12}\selectfont
+\begin{tabular}{| l | c | c | c | c | c |}
+\hline
+Nombre & Símbolo & a & b & $w(x)$ & $\int_{a}^{b} \left[ \varphi_{n} (x)\right]^{2} dx $ \\ \hline
+Legendre & $p_{n}(x)$ & $-1$ & $1$ & $1$ & $2/(2n+1)$ \\
+Chebyshev & $T_{n}(x)$ & $-1$ & $1$ & $(1-x^{2})^{-1/2}$ & $\pi/2 \hspace{0.2cm} (n>0)$ \\
+Laguerre & $L_{n}(x)$ & $0$ & $\infty$ & $e^{-x}$ & $1$ \\
+Hermite & $H_{n}(x)$ & $-\infty$ & $\infty$ & $e^{x^{2}}$ & $\sqrt{\pi} 2^{n} n!$ \\ \hline
+\end{tabular}
+\end{frame}
+\begin{frame}
+\frametitle{Relaciones de recurrencia}
+Los polinomios ortogonales cumplen relaciones de recurrencia de la forma
+\[ a_{n} \varphi_{n+1} (x) = (b_{n} + c_{n} x) \varphi_{n} (x) - d_{n} \varphi_{n-1} (x)  \]
+Si los dos primeros polinomios del conjunto se conocen, los otros elementos del conjunto pueden calcularse de la ecuación anterior. 
+\end{frame}
+\begin{frame}
+\frametitle{Coeficientes de las reglas de recurrencia}
+Los coeficientes en la fórmula de recurrencia, junto con $\varphi_{0}(x)$ y $\varphi_{1}(x)$ son:
+\fontsize{12}{12}\selectfont
+\begin{tabular}{| l | c | c | c | c | c | c |}
+\hline
+Nombre & $\varphi_{0}(x)$ & $\varphi_{1}(x)$ & $a_{n}$ & $b_{n}$ & $c_{n}$ & $d_{n}$ \\ \hline
+Legendre & $1$ & $x$ & $n+1$ & $0$ & $2n+1$ & n \\
+Chebyshev & $1$ & $x$ & $1$ & $0$ & $2$ & $1$ \\
+Laguerre & $1$ & $1-x$ & $n+1$ & $2n+1$ & $-1$ & $n$ \\
+Hermite & $1$ & $2x$ & $1$ & $0$ & $2$ & $2$ \\ \hline
+\end{tabular}
+\end{frame}
+\begin{frame}
+\frametitle{Otra manera para obtener los polinomios}
+Los polinomios ortogonales clásicos también se pueden obtener de las fórmulas:
+\begin{align*}
+p_{n}(x) &= \dfrac{(-1)^{n}}{2^{n}n!} \dfrac{d^{n}}{dx^{n}} \left[ \left( 1-x^{2} \right)^{n} \right] \\[1em]
+T_{n}(x) &= \cos(n\cos^{-1}x), \hspace{0.3cm} n>0 \\[1em]
+L_{n}(x) &= \dfrac{e^{x}}{n!} \dfrac{d^{n}}{dx^{n}} \left( x^{n} e^{-x} \right) \\[1em]
+H_{n}(x) &= (-1)^{n} e^{x^{2}} \dfrac{d^{n}}{dx^{n}} \left(e^{x^{2}} \right)
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Derivadas de los polinomios ortogonales}
+Las derivadas de los polinomios anteriores se pueden calcular de:
+\begin{align*}
+(1 -x^{2}) \: p^{\prime}_{n}(x) &= n \: [-x \: p_{n}(x) + p_{n - 1}(x) ] \\[1em]
+(1 -x^{2}) \: T^{\prime}_{n}(x) &= n \: [-x \: T_{n}(x) + n \: p \: T{n - 1}(x) ] \\[1em]
+x \: L^{\prime}_{n} \: (x) &= n \: [ L_{n}(x) - L_{n - 1}(x) ] \\[1em]
+H^{\prime}_{n}(x) &= 2 \: n \:  H_{n - 1}(x)
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Propiedades de los polinomios}
+Algunas propiedades los polinomios ortogonales que son relevantes para la preceso de integración Gaussiana son:
+\setbeamercolor{item projected}{bg=yellow!70!black,fg=black}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item $\varphi(x)$ tiene $n$ distintos ceros en el intervalo $(a,b)$
+\item Los ceros de $\varphi_{n}(x)$ están entre los ceros de $\varphi_{n+1}(x)$
+\item Cualquier polinomio $P_{n}(x)$ de grado $n$ puede expresarse de la forma:
+\[ P_{n}(x) =  \sum_{i=0}^{n} c_{i} \: \varphi_{i} (x) \]
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Propiedades de los polinomios}
+\setbeamercolor{item projected}{bg=yellow!70!black,fg=black}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}
+\conti
+\item Se deduce de la ecuación anterior y de la propiedad de ortogonalidad que:
+\fontsize{12}{12}\selectfont
+\[ \int_{a}^{b} w(x) P_{n}(x) \varphi_{n+m} (x) dx = 0, \hspace{0.4cm} m \geq 0 \]
+\end{enumerate}
+\end{frame}
+\subsection{Deduciendo las abscisas nodales y los pesos}
+\begin{frame}
+\frametitle{Deduciendo las abscisas nodales y los pesos}
+Hay dos teoremas importantes que son de gran utilidad para apoyarnos y tomar sus resultados para la integración Gaussiana, la demostración es relativamente sencilla, pero no los demostraremos aquí, puede ser un buen ejercicio fuera de clase.
+\end{frame}
+\begin{frame}
+\frametitle{Teorema 1}
+\begin{miteorema}
+Las abscisas nodales $x_{0},x_{1},\ldots,x_{n}$ son los ceros del polinomio $\varphi_{n+1}(x)$  que pertenece al conjunto ortogonal definido por
+\[ \int_{a}^{b} w(x) \: \varphi_{m}(x) \: \varphi_{n}(x) \: dx = 0, \hspace{0.5cm} m \neq n \]
+\end{miteorema}
+\end{frame}
+\begin{frame}
+\frametitle{Teorema 2}
+\begin{miteorema}
+\[ A_{i} = \int_{a}^{b} w(x) \: \mathcal{L}_{i} (x) \: dx, \hspace{1cm} i = 0, 1, \ldots, n \]
+donde $\mathcal{L}_{i} (x)$ son las funciones cardinales de Lagrange que abarcan los nodos $x_{0}, x_{1}, \ldots, x_{n}$.
+\end{miteorema}
+\end{frame}
+\begin{frame}
+\frametitle{Cálculo de las raíces}
+No es difícil calcular los ceros $x_{i}$, $i = 0, 1, \ldots, n$ de un polinomio $\varphi_{n + 1} (x)$ que pertenece a un conjunto ortogonal, podemos usar alguno de los métodos discutidos en la parte de cálculo de raíces.
+\\
+\bigskip
+Una vez conocidos los ceros, los pesos $A_{i}$, $i = 0, 1, \ldots, n$ pueden calcularse de la ecuación anterior.
+\end{frame}
+\begin{frame}
+\frametitle{Fórmulas para calcular los pesos}
+Se puede demostrar que los pesos se pueden calcular a partir de:
+\begin{align*}
+\mbox{Gauss-Legendre   }  A_{i} &= \dfrac{2}{(1 - x^{2}_{i}) \: \left[P^{\prime}_{n + 1} (x_{i}) \right]^{2}} \\[1em]
+\mbox{Gauss-Laguerre   } A_{i} &= \dfrac{1}{x_{i} \: \left[L^{\prime}_{n + 1} (x_{i}) \right]^{2}} \\[1em]
+\mbox{Gauss-Hermite   } A_{i} &= \dfrac{2^{n + 2} \: (n + 1)! \: \sqrt{\pi}}{\left[ H^{\prime}_{n + 1} (x_{i}) \right]^{2}}
+\end{align*}
+\end{frame}
+\subsection{Error en la cuadratura gaussiana}
+\begin{frame}
+\frametitle{Error en la cuadratura gaussiana}
+El error debido al truncamiento
+\[ E = \int_{a}^{b} w(x) \: f(x) \: dx  - \sum_{i = 0}^{n} A_{i} f(x_{i})\]
+es de la forma $E = K(n) f^{2 \: n + 2} (c) $, donde $a < c < b$, el valor de $c$ no se conoce, solamente los extremos.
+\end{frame}
+\begin{frame}
+\frametitle{Error en la cuadratura gaussiana}
+La expresión para $K(n)$ depende de la cuadratura en particular que se esté utilizando.
+\\
+\bigskip
+Si las derivadas de $f(x)$ se pueden evaluar, el error de las fórmulas es útil para estimar el error en el intervalo.
+\end{frame}
+\begin{frame}
+\frametitle{Gauss-Legendre: abscisas y pesos}
+Vamos a mencionar la expresión para algunas fórmulas de integración por cuadraturas gaussianas.
+\\
+\bigskip
+La tabla de abscisas y pesos que se presenta a continuación, cubre para $n=1$ a $5$, y se redondea a seis decimales.
+\end{frame}
+\begin{frame}
+\frametitle{Gauss-Legendre: abscisas y pesos}
+Las operaciones con estos valores, se considera que funcionan bien si se hacen las cuentas a mano, en caso de requerir una mayor precisión o incluir un número  mayor de nodos, será necesario usar la computadora.
+\end{frame}
+\begin{frame}[plain]
+\frametitle{Cuadratura de Gauss-Legendre}
+\[ \int_{-1}^{1} f(\xi) \: d \xi \approx \sum_{i = 0}^{n} A_{i} \: f(\xi_{i}) \]
+\fontsize{10}{10}\selectfont
+\begin{center}
+\begin{tabular}{|c c c | c c c|}
+\hline
+$\pm \xi_{i}$ &       & $A_{i}$    & $\pm \xi_{i}$ &       & $A_{i}$ \\ \hline
+             & $n = 1$ &            &               & $n = 4$ &         \\ %\hline
+$0.577350$    &       & $1.000000$ & $0.000000$    &       & $0.568889$ \\ %\hline
+             & $n = 2$ &            & $0.538469$    &       & $0.478629$ \\ %\hline
+$0.000000$    &       & $0.888889$ & $0.906180$    &       & $0.236927$ \\ %\hline
+$0.774597$    &       & $0.555556$ &               & $n = 5$ &            \\ %\hline
+             & $n = 3$ &            & $0.238619$    &       & $0.467914$ \\ %\hline
+$0.339981$    &       & $0.652145$ & $0.661209$    &       & $0.360762$ \\ %\hline
+$0.861136$    &       & $0.347855$ & $0.932470$    &       & $0.171324$ \\ \hline
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Cuadratura de Gauss-Legendre}
+La cuadratura de Gauss-Legendre es la más utilizada. 
+\\
+\bigskip
+Nótese que los nodos están colocados simétricamente sobre $\xi=0$, y los pesos asociados al par de nodos simétricos, son iguales, i.e. para $n=1$, tenemos que $\xi_{0} = - \xi_{1}$ y $A_{0} = A_{1}$.
+\end{frame}
+\begin{frame}
+\frametitle{Error en la cuadratura}
+El error de truncamiento está dado por:
+\[ E = \dfrac{2^{2n+3} [(n+1)!]^{4}}{(2n+3)[(2n+2)!]^{3}} f^{2n+2} (c), \hspace{1cm} -1 < c < 1 \]
+\end{frame}
+\begin{frame}
+\frametitle{Mapeo en el intervalo}
+Para usar la cuadratura de Gauss-Legendre en la integral $\int_{a}^{b} \: f(x) dx$, primero hay que \enquote{mapear} el intervalo de integración $(a,b)$ al intervalo \enquote{estándar} $(-1, 1)$, para ello, usamos la transformación
+\[ x = \dfrac{b + a}{2} + \dfrac{b - a}{2} \xi \]
+\end{frame}
+\begin{frame}
+\frametitle{Nueva expresión de la cuadratura}
+Ahora $dx = d \xi (b-a)/2$, y la cuadratura toma la expresión
+\[ \int_{a}^{b} f(x) dx \approx \dfrac{b-a}{2} \sum_{i=0}^{n} A_{i} f(x_{i}) \]
+\end{frame}
+\begin{frame}
+\frametitle{Estimación del error}
+El error por truncamiento, se expresa como
+\[ E = \dfrac{(b-a)^{2n+3} [(n+1)!]^{4}}{(2n+3)[(2n+2)!]^{3}} f^{(2n+2)} (c), \hspace{0.7cm} a<c<b \]
+\end{frame}
+% \begin{frame}
+% \frametitle{Ejercicio para el examen}
+% Te pedimos que entregues una lista con los pesos y nodos para las siguientes cuadraturas:
+% \begin{enumerate}
+% \item Gauss-Chebyshev
+% \[\int_{1}^{1} (1-x^{2})^{-1/2} f(x) \approx \dfrac{\pi}{n+1} \sum_{i=0}^{n} f(x_{i}) \]
+% \item Gauss-Laguerre
+% \[  \int_{0}^{\infty} e^{-x} f(x) dx \approx \sum_{i=0}^{n} A_{i} f(x_{i}) \]
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Ejercicio para el examen}
+% \begin{enumerate}
+% \item Gauss-Hermite
+% \[ \int_{-\infty}^{\infty} e^{-x^{2}} f(x) dx \approx \sum_{i=0}^{n} A_{i} f(x_{i}) \]
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{¿Aquí termina todo respecto a la integración numérica?}
+% Como sabemos de los cursos de cálculo, podemos considerar ahora un proceso de integración para calcular integrales de funciones con dos y hasta tres variables, recurriendo a las técnicas mostradas.
+% \\
+% \medskip
+% ¿Cómo construimos un algoritmo para ello?
+% \\
+% \medskip
+% El proceso no es complicado pero requiere una revisión cuidadosa, con \python{} podemos hacer el proceso más sencillo para calcular una integral doble o triple, pero no está demás que te las ingenies para desarrollar un código!!
+% \end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Evaluar la integral
+\[ \int_{-1}^{1} (1 - x^{2})^{3/2} \; dx \]
+con la mayor precisión posible, usando una cuadratura gaussiana.
+\end{frame}
+\begin{frame}
+\frametitle{Modo clásico}
+El modo normal de resolver mediante una cuadratura gaussiana, es calcuar los nodos para una cuadratura de tipo Gauss-Legendre.
+\\
+\bigskip
+Por lo que tendríamos que ocupar las expresiones que nos devuelvan los ceros de los polinomios. 
+\end{frame}
+\subsection{Funciones \texttt{quadrature}}
+\begin{frame}[fragile]
+\frametitle{Usando \texttt{scipy.integrate.quadrature}}
+Para usar la función \funcionazul{scipy.integrate.cuadrature}, hay que considerar la sintaxis mínima:
+\\
+\bigskip
+\funcionazul{scipy.integrate.quadrature(func, a, b, tol=1.49e-08, maxiter=50)}
+\\
+\bigskip
+\pause
+Esta función calcula la integral definida usando una cuadratura gaussina con tolerancia fija.
+\end{frame}
+\begin{frame}
+\frametitle{Argumentos de \texttt{quadrature}}
+% \newcommand{\localtextbulletone}{\textcolor{red}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+% \renewcommand{\labelitemi}{\localtextbulletone}
+Los argumentos son:
+\begin{itemize}
+\setbeamercolor{local structure}{fg=red}
+\item \funcionazul{func} : una función, ya sea una función de \python{} o una expresión.
+\item \funcionazul{a} : dato de tipo \texttt{float}, que representa el límite inferior de integración.
+\item \funcionazul{b} : dato de tipo \texttt{float}, que representa el límite superior de integración.
+\item \funcionazul{maxiter} : dato de tipo \texttt{int}, este argumento es opcional, representa el orden máximo para la quadratura gaussiana.
+\end{itemize}
+\end{frame}
+\begin{frame}
+% \newcommand{\localtextbulletone}{\textcolor{blue}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+% \renewcommand{\labelitemi}{\localtextbulletone}
+\frametitle{Valores que devuelve la función}
+Devuelve:
+\begin{itemize}
+\setbeamercolor{local structure}{fg=blue}
+\item \funcionazul{val} : dato de tipo \texttt{float}, que representa la aproximación a la integral.
+\item \funcionazul{err} : dato de tipo \texttt{float}, que representa el error en las últimas dos estimaciones de la integral.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Código}
+\begin{lstlisting}[caption=Código para cuadratura gaussiana, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+from scipy.integrate import quadrature
+
+def g(x):
+    return (1 - x**2)**(3/2.)
+
+print(quadrature(g, -1., 1)[0])
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+El valor de la integral es $1.1781$
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.5]{Imagenes/cuadratura_01.eps}
+  \caption{El área debajo de la curva, representa el valor de la integral.}
+\end{figure}
+\end{frame}
+\end{document}

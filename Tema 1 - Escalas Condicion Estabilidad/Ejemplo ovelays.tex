@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+% comando que permite poner un nodo invisivle
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node[inner sep=2pt] (#1) {};}
+\begin{document}
+\begin{tabular}{lcc}
+columna1a & 345 & \tikzmark{c1}4567 \\
+columna1b & 456\tikzmark{b1} & \tikzmark{c2}4578 \\
+columna1c & 123\tikzmark{b2} & \tikzmark{c3}4567 \\
+columna1d & 765\tikzmark{b3} & \tikzmark{c4}8234 \\
+columna1e & 134\tikzmark{b4} & 6514
+\end{tabular}
+% usando un simple ciclo trazamos todas las flechas de una sola vez
+\tikz[overlay,remember picture]{%
+  \foreach \i in {1,2,...,4} \draw[->,blue] ($(c\i)+(-1pt,2.5pt)$) -- ($(b\i)+(1pt,2.5pt)$);
+}
+\end{document}

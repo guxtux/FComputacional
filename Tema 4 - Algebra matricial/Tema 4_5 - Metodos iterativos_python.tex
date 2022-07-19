@@ -1,0 +1,344 @@
+    \input{../Preambulos/pre_documento}
+\input{../Preambulos/pre_plantilla_Warsaw_crane}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/pre_define_footers_Warsaw_crane}	
+\normalfont
+\usepackage{ccfonts}% http://ctan.org/pkg/{ccfonts}
+\usepackage[T1]{fontenc}% http://ctan.or/pkg/fontenc
+\renewcommand{\rmdefault}{cmr}% cmr = Computer Modern Roman
+\linespread{1.3}
+\title{Métodos iterativos de solución para matrices}
+\subtitle{Curso de Física Computacional}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{\today}
+\institute{Facultad de Ciencias - UNAM}
+\titlegraphic{\includegraphics[width=1.75cm]{Imagenes/escudo-facultad-ciencias}\hspace*{4.75cm}~%
+   \includegraphics[width=1.75cm]{Imagenes/escudo-unam}
+}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+\section{Métodos iterativos}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Métodos más comunes}
+\begin{frame}
+\frametitle{Métodos iterativos}
+Hasta ahora, hemos discutido sólo los métodos directos de solución. La característica común de estos métodos es que calculan la solución con un número finito de operaciones.
+\\
+\medskip
+Por otra parte, sabemos que si la computadora tuviera una precisión infinita (no hay errores de redondeo), la solución sería exacta.
+\end{frame}
+\begin{frame}
+\frametitle{Definición}
+Los métodos indirectos o iterativos, comienzan con una estimación inicial de la solución de $x$ y luego mejoran repetidamente la solución hasta que el cambio en $x$ se hace insignificante.
+\end{frame}
+\begin{frame}
+\frametitle{Definición}
+Dado que el número requerido de iteraciones puede ser grande, los métodos indirectos son, en general, más lentos que sus homólogos directos. 
+\\
+\bigskip
+Sin embargo, los métodos iterativos tienen las siguientes ventajas que los hacen atractivos para ciertos problemas:
+\end{frame}
+\begin{frame}
+\frametitle{Consideraciones}
+\begin{enumerate}
+\item Es factible para almacenar sólo los elementos distintos de cero de la matriz de coeficientes. 
+\\
+\bigskip
+Esto hace que sea posible para hacer frente a matrices muy grandes que son escasas, pero no necesariamente en bandas. En muchos problemas, no hay necesidad de almacenar la matriz de coeficientes en absoluto.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Consideraciones}
+\begin{enumerate}
+\conti
+\item Hay procedimientos iterativos de auto-corrección, es decir, que los errores de redondeo (o incluso errores aritméticos) en un ciclo iterativo se corrigen en los ciclos posteriores.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+Un serio inconveniente de los métodos iterativos es que no siempre convergen a la solución.
+\\
+\bigskip
+Se puede demostrar que la convergencia está garantizada sólo si la matriz de coeficientes es diagonal dominante.
+\end{frame}
+\begin{frame}
+La estimación inicial de $x$ no juega ningún papel en la determinación de si la convergencia se produce, si el procedimiento converge para un vector de partida, lo haría para cualquier vector de partida. 
+\\
+\bigskip
+La estimación inicial afecta sólo el número de iteraciones que son necesarias para la convergencia.
+\end{frame}
+\begin{frame}
+\frametitle{Definición de dominancia diagonal}
+Una matriz $\mathbf{A}$ de $n \times n$ se dice que es \emph{diagonal dominante} si cada elemento de la diagonal es más grande que la suma de los otros elementos de la misma fila (estamos hablando aquí de valor absoluto.
+\\
+\medskip
+Por lo tanto dominancia diagonal que requiere
+\[ \vert A_{ii} \vert > \sum_{\substack{j=1 \\ j \neq i}}^{n} \vert A_{ij} \vert \hspace{1cm} (i=1,2,\ldots,n) \]
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de dominancia diagonal}
+La matriz
+\[ \begin{bmatrix}
+-2 & 4 & -1 \\
+1 & -1 & 3 \\
+4 & 2 & 1
+\end{bmatrix}\]
+No es dominante diagonal.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de dominancia diagonal}
+Pero si reordenamos los renglones de la siguiente manera
+\[ \begin{bmatrix}
+4 & -2 & 1 \\
+-2 & 4 & -1 \\
+1 & -1 & 3
+\end{bmatrix}\]
+resulta ser diagonal dominante.
+\end{frame}
+\subsection{Método Gauss-Seidel}
+\begin{frame}
+\frametitle{Método Gauss-Seidel}
+Las ecuaciones $\mathbf{A}x = \mathbf{b}$ en su forma escalar, son:
+\[ \sum_{j=1}^{n} A_{ij} x_{j} = b_{i} \hspace{1cm} i=1,2,\ldots,n \]
+Despejando el término que contiene a $x_{i}$ de la suma, obtenemos
+\[ A_{ii} x_{i} + \sum_{\substack{j=1 \\ j \neq i}}^{n} A_{ij}x_{j} = b_{i} \hspace{1cm} i,2,\ldots,n \]
+\end{frame}
+\begin{frame}
+\frametitle{Operación del método G-S}
+Resolviendo para $x_{i}$, resulta
+\[ x_{i} = \dfrac{1}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) \hspace{1cm} i=1,2,\ldots,n \]
+\end{frame}
+\begin{frame}
+\frametitle{Operación del método G-S}
+La ecuación anterior sugiere el siguiente esquema iterativo:
+\[ x_{i}\leftarrow \dfrac{1}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) \hspace{1cm} i=1,2,\ldots,n \]
+Iniciamos eligiendo un vector $x$. Si la suposición inicial no fue buena, podemos elegir de manera aleatoria a $x$.
+\end{frame}
+\begin{frame}
+\frametitle{Operación del método G-S}
+La ecuación anterior se utiliza nuevamente para calcular cada uno de los elementos de $x$, utilizando siempre los últimos valores disponibles de $x_{j}$: esto completa un ciclo de iteración.
+\\
+\bigskip
+El procedimiento se repite hasta que los cambios en $x$ con cada iteración sucesiva vuelven lo suficientemente pequeños.
+\end{frame}
+\begin{frame}
+\frametitle{Operación del método G-S}
+Es posible mejorar la convergencia del método de Gauss-Seidel con una técnica conocida como \emph{relajación}.
+\end{frame}
+\begin{frame}
+\frametitle{Operación del método G-S}
+La idea es tomar un nuevo valor de $x_{i}$ como un promedio ponderado de su valor anterior y el valor predicho por la ecuación anterior.
+\\
+\bigskip
+La correspondiente fórmula iterativa, es
+\[  x_{i}\leftarrow \dfrac{\omega}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) + (1 - \omega) x_{i} \hspace{0.75cm} i=1,2,\ldots,n \]
+donde $\omega$ es el \emph{factor de relajación}.
+\end{frame}
+\subsection{Factor de relajación}
+\begin{frame}
+\frametitle{Factor de relajación}
+Nótese que
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item  Si $\omega=1$, no se presenta la relajación.
+\item Si $\omega<1$, la ecuación de relajación, representa una interpolación entre los valores anteriores de $x_{i}$ y el valor dado por la ecuación inicial. A esto se le llama \emph{subrelajación}.
+\item Si $\omega>1$, tenemos una extrapolación o sobrerelajación.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Factor de relajación}
+No hay ningún método práctico para determinar el valor óptimo de $\omega$ de antemano, sin embargo, una buena estimación se puede calcular en tiempo de ejecución.
+\end{frame}
+\begin{frame}
+\frametitle{Estimación del factor de relajación}
+Sea
+\[ \Delta x^{k} = \vert \mathbf{x}^{(k-1)} - \mathbf{x}^{(k)} \vert \]
+la magnitud del cambio de $x$ durante la $k$-ésima iteración (sin relajación, i.e. $\omega=1$).
+\\
+\medskip
+\pause
+Si $k$ es lo suficientemente grande ($k\geqslant5$), se puede demostrar que una aproximación para el valor óptimo de $\omega$ es
+\[ \omega_{\mbox{opt}} \simeq \dfrac{2}{1 + \sqrt{1- (\Delta x^{(k+p)} / \Delta x^{(k)})^{1/p}}} \]
+donde $p$ es un entero positivo.
+\end{frame}
+\begin{frame}
+\frametitle{Elementos esenciales para el método de GS con relajación}
+\setbeamercolor{item projected}{bg=red!70!black,fg=white}
+\setbeamertemplate{enumerate items}[circle]
+\begin{enumerate}[<+->]
+\item Realizar $k$ iteraciones con $\omega=1$ ($k=10$ es razonable). Luego de la $k$-ésima iteración, guardar $\Delta x^{(k)}$.
+\item Ejecutar $p$ iteraciones adicionales y guardar $\Delta x^{(k+p)}$ en la última iteración.
+\item Ejecutar las demás iteraciones con $\omega = \omega_{\mbox{opt}}$, donde $\omega_{\mbox{opt}}$ se calcula como se indicó anteriormente.
+\end{enumerate}
+\end{frame}
+\subsubsection{Algoritmo para Gauss-Seidel}
+\begin{frame}
+\frametitle{Algorimto para Gauss-Seidel}
+La función \texttt{gaussSeidel} es una implementación del método de Gauss-Seidel con relajación. Se calcula automáticamente $\omega_{\mbox{opt}}$ utilizando $k = 10$ y $p = 1$.
+\end{frame}
+\begin{frame}
+\frametitle{Algorimto para Gauss-Seidel}
+El usuario debe proporcionar la función \texttt{iterEqs} que calcula la mejora de $x$ a partir de las fórmulas iterativas. 
+\\
+\bigskip
+La función devuelve el vector solución $x$, el número de iteraciones llevadas a cabo y el valor de $\omega_{\mbox{opt}}$ utilizado.
+\end{frame}
+\begin{frame}[plain, allowframebreaks, fragile]
+\begin{lstlisting}[caption=Función Gauss-Seidel, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+def gaussSeidel(iterEqs,x,tol = 1.0e-9):
+    omega = 1.0
+    k = 10
+    p = 1
+    
+    for i in range(1, 501):
+        xVieja = x.copy()
+        x = iterEqs(x,omega)
+        dx = sqrt(dot(x - xVieja, x - xVieja))
+        if dx < tol: return x, i, omega
+        
+        if i == k: dx_1_ = dx
+        if i == k + p:
+            dx_2_ = dx
+            omega = 2.0/(1.0 + sqrt(1.0 - (dx_2_/dx_1_)**(1.0/p)))
+	print ('No converge Gauss-Seidel')
+\end{lstlisting} 
+\end{frame}
+\begin{frame}[plain]
+\frametitle{Ejercicio}
+Resuelve el siguiente sistema de $n$ ecuaciones simultáneas por el método de Gauss-Seidel con relajación (el programa deberá resolver para cualquier valor de $n$)
+\fontsize{12}{12}\selectfont
+\[ \begin{bmatrix}
+2 & -1 & 0 & 0 & \ldots & 0 & 0 & 0 & 1 \\
+-1 & 2 & -1 & 0 & \ldots & 0 & 0 & 0 & 0 \\
+0 & -1 & 2 & -1 & \ldots & 0 & 0 & 0 & 0 \\
+\vdots & \vdots & \vdots & \vdots & & \vdots & \vdots & \vdots & \vdots \\
+0 & 0 & 0 & 0 & \ldots & -1 & 2 & -1 & 0 \\
+0 & 0 & 0 & 0 & \ldots & 0 & -1 & 2 & -1 \\
+1 & 0 & 0 & 0 & \ldots & 0 & 0 & -1 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+\vdots \\
+x_{n-2} \\
+x_{n-1} \\
+x_{n} 
+\end{bmatrix} = 
+\begin{bmatrix}
+0 \\
+0 \\
+0 \\
+\vdots \\
+0 \\
+0 \\
+1 
+\end{bmatrix} \]
+\end{frame}
+\begin{frame}[plain]
+\frametitle{Ejercicio}
+Ejecuta el programa con $n=20$, la solución exacta es $x_{i}= - \frac{n}{4} + \frac{i}{2}$, con $i=1,2,\ldots,n$.
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué necesitamos?}
+Necesitamos desarrollar las fórmulas iterativas a partir de:
+\[  x_{i}\leftarrow \dfrac{\omega}{A_{ii}} \left( b_{i} - \sum_{\substack{ j=1 \\ j \neq i}}^{n} A_{ij} x_{j} \right) + (1 - \omega) x_{i} \hspace{1cm} i=1,2,\ldots,n \]
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué necesitamos?}
+Para $x_{1}$, tenemos
+\[ \begin{split}
+x_{1} =& \dfrac{\omega}{2} \left( (1)(x_{2})-(1)(x_{n}) \right) + (1-\omega)x_{1} \\
+x_{1} =& \dfrac{\omega(x_{2}-x_{n})}{2} + (1 - \omega)x_{1}
+\end{split} \]
+\end{frame}
+\begin{frame}
+\[ \begin{split}
+x_{1} =& \dfrac{\omega(x_{2}-x_{n})}{2} + (1 - \omega)x_{1} \\
+\pause
+x_{i} =& \dfrac{\omega(x_{i-1}+x_{i+1})}{2} + (1 - \omega)x_{i} \hspace{1cm} i=2,3,\ldots,n-1 \\
+x_{n} =& \dfrac{\omega(1-x_{1} + x_{n-1})}{2} + (1-\omega)x_{n}
+\end{split} \]
+\emph{Nota: } Cada matriz $\mathbf{A}$ requiere de la construcción de sus ecuaciones de iteración, revisa que se necesita conocer los valores de la diagonal principal $\mathbf{d}$, así como del vector de coeficientes $\mathbf{b}$.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función \texttt{iterEqs}}
+\begin{lstlisting}[caption=Código para el ejercicio GS, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+def iterEqs(x,omega):
+    n = len(x)
+    x[_0_] = omega*(x[_1_] - x[n-_1_])/2.0 + (1.0 - omega)*x[_0_]
+    
+    for i in range(1, n-1):
+        x[i] = omega*(x[i-_1_] + x[i+_1_])/2.0 + (1.0 - omega)*x[i]
+    
+    x[n-_1_] = omega*(1.0 - x[_0_] + x[n-_2_])/2.0 + (1.0 - omega)*x[n-_1_]
+
+    return x
+\end{lstlisting}
+\end{frame}
+\begin{frame}[plain, allowframebreaks, fragile]
+\frametitle{Código principal}
+\begin{lstlisting}[caption=Código principal, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+n = eval(input('Numero de ecuaciones '))
+
+x = zeros((n),dtype='float_6_ _4_')
+
+x,numIter,omega = gaussSeidel(iterEqs, x)
+
+print ('\nNumero de iteraciones =', numIter)
+
+print ('\nFactor de relajacion =',omega)
+
+print ('\nLa solucion es :',x)
+\end{lstlisting}
+\end{frame}
+\begin{frame}{fragile}
+\frametitle{Solución al problema}
+La solución que nos devuelve el algoritmo, con $n=20$ es:
+\\
+\medskip
+\texttt{
+Número de ecuaciones = 20 
+\\
+\medskip
+Número de iteraciones = 259 
+\\
+\medskip
+Factor de relajación = 1.70545231071
+}
+\end{frame}
+\begin{frame}
+\frametitle{Explorando la solución I.}
+Como podemos ver en la solución, el número de iteraciones es elevado, ¿a qué se debe?
+\\
+\medskip
+Revisando la configuración del arreglo, notamos que no es dominante diagonal, por lo que en gran medida, el procedimiento de iteración es elevado, ahora: ¿qué podemos hacer?
+\\
+\medskip
+Podemos reconfigurar el arreglo de tal manera en que sea dominante diagonal y podríamos revisar cuántas iteraciones requiere y compararlas contra la manera inicial.
+\end{frame}
+\begin{frame}
+\frametitle{Explorando la solución II.}
+¿Y si aumentamos el tamaño del arreglo?
+\\
+\medskip
+El algoritmo que se propuso para el ejercicio, considera la solución para un sistema de $n$ ecuaciones, ya lo tenemos para $n=20$, completa la siguiente tabla:
+\begin{center}
+\begin{tabular}{c | c | c }
+\hline
+$n$ & iteraciones & $\omega_{opt}$ \\ \hline
+20 & & \\ \hline
+25 & & \\ \hline
+50 & & \\ \hline
+75 & & \\ \hline
+100 & & \\ \hline
+\end{tabular}
+\end{center}
+Interpreta tus resultados.
+\end{frame}
+\end{document}

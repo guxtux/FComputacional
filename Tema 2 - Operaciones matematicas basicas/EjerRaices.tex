@@ -1,0 +1,95 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\decimalpoint
+\usepackage{anysize}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabulary}
+\usepackage{nccmath}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{color}
+\usepackage{listings}
+\renewcommand{\arraystretch}{1.5}
+\lstset{ %
+language=Python,                % choose the language of the code
+basicstyle=\normalsize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,   		% adds a frame around the code
+tabsize=4,  		% sets default tabsize to 2 spaces
+captionpos=b,   		% sets the caption-position to bottom
+breaklines=true,    	% sets automatic line breaking
+breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+escapeinside={\#}{)}          % if you want to add a comment within your code
+}
+\marginsize{1.5cm}{1.5cm}{1cm}{2cm}  
+\title{Tarea C\'{a}lculo de ra\'{i}ces. \\ Curso de F\'{i}sica Computacional}
+\author{M. en C. Gustavo Contreras May\'{e}n}
+\date{ }
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\begin{enumerate}
+\item La velocidad $v$ de un cohete Saturno V en vuelo vertical cercano a la superficie de la Tierra, puede aproximarse por
+\[ v = u ln \dfrac{M_{0}}{M_{0} - \dot{m}t} - gt\]
+donde
+\begin{eqnarray*}
+u &=& 2510 m/s = \text{velocidad de escape del cohete} \\
+M_{0} &=& 2.8 \times 10^{6} kg = \text{masa del cohete al despegue} \\
+\dot{m} &=& 13.3 \times 10^{3} kg/s = \text{tasa de consumo de combustible} \\ 
+g &=& 9.81 m/s^{2} \text{aceleraci\'{o}n debida a la gravedad} \\
+t &=& \text{tiempo medido desde el despegue}
+\end{eqnarray*}
+Calcula el tiempo en el cual el cohete alcanza la velocidad del sonido (335 m/s)
+\item La energ\'{i}a libre de Gibbs en un mol de hidr\'{o}geno a una temperatura $T$ es:
+\[ G = -RT ln [(T/T_{0})^{5/2}] J \]
+donde la constante del gas es $R=8.311441$ J/K y $T_{0}=4.44418$ K. Calcula la temperatura en la cual $G=-10^{5}$ J.
+\item La ecuaci\'{o}n de equilibrio qu\'{i}mico en la producci\'{o}n de metanol a partir de CO y $H_{2}$, es
+\[ \dfrac{\xi (3-2 \xi)^{2}}{(1-\xi)^{3}} = 249.2\]
+donde $\xi$ es el grado de equilibrio de la reacción. Determinar $\xi$.
+\item Un cable de acero de longitud $s$ est\'{a} suspendido como se muestra en la figura:
+\begin{center}
+\begin{tikzpicture}[font=\small, scale=1.3]
+	\draw [dashed] (0,0) -- (4,0);
+	\draw [dashed] (2,-1) -- (2,0.5);
+	\draw (0,-0.2) -- (0,0.2);
+	\draw (4,-0.2) -- (4,0.2);
+	\draw [pattern=north east lines] (-0.2,-0.2) rectangle (0,0.2);
+	\draw [pattern=north east lines] (4,-0.2) rectangle (4.2,0.2);
+	\draw (0,0) .. controls (1,-1) and (3,-1) .. (4,0);
+	\draw (2.2,-1) node {O};
+	\draw (1,0.5) node {$L/2$};
+	\draw (3,0.5) node {$L/2$};
+	\draw (0,-1.3) node {Longitud = s};
+	\draw [->] (0.5,-1) -- (1,-0.65);
+\end{tikzpicture}
+\end{center}
+La tensi\'{o}n de tracci\'{o}n m\'{a}xima en el cable, que se produce en los soportes, es
+\[ \sigma_{max} = \sigma_{0} \cosh \beta \]
+donde:
+\begin{eqnarray*}
+\beta &=& \dfrac{\gamma L}{2 \sigma_{0}} \\
+\sigma_{0} &=& \mbox{la tensi\'{o}n de tracci\'{o}n en el cable en O.} \\
+\gamma &=& \mbox{peso del cable por unidad de volumen.} \\
+L &=& \mbox{extensi\'{o}n horizontal del cable.} 
+\end{eqnarray*}
+La relaci\'{o}n entre la extensi\'{o}n y la longitud del cable, est\'{a} relacionada con $\beta$ por:
+\[ \dfrac{s}{L} = \dfrac{1}{\beta} \sinh \beta\]
+Calcular $\sigma_{max}$ si $\gamma = 77 \times 10^{3}$ $N/m^{3}$ (para el acero), $L=1000$ m y $s=1100$ m
+\item Calcular todas las ra\'{i}ces reales de
+\[ x^{4} + 0.9 x^{3} -2.3 x^{2} + 3.6 x - 25.2 = 0\]
+\item Calcular todas las ra\'{i}ces reales positivas de
+\[ x^{4} + 2x^{3} - 7x^{2} + 3 = 0\]
+\end{enumerate}
+\end{document}

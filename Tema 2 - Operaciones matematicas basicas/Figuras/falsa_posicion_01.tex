@@ -1,0 +1,27 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{positioning, shapes.geometric, arrows}
+\usepackage[T1]{fontenc}
+\renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+\begin{document}
+	 \begin{tikzpicture}[font=\small]
+		\draw [->] (0,0) -- (7,0);
+		\draw [<->](0,-3) -- (0,3);
+		\draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
+		\draw (1,-0.3) node {$a$};
+		\draw (0.7, 2.4) node {$f(a)$};
+		\draw (6,0.3) node {$c$};
+		\draw (6.3, -2.4) node {$f(c)$};
+		\draw [dashed] (1.2,0) -- (1.2,2.35);
+		\draw [dashed] (6.3,0) -- (6.3,-1.98);\pause
+		\draw (1.2,2.35) -- (6.3,-1.98);
+		\draw  (3,3) node {1a. interpolación};
+		\draw [->] (3,2.6) -- (2,2);\pause
+		\draw  (5,1) node {1a. aproximación};
+		\draw [->] (5,0.6) -- (4.1,0.1);
+		\draw (4,0.3) node {$b_{1}$};
+		\draw (4, -1.3) node {$f(b_{1})$};
+		\draw [dashed] (4,0) -- (4,-0.9);
+	\end{tikzpicture}
+\end{document}

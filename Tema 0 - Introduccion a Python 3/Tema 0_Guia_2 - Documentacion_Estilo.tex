@@ -1,0 +1,158 @@
+\input{../Preambulos/pre_guia_doc}
+\title{Documentos y Estilo de Programación en \texttt{python} \\ \begin{Large}Curso de Física Computacional - Guía de apoyo 2 \end{Large}}
+\author{M. en C. Gustavo Contreras Mayén.}
+\input{../Preambulos/pre_codigo_guia}
+\begin{document}
+\maketitle
+\fontsize{14}{14}\selectfont
+\section{Documentación del código}
+Es una buena costumbre documentar el código que vayamos creando, en parte por que se va a reutilizar y aunque nosotros seamos los usuarios, la mejor manera de ir perfeccionado las técnicas de programación, es a través de los comentarios y observaciones de otros usuarios.
+\par
+Toma en cuenta que documentar el código, no es lo mismo que comentarlo, ya que los comentarios no se muestran como parte de la documentación que genera \python.
+\par
+Veremos que hay una manera de \enquote{leer} la documentación que se haya contenido dentro del código.
+\subsection{Convenciones para la documentación}
+La primer línea debe ser siempre un resumen corto y conciso del propósito del objeto.
+\par
+Para ser breve, no se debe mencionar explícitamente el nombre o tipo del objeto, ya que estos están disponibles de otros modos (excepto si el nombre es un verbo que describe el funcionamiento de la función). Esta línea debe empezar con una letra mayúscula y terminar con un punto.
+\par
+Si hay más líneas en la cadena de texto de documentación, la segunda línea debe estar en blanco, separando visualmente el resumen del resto de la descripción.
+\par
+Las siguientes líneas deben ser uno o más párrafos describiendo las convenciones para llamar al objeto, efectos secundarios, etc.
+\begin{lstlisting}[caption=Ejemplo de documentación, basicstyle=\linespread{1.2}, columns=fullflexible,escapeinside=||]  
+def mi_funcion():
+    """
+    No hace mas que documentar la funcion.
+
+    No, de verdad. No hace nada.
+    """
+    pass
+
+print(mi_funcion.__doc__)
+\end{lstlisting}
+Cuando ejecutamos la función \funcionazul{print} con el argumento en la terminal, veremos que se nos despliega el contenido dentro del bloque con las tres comillas, de esta manera le damos al usuario información al respecto de nuestro procedimiento.
+\section{Estilo de codificación}
+Cualquier lenguaje de programación cuenta con normas para la escritura de código, más allá del contexto de la lógica del programa, la propuesta de algoritmos, etc. siempre se debe de mantener un estándar en cuanto a la manera de escribir el código.
+\par
+Esto facilita la lectura cuando nos proporcionan un código proveniente de otro autor, y por ello, es relevante e imprescindible que nos adaptemos a esos estándares de escritura de código.
+\par
+A continuación revisaremos la guía de estilo vigente para el código con \python.
+\subsection{Guías de estilo}
+Ahora que estás a punto de escribir códigos de \python\ más largos y complejos, es un buen momento para hablar sobre estilo de codificación.
+\par
+La mayoría de los lenguajes pueden ser escritos (o mejor dicho, formateados) con diferentes estilos; algunos son mas fáciles de leer que otros.
+\par
+Hacer que tu código sea más fácil de leer por otros es siempre una buena idea, y adoptar un buen estilo de codificación ayuda tremendamente a lograrlo.
+\par
+Para \texttt{python}, \funcionazul{PEP 8} se erigió como la guía de estilo a la que más proyectos se adhirieron; promueve un estilo de codificación fácil de leer y visualmente agradable. Todos los que trabajan con \python\ deben leerlo en algún momento.
+\subsection{Puntos importantes PEP 8}
+\begin{itemize}
+\item Usar sangrías de 4 espacios, no tabs.
+\item Recortar las líneas para que no superen los 79 caracteres.
+\item Usar líneas en blanco para separar funciones y clases, y bloques grandes de código dentro de funciones.
+\item Cuando sea posible, poner comentarios en una sola línea.
+\item Usar docstrings.
+\item Usar espacios alrededor de operadores y luego de las comas, pero no directamente dentro de paréntesis: $a = f(1, 2) + g(3, 4)$.
+\item Nombrar las clases, módulos y funciones consistentemente; la convención es usar NotacionCamello (Camel Case) para clases y minusculas\_con\_guiones\_bajos para funciones y métodos.
+\item No uses codificaciones estrafalarias si esperás usar el código en entornos internacionales. El default de \python, UTF-8, o incluso ASCII plano funcionan bien en la mayoría de los casos.
+\item De la misma manera, no uses caracteres no-ASCII en los identificadores si hay incluso una  posibilidad mínima de que gente que hable otro idioma tenga que leer o mantener el código.
+\end{itemize}
+\subsection{Ejemplos del uso de PEP8}
+Espacios en blanco en expresiones y sentencias.
+\subsubsection{Evita espacios en blanco extra en las siguientes situaciones}
+Inmediatamente después de entrar en un paréntesis o antes de salir de un paréntesis, corchete o llave.
+\begin{center}
+\begin{tabular}{| l | l |}
+\hline
+\multicolumn{1}{|c|}{\textbf{Si:}} & \multicolumn{1}{c|}{\textbf{No:}} \\ \hline
+\texttt{spam(ham[1], {eggs: 2})} & \texttt{spam( ham[ 1 ], { eggs: 2 } )} \\ \hline
+\end{tabular}
+\end{center}
+Inmediatamente antes de una coma, punto y coma, o dos puntos:
+\begin{center}
+\begin{tabular}{| l |}
+\hline
+\multicolumn{1}{|c|}{\textbf{Si:}} \\ \hline 
+\texttt{if x == 4: print x, y; x, y = y, x} \\ \hline
+\multicolumn{1}{c|}{\textbf{No:}} \\ \hline
+\texttt{if x == 4 : print x , y ; x , y = y , x} \\ \hline
+\end{tabular}
+\end{center}
+Inmediatamente antes de abrir un paréntesis para una lista de argumentos de una llamada a una función:
+\begin{center}
+\begin{tabular}{| l | l |}
+\hline
+\multicolumn{1}{|c|}{\textbf{Si:}} & \multicolumn{1}{c|}{\textbf{No:}} \\ \hline
+\texttt{spam(1)} & \texttt{spam (1)} \\ \hline
+\end{tabular}
+\end{center}
+Inmediatamente antes de abrir un paréntesis usado como índice o para particionar (slicing):
+\begin{center}
+\begin{tabular}{| l | l |}
+\hline
+\multicolumn{1}{|c|}{\textbf{Si:}} & \multicolumn{1}{c|}{\textbf{No:}} \\ \hline
+\texttt{dict['key'] = list[index]} & \texttt{dict ['key'] = list [index]} \\ \hline
+\end{tabular}
+\end{center}
+Más de un espacio alrededor de un operador de asignación (u otro operador) para alinearlo con otro.
+\begin{center}
+\begin{tabular}{| l | l |}
+\hline
+\multicolumn{1}{|c|}{\textbf{Si:}} & \multicolumn{1}{c|}{\textbf{No:}} \\ \hline
+\texttt{x = 1} & \texttt{x \hspace{2.7cm} = 1} \\
+\texttt{y = 2} & \texttt{y \hspace{2.7cm} = 2} \\
+\texttt{long\_variable = 3} &  \texttt{long\_variable = 3} \\ \hline
+\end{tabular}
+\end{center}
+\subsection{Otras Recomendaciones}
+Rodea siempre los siguientes operadores binarios con un espacio en cada lado: asignación $(=)$, asignación aumentada ($+=, -= $ etc.), comparación ($==, <, >, !=, <>, <=, >=$, \texttt{in, not in, is, is not}), booleanos (\texttt{and, or, not}).
+\par
+Usa espacios alrededor de los operadores aritméticos:
+\begin{center}
+\begin{tabular}{| l | l |}
+\hline
+\multicolumn{1}{|c|}{\textbf{Si:}} & \multicolumn{1}{c|}{\textbf{No:}} \\ \hline
+\texttt{i = i + 1} & \texttt{i=i+1} \\
+\texttt{submitted += 1} & \texttt{submitted +=1} \\
+\texttt{x = x * 2 - 1} &  \texttt{x = x*2 - 1} \\
+\texttt{hypot2 = x * x + y * y} &  \texttt{hypot2 = x*x + y*y} \\
+\texttt{c = (a + b) * (a - b)} &  \texttt{c = (a+b) * (a-b)} \\ \hline
+\end{tabular}
+\end{center}
+No uses espacios alrededor del signo \enquote{$=$} cuando se use para indicar el nombre de un argumento o el valor de un parámetro por defecto.
+\begin{center}
+\begin{tabular}{| l | l |}
+\hline
+\multicolumn{1}{|c|}{\textbf{Si:}} & \multicolumn{1}{c|}{\textbf{No:}} \\ \hline
+\texttt{def complex(real, imag=0.0):} & \texttt{def complex(real, imag = 0.0):} \\
+\texttt{\quad return magic(r=real, i=imag)} & \texttt{\quad return magic(r = real, i = imag)} \\ \hline
+\end{tabular}
+\end{center}
+Generalmente se desaconsejan las sentencias compuestas (varias sentencias en la misma línea).
+\begin{center}
+\begin{tabular}{| l | l |}
+\hline
+\multicolumn{1}{|c|}{\textbf{Si:}} & \multicolumn{1}{c|}{\textbf{Preferiblemente no:}} \\ \hline
+\texttt{if foo == 'blah':} & \texttt{if foo == 'blah': do\_blah\_thing()} \\
+\texttt{\quad do\_blah\_thing()} & \texttt{do\_one(); do\_two(); do\_three()} \\
+\texttt{do\_one()} & \\
+\texttt{do\_two()} & \\
+\texttt{do\_three()} & \\ \hline
+\end{tabular}
+\end{center}
+Aunque a veces es adecuado colocar un \texttt{if/for/while} con un cuerpo pequeño en la misma línea, nunca lo hagas para sentencias multi-claúsula.
+\begin{center}
+\begin{tabular}{| l | l |}
+\hline
+\multicolumn{1}{|c|}{\textbf{Preferiblemente no:}} & \multicolumn{1}{c|}{\textbf{Definitivamente no:}} \\ \hline
+\texttt{if foo == 'blah': do\_blah\_thing()} & \texttt{if foo == 'blah': do\_blah\_thing()} \\
+\texttt{for x in lst: total += x} & \texttt{else: do\_non\_blah\_thing()} \\
+\texttt{while t < 10: t = delay()} & \texttt{try: something()} \\
+ & \texttt{finally: cleanup()}\\
+ & \texttt{do\_one(); do\_two(); do\_three(long, argument,} \\
+ & \texttt{\quad \quad \quad \quad \quad \quad list, like, this)} \\
+ & \texttt{if foo == 'blah': one(); two(); three()} \\ \hline
+\end{tabular}
+\end{center}
+Conforme vayas programando te darás cuenta de la ventaja de usar un estilo de programación adecuado, el uso de entornos de desarrollo, ahorra mucho tiempo para el formato del estilo, pero aún así, no debemos de confiarnos y dejar un código complicado de leer y entender.
+\end{document}
