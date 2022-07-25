@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+\usepackage{termcal}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[landscape]{geometry}
+\usepackage{xcolor}
+\usepackage{../Estilos/ColoresLatex}
+
+\newcommand{\marcoconferencia}{\fcolorbox{darkcyan}{darkcyan}{\textbf{\textcolor{white}{Videoconferencia}}}}
+\newcommand{\marcotarea}[1]{\fcolorbox{red}{white}{\textbf{\color{black}{Entrega Tema #1}}}}
+\newcommand{\marcotema}[1]{\color{blue}{\textbf{#1}}}
+\newcommand{\marcoclase}{\fcolorbox{capri}{capri}{\textbf{\textcolor{white}{Clase presencial}}}}
+\newcommand{\mitextocolor}[2]{\textcolor{#1}{\textbf{#2}}}
+
+\renewcommand{\calprintclass}{}
+\renewcommand{\calprintdate}{%
+     \ifnewmonth\framebox{\arabic{month}/\arabic{date}}%
+     \else\arabic{date}%
+     \fi}
+
+
+\author{M. en C. Gustavo Contreras Mayén. \texttt{gux7avo@ciencias.unam.mx}\\
+M. en C. Abraham Lima Buendía. \texttt{abraham3081@ciencias.unam.mx}}
+\title{Calendario Curso Física Computacional \\ \large{Semestre 2023-1}}
+\begin{document}
+\date{}
+\maketitle
+\begin{calendar}{8/15/22}{18}
+\setlength{\calwidth}{1.1\textwidth} 
+\setlength{\calboxdepth}{1in}
+% Description of the Week.
+
+\calday[Lunes]{\classday}
+\calday[Martes]{\classday}
+\calday[Miércoles]{\classday}
+\calday[Jueves]{\classday}
+\calday[Viernes]{\classday}
+\skipday\skipday % weekend (no class)
+
+
+% Holidays
+
+\options{9/15/22}{\noclassday}
+\caltext{9/15/22}{\color{red}{Día Feriado} \\[1em]}
+\options{9/16/22}{\noclassday}
+\caltext{9/16/22}{\color{red}{Día Feriado} \\[1em]}
+\options{11/1/22}{\noclassday}
+\caltext{11/1/22}{\color{red}{Día Feriado} \\[1em]}
+\options{11/2/22}{\noclassday}
+\caltext{11/2/22}{\color{red}{Día Feriado} \\[1em]}
+\options{11/21/22}{\noclassday}
+\caltext{11/21/22}{\color{red}{Día Feriado} \\[1em]}
+\options{12/12/22}{\noclassday}
+\caltext{12/12/22}{\color{red}{Día Feriado} \\[1em]}
+
+%Temas del curso
+\caltext{8/15/2022}{\textbf{Inicio del semestre 2023-1}}
+
+\caltext{8/15/22}{\textbf{Semana 1}}
+\caltext{8/16/22}{\mitextocolor{deepcarrotorange}{Presentación curso. \\ }\mitextocolor{blue}{Tema 0. El ABC de python.}}
+\caltext{8/18/22}{\mitextocolor{blue}{Tema 0. El ABC de python.}}
+
+\caltext{8/22/22}{\textbf{Semana 2}}
+\caltext{8/23/22}{\mitextocolor{brickred}{Presentación Tema 1. Errores y aritmética de punto flotante.}}
+\caltext{8/25/22}{\mitextocolor{brickred}{Tema 1.}}
+
+\caltext{8/29/22}{\textbf{Semana 3}}
+\caltext{8/30/22}{\mitextocolor{brickred}{Tema 1.}}
+\caltext{9/1/22}{\mitextocolor{brickred}{Tema 1.}}
+
+\caltext{9/5/22}{\textbf{Semana 4}}
+\caltext{9/6/22}{\mitextocolor{cadmiumgreen}{Presentación Tema 2. Operaciones matemáticas básicas.}}
+\caltext{9/8/22}{\mitextocolor{cadmiumgreen}{Tema 2.}}
+
+\caltext{9/12/22}{\textbf{Semana 5}}
+\caltext{9/13/22}{\mitextocolor{cadmiumgreen}{Tema 2.}}
+
+\caltext{9/19/22}{\textbf{Semana 6}}
+\caltext{9/20/22}{\mitextocolor{cadmiumgreen}{Tema 2.}}
+\caltext{9/22/22}{\mitextocolor{cadmiumgreen}{Tema 2.}}
+
+\caltext{9/26/22}{\textbf{Semana 7}}
+\caltext{9/27/22}{\mitextocolor{darklavender}{Presentación Tema 3. Ecuaciones Diferenciales Ordinarias.}}
+\caltext{9/28/22}{\mitextocolor{darklavender}{Tema 3.}}
+
+\caltext{10/3/22}{\textbf{Semana 8}}
+\caltext{10/4/22}{\mitextocolor{darklavender}{Tema 3.}}
+\caltext{10/6/22}{\mitextocolor{darklavender}{Tema 3.}}
+
+\caltext{10/10/22}{\textbf{Semana 9}}
+\caltext{10/11/22}{\mitextocolor{darklavender}{Tema 3.}}
+\caltext{10/13/22}{\mitextocolor{ginger}{Presentación Tema 4. Álgebra matricial.}}
+
+\caltext{10/17/22}{\color{black}{\textbf{Semana 10}}}
+\caltext{10/18/22}{\mitextocolor{ginger}{Tema 4.}}
+\caltext{10/20/22}{\mitextocolor{ginger}{Tema 4.}}
+
+\caltext{10/24/22}{\color{black}{\textbf{Semana 11}}}
+\caltext{10/25/22}{\mitextocolor{ginger}{Tema 4.}}
+\caltext{10/27/22}{\mitextocolor{officegreen}{Presentación Tema 5. Métodos Monte Carlo.}}
+
+\caltext{10/31/22}{\color{black}{\textbf{Semana 12}}}
+\caltext{11/3/22}{\mitextocolor{officegreen}{Tema 5.}}
+
+\caltext{11/7/22}{\color{black}{\textbf{Semana 13}}}
+\caltext{11/8/22}{\mitextocolor{officegreen}{Tema 5.}}
+\caltext{11/10/22}{\mitextocolor{officegreen}{Tema 5.}}
+
+\caltext{11/14/22}{\color{black}{\textbf{Semana 14}}}
+\caltext{11/15/22}{\mitextocolor{officegreen}{Tema 5.}}
+\caltext{11/17/22}{\mitextocolor{officegreen}{Tema 5.}}
+
+\caltext{11/21/22}{\color{black}{\textbf{Semana 15}}}
+\caltext{11/22/22}{\mitextocolor{fawn}{Presentación Tema 6. Ecuaciones Diferenciales Parciales.}}
+\caltext{11/24/22}{\mitextocolor{fawn}{Tema 6.}}
+
+\caltext{11/28/22}{\color{black}{\textbf{Semana 16}}}
+\caltext{11/29/22}{\mitextocolor{fawn}{Tema 6.}}
+\caltext{12/1/22}{\mitextocolor{fawn}{Tema 6.}}
+
+\caltext{12/2/22}{\textbf{Fin de semestre}}
+
+\caltext{12/5/22}{\color{black}{\textbf{Semana 1 Finales.}}}
+\caltext{12/13/22}{\color{black}{\textbf{Semana 2 Finales.}}}
+\end{calendar}
+\end{document}
