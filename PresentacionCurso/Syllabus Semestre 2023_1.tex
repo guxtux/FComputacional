@@ -4,25 +4,29 @@
 M. en C. Abraham Lima Buendía. \texttt{abraham3081@ciencias.unam.mx}}
 \title{Syllabus de Curso de Física Computacional \\ {\large Semestre 2023-1 Grupo 8260}}
 \date{ }
-\makeatletter
-\renewcommand{\@biblabel}[1]{}
-\renewenvironment{thebibliography}[1]
-     {\section*{\refname}%
-      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
-      \list{}%
-           {\labelwidth=0pt
-            \labelsep=0pt
-            \leftmargin1.5em
-            \itemindent=-1.5em
-            \advance\leftmargin\labelsep
-            \@openbib@code
-            }%
-      \sloppy
-      \clubpenalty4000
-      \@clubpenalty \clubpenalty
-      \widowpenalty4000%
-      \sfcode`\.\@m}
-\makeatother
+% \makeatletter
+% \renewcommand{\@biblabel}[1]{}
+% \renewenvironment{thebibliography}[1]
+%      {\section*{\refname}%
+%       \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+%       \list{}%
+%            {\labelwidth=0pt
+%             \labelsep=0pt
+%             \leftmargin1.5em
+%             \itemindent=-1.5em
+%             \advance\leftmargin\labelsep
+%             \@openbib@code
+%             }%
+%       \sloppy
+%       \clubpenalty4000
+%       \@clubpenalty \clubpenalty
+%       \widowpenalty4000%
+%       \sfcode`\.\@m}
+% \makeatother
+
+\usepackage[backend=biber, style=ieee, sorting=ynt]{biblatex}
+\addbibresource{LibrosFC.bib}
+
 
 \begin{document}
 
@@ -30,7 +34,7 @@ M. en C. Abraham Lima Buendía. \texttt{abraham3081@ciencias.unam.mx}}
 \maketitle
 \fontsize{12}{12}\selectfont
 
-\textbf{Lugar: } Pendiente.
+\textbf{Lugar: } Laboratorio de Enseñanza en Física.
 \par
 \textbf{Horario: } Martes y Jueves de 15 a 18 pm.
 \par
@@ -46,7 +50,7 @@ Se trabajará el temario oficial de la asignatura, que está disponible en:
 \noindent
 \textbf{Antes de la clase.}
 \\
-Para facilitar la discusión en el aula, el alumno revisará el material de trabajo que se le proporcionará oportunamente, de tal manera que llegará conociendo el tema a desarrollar a la clase. Daremos por entendido de que el alumno realizará la lectura y actividades establecidas.
+Para facilitar la discusión en el aula, el alumno revisará el material de trabajo que se le proporcionará oportunamente, así como la solución de algunos ejercicios, de tal manera que llegará a la clase conociendo el tema a desarrollar. Daremos por entendido de que el alumno realizará la lectura y actividades establecidas.
 \\
 \textbf{Durante la clase.}
 \\
@@ -60,11 +64,13 @@ Si cuentan con una experiencia previa en programación (con cualquier lenguaje),
 \\
 \textbf{Después de la clase.}
 \\
-Fuera de la clase presencial deberán de revisar los materiales para la siguiente sesión, así como para resolver y entregar los ejercicios presentados que queden a cuenta.
+Al concluir la clase, se tendrán ejercicios a resolver, para que pueda repasar el tema visto en clase. En caso de que algún ejercicio haya quedado incompleto, deberá de resolver y entregarlos en la plataforma Moodle.
 
 \subsection{Plataforma Moodle.}
 
-En este semestre el curso se impartirá en modalidad presencial, se mantendrá el uso de la plataforma Moodle para el mismo, en donde se incluirán materiales de consulta: lecturas, artículos, enlaces a videos, a archivos para utilizar, por lo que se tendrá un apoyo adicional, de manera que contarán con herramientas adicionales.
+En este semestre el curso se impartirá en modalidad presencial, se mantendrá el uso de la plataforma Moodle para el mismo, en donde se incluirán materiales de consulta: ejercicios adicionales, lecturas, artículos, enlaces a videos, a archivos para utilizar, por lo que se tendrá un apoyo adicional, de manera que contarán con herramientas adicionales.
+\par
+Los ejercicios resueltos se dejarán en Moodle, contando con el suficiente tiempo para la entrega. No se recibirán actividades por correo electrónico.
 
 \section{Evaluación.}
 
@@ -72,13 +78,22 @@ La evaluación de las actividades de un curso como el de Física Computacional d
 \par
 Los elementos y la proporción de la calificación total del curso, se distribuyen de la siguiente manera:
 \begin{enumerate}[label=\alph*)]
-\item \textbf{Ejercicios en clase $\mathbf{10\%}$:} Durante la clase se trabajarán ejercicios, algunos de ellos se dejarán para que completen la solución, de tal forma que deberán de entregarlo resuelto para la siguiente sesión.
+\item \textbf{Ejercicios en clase $\mathbf{20\%}$:} Durante la clase se trabajarán ejercicios, algunos de ellos se dejarán para que completen la solución, de tal forma que deberán de entregarlo resuelto para la siguiente sesión.
 \par
 Para que el ejercicio resuelto se considere dentro de este porcentaje, se requiere que el alumno asista a la clase, en caso de que el alumno no asista y se entere del ejercicio, solamente se le revisará el ejercicio que entregue, pero no se le tomará en cuenta para el porcentaje, (moraleja: hay que asistir a clase).
-\item \textbf{Examen-Tarea $\mathbf{60\%}$} : Se tendrán tres examen-tarea durante el curso, se les proporcionará de manera adelantada y con fecha de entrega definida, no se recibirán entregas extemporáneas. Para que el examen-tarea se considere, se deberá de entregar el $100\%$ de los ejercicios resueltos. En caso contrario, sólo se revisarán los ejercicios, pero no se tomará en cuenta como parte de la calificación por tareas. Un examen-tarea se considera acreditado cuando la calificación obtenida es mayor o igual a seis. En caso de que en alguno (o más) examen-tarea, la calificación sea menor a seis, ya se es candidato a presentar el examen final del curso.
+\item \textbf{Examen-Tarea $\mathbf{50\%}$} : Se tendrán tres examen-tarea durante el curso, se les proporcionará de manera adelantada y con fecha de entrega definida, no se recibirán entregas extemporáneas. Para que el examen-tarea se considere, se deberá de entregar el $100\%$ de los ejercicios resueltos. En caso contrario, sólo se revisarán los ejercicios, pero no se tomará en cuenta como parte de la calificación por tareas. Un examen-tarea se considera acreditado cuando la calificación obtenida es mayor o igual a seis. En caso de que en alguno (o más) examen-tarea, la calificación sea menor a seis, ya se es candidato a presentar el examen final del curso.
 \item \textbf{Proyecto final $\mathbf{30\%}$} : A la mitad del semestre se presentará una lista con varios proyectos de los cuales se deberá elegir uno, para desarrollarlo conforme se continúa con la revisión del contenido del curso, para entregarlo de manera completa antes de que concluya el semestre.
 \end{enumerate}
 La calificación final del curso se obtendrá de las calificaciones de cada uno de los componentes de la evaluación: ejercicios en clase, de los examen-tareas y del proyecto final. En el caso de obtener una calificación mayor o igual a $6$, será la que se asentará en el acta del curso.
+
+\section{Herramienta de trabajo.}
+
+Es necesario contar con una herramienta de trabajo que nos permita generar un algoritmo computacional con el que podamos comprobar la solución y consistencia de nuestro problema, para ello, utilizaremos:
+\begin{enumerate}[label=\roman*)]
+\item Python como lenguaje de programación. Se tendrá un Tema 0 a modo de Introducción Breve a Python.
+\item Jupyter como cuadernos de trabajo (notebooks)
+\item Para facilitar la distribución de los notebooks iniciales, se tendrá disponible un repositorio en GitHub.
+\end{enumerate}
 
 \section{Examen final.}
 
@@ -97,10 +112,11 @@ Puntalizando sobre el examen final:
 \item Si el alumno no se presenta a la primera ronda del examen final, tendrá cinco como calificación final. Ya no podrá presentar la segunda ronda del examen final.
 \end{enumerate}
 \par
-\textbf{Importante: } \emph{En caso de haber presentado al menos un examen-tarea y/o haber entregado al menos un ejercicio}, pero ya no se tenga un posterior registro de entregas, se considera que abandonaron el curso, al no cumplir con los puntos de la lista del numeral \ref{ref:criterios_final}, no se podrá presentar el examen final del curso.
+\textbf{Importante: } \emph{En caso de haber presentado al menos un examen-tarea y/o haber entregado al menos un ejercicio}, pero si ya no se tiene un posterior registro de entregas, se considera que abandonaron el curso, al no cumplir con los puntos de la lista del numeral \ref{ref:criterios_final}, no se podrá presentar el examen final del curso.
 \par
 Se asentará en el acta de calificaciones \textcolor{blue}{No Presentó (NP)}, si y solo si: el alumno no entrega ejercicio alguno y no entrega algún examen-tarea (¿?). Ocupando nuevamente el Reglamento de Estudios Profesionales, tomen en cuenta que:
 \begin{itemize}
+\setlength\itemsep{1pt}
 \item No \enquote{se guardan calificaciones}.
 \item No se renuncia a una calificación.
 \end{itemize}
@@ -108,6 +124,7 @@ Se asentará en el acta de calificaciones \textcolor{blue}{No Presentó (NP)}, s
 \section{Fechas importantes.}
 
 \begin{itemize}
+\setlength\itemsep{1pt}
 \item Lunes 15 de agosto. Inicio del semestre 2023-1.
 \item \textcolor{red}{Jueves 15 de septiembre. Día feriado.}
 \item \textcolor{red}{Martes 1 de noviembre. Día feriado.}
@@ -120,6 +137,7 @@ Se asentará en el acta de calificaciones \textcolor{blue}{No Presentó (NP)}, s
 
 Se recomienda la consulta de los siguientes textos, en cada uno de los temas se propocionará bibliografía adicional para una mejor comprensión del tema.
 \nocite{*}
-\bibliographystyle{apalike-es}
-\bibliography{LibrosFC}
+\printbibliography[keyword={computacional}, title={Referencias Física Computacional}]
+\printbibliography[keyword={python}, title={Referencias pyhton, matplolib, jupyter}]
+
 \end{document}

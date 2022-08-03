@@ -1,5 +1,5 @@
 % This is the Spanish version of the BibTeX 'apalike' bibliograpy style.
-% Esta es la versión en español del estilo bibliográfico 'apalike' de BibTeX.
+% Esta es la versiÃ³n en espaÃ±ol del estilo bibliogrÃ¡fico 'apalike' de BibTeX.
 
 % Last revision: 2-oct-13
 % Translated and adapted by Santi Planet.
@@ -11,14 +11,14 @@
 % page --> p.
 % et~al. --> \textit{et al.} (la RAE marca que et al. equivale a un extanjerismo y debe ir en cursiva)
 % volume --> volumen
-% number --> número
-% chapter --> capítulo
+% number --> nï¿½mero
+% chapter --> capï¿½tulo
 % In --> En
 % and --> y Pero si el apellido comienza por "I" la "y" pasa a ser "e"
 % editors --> editores
 % PhD Thesis --> Tesis doctoral
-% Mater's thesis --> Tesis de máster
-% edition --> edición
+% Mater's thesis --> Tesis de mï¿½ster
+% edition --> ediciï¿½n
 %
 % This is the original header of the 'apalike' bst file in which this
 % translation is based:
@@ -351,7 +351,7 @@ FUNCTION {format.bvolume}
         'skip$
         { " de " * series emphasize * }
       if$
-      "volumen y número" number either.or.check
+      "volumen y nï¿½mero" number either.or.check
     }
   if$
 }
@@ -361,8 +361,8 @@ FUNCTION {format.number.series}
     { number empty$
         { series field.or.null }
         { output.state mid.sentence =
-            { "número" }
-            { "Número" }
+            { "nÃºmero" }
+            { "NÃºmero" }
           if$
           number tie.or.space.connect
           series empty$
@@ -380,8 +380,8 @@ FUNCTION {format.edition}
 { edition empty$
     { "" }
     { output.state mid.sentence =
-        { edition "l" change.case$ " edición" * }
-        { edition "t" change.case$ " edición" * }
+        { edition "l" change.case$ " ediciÃ³n" * }
+        { edition "t" change.case$ " ediciÃ³n" * }
       if$
     }
   if$
@@ -445,7 +445,7 @@ FUNCTION {format.chapter.pages}
 { chapter empty$
     'format.pages
     { type empty$
-        { "capítulo" }
+        { "capÃ­tulo" }
         { type "l" change.case$ }
       if$
       chapter tie.or.space.connect
@@ -696,7 +696,7 @@ FUNCTION {mastersthesis}
   new.block
   format.title "title" output.check
   new.block
-  "Tesis de máster" format.thesis.type output.nonnull
+  "Tesis de MaestrÃ­a" format.thesis.type output.nonnull
   school "school" output.check
   address output
   new.block
