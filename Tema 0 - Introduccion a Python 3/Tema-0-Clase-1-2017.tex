@@ -1,20 +1,12 @@
-\input{../Preambulos/preambulo_presentacion}
+\documentclass[12pt]{beamer}
+\usepackage{../Estilos/BeamerFC}
+\usepackage{../Estilos/ColoresLatex}
+\usefonttheme{serif}
+\input{../Preambulos/preambulo_Beamer_Warsaw_seahorse}
 
-%\input{../Preambulos/pre_documento}
-%\usetheme{CambridgeUS}
-%\input{../Preambulos/pre_plantilla_Berlin_beaver}
-%\usepackage[backend=biber]{biblatex}
-%\bibliography{LibrosFC.bib}
-%\input{../Preambulos/pre_codigo}
-%\input{../Preambulos/pre_define_footers}
 \title{Tema 0 - Introducción a \python}
-%\subtitle{Semestre 2018-2}
 \author[]{M. en C. Gustavo Contreras Mayén \\ M. en C. Abraham Lima Buendía}
-\institute{Facultad de Ciencias - UNAM}
-\titlegraphic{\includegraphics[width=2cm]{escudo-facultad-ciencias}\hspace*{4.75cm}~%
-   \includegraphics[width=2cm]{escudo-unam}
-}
-\date{\today}
+
 \begin{document}
 \maketitle
 \section*{Contenido}
@@ -45,7 +37,7 @@ Con la siguiente combinación de teclas, tendremos una terminal en la pantalla d
 \frametitle{La terminal común en linux}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.4]{Terminal_01}
+	\includegraphics[scale=0.4]{Figuras/Terminal_01.png}
 	\caption{Pantalla de una terminal en linux.}
 \end{figure}
 \end{frame}
@@ -71,7 +63,7 @@ Para usar \python{} desde la terminal, basta con que ingresemos la siguiente ins
 \frametitle{Usar python desde la terminal}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.25]{Terminal_02}
+	\includegraphics[scale=0.25]{Figuras/Terminal_02.png}
 	\caption{Vemos cierta información sobre la versión de python instalada en nuestro equipo.}
 \end{figure}
 \end{frame}
@@ -93,7 +85,7 @@ $>>>$ \texttt{print("Hola mundo!")} \keys{\return}
 \frametitle{Todo listo para trabajar con \python}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.25]{Terminal_03}
+	\includegraphics[scale=0.25]{Figuras/Terminal_03.png}
 	\caption{Obtenemos la respuesta en la siguente línea de la terminal de \python.}
 \end{figure}
 \end{frame}
@@ -108,7 +100,7 @@ $>>>$ \texttt{exit()} \keys{\return}
 \frametitle{Salir del entorno de \python{} en la terminal}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.25]{Terminal_04}
+	\includegraphics[scale=0.25]{Figuras/Terminal_04.png}
 	\caption{Regresamos al entorno de linux, revisa el prompt de la terminal.}
 \end{figure}
 \end{frame}
@@ -135,7 +127,7 @@ Para trabajar con \textoazul{qtConsole}, con la terminal llamamos a la suite \te
 \frametitle{Veremos ahora la pantalla de Anaconda}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.2]{anaconda_01.png}
+	\includegraphics[scale=0.2]{Figuras/anaconda_01.png}
 	%\caption{La suite Anaconda}
 \end{figure}
 \end{frame}
@@ -144,7 +136,7 @@ Para trabajar con \textoazul{qtConsole}, con la terminal llamamos a la suite \te
 Veremos diferentes programas que están incluidos en la suite, presionamos el botón \textoazul{Launch}, de \textoazul{qtConsole}:
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.35]{qtConsole_00.png}
+	\includegraphics[scale=0.35]{Figuras/qtConsole_00.png}
 	%\caption{Para ejecutar \textoazul{qtConsole}, presionamos \textoazul{Launch}}
 \end{figure}
 \end{frame}
@@ -152,7 +144,7 @@ Veremos diferentes programas que están incluidos en la suite, presionamos el bo
 \frametitle{La ventana de qtConsole}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.35]{qtConsole_01.png}
+	\includegraphics[scale=0.35]{Figuras/qtConsole_01.png}
 	\caption{La ventana de trabajo de qtConsole}
 \end{figure}
 \end{frame}
@@ -160,7 +152,7 @@ Veremos diferentes programas que están incluidos en la suite, presionamos el bo
 \frametitle{Personalización de qtConsole}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.35]{qtConsole_02}
+	\includegraphics[scale=0.35]{Figuras/qtConsole_02.png}
 	\caption{Podemos pesonalizar la ventana de trabajo, al seleccionar un estilo de colores y resaltado en el Menú: View $>$ Syntax style}
 \end{figure}
 \end{frame}
