@@ -1,0 +1,1342 @@
+\documentclass[12pt]{beamer}
+\usepackage{../Estilos/BeamerFC}
+\usepackage{../Estilos/ColoresLatex}
+\input{../Preambulos/pre_codigo}
+\usefonttheme{serif}
+\input{../Preambulos/preambulo_Beamer_Warsaw_seahorse}
+
+\title{Tema 0 - Introducción a python}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{16 de agosto de 2022}
+
+\begin{document}
+\maketitle
+
+\section*{Contenido}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideallsubsections]}
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
+
+
+\section{python como una calculadora}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Operadores aritméticos}
+
+\begin{frame}
+\frametitle{\python{} como calculadora}
+Una vez abierta la sesión en \python, podemos aprovechar al máximo este lenguaje: \pause para familiarizarnos con su uso, veamos la manera de usar python como una calculadora, sólo hay que ir escribiendo las operaciones en la línea de comandos.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Algunas operaciones}
+Podemos hacer una suma:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[1]: }} \verb|3 + 200| \\
+\pause
+\textcolor{red}{\texttt{Out[1]: }} \verb|203|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Identificador en la línea de comandos}
+Nótese que en cada línea tendremos un \enquote{prompt} que nos indica la \emph{entrada}:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[1]: }}
+\pause
+\\
+\bigskip
+y se le asigna un número consecutivo.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Identificador en la línea de comandos}
+Dependiendo de la tarea que se ejecute, podemos tener una línea de \emph{salida} con el mismo número:
+\\
+\bigskip
+\textcolor{red}{\texttt{Out[1]: }}
+\\
+\bigskip
+\pause
+En ciertas tareas, no se presentará esa línea de salida, sino que se mostrará una nueva línea de entrada, con su número consecutivo.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{División entre números enteros}
+Como estilo de escritura hay que dejar un espacio en blanco entre los valores y el operador que utilizemos:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[2]: }} \verb|30 / 1234| \\
+\pause
+\textcolor{red}{\texttt{Out[2]: }} \verb|0.024311183144246355|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{División entre números de punto flotante}
+\bigskip
+\textcolor{ao}{\texttt{In[3]: }} \verb| 3.0 / 4.0| \\
+\pause
+\textcolor{red}{\texttt{Out[3]: }} \verb| 0.75|
+\\
+\bigskip
+\pause
+Los números de punto flotante, llevan un punto decimal.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{División entera}
+La división entera devuelve el cociente sin decimales:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[4]: }} \verb|30 // 7| \\
+\pause
+\textcolor{red}{\texttt{Out[4]: }} \verb| 4|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{División entera}
+Otro ejemplo de división entera:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[5]: }} \verb|4 // 3| \\
+\pause
+\textcolor{red}{\texttt{Out[5]: }} \verb| 1|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Potenciación}
+Cuando queremos elevar un número (base) a un exponente (potencia), hacemos:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[6]: }} \verb|2**3| \\
+\pause
+\textcolor{red}{\texttt{Out[6]: }} \verb| 8|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Resta entre dos números}
+Podemos restar dos números:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[7]: }} \verb|1234 - 678| \\
+\pause
+\textcolor{red}{\texttt{Out[7]: }} \verb| 556|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El módulo de dos números}
+Una operación común en programación es obtener el módulo de dos números:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[5]: }} \verb|17 % 3| \\
+\pause
+\textcolor{red}{\texttt{Out[5]: }} \verb| 2|
+\\
+\bigskip
+\pause
+Como podrás revisar, nos devuelve el residuo del cociente entre los números.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Combinación de operadores artiméticos}
+En ocasiones tendremos que realizar en una misma línea de código, varias operaciones artiméticas:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[8]: }} \verb| 5.0 / 10 * 2 + 5| \\
+\pause
+\textcolor{red}{\texttt{Out[8]: }} \verb| 6.0|
+\pause
+\\
+\bigskip
+\textbf{¿por qué obtenemos este resultado?}
+\\
+\bigskip
+\pause
+\textbf{¿en qué orden realizaste las operaciones?}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Uso de paréntesis}
+El resultado cambia cuando agrupamos con paréntesis:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[9]: }} \verb| 5.0 / (10 * 2 + 5)| \\
+\pause
+\textcolor{red}{\texttt{Out[9]: }} \verb| 0.2|
+\pause
+\\
+\bigskip
+Como podemos ver, el uso de paréntesis en las expresiones tiene una particular importancia sobre el orden en que se evalúan las expresiones.
+\end{frame}
+\begin{frame}
+\frametitle{Sobre el uso de paréntesis}
+\setbeamercolor{item projected}{bg=coolblack,fg=columbiablue}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Las expresiones contenidas dentro de pares de paréntesis se evalúan primero.
+\item En el caso de expresiones con paréntesis anidados, los operadores en el par de paréntesis más interno se evalúan primero.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Precedencia de los operadores artiméticos}
+En programación es muy importante tomar en cuenta el orden y sentido en que se realizan las operaciones aritméticas, ya que siguen una serie de reglas.
+\\
+\bigskip
+\pause
+Las reglas se indican a continuación:
+\end{frame}
+\begin{frame}
+\frametitle{Precedencia de los operadores aritméticos}
+\setbeamercolor{item projected}{bg=coolblack,fg=columbiablue}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item La multiplicación, división y módulo son las siguientes en ser evaluadas. 
+\item Si una expresión contiene muchas multiplicaciones, divisiones u operaciones de módulo, los operadores se evaláun de izquierda a derecha.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Precedencia de los operadores aritméticos}
+\setbeamercolor{item projected}{bg=coolblack,fg=columbiablue}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti
+\item La suma y resta son las operaciones que se evalúan al último. 
+\item Si una expresión contiene muchas operaciones de suma y resta, los operadores se evalúan de izquierda a derecha.
+\item La suma y resta tienen el mismo nivel de precedencia.
+\end{enumerate}
+\end{frame}
+
+\subsection{Operadores relacionales}
+
+\begin{frame}
+\frametitle{Operadores relacionales}
+Cuando se comparan dos (o más expresiones) mediante un operador, el tipo de dato que se devuelve es lógico: \textoazul{\textbf{True}} o \textcolor{red}{\textbf{False}}, que también tienen una representación de tipo numérico:
+\pause
+\begin{itemize}
+\item[\ding{212}] \textoazul{\textbf{True}} = $1$
+\item[\ding{212}] \textcolor{red}{\textbf{False}} = $0$
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Operaciones aritméticas y relacionales}
+Podemos extender el manejo con \python, al combinar las operaciones aritméticas y relacionales, nótese que siempre tendremos como respuesta un valor booleano:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[10]: }} \verb| 1 + 2 > 7 - 3| \\
+\pause
+\textcolor{red}{\texttt{Out[10]: }} \verb| False|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Operaciones aritméticas y relacionales}
+Otro ejemplo en donde ahora tenemos dos expresiones relacionales:
+\\
+\bigskip
+\textcolor{ao}{\texttt{In[11]: }} \verb| 1 < 2 < 3| \\
+\pause
+\textcolor{red}{\texttt{Out[11]: }} \verb| True|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El operador de comparación de igualdad}
+El doble signo igual ($==$) es el operador de igualdad, a diferencia del operador $=$ que es el operador de asignación.
+\\[1em]
+\textcolor{ao}{\texttt{In[12]: }} \verb| 1 > 2 == 2 < 3| \\
+\pause
+\textcolor{red}{\texttt{In[12]: }} \verb| False|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Combinación de expresiones}
+\textcolor{ao}{\texttt{In[13]: }} \verb| 3 > 4 < 5| \\
+\pause
+\textcolor{red}{\texttt{In[13]: }} \verb| False|
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[14]: }} \verb| 1.0 / 3 < 0.3333| \\
+\pause
+\textcolor{red}{\texttt{In[14]: }} \verb| False|
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[15]: }} \verb| 5.0 / 3 >= 11 /7.0| \\
+\pause
+\textcolor{red}{\texttt{In[15]: }} \verb| True|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Combinación de expresiones}
+Las expresiones se pueden complicar cada vez más, por lo que hay que mantener atención al momento de escribirlas.
+\\
+\bigskip
+\pause
+Se recomienda siempre el uso de parentésis para identificar las operaciones que se vayan a realizar.
+\end{frame}
+\begin{frame}
+\frametitle{Tabla de operadores relacionales}
+\begin{table}
+\fontsize{12}{12}\selectfont
+\begin{tabular}{| c | l | c | c |}
+\hline
+Operador & Operación & Ejemplo & Resultado\\ \hline
+$==$ & Igual a & $4==5$ & \textcolor{red}{\texttt{False}} \\ \hline
+$!=$ & Diferente & $2!=3$ & \textoazul{\texttt{True}} \\ \hline
+$<$ & Menor que & $ 10<4$  & \textcolor{red}{\texttt{False}} \\ \hline
+$>$ & Mayor que & $5>-4$ & \textoazul{\texttt{True}} \\ \hline
+$<=$ & Menor o igual & $7<=7$ & \textoazul{\texttt{True}} \\ \hline
+$>=$ & Mayor o igual & $3.5 >= 10$ & \textcolor{red}{\texttt{False}} \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\subsection{Operadores booleanos}
+
+\begin{frame}
+\frametitle{Operadores booleanos}
+En \python{} existen tres operadores booleanos:
+\setbeamercolor{item projected}{bg=cobalt,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item \azulfuerte{and}
+\item \azulfuerte{or}
+\item \azulfuerte{not}
+\end{enumerate}
+\pause
+Estos operadores comparan valores booleanos, el resultado de ésta comparación se expresa en un valor booleano.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El operador booleano \texttt{and}}
+Cuando comparamos dos expresiones con el operador booleano \azulfuerte{and}, tendremos de respuesta un valor \textoazul{True}, siempre y cuando ambas expresiones sean verdaderas:
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[18]: }} \verb| (4 < 5) and (5 < 6)| \\
+\pause
+\textcolor{red}{\texttt{Out[18]: }} \verb| True|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El operador booleano \texttt{and}}
+En caso de que una de las expresiones sea \textcolor{red}{False} (incluso las dos expresiones), al momento de compararlas con el operador booleano \azulfuerte{and}, el resultado que se devuelve es \textcolor{red}{False}:
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[19]: }} \verb| (4 < 5) and (9 < 6)| \\
+\pause
+\textcolor{red}{\texttt{Out[19]: }} \verb| False|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El operador booleano \texttt{or}}
+El operador booleano \azulfuerte{or} devuelve un valor \textoazul{True}, cuando una de las expresiones es verdadera (incluso ambas):
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[20]: }} \verb| (1==2) or (2 == 2)| \\
+\pause
+\textcolor{red}{\texttt{Out[20]: }} \verb| True|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El operador booleano \texttt{or}}
+Si las expresiones que se comparan con el operador booleano \azulfuerte{or} son ambas falsas, se tendrá como respuesta un valor \textcolor{red}{False}:
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[21]: }} \verb| (1 > 2) or (8 == 2)| \\
+\pause
+\textcolor{red}{\texttt{Out[21]: }} \verb| False|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El operador booleano \texttt{not}}
+El operador booleano \azulfuerte{not} \enquote{niega} (invierte) el valor booleano de la expresión que evalúa:
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[22]: }} \verb| not(True)| \\
+\pause
+\textcolor{red}{\texttt{Out[22]: }} \verb| False|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El operador booleano \texttt{not}}
+Podemos ocupar una expresión más elaborada en la que anticipamos el resultado y entonces se ocupa el operador \azulfuerte{not}, para negar el resultado:
+\\
+\bigskip
+\pause
+{\fontsize{12}{12}\selectfont
+\textcolor{ao}{\texttt{In[23]: }} \verb|((2 + 2) == 4) and (not((2 + 2) == 5))|} \\
+\pause
+\textcolor{red}{\texttt{Out[23]: }} \verb| True|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Posibles errores al introducir valores/operaciones}
+Será muy común al inicio encontrar errores cuando se teclean las instrucciones en el código, por lo que hay que tomar en cuenta los avisos que nos devuelve \python:
+\\
+\bigskip
+\pause
+\textcolor{ao}{\texttt{In[16]: }} \verb| 5 + | \\
+\pause
+\verb| File "<stdin>", line 1| \\
+\verb|      5 +  | \\
+\verb|         ^| \\
+\textcolor{red}{\texttt{SyntaxError:}}\verb| invalid syntax|
+\end{frame}
+\begin{frame}
+\frametitle{Posibles errores}
+Lo que nos indica que se presenta un error, en este caso, un \textbf{error de sintaxis}.
+\\
+\bigskip
+\pause
+Encontraremos en python distintos tipos de error que se generan en particulares situaciones. \pause Más adelante, mostraremos la manera en la que podemos manejar esos errores para evitar que el programa se detenga.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Posibles errores al introducir valores/operaciones}
+\textcolor{ao}{\texttt{In[17]: }} \verb| 42 + 5 + * 2 | \\
+\pause
+\verb| File "<stdin>", line 1| \\
+\verb|   42 + 5 + * 2 | \\
+\verb|            ^| \\
+\textcolor{red}{\texttt{SyntaxError:}}\verb| invalid syntax|
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Posibles errores al introducir valores/operaciones}
+\textcolor{ao}{\texttt{In[17]: }} \verb| 3 / 0 | \\
+\pause
+{\fontsize{12}{12}\selectfont
+\verb|ZeroDivisionError | \\
+\verb|Traceback (most recent call last)| \\
+\verb|<ipython-input-1-e1965806ec03> in <module>| \\
+\verb|----> 1 3 / 0| \\
+\textcolor{red}{\texttt{ZeroDivisionError:}}\verb| division by zero|}
+\end{frame}
+    
+
+\section{Las variables en python}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Tipos de variables}
+
+\begin{frame}
+\frametitle{¿Qué es una variable?}
+Una variable es una ubicación de memoria reservada para almacenar valores que se modifican durante la ejecución de un programa.
+\\
+\bigskip
+\pause
+Las variables en python no necesitan una declaración explícita para reservar el espacio en memoria. La declaración ocurre automáticamente cuando se asigna un valor a una variable.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Declarando variables}
+Establecemos una variable de la siguiente forma:
+\\[1em]
+\pause
+\verb| nombre_variable = valor_inicial |
+\\
+\bigskip
+Nótese que la asignación de un valor a una variable se hace mediante el operador $=$, ya vimos que una comparación entre valores se hace con el doble igual ($==$).
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Escribiendo variables}
+Se recomienda utilizar un nombre corto asociado a lo que va a contener la variable, se puede extender el nombre de la misma, usando el guión bajo, nunca espacios en blanco.
+\\
+\bigskip
+\pause
+\verb| distancia = 145.5 | \\
+\verb| tiempo_segundos = 60 | \\
+\verb| nombre_catalogo = "NGC1952" |
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Valores constantes}
+Cuando se tiene el caso particular de una variable que no se modifica, entonces tenemos una constante.
+\pause
+\begin{eqnarray*}
+g &= 9.81 \\
+\mbox{ANGULO} &= 27
+\end{eqnarray*}
+\pause 
+Se recomienda que el nombre de las constantes se anote en mayúsculas.
+\end{frame}
+
+\section{Tipos de datos}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Los tipos de datos}
+
+\begin{frame}
+\frametitle{¿Qué es un tipo de dato}
+En python como en la mayoría de lenguajes de programación, los tipos de datos definen un conjunto de valores con características y propiedades particulares.
+\\
+\bigskip
+\pause
+Cuando asignamos un valor a una variable, se define ese conjunto de valores que puede tomar así como las operaciones que están permitidas.
+\end{frame}
+
+\subsection{Tipos numéricos}
+
+\begin{frame}
+\frametitle{Los tipos numéricos en \python}
+Los tipos de datos numéricos que se manejan en python son los siguientes:
+\setbeamercolor{item projected}{bg=darkblue,fg=daffodil}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Enteros.
+\item Punto flotante.
+\item Complejos.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Tipo entero}
+Los números enteros son aquellos que no tienen decimales, tanto positivos como negativos (además del cero).
+\\
+\bigskip
+\pause
+En python este tipo de dato se representa como $\texttt{int}$ (de integer, entero).
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo de datos enteros}
+\begin{lstlisting}[caption=Ejecuta el código y revisa el resultado]
+a = 10
+b = -6
+print(a - b)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Otras representaciones}
+Los números enteros también se pueden representar en otros sistemas:
+\pause
+\setbeamercolor{item projected}{bg=lava,fg=laserlemon}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Binario: se utiliza el prefijo 0b a una secuencia de dígitos en binario (0 y 1).
+\item Octal: se utiliza el prefijo 0o a una secuencia de dígitos octales (del 0 al 7).
+\item Hexadecimal: se utiliza el prefijo 0x a una secuencia de dígitos en hexadecimal (del 0 al 9 y de la A la F).
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Escribiendo el valor de $10$}
+\begin{lstlisting}[caption=Representando otros formatos]
+diez = 10
+diez_binario = 0b1010
+diez_oct = 0o12
+diez_hex =0xa
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Presentando el valor de $10$}
+\begin{lstlisting}[caption=Ejecuta el código para revisar el resultado]
+print(10)
+print(diez_binario)
+print(diez_oct)
+print(diez_hex)
+\end{lstlisting}
+\end{frame}
+
+\subsection{Tipos de datos de punto flotante}
+
+\begin{frame}
+\frametitle{Números de punto flotante}
+Los números reales son los que tienen decimales. En python se expresan mediante el tipo $\texttt{float}$.
+\\
+\bigskip
+\pause
+Se implementa su tipo $\texttt{float}$ utilizando 64 bits, en concreto se sigue el estándar \textbf{IEEE 754}: 1 bit para el signo, 11 para el exponente, y 52 para la mantisa. En el Tema 1, ampliaremos esta información.
+\end{frame}
+\begin{frame}
+\frametitle{Números de punto flotante}
+Recordemos que cada valor asignado a una variable ocupa un espacio de memoria en la computadora, \pause al principio puede parecer que tendremos bastante espacio de sobra para nuestras operaciones.
+\end{frame}
+\begin{frame}
+\frametitle{Números de punto flotante}
+Pero conforme avancemos en el contenido del curso, los recursos de memoria serán críticos para determinar si nuestra computadora tendrá la capacidad de soportar las tareas que necesitemos.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejando números de punto flotante}
+\begin{lstlisting}[caption=Ejemplo con datos de punto flotante]
+print(velocidad**2)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Revisa con cuidado el siguiente ejemplo}
+\begin{lstlisting}[caption=Escribe y ejecute el siguiente código]
+1.1 + 2.2
+\end{lstlisting}
+\pause
+Ups! \textbf{¿qué pasó? ¿de donde sale ese valor} $\ldots 3$ al final del renglón? \pause Cuando revisemos el tema de artimética de punto flotante, tendremos la respuesta a estas dos preguntas.
+\end{frame}
+
+\subsection{Tipos de datos complejos}
+
+\begin{frame}
+\frametitle{Números complejos}
+Un número complejo consiste en un par ordenado de números reales de coma flotante denotados por: \pause $ x + y \, j$ donde $x$ e $y$ son números reales, \pause mientras que $y \, j$ es la unidad imaginaria.
+\\
+\bigskip
+\pause
+Un valor complejo es de tipo $\texttt{complex}$.
+\end{frame}
+\begin{frame}
+\frametitle{Números complejos}    
+Nótese que $j$ representa $\sqrt{-1}$, no se ocupa $i$ ya que como veremos, esa letra se presenta más en las estructuras de control.
+\\
+\bigskip
+\pause
+Este tipo de dato sigue el álgebra de los números complejos.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo con números complejos}
+\begin{lstlisting}[caption=Ejercicio con números complejos]
+a = 3 + 4j
+b = 5 - 2j
+
+print(a + b)
+print(a * b)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La parte real e imaginaria de un complejo}
+Podemos recuperar la parte real y la parte imaginaria de un número complejo:
+\pause
+\begin{lstlisting}[caption=Parte real y compleja]
+print(a.real)
+print(a.imag)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Operaciones entre distintos tipos de números}
+Es posible realizar operaciones artiméticas con tipos numéricos distintos, el resultado corresponderá al mismo tipo de dato de mayor valor:
+\pause
+\begin{lstlisting}[caption=Ejemplos de operaciones entre tipos de datos numéricos]
+print(3.14 + 10 - 2j)
+print()
+print(10 + 2.3)
+\end{lstlisting}
+\end{frame}
+
+\section{Cadenas}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición}
+
+\begin{frame}
+\frametitle{¿Qué son las cadenas?}
+Las cadenas en \python{} se identifican como un conjunto o secuencia de caracteres representados en las comillas.
+\\
+\bigskip
+\pause
+A una cadena se le asocia el tipo de dato $\texttt{str}$ (de \emph{string}).
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Escribiendo una cadena}
+Se permite cualquier par de 'comillas simples' o comillas \enquote{dobles}.
+\pause
+\begin{lstlisting}[caption=Escribiendo cadenas de texto]
+print("Hola Mundo!")
+print()
+print('La velocidad de la luz es finita.')
+print()
+print('No choqué, "me chocaron!"')
+print()
+print('El balón es \'casi\' esférico.')
+\end{lstlisting}
+\end{frame}
+
+\subsection{Manejo de las cadenas}
+
+\begin{frame}
+\frametitle{Ocupando las cadenas de texto}
+El tipo de dato $\texttt{str}$ contiene un conjunto muy amplio de funciones que nos permiten manipular a una cadena de la forma en que nos interese.
+\\
+\bigskip
+\pause
+En el desarrollo del curso, veremos algunas de esas funciones que serán de utilidad.
+\end{frame}
+\begin{frame}
+\frametitle{Extendiendo la información}
+Para conocer más a detalle las funciones que se pueden aplicar a una cadena de texto, pueden consultar la \href{https://docs.python.org/es/3/library/string.html}{documentación oficial} en el sitio web de \python.
+\end{frame}
+
+
+% \begin{frame}[fragile]
+% \frametitle{Asignación múltiple de valores}
+% En \python{} podemos asignar un valor único a varias variables de manera simultánea:
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[30]: }} \verb| A = b = c = 1 | \\
+% \pause
+% \textcolor{ao}{\texttt{In[31]: }} \verb| A | \\
+% \pause
+% \textcolor{red}{\texttt{Out[31]: }} \verb| 1 | \\
+% \pause
+% \textcolor{ao}{\texttt{In[32]: }} \verb| b | \\
+% \pause
+% \textcolor{red}{\texttt{Out[32]: }} \verb| 1 | \\
+% \pause
+% \textcolor{ao}{\texttt{In[33]: }} \verb| c | \\
+% \pause
+% \textcolor{red}{\texttt{Out[33]: }} \verb| 1 |
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Asignación múltiple a varias variables}
+% También podemos asignar varios valores a varias variables de manera simultánea, separando con una coma tanto a las variables como a los valores:
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Asignación múltiple a varias variables}
+% \textcolor{ao}{\texttt{In[34]: }} \verb| usuario, folio, temp = "Poncho", 100, 37.3 | \\
+% \pause
+% \textcolor{ao}{\texttt{In[35]: }} \verb| usuario | \\
+% \pause
+% \textcolor{red}{\texttt{Out[35]: }} \verb| 'Poncho'| \\
+% \pause
+% \textcolor{ao}{\texttt{In[36]: }} \verb| folio | \\
+% \pause
+% \textcolor{red}{\texttt{Out[36]: }} \verb| 100| \\
+% \pause
+% \textcolor{ao}{\texttt{In[37]: }} \verb| temp| \\
+% \pause
+% \textcolor{red}{\texttt{Out[37]: }} \verb| 37.3|
+% \end{frame}
+% \section{Tipos de Datos Estándar}
+% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Los tipos de datos en \python}
+% \begin{frame}
+% \frametitle{Tipos de datos}
+% Los datos almacenados en la memoria pueden ser de varios tipos. Por ejemplo, la edad de una persona se almacena como un valor numérico y su dirección se almacena como caracteres alfanuméricos.
+% \\
+% \bigskip
+% En \python{} se cuenta con varios tipos de datos estándar que se utilizan para definir las operaciones posibles entre ellos y el método de almacenamiento para cada uno de ellos.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Tipos de datos}
+% Los tipos de datos que se utilizan en \python{} son cinco:
+% \setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+% \setbeamertemplate{enumerate items}[circle]
+% \begin{enumerate}[<+->]
+% \item Números.
+% \item Cadena.
+% \item Lista.
+% \item Tupla.
+% \item Diccionario.
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Números}
+% Los tipos de datos numéricos almacenan valores numéricos.
+% \\
+% \bigskip
+% Los objetos numéricos se crean cuando se les asigna un valor.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Declaración en variables}
+% \textcolor{ao}{\texttt{In[38]: }} \verb| var1 = var2 = 10| \\
+% \pause
+% \textcolor{ao}{\texttt{In[39]: }} \verb| var1| \\
+% \pause
+% \textcolor{red}{\texttt{Out[39]: }} \verb| 10| \\
+% \pause
+% \textcolor{ao}{\texttt{In[40]: }} \verb| var2| \\
+% \pause
+% \textcolor{red}{\texttt{Out[40]: }} \verb| 10|
+% \end{frame}
+% \begin{frame}
+% \frametitle{Eliminando variables en \python}
+% También se puede eliminar la referencia a una variable numérica utilizando la sentencia \azulfuerte{del}
+% \\
+% \bigskip
+% La sintaxis de la sentencia \texttt{del} es:
+% \\
+% \bigskip
+% \texttt{del var1 [, var2 [, var3 [...., varN]]]]}
+% \\
+% \bigskip
+% los corchetes indican que hay parámetros que son opcionales.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Eliminando variables en \python}
+% Se puede eliminar una sola variable o varias utilizando la sentencia \azulfuerte{del}
+% \\
+% \bigskip
+% Por ejemplo, la variable \textoazul{var1} que ya teníamos referenciada previamente:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[41]: }} \verb| del var1|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Eliminando variables en \python{arg}}
+% Si desde la terminal hacemos referencia a la variable eliminada, tendremos un mensaje como el siguiente:
+% \textcolor{ao}{\texttt{In[42]: }} \verb| var1|
+% \begin{verbatim}
+% NameError   Traceback (most recent call last)
+% <stdin> in <module>
+% ----> 1 var1
+
+% NameError: name 'var1' is not defined
+% \end{verbatim}
+% La variable ya no existe y no podemos recuperarla.
+% \end{frame}
+% \subsection{Tipos de datos numéricos}
+% \begin{frame}
+% \frametitle{Tipos de datos numéricos}
+% En \python{} se soportan tres tipos numéricos diferentes:
+% \setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+% \setbeamertemplate{enumerate items}[circle]
+% \begin{enumerate}[<+->]
+% \item Int (enteros con signo)
+% \item De punto flotante (valores reales con decimales)
+% \item Complejos (números complejos)
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Números enteros}
+% Los números enteros son aquellos que no tienen decimales, tanto positivos como negativos (además del cero). En \python{} se representan mediante el tipo \texttt{int} (de integer, entero).
+% \\
+% \bigskip
+% Todos los números enteros en \python 3 se representan como enteros largos.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Números flotantes o reales}
+% Los números reales son los que tienen decimales. En \python{} se expresan mediante el tipo \texttt{float}.
+% \\
+% \bigskip
+% En \python{} se implementa su tipo float utilizando 64 bits, en concreto se sigue el estándar IEEE 754\footnote{En el Tema 1, ampliaremos esta información}: 1 bit para el signo, 11 para el exponente, y 52 para la mantisa.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Números complejos}
+% Un número complejo consiste en un par ordenado de números reales de coma flotante denotados por
+% \[ x + y \: j\]
+% donde $x$ e $y$ son números reales, $y \: j$ es la unidad imaginaria.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Ejemplos de tipos de datos numéricos}
+% \begin{table}
+% \begin{tabular}{| c | c | c |}
+% \hline
+% \texttt{int} & \texttt{float} & \texttt{complex} \\ \hline
+% $10$ & $0.0$ & $3.14 \: j$ \\ \hline
+% $100$ & $15.20$ & $45.j$ \\ \hline
+% $100$ & $-15.20$ & $23.15+7.5j$ \\ \hline
+% $080$ & $32.3+e18$ & $0.876j$ \\ \hline
+% $-0490$ & $-90.$ & $-0.645+0j$ \\ \hline
+% $-0x260$ & $-32.54e100$ & $3e+26j$ \\ \hline
+% $0x69$ & $70.2-E12$ & $4.53e-7j$ \\ \hline
+% \end{tabular}
+% \end{table}    
+% \end{frame}
+% \subsection{Cadenas}
+% \begin{frame}
+% \frametitle{Cadenas en python}
+% Las cadenas en \python{} se identifican como un conjunto contiguo de caracteres representados en las comillas.
+% \\
+% \bigskip
+% Con \python{} se permite cualquier par de 'comillas simples' o comillas \enquote{dobles}.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Operación con cadenas}
+% Los subconjuntos de cadenas pueden ser tomados usando el operador de corte $[ \quad ]$ y $[:]$ con los índices comenzando en $0$ al inicio de la cadena hasta llegar a $-1$ al final de la misma.
+% \pause
+% El signo más $+$ es el operador de concatenación de cadenas y el asterisco $*$ es el operador de repetición.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Ejemplo de una variable de tipo cadena}
+% Declaremos una variable con un tipo de dato cadena:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[43]: }} \verb| facultad = "Ciencias"|
+% \end{frame}
+% \begin{frame}
+% \frametitle{Manipulando la variable de tipo cadena}
+% Es necesario conocer la manera en la que se almacena una variable de tipo cadena:
+% \begin{figure}
+% \includestandalone{Figuras/variablecadena01}
+% \end{figure}
+% cada caracter se almacena en un espacio que se identifica mediante un índice, en \python{} los índices comienzan en cero.
+
+% % >>> cadena = 'Hola Mundo!'
+
+% % >>> print (cadena)
+% % >>> print (cadena[0])
+% % >>> print (cadena[2:5])     
+% % >>> print (cadena[2:])
+% % >>> print (cadena * 2)
+% % >>> print (cadena + "PUMAS")
+% % \end{verbatim}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Recuperando el contenido de la cadena}
+% Con el debido manejo de los índices podemos recuperar el contenido de la variable de tipo cadena, para ello recurrimos al manejo de los índices con corchetes:
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[44]: }} \verb| facultad[0]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[44]: }} \verb| 'C'|
+% \\
+% \medskip
+% Como vemos, se recupera el primer caracter de la variable.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Recuperando el contenido de la cadena}
+% \begin{figure}
+% 	 \includestandalone{Figuras/variablecadena02}
+% \end{figure}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Recuperando el contenido de la cadena}
+% El manejo de los índices en \python{} es muy versátil, al utilizar un número negativo podemos recorrer en sentido inverso el contenido de la variable de cadena, por ejemplo:
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[45]: }} \verb| facultad[-1]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[45]: }} \verb| 's'|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Recuperando el contenido de la cadena}
+% En sentido inverso, los índices en \python{} inician en $-1$:
+% \begin{figure}
+% 		\includestandalone{Figuras/variablecadena03}
+% \end{figure}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Recuperando el contenido con slicing}
+% El término \emph{slicing} hace referencia a un \enquote{rebanado o corte} en una cadena, que es una seleción de la misma, para ello se utilizan los dos puntos dentro del corchete, teniendo las distintas opciones:
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Recuperando el contenido con slicing}
+% Recupera el contenido desde \emph{inicio} hasta \emph{fin - 1:}
+% \\
+% \bigskip
+% \verb|cadena[inicio:fin]|
+% \\
+% \bigskip
+% \pause
+% Recupera el contenido desde \emph{inicio} hasta el resto de la cadena
+% \\
+% \bigskip
+% \verb|cadena[inicio:]|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Recuperando el contenido con slicing}
+% Recupera el contenido desde el inicio hasta \emph{fin - 1:}
+% \\
+% \bigskip
+% \verb|cadena[:fin]|
+% \\
+% \bigskip
+% \pause
+% Recupera una copia de toda la cadena
+% \\
+% \bigskip
+% \verb|cadena[:]|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Ejemplos con el uso del slicing en cadenas}
+% \textcolor{ao}{\texttt{In[46]: }} \verb| facultad[2:4]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[46]: }} \verb| 'en'|
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[47]: }} \verb| facultad[2:]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[47]: }} \verb| 'encias'|
+% \pause
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[48]: }} \verb| facultad[6:8]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[48]: }} \verb| 'as'|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Representación de los índices en el slicing}
+% Vemos que al usar el \emph{slicing}, algo pasa al momento de asignar los índices, y no recupera propiamente lo que pedimos devuelta, veamos en el siguiente diagrama los índices del contenido de la variable y los índices del \emph{slicing}:
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Índices de contenido y de slicing}
+% \begin{figure}
+% 	\includestandalone[scale=0.8]{Figuras/variablecadena05}
+% \end{figure}
+% Como vemos, cuando usamos el \emph{slicing} los índices cambian a una posición, no al contenido de la cadena.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Operador de repetición}
+% Cuando tenemos una cadena, es posible repetir un determinado número de veces la misma, para ello se utiliza el operador de repetición $*$:
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[49]: }} \verb| facultad*2|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[49]: }} \verb| 'CienciasCiencias'|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Operador de concatenación}
+% Las variables de tipo cadena se pueden concatenar, es decir, se pueden unir mediante el operador $+$:
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[50]: }} \verb| Dependencia = 'Facultad de '|
+% \\
+% \pause
+% \textcolor{ao}{\texttt{In[51]: }} \verb| Dependencia + facultad|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[51]: }} \verb| 'Facultad de Ciencias'|
+% \end{frame}
+% \subsection{Listas}
+% \begin{frame}
+% \frametitle{Las listas en \python}
+% Las listas son el tipo de dato más versátil de los datos compuestos de \python.
+% \\
+% \bigskip
+% Una lista contiene elementos separados por comas y entre corchetes $[ \quad ]$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Las listas en \python}
+% En cierta medida, las listas son similares a los arreglos (arrays) en el lenguaje C.
+% \\
+% \bigskip
+% Una de las diferencias entre ellos, es que todos los elementos pertenecientes a una lista pueden ser de tipo de datos diferente.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Las listas en \python}
+% Los valores almacenados en una lista se pueden acceder utilizando el operador de división $[ \: ]$ y $[:]$ con índices que empiezan en $0$ al principio de la lista y opera hasta el final con $-1$.
+% \\
+% \bigskip
+% El signo más $+$ es el operador de concatenación de lista y el asterisco $*$ es el operador de repetición.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Ejemplos con listas}
+% %\fontsize{12}{12}\selectfont
+% Para introducir una lista, abrimos corchetes y separamos mediante comas los elementos de la misma:
+% \\
+% \pause
+% \textcolor{ao}{\texttt{In[52]: }} \verb| lista1 = ['abcd', 786, 2.23, 'salmon', 70.2]|
+% \\
+% \textcolor{ao}{\texttt{In[53]: }} \verb| lista2 = [ 123, 'pizza']|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Operaciones con las listas}
+% Al igual que con las variables, podemos visualizar el contenido de una lista, al indicarla en la línea de comandos:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[54]: }} \verb| lista1|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[54]: }} \verb| ['abcd', 786, 2.23, 'salmon', 70.2]|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Operaciones con las listas 2}
+% Como en una variable de tipo cadena, el contenido de las listas se realiza con índices: tanto de contenido como de \emph{slicing}:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[55]: }} \verb| lista1[2:]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[55]: }} \verb| [2.23, 'salmon', 70.2]|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Operaciones con las listas 2}
+% \textcolor{ao}{\texttt{In[56]: }} \verb| lista1[-1]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[56]: }} \verb| [70.2]|
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[57]: }} \verb| lista1[2:4]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[57]: }} \verb| [2.23, 'salmon']|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Operaciones con las listas 2}
+% También se ocupan las operaciones de concatenación y repetición en las listas:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[58]: }} \verb| lista1 + lista2|
+% \\
+% \pause
+% \begingroup
+% \fontsize{13}{13}\selectfont
+% \textcolor{red}{\texttt{Out[58]: }} \verb| ['abcd', 786, 2.23, 'salmon', 70.2, 123, 'pizza']|
+% \endgroup
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[59]: }} \verb| lista2*2|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[59]: }} \verb| [123, 'pizza', 123, 'pizza']|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Agregar elementos a una lista}
+% Las listas en \python{} son los únicos objetos en los que podemos agregar nuevos elementos, para ello hay que utilizar la instrucción \textoazul{append}:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[60]: }} \verb| lista1.append(654.321)|
+% \\
+% \pause
+% \textcolor{ao}{\texttt{In[61]: }} \verb|  lista1|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[61]: }} \verb| ['abcd', 786, 2.23, 'salmon', 70.2, 654.321]|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Reemplazo de un elemento de la lista}
+% Con una lista en \python{} se puede reemplazar el contenido específico de un elemento, haciendo referencia al índice en particular:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[62]: }} \verb|  lista2[1] = 'coordenada'|
+% \\
+% \pause
+% \textcolor{ao}{\texttt{In[63]: }} \verb|  lista2|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[63]: }} \verb| [123, 'coordenada']|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Característica de las listas}
+% Las listas son un tipo de objeto en \python{} que permite que dentro de la misma, pueda contener a su vez, otra lista:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[64]: }} \verb|  lista1.append(lista2)|
+% \\
+% \pause
+% \textcolor{ao}{\texttt{In[65]: }} \verb|  lista1|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[65]: }}  
+% \begin{lstlisting}
+% ['abcd', 786, 2.23, 'salmon', 70.2, 654.321, [123, 'coordenada']]
+% \end{lstlisting}
+% \end{frame}
+% \subsection{Tuplas}
+% \begin{frame}
+% \frametitle{Las tuplas en \python}
+% Una tupla es otro tipo de datos de secuencia que es similar a la lista.
+% \\
+% \bigskip
+% Una tupla consiste en un grupo de valores separados por comas, identificamos a una tupla por que ésta usa paréntesis $( \quad )$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Característica de las tuplas}
+% Las principales características de las tuplas son:
+% \setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
+% \setbeamertemplate{enumerate items}[circle]
+% \begin{enumerate}[<+->]
+% \item Los elementos de las tuplas no pueden modificarse.
+% \item No es posible agregar nuevos elementos a un tupla.
+% \item Identificamos lo que una tupla contiene mediante índices: tanto de contenido como de \emph{slicing}.
+% \end{enumerate}
+% \pause
+% Las tuplas pueden ser consideradas como listas de sólo lectura.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Ejemplos con tuplas}
+% \textcolor{ao}{\texttt{In[66]: }} \verb|  tupla1 = ('abcd', 786, 2.23, 'arena', 70.2)|
+% \\
+% \pause
+% \textcolor{ao}{\texttt{In[67]: }} \verb|  tupla2 = (3.14, 'playa')|
+% \\
+% \bigskip
+% \pause
+% \textcolor{ao}{\texttt{In[68]: }} \verb| tupla1|
+% \\
+% \textcolor{red}{\texttt{Out[68]: }} \verb| ('abcd', 786, 2.23, 'arena', 70.2)|
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Operación con tuplas}
+% Podemos seleccionar los elementos de la tupla mediante el uso de índices de contenido
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[69]: }} \verb| tupla1[0]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[69]: }} \verb| 'abcd'|
+% \\
+% \bigskip
+% \pause
+% Así como usando índices de selección:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[70]: }} \verb| tupla1[1:3]|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[70]: }} \verb| (7.86, 2.23)|
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Errores con el manejo de tuplas}
+% Si queremos modificar el contenido de una tupla, obtendremos un mensaje de error
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[71]: }} \verb| tupla1[2] = 'hola'|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[71]: }} 
+% \begingroup
+% \fontsize{12}{12}\selectfont
+% \begin{verbatim}
+% TypeError     Traceback (most recent call last)
+
+% <stdin> in <module>()
+% ----> 1 tupla1[2] = 'hola'
+
+% TypeError: 'tuple' object does not support
+%  item assignment
+% \end{verbatim}
+% \endgroup
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Errores con el manejo de tuplas}
+% Si queremos agregar un elemento a la tupla, obtendremos un mensaje de error
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[72]: }} \verb| tupla1.append(100.56)|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[72]: }} 
+% \begingroup
+% \fontsize{12}{12}\selectfont
+% \begin{verbatim}
+% TypeError     Traceback (most recent call last)
+
+% <stdin> in <module>()
+% ----> 1 tupla1.append(100.56)
+
+% AttributeError: 'tuple' object has no 
+%   attribute 'append'
+% \end{verbatim}
+% \endgroup
+% \end{frame}
+% \subsection{Diccionarios}
+% \begin{frame}
+% \frametitle{Diccionarios}
+% Los diccionarios de \python{} son de tipo tabla-hash.
+% \\
+% \bigskip
+% Funcionan como arrays asociativos y consisten en pares \emph{clave - valor}.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Elementos del diccinario}
+% La \emph{clave} del diccionario puede ser casi de cualquier tipo  de dato, pero suelen ser comúnmente números o cadenas.
+% \\
+% \bigskip
+% Los \emph{valores}, por otra parte, pueden ser cualquier tipo de objeto arbitrario de \python.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Escribir un diccionario}
+% Para crear un diccionario se debe de iniciar con las llaves $\{ \quad \}$, el siguiente valor corresponde a la llave seguida de dos puntos y a continuación, el valor:
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Escribir un diccionario}
+% La siguiente instrucción se escribe en una sola línea:
+% \textcolor{ao}{\texttt{In[73]: }}
+% \\
+% \begin{verbatim}
+% 	fisicos = {1 : "Eistein", 2 : "Bohr", 
+% 	3 : "Pauli", 4 : "Schrodinger", 
+% 	5 : "Hawking"}
+% \end{verbatim}
+% \pause
+% \textcolor{ao}{\texttt{In[74]: }} \verb| fisicos|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[74]: }}
+% \\
+% \begin{verbatim}
+% 	{1 : "Eistein", 2 : "Bohr", 3 : "Pauli",
+% 	4 : "Schrodinger", 5 : "Hawking"}
+% \end{verbatim}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Ejemplo de diccionarios}
+% Hay un conjunto de instrucciones que nos permiten recuperar tanto las llaves como los valores de un diccionario:
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[75]: }} \verb| fisicos.keys()|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[75]: }} \verb|dict_keys([1, 2, 3, 4, 5])|
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[76]: }} \verb| fisicos.values()|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[76]: }}
+% \begingroup
+% \fontsize{12}{12}\selectfont
+% \begin{lstlisting}
+% dict_values(['Eistein', 'Bohr', 'Pauli',
+% 	'Schrodinger', 'Hawking'])
+% \end{lstlisting}
+% \endgroup
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Agregar un nuevo elemento al diccionario}
+% Es posible agregar un nuevo elemento al diccionario con la siguiente instrucción
+% \\
+% \bigskip
+% \textcolor{ao}{\texttt{In[77]: }} \verb| fisicos.update({6:'Dirac'})|
+% \\
+% \pause
+% \bigskip
+% \textcolor{ao}{\texttt{In[78]: }} \verb| fisicos|
+% \\
+% \pause
+% \textcolor{red}{\texttt{Out[78]: }}
+% \\
+% \begin{lstlisting}
+% dict_values(['Eistein', 'Bohr', 
+% 	'Schrodinger', 'Hawking', Dirac'])
+% \end{lstlisting}
+% \end{frame}
+% \section{Identificadores en \python}
+% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Reglas para los identificadores}
+% \begin{frame}
+% \frametitle{Reglas para los identificadores}
+% Los identificadores son nombres que hacen referencia a los objetos que componen un programa: \textbf{constantes}, \textbf{variables}, \textbf{funciones}, etc.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Reglas para los identificadores}
+% Se recomienda seguir las reglas para construir identificadores:
+% \begin{itemize}[<+->]
+% \item El primer carácter debe ser una letra o el carácter de subrayado (guión bajo)
+% \item El primer carácter puede ir seguido de un número variable de dígitos numéricos, letras o carácteres de subrayado.
+% \end{itemize}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Reglas para los identificadores}
+% \begin{itemize}[<+->]
+% \item No pueden utilizarse espacios en blanco, ni símbolos de puntuación.
+% \item En python se distingue de las mayúsculas y minúsculas.
+% \end{itemize}
+% \pause
+% Existe un estándar para la escritura del código en \python, revisa en la siguiente liga, el manejo de los nombres de los identificadores en: \href{shorturl.at/fOUV7}{\color{blue}{\underline{Referencia para nombres de objetos en \python{}}}}, del estándar PEP-8.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Palabras reservadas}
+% No pueden utilizarse las palabras reservadas de \python{} para ningún tipo de identificador, ya que son palabras reservadas para la ejecución de comandos, tareas, etc. propias de \python{} (de igual manera que son reservadas en otros lenguajes de programación), entre las más comunes tenemos:
+% \end{frame}
+% \begin{frame}
+% \frametitle{Palabras reservadas}
+% \texttt{
+% \begin{table}
+% \begin{tabular}{c c c c c }
+% del & for & is & raise & assert \\ \hline
+% elif & global & else & or & yield  \\ \hline
+% from & lamda & return & break & system \\ \hline
+% not & try & class & except & if \\ \hline
+% while & continue & exec & import & pass \\ \hline
+% def & finally & in & print & del \\ \hline
+% \end{tabular}
+% \end{table}
+% }
+% \end{frame}
+\end{document}

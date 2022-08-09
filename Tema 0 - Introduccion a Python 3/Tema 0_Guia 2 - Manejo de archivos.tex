@@ -1,18 +1,6 @@
-\documentclass[12pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[spanish]{babel}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{array}
-\usepackage{multicol,multienum}
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage[autostyle, spanish=mexican]{csquotes}
-\usepackage{tikz}
-\usepackage{color}
-\usepackage{anysize}
-\usepackage{anyfontsize}
-\usepackage[os=win]{menukeys}
+\input{../Preambulos/preambulo_materiales}
+\input{../Preambulos/pre_codigo}
+
 %Este paquete permite manejar los encabezados del documento
 \usepackage{fancyhdr}
 %hay que definir el ambiente de la página
@@ -34,22 +22,26 @@
 %esta parte define el color del marco que aparece en las hiperreferencias.
 \definecolor{links}{HTML}{2A1B81}
 \hypersetup{colorlinks,linkcolor=,urlcolor=links}
-\newcommand{\azulfuerte}[1]{\textcolor{blue}{\textbf{#1}}}
+
 \spanishdecimal{.}
-\marginsize{1.5cm}{1.5cm}{1.5cm}{1.5cm}
-\newcommand{\python}{\texttt{python}}
-\input{../Preambulos/pre_codigo}
+%\marginsize{1.5cm}{1.5cm}{1.5cm}{1.5cm}
+
+
 \author{M. en C. Gustavo Contreras Mayén.}
 \title{Manejo de archivos de datos con \python \\ \begin{Large} Curso de Física Computacional\end{Large} \\
 \begin{small}
 \texttt{curso.fisica.comp@gmail.com}
 \end{small}}
 \date{ }
+
 \begin{document}
+
 \maketitle
 \fontsize{14}{14}\selectfont
+
 \section{Los archivos de datos con \python.}
-\subsection{Consideraciones}
+\subsection{Consideraciones.}
+
 Una tarea muy común y frecuente en el ámbito de la Física Computacional, será el manejo de archivos de datos para su proceso y análisis.
 \par
 Como una primera tarea que hay que atender en el desarrollo de prácticas de programación bajo cualquier lenguaje, es la generación de un archivo de datos con una serie de características necesarias:
@@ -65,9 +57,9 @@ Quien reciba el archivo para su procesamiento, análisis, etc. debe de conocer e
 Existen diversos formatos para los archivos de texto, a continuación se describen cuatro de los más conocidos:
 \begin{table}[H]
 \centering
-\begin{tabular}{| m{3.5cm} | m{13cm} |}
+\begin{tabular}{| m{3.5cm} | m{10cm} |}
 \hline
-\textbf{Tipo de archivo} & \multicolumn{1}{>{\centering\arraybackslash} m{13cm}|}{\textbf{Descripción}} \\ \hline
+\textbf{Tipo de archivo} & \multicolumn{1}{>{\centering\arraybackslash} m{10cm}|}{\textbf{Descripción}} \\ \hline
 txt & Texto plano que representa sólo caracteres (o cadenas), excluye cualquier tipo de metadatos. \\ \hline
 csv & Valores separados por coma (Comma-separated values), utiliza comas (u otro delimitador) para estructurar los datos almacenados, permitiendo guardarlos en un formato tipo tabla. \\ \hline
 HMTL & Lenguaje de marcado de hipertexto (HyperText Markup Language) almacena los datos de manera estrucutrada, se utiliza comúnmente en páginas web. \\ \hline
