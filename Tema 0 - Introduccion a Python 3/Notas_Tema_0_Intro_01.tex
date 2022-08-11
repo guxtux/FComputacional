@@ -2,10 +2,10 @@
 \usepackage{../Estilos/BeamerFC}
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
-\usefonttheme{serif}
 \input{../Preambulos/preambulo_Beamer_Warsaw_seahorse}
+\usefonttheme{serif}
 
-\title{Tema 0 - Introducción a python}
+\title{Tema 0 - Introducción a python 1}
 \author{M. en C. Gustavo Contreras Mayén}
 \date{16 de agosto de 2022}
 
@@ -650,693 +650,253 @@ En el desarrollo del curso, veremos algunas de esas funciones que serán de util
 \end{frame}
 \begin{frame}
 \frametitle{Extendiendo la información}
-Para conocer más a detalle las funciones que se pueden aplicar a una cadena de texto, pueden consultar la \href{https://docs.python.org/es/3/library/string.html}{documentación oficial} en el sitio web de \python.
+Para conocer más a detalle las funciones que se pueden aplicar a una cadena de texto, pueden consultar la \underline{\href{https://docs.python.org/es/3/library/string.html}{documentación oficial}} en el sitio web de \python.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Uniendo dos cadenas}
+Revisemos el siguiente ejemplo:
+\pause
+\begin{lstlisting}[caption=Concatenación de cadenas]
+cadena1 = "Facultad de Ciencias,"
+cadena2 = "UNAM."
+print(cadena1 + cadena2)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Uniendo dos cadenas}
+En el ejemplo anterior hemos utilizado el operador de \textoazul{concatenación} entre cadenas, \pause pero vemos que el contenido de las mismas, queda sin espacio:
+\begin{align*}
+\mbox{Facultad de Ciencias,UNAM}
+\end{align*}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ajustando el espacio}
+Por ello hay que incluir un espacio en blanco a modo de separador:
+\pause
+\begin{lstlisting}[caption=Ajustando el espacio entre las cadenas,]
+print(cadena1 + " " + cadena2)
+\end{lstlisting}
 \end{frame}
 
+\subsection{Cadenas e índices}
 
-% \begin{frame}[fragile]
-% \frametitle{Asignación múltiple de valores}
-% En \python{} podemos asignar un valor único a varias variables de manera simultánea:
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[30]: }} \verb| A = b = c = 1 | \\
-% \pause
-% \textcolor{ao}{\texttt{In[31]: }} \verb| A | \\
-% \pause
-% \textcolor{red}{\texttt{Out[31]: }} \verb| 1 | \\
-% \pause
-% \textcolor{ao}{\texttt{In[32]: }} \verb| b | \\
-% \pause
-% \textcolor{red}{\texttt{Out[32]: }} \verb| 1 | \\
-% \pause
-% \textcolor{ao}{\texttt{In[33]: }} \verb| c | \\
-% \pause
-% \textcolor{red}{\texttt{Out[33]: }} \verb| 1 |
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Asignación múltiple a varias variables}
-% También podemos asignar varios valores a varias variables de manera simultánea, separando con una coma tanto a las variables como a los valores:
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Asignación múltiple a varias variables}
-% \textcolor{ao}{\texttt{In[34]: }} \verb| usuario, folio, temp = "Poncho", 100, 37.3 | \\
-% \pause
-% \textcolor{ao}{\texttt{In[35]: }} \verb| usuario | \\
-% \pause
-% \textcolor{red}{\texttt{Out[35]: }} \verb| 'Poncho'| \\
-% \pause
-% \textcolor{ao}{\texttt{In[36]: }} \verb| folio | \\
-% \pause
-% \textcolor{red}{\texttt{Out[36]: }} \verb| 100| \\
-% \pause
-% \textcolor{ao}{\texttt{In[37]: }} \verb| temp| \\
-% \pause
-% \textcolor{red}{\texttt{Out[37]: }} \verb| 37.3|
-% \end{frame}
-% \section{Tipos de Datos Estándar}
-% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
-% \subsection{Los tipos de datos en \python}
-% \begin{frame}
-% \frametitle{Tipos de datos}
-% Los datos almacenados en la memoria pueden ser de varios tipos. Por ejemplo, la edad de una persona se almacena como un valor numérico y su dirección se almacena como caracteres alfanuméricos.
-% \\
-% \bigskip
-% En \python{} se cuenta con varios tipos de datos estándar que se utilizan para definir las operaciones posibles entre ellos y el método de almacenamiento para cada uno de ellos.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Tipos de datos}
-% Los tipos de datos que se utilizan en \python{} son cinco:
-% \setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item Números.
-% \item Cadena.
-% \item Lista.
-% \item Tupla.
-% \item Diccionario.
-% \end{enumerate}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Números}
-% Los tipos de datos numéricos almacenan valores numéricos.
-% \\
-% \bigskip
-% Los objetos numéricos se crean cuando se les asigna un valor.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Declaración en variables}
-% \textcolor{ao}{\texttt{In[38]: }} \verb| var1 = var2 = 10| \\
-% \pause
-% \textcolor{ao}{\texttt{In[39]: }} \verb| var1| \\
-% \pause
-% \textcolor{red}{\texttt{Out[39]: }} \verb| 10| \\
-% \pause
-% \textcolor{ao}{\texttt{In[40]: }} \verb| var2| \\
-% \pause
-% \textcolor{red}{\texttt{Out[40]: }} \verb| 10|
-% \end{frame}
-% \begin{frame}
-% \frametitle{Eliminando variables en \python}
-% También se puede eliminar la referencia a una variable numérica utilizando la sentencia \azulfuerte{del}
-% \\
-% \bigskip
-% La sintaxis de la sentencia \texttt{del} es:
-% \\
-% \bigskip
-% \texttt{del var1 [, var2 [, var3 [...., varN]]]]}
-% \\
-% \bigskip
-% los corchetes indican que hay parámetros que son opcionales.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Eliminando variables en \python}
-% Se puede eliminar una sola variable o varias utilizando la sentencia \azulfuerte{del}
-% \\
-% \bigskip
-% Por ejemplo, la variable \textoazul{var1} que ya teníamos referenciada previamente:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[41]: }} \verb| del var1|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Eliminando variables en \python{arg}}
-% Si desde la terminal hacemos referencia a la variable eliminada, tendremos un mensaje como el siguiente:
-% \textcolor{ao}{\texttt{In[42]: }} \verb| var1|
-% \begin{verbatim}
-% NameError   Traceback (most recent call last)
-% <stdin> in <module>
-% ----> 1 var1
-
-% NameError: name 'var1' is not defined
-% \end{verbatim}
-% La variable ya no existe y no podemos recuperarla.
-% \end{frame}
-% \subsection{Tipos de datos numéricos}
-% \begin{frame}
-% \frametitle{Tipos de datos numéricos}
-% En \python{} se soportan tres tipos numéricos diferentes:
-% \setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item Int (enteros con signo)
-% \item De punto flotante (valores reales con decimales)
-% \item Complejos (números complejos)
-% \end{enumerate}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Números enteros}
-% Los números enteros son aquellos que no tienen decimales, tanto positivos como negativos (además del cero). En \python{} se representan mediante el tipo \texttt{int} (de integer, entero).
-% \\
-% \bigskip
-% Todos los números enteros en \python 3 se representan como enteros largos.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Números flotantes o reales}
-% Los números reales son los que tienen decimales. En \python{} se expresan mediante el tipo \texttt{float}.
-% \\
-% \bigskip
-% En \python{} se implementa su tipo float utilizando 64 bits, en concreto se sigue el estándar IEEE 754\footnote{En el Tema 1, ampliaremos esta información}: 1 bit para el signo, 11 para el exponente, y 52 para la mantisa.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Números complejos}
-% Un número complejo consiste en un par ordenado de números reales de coma flotante denotados por
-% \[ x + y \: j\]
-% donde $x$ e $y$ son números reales, $y \: j$ es la unidad imaginaria.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Ejemplos de tipos de datos numéricos}
-% \begin{table}
-% \begin{tabular}{| c | c | c |}
-% \hline
-% \texttt{int} & \texttt{float} & \texttt{complex} \\ \hline
-% $10$ & $0.0$ & $3.14 \: j$ \\ \hline
-% $100$ & $15.20$ & $45.j$ \\ \hline
-% $100$ & $-15.20$ & $23.15+7.5j$ \\ \hline
-% $080$ & $32.3+e18$ & $0.876j$ \\ \hline
-% $-0490$ & $-90.$ & $-0.645+0j$ \\ \hline
-% $-0x260$ & $-32.54e100$ & $3e+26j$ \\ \hline
-% $0x69$ & $70.2-E12$ & $4.53e-7j$ \\ \hline
-% \end{tabular}
-% \end{table}    
-% \end{frame}
-% \subsection{Cadenas}
-% \begin{frame}
-% \frametitle{Cadenas en python}
-% Las cadenas en \python{} se identifican como un conjunto contiguo de caracteres representados en las comillas.
-% \\
-% \bigskip
-% Con \python{} se permite cualquier par de 'comillas simples' o comillas \enquote{dobles}.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Operación con cadenas}
-% Los subconjuntos de cadenas pueden ser tomados usando el operador de corte $[ \quad ]$ y $[:]$ con los índices comenzando en $0$ al inicio de la cadena hasta llegar a $-1$ al final de la misma.
-% \pause
-% El signo más $+$ es el operador de concatenación de cadenas y el asterisco $*$ es el operador de repetición.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplo de una variable de tipo cadena}
-% Declaremos una variable con un tipo de dato cadena:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[43]: }} \verb| facultad = "Ciencias"|
-% \end{frame}
-% \begin{frame}
-% \frametitle{Manipulando la variable de tipo cadena}
-% Es necesario conocer la manera en la que se almacena una variable de tipo cadena:
-% \begin{figure}
-% \includestandalone{Figuras/variablecadena01}
-% \end{figure}
-% cada caracter se almacena en un espacio que se identifica mediante un índice, en \python{} los índices comienzan en cero.
-
-% % >>> cadena = 'Hola Mundo!'
-
-% % >>> print (cadena)
-% % >>> print (cadena[0])
-% % >>> print (cadena[2:5])     
-% % >>> print (cadena[2:])
-% % >>> print (cadena * 2)
-% % >>> print (cadena + "PUMAS")
-% % \end{verbatim}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Recuperando el contenido de la cadena}
-% Con el debido manejo de los índices podemos recuperar el contenido de la variable de tipo cadena, para ello recurrimos al manejo de los índices con corchetes:
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[44]: }} \verb| facultad[0]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[44]: }} \verb| 'C'|
-% \\
-% \medskip
-% Como vemos, se recupera el primer caracter de la variable.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Recuperando el contenido de la cadena}
-% \begin{figure}
-% 	 \includestandalone{Figuras/variablecadena02}
-% \end{figure}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Recuperando el contenido de la cadena}
-% El manejo de los índices en \python{} es muy versátil, al utilizar un número negativo podemos recorrer en sentido inverso el contenido de la variable de cadena, por ejemplo:
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[45]: }} \verb| facultad[-1]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[45]: }} \verb| 's'|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Recuperando el contenido de la cadena}
-% En sentido inverso, los índices en \python{} inician en $-1$:
-% \begin{figure}
-% 		\includestandalone{Figuras/variablecadena03}
-% \end{figure}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Recuperando el contenido con slicing}
-% El término \emph{slicing} hace referencia a un \enquote{rebanado o corte} en una cadena, que es una seleción de la misma, para ello se utilizan los dos puntos dentro del corchete, teniendo las distintas opciones:
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Recuperando el contenido con slicing}
-% Recupera el contenido desde \emph{inicio} hasta \emph{fin - 1:}
-% \\
-% \bigskip
-% \verb|cadena[inicio:fin]|
-% \\
-% \bigskip
-% \pause
-% Recupera el contenido desde \emph{inicio} hasta el resto de la cadena
-% \\
-% \bigskip
-% \verb|cadena[inicio:]|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Recuperando el contenido con slicing}
-% Recupera el contenido desde el inicio hasta \emph{fin - 1:}
-% \\
-% \bigskip
-% \verb|cadena[:fin]|
-% \\
-% \bigskip
-% \pause
-% Recupera una copia de toda la cadena
-% \\
-% \bigskip
-% \verb|cadena[:]|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos con el uso del slicing en cadenas}
-% \textcolor{ao}{\texttt{In[46]: }} \verb| facultad[2:4]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[46]: }} \verb| 'en'|
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[47]: }} \verb| facultad[2:]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[47]: }} \verb| 'encias'|
-% \pause
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[48]: }} \verb| facultad[6:8]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[48]: }} \verb| 'as'|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Representación de los índices en el slicing}
-% Vemos que al usar el \emph{slicing}, algo pasa al momento de asignar los índices, y no recupera propiamente lo que pedimos devuelta, veamos en el siguiente diagrama los índices del contenido de la variable y los índices del \emph{slicing}:
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Índices de contenido y de slicing}
-% \begin{figure}
-% 	\includestandalone[scale=0.8]{Figuras/variablecadena05}
-% \end{figure}
-% Como vemos, cuando usamos el \emph{slicing} los índices cambian a una posición, no al contenido de la cadena.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Operador de repetición}
-% Cuando tenemos una cadena, es posible repetir un determinado número de veces la misma, para ello se utiliza el operador de repetición $*$:
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[49]: }} \verb| facultad*2|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[49]: }} \verb| 'CienciasCiencias'|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Operador de concatenación}
-% Las variables de tipo cadena se pueden concatenar, es decir, se pueden unir mediante el operador $+$:
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[50]: }} \verb| Dependencia = 'Facultad de '|
-% \\
-% \pause
-% \textcolor{ao}{\texttt{In[51]: }} \verb| Dependencia + facultad|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[51]: }} \verb| 'Facultad de Ciencias'|
-% \end{frame}
-% \subsection{Listas}
-% \begin{frame}
-% \frametitle{Las listas en \python}
-% Las listas son el tipo de dato más versátil de los datos compuestos de \python.
-% \\
-% \bigskip
-% Una lista contiene elementos separados por comas y entre corchetes $[ \quad ]$.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Las listas en \python}
-% En cierta medida, las listas son similares a los arreglos (arrays) en el lenguaje C.
-% \\
-% \bigskip
-% Una de las diferencias entre ellos, es que todos los elementos pertenecientes a una lista pueden ser de tipo de datos diferente.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Las listas en \python}
-% Los valores almacenados en una lista se pueden acceder utilizando el operador de división $[ \: ]$ y $[:]$ con índices que empiezan en $0$ al principio de la lista y opera hasta el final con $-1$.
-% \\
-% \bigskip
-% El signo más $+$ es el operador de concatenación de lista y el asterisco $*$ es el operador de repetición.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos con listas}
-% %\fontsize{12}{12}\selectfont
-% Para introducir una lista, abrimos corchetes y separamos mediante comas los elementos de la misma:
-% \\
-% \pause
-% \textcolor{ao}{\texttt{In[52]: }} \verb| lista1 = ['abcd', 786, 2.23, 'salmon', 70.2]|
-% \\
-% \textcolor{ao}{\texttt{In[53]: }} \verb| lista2 = [ 123, 'pizza']|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Operaciones con las listas}
-% Al igual que con las variables, podemos visualizar el contenido de una lista, al indicarla en la línea de comandos:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[54]: }} \verb| lista1|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[54]: }} \verb| ['abcd', 786, 2.23, 'salmon', 70.2]|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Operaciones con las listas 2}
-% Como en una variable de tipo cadena, el contenido de las listas se realiza con índices: tanto de contenido como de \emph{slicing}:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[55]: }} \verb| lista1[2:]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[55]: }} \verb| [2.23, 'salmon', 70.2]|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Operaciones con las listas 2}
-% \textcolor{ao}{\texttt{In[56]: }} \verb| lista1[-1]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[56]: }} \verb| [70.2]|
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[57]: }} \verb| lista1[2:4]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[57]: }} \verb| [2.23, 'salmon']|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Operaciones con las listas 2}
-% También se ocupan las operaciones de concatenación y repetición en las listas:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[58]: }} \verb| lista1 + lista2|
-% \\
-% \pause
-% \begingroup
-% \fontsize{13}{13}\selectfont
-% \textcolor{red}{\texttt{Out[58]: }} \verb| ['abcd', 786, 2.23, 'salmon', 70.2, 123, 'pizza']|
-% \endgroup
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[59]: }} \verb| lista2*2|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[59]: }} \verb| [123, 'pizza', 123, 'pizza']|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Agregar elementos a una lista}
-% Las listas en \python{} son los únicos objetos en los que podemos agregar nuevos elementos, para ello hay que utilizar la instrucción \textoazul{append}:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[60]: }} \verb| lista1.append(654.321)|
-% \\
-% \pause
-% \textcolor{ao}{\texttt{In[61]: }} \verb|  lista1|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[61]: }} \verb| ['abcd', 786, 2.23, 'salmon', 70.2, 654.321]|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Reemplazo de un elemento de la lista}
-% Con una lista en \python{} se puede reemplazar el contenido específico de un elemento, haciendo referencia al índice en particular:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[62]: }} \verb|  lista2[1] = 'coordenada'|
-% \\
-% \pause
-% \textcolor{ao}{\texttt{In[63]: }} \verb|  lista2|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[63]: }} \verb| [123, 'coordenada']|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Característica de las listas}
-% Las listas son un tipo de objeto en \python{} que permite que dentro de la misma, pueda contener a su vez, otra lista:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[64]: }} \verb|  lista1.append(lista2)|
-% \\
-% \pause
-% \textcolor{ao}{\texttt{In[65]: }} \verb|  lista1|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[65]: }}  
-% \begin{lstlisting}
-% ['abcd', 786, 2.23, 'salmon', 70.2, 654.321, [123, 'coordenada']]
-% \end{lstlisting}
-% \end{frame}
-% \subsection{Tuplas}
-% \begin{frame}
-% \frametitle{Las tuplas en \python}
-% Una tupla es otro tipo de datos de secuencia que es similar a la lista.
-% \\
-% \bigskip
-% Una tupla consiste en un grupo de valores separados por comas, identificamos a una tupla por que ésta usa paréntesis $( \quad )$.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Característica de las tuplas}
-% Las principales características de las tuplas son:
-% \setbeamercolor{item projected}{bg=blue!70!black,fg=yellow}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item Los elementos de las tuplas no pueden modificarse.
-% \item No es posible agregar nuevos elementos a un tupla.
-% \item Identificamos lo que una tupla contiene mediante índices: tanto de contenido como de \emph{slicing}.
-% \end{enumerate}
-% \pause
-% Las tuplas pueden ser consideradas como listas de sólo lectura.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos con tuplas}
-% \textcolor{ao}{\texttt{In[66]: }} \verb|  tupla1 = ('abcd', 786, 2.23, 'arena', 70.2)|
-% \\
-% \pause
-% \textcolor{ao}{\texttt{In[67]: }} \verb|  tupla2 = (3.14, 'playa')|
-% \\
-% \bigskip
-% \pause
-% \textcolor{ao}{\texttt{In[68]: }} \verb| tupla1|
-% \\
-% \textcolor{red}{\texttt{Out[68]: }} \verb| ('abcd', 786, 2.23, 'arena', 70.2)|
-% \end{frame}
-
-% \begin{frame}[fragile]
-% \frametitle{Operación con tuplas}
-% Podemos seleccionar los elementos de la tupla mediante el uso de índices de contenido
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[69]: }} \verb| tupla1[0]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[69]: }} \verb| 'abcd'|
-% \\
-% \bigskip
-% \pause
-% Así como usando índices de selección:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[70]: }} \verb| tupla1[1:3]|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[70]: }} \verb| (7.86, 2.23)|
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Errores con el manejo de tuplas}
-% Si queremos modificar el contenido de una tupla, obtendremos un mensaje de error
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[71]: }} \verb| tupla1[2] = 'hola'|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[71]: }} 
-% \begingroup
-% \fontsize{12}{12}\selectfont
-% \begin{verbatim}
-% TypeError     Traceback (most recent call last)
-
-% <stdin> in <module>()
-% ----> 1 tupla1[2] = 'hola'
-
-% TypeError: 'tuple' object does not support
-%  item assignment
-% \end{verbatim}
-% \endgroup
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Errores con el manejo de tuplas}
-% Si queremos agregar un elemento a la tupla, obtendremos un mensaje de error
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[72]: }} \verb| tupla1.append(100.56)|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[72]: }} 
-% \begingroup
-% \fontsize{12}{12}\selectfont
-% \begin{verbatim}
-% TypeError     Traceback (most recent call last)
-
-% <stdin> in <module>()
-% ----> 1 tupla1.append(100.56)
-
-% AttributeError: 'tuple' object has no 
-%   attribute 'append'
-% \end{verbatim}
-% \endgroup
-% \end{frame}
-% \subsection{Diccionarios}
-% \begin{frame}
-% \frametitle{Diccionarios}
-% Los diccionarios de \python{} son de tipo tabla-hash.
-% \\
-% \bigskip
-% Funcionan como arrays asociativos y consisten en pares \emph{clave - valor}.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Elementos del diccinario}
-% La \emph{clave} del diccionario puede ser casi de cualquier tipo  de dato, pero suelen ser comúnmente números o cadenas.
-% \\
-% \bigskip
-% Los \emph{valores}, por otra parte, pueden ser cualquier tipo de objeto arbitrario de \python.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Escribir un diccionario}
-% Para crear un diccionario se debe de iniciar con las llaves $\{ \quad \}$, el siguiente valor corresponde a la llave seguida de dos puntos y a continuación, el valor:
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Escribir un diccionario}
-% La siguiente instrucción se escribe en una sola línea:
-% \textcolor{ao}{\texttt{In[73]: }}
-% \\
-% \begin{verbatim}
-% 	fisicos = {1 : "Eistein", 2 : "Bohr", 
-% 	3 : "Pauli", 4 : "Schrodinger", 
-% 	5 : "Hawking"}
-% \end{verbatim}
-% \pause
-% \textcolor{ao}{\texttt{In[74]: }} \verb| fisicos|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[74]: }}
-% \\
-% \begin{verbatim}
-% 	{1 : "Eistein", 2 : "Bohr", 3 : "Pauli",
-% 	4 : "Schrodinger", 5 : "Hawking"}
-% \end{verbatim}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplo de diccionarios}
-% Hay un conjunto de instrucciones que nos permiten recuperar tanto las llaves como los valores de un diccionario:
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[75]: }} \verb| fisicos.keys()|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[75]: }} \verb|dict_keys([1, 2, 3, 4, 5])|
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[76]: }} \verb| fisicos.values()|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[76]: }}
-% \begingroup
-% \fontsize{12}{12}\selectfont
-% \begin{lstlisting}
-% dict_values(['Eistein', 'Bohr', 'Pauli',
-% 	'Schrodinger', 'Hawking'])
-% \end{lstlisting}
-% \endgroup
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Agregar un nuevo elemento al diccionario}
-% Es posible agregar un nuevo elemento al diccionario con la siguiente instrucción
-% \\
-% \bigskip
-% \textcolor{ao}{\texttt{In[77]: }} \verb| fisicos.update({6:'Dirac'})|
-% \\
-% \pause
-% \bigskip
-% \textcolor{ao}{\texttt{In[78]: }} \verb| fisicos|
-% \\
-% \pause
-% \textcolor{red}{\texttt{Out[78]: }}
-% \\
-% \begin{lstlisting}
-% dict_values(['Eistein', 'Bohr', 
-% 	'Schrodinger', 'Hawking', Dirac'])
-% \end{lstlisting}
-% \end{frame}
-% \section{Identificadores en \python}
-% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
-% \subsection{Reglas para los identificadores}
-% \begin{frame}
-% \frametitle{Reglas para los identificadores}
-% Los identificadores son nombres que hacen referencia a los objetos que componen un programa: \textbf{constantes}, \textbf{variables}, \textbf{funciones}, etc.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Reglas para los identificadores}
-% Se recomienda seguir las reglas para construir identificadores:
-% \begin{itemize}[<+->]
-% \item El primer carácter debe ser una letra o el carácter de subrayado (guión bajo)
-% \item El primer carácter puede ir seguido de un número variable de dígitos numéricos, letras o carácteres de subrayado.
-% \end{itemize}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Reglas para los identificadores}
-% \begin{itemize}[<+->]
-% \item No pueden utilizarse espacios en blanco, ni símbolos de puntuación.
-% \item En python se distingue de las mayúsculas y minúsculas.
-% \end{itemize}
-% \pause
-% Existe un estándar para la escritura del código en \python, revisa en la siguiente liga, el manejo de los nombres de los identificadores en: \href{shorturl.at/fOUV7}{\color{blue}{\underline{Referencia para nombres de objetos en \python{}}}}, del estándar PEP-8.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Palabras reservadas}
-% No pueden utilizarse las palabras reservadas de \python{} para ningún tipo de identificador, ya que son palabras reservadas para la ejecución de comandos, tareas, etc. propias de \python{} (de igual manera que son reservadas en otros lenguajes de programación), entre las más comunes tenemos:
-% \end{frame}
-% \begin{frame}
-% \frametitle{Palabras reservadas}
-% \texttt{
-% \begin{table}
-% \begin{tabular}{c c c c c }
-% del & for & is & raise & assert \\ \hline
-% elif & global & else & or & yield  \\ \hline
-% from & lamda & return & break & system \\ \hline
-% not & try & class & except & if \\ \hline
-% while & continue & exec & import & pass \\ \hline
-% def & finally & in & print & del \\ \hline
-% \end{tabular}
-% \end{table}
-% }
-% \end{frame}
+\begin{frame}[fragile]
+\frametitle{Nueva cadena}
+Indiquemos una nueva cadena:
+\begin{lstlisting}[caption=Nueva cadena]
+cadena = 'Ciencias'
+print(cadena)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Los índices en una cadena}
+La manera en la que se almacena una variable de tipo cadena en python es la siguiente:
+\pause
+\begin{figure}
+    \centering
+    \includegraphics[scale=1]{Imagenes/variablecadena01.png}
+\end{figure}
+\pause
+Cada caracter se almacena en un espacio que se identifica mediante un índice, en python \textbf{los índices comienzan en cero}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejando los índices}
+Manejando los índices de una cadena podemos recuperar el contenido de la misma, para ello indicamos entre corchetes el valor del índice que nos interesa:
+\pause
+\begin{lstlisting}[caption=Usando índices en una cadena]
+print(cadena[0])
+print(cadena[1])
+print(cadena[2])
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejando los índices}
+Es posible ocupar valores negativos para los índices:
+\pause
+\begin{lstlisting}[caption=Usando índices negativos]
+print(cadena[7])
+print()
+print(cadena[-1])
+\end{lstlisting}
+\pause
+Vemos que se recupera el contenido de la cadena mediante el índice $7$ o $-1$, es decir, el último elemento de la cadena.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejando los índices}
+Podemos hacer lo mismo para recuperar el primer elemento, como se ve en dos celdas anteriores:
+\pause
+\begin{lstlisting}[caption=Usando índices negativos y el primer elemento]
+print(cadena[-8])
+print()
+print(cadena[0])
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Partiendo una cadena}
+En ocasiones será necesario recuperar no solo un elemento de la cadena, sino una parte con varios elementos, para ello se ocupa el \emph{slicing} (rebanado), dentro de los corchetes debemos de ocupar la sintaxis:
+\pause
+\begin{align*}
+[ \, \mbox{índice inicial} \, : \, \mbox{índice final} \, ]
+\end{align*}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Seleccionando parte de una cadena}
+Veamos como hacemos el \emph{slicing} en nuestra cadena:
+\pause
+\begin{lstlisting}[caption=Haciendo una selección dentro de la cadena]
+print(cadena[2:4])
+print()
+print(cadena[2:])
+print()
+print(cadena[:8])
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Lo que se recupera con el slicing}
+Del ejemplo anterior se recupera:
+\setbeamercolor{item projected}{bg=lava,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Línea 1: Los caracteres del índice 2, 3 pero no el 4.
+\item Línea 3: Los caracteres desde el índice 2 hasta el final de la cadena.
+\item Línea 5: Recupera toda la cadena
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Repitiendo el contenido de una cadena}
+Cuando tenemos una cadena, es posible repetir la misma un determinado número de veces, para ello se utiliza el \textoazul{operador de repetición} $*$:
+\pause
+\begin{lstlisting}[caption=El operador de repetición de cadenas]
+print(cadena*2)
+\end{lstlisting}
+\pause
+Nótese que no hay un espacio entre el contenido de la cadena, ya que así se definió. \pause El operador de repetición cumple la tarea de mostrar la cadena el número de veces que se indica.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Usos del operador de repetición}
+Este operador de repetición es de mucha utilidad si queremos simplificar una tarea que nos apoye para visualizar un resultado:
+\pause
+\begin{lstlisting}[caption=Ejemplo de repetición de un caracter]
+print('Temperatura \t Presión')
+print('-' * 25)
+\end{lstlisting}
+\pause
+En la primera línea se ocupa un \textoazul{tabulador}, que es una secuencia de escape.
+\end{frame}
+\begin{frame}
+\frametitle{Las secuencias de escape en python}
+Una secuencia de escape no es propiamente un texto que se visualice, más bien, es una combinación de una barra invertida $\backslash$ y otra letra que permite dentro de una cadena de texto:
+\setbeamercolor{item projected}{bg=darkgreen,fg=laserlemon}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item $\backslash \mbox{t}$ aplica un tabulador.
+\item $\backslash \mbox{n}$ un salto de línea.
+\item $\backslash \backslash$ imprimir una barra invertida.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Uso de caracteres de escape}
+Vemos lo siguiente:
+\begin{lstlisting}[caption=Algunos caracteres de escape]
+print('Este texto incluye \t una tabulación')
+print()
+print('En una cadena podemos incluir \n un salto de línea')
+print()
+print('Si queremos una barra invertida \\ la podemos incluir!')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Extendiendo la lectura de resultados}
+Veremos que es posible combinar dentro de la función \textbf{print ( )} cadenas y valores:
+\pause
+\begin{lstlisting}[caption=Combinación de cadenas y valores]
+radio = 3
+pi = 3.14
+area = pi * radio**2
+print(area)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Modificando la salida del resultado}
+Ahora veamos lo siguiente:
+\begin{lstlisting}[caption=Un texto y un valor de salida]
+print('El valor del área es: ', area)
+\end{lstlisting}
+Lo que nos facilita la lectura e interpretación del resultado.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Una lectura mucho más agradable}
+Con el siguiente código que incluye la función \textoazul{format}, propia de las cadenas de texto, tendremos un resultado más amigable de leer:
+\begin{lstlisting}[caption=Un texto y un valor de salida 2a. versión]
+print('El valor del área de un círculo de radio {0:} unidades, es {1:} unidades al cuadrado'.format(radio, area))
+\end{lstlisting}
+Las llaves \{ $0:$ \} y \{ $1:$ \} indican el orden en que se presentarán las variables dentro de la función \emph{format}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{¿Concatenando cadenas y números?}
+¿Qué ocurre si queremos concatenar la cadena con el valor de la variable radio?
+\pause
+\begin{lstlisting}[caption=Ejemplo de concatenación de cadenas y números]
+print('El círculo tiene un radio de ' + radio + ' unidades.')
+\end{lstlisting}
+\pause
+Se presenta un error que nos indica que no podemos concatenar cadenas con números.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Modificando el código}
+Esto lo resolvemos si hacemos un cambio en la variable radio, la pasamos de un tipo de dato $\texttt{int}$ a uno de tipo $\texttt{str}$:
+\pause
+\begin{lstlisting}[caption=Usando función de conversión de tipo de dato]
+print('El círculo tiene un radio de ' + str(radio) + ' unidades.')
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Manejando tipos de datos consistentes}
+Este tipo de conversión le llamamos de manera lúdica: manzanas con manzanas y peras con peras, es decir, manipulamos variables que sea del mismo tipo de dato.
+\end{frame}
+\begin{frame}
+\frametitle{Manejando tipos de datos consistentes}
+Las funciones que nos permiten hacer la conversión son:
+\pause
+\setbeamercolor{item projected}{bg=lava,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item \texttt{str( )}: Nos devuelve la representación en una cadena de caracteres del objeto que se pasa como parámetro.
+\item \texttt{int( )}: Devuelve un valor enterio a partir de un número o secuencia de caracteres.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Manejando tipos de datos consistentes}
+\setbeamercolor{item projected}{bg=lava,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]    
+\conti 
+\item \texttt{float( )}: Devuelve un valor de punto flotante a partir de un número o secuencia de caracteres.
+\item \texttt{complex( )}: Devuelve un complex a partir de un número o secuencia de caracteres.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Conociendo el tipo de dato}
+La manera en la que podemos conocer el tipo de dato de una variable en python es muy sencilla: con la función \textoazul{type( )}, tendremos la respuesta:
+\pause
+\begin{lstlisting}[caption=Usando la función type()]
+type("Estrella")
+type(2)
+type(3.14156)
+type(2 + 5j)
+\end{lstlisting}
+\end{frame}
 \end{document}
