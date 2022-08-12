@@ -1,0 +1,26 @@
+\documentclass[margin=3mm]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{multirow}
+\usepackage{tikz}
+\definecolor{darkspringgreen}{rgb}{0.09, 0.45, 0.27}
+\begin{document}
+\begin{tikzpicture}
+    \node at (0, 0) { \begin{tabular}{l l}
+        \texttt{try:} & \\
+        \multicolumn{2}{l}{\hspace{0.6cm} \textcolor{darkspringgreen}{\# Código a ejecutar}} \\
+         \multicolumn{2}{l}{\hspace{0.6cm} \textcolor{darkspringgreen}{\# Pero es posible que el error se presente en este bloque}} \\
+         & \\
+        \texttt{except <tipo de error>:} & \\
+        \multicolumn{2}{l}{\hspace{0.6cm} \textcolor{darkspringgreen}{\# Instrucciones que manejarán la excepción}} \\
+        \multicolumn{2}{l}{\hspace{0.6cm} \textcolor{darkspringgreen}{\# Este bloque se ejecuturá si en el bloque try hay un error}} \\
+         & \\
+        \texttt{else:} & \\
+        \multicolumn{2}{l}{\hspace{0.6cm} \textcolor{darkspringgreen}{\# Instrucciones que se ejecutarán si el bloque try se ejecuta}} \\
+        \multicolumn{2}{l}{\hspace{0.6cm} \textcolor{darkspringgreen}{\# sin errores}} \\
+         & \\
+        \texttt{finally:} & \\
+        \multicolumn{2}{l}{\hspace{0.6cm} \textcolor{darkspringgreen}{\# Este bloque se ejecutará siempre}}
+    \end{tabular}};
+\end{tikzpicture}
+\end{document}

@@ -379,6 +379,8 @@ Revisaremos las siguientes estructuras:
 \end{frame}
 
 \section{Condicionales}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{¿Qué es un condicional?}
 
 \begin{frame}
 \frametitle{Los condicionales}
@@ -396,6 +398,9 @@ En caso de que el valor de la condición (o condiciones) no se cumpla, \pause es
 \pause
 Se ejecuta la siguiente línea de código fuera del condicional.
 \end{frame}
+
+\subsection{El condicional if}
+
 \begin{frame}[fragile]
 \frametitle{El condicional if}
 El condicional \funcionazul{if} requiere de una expresión inicial que va a evaluar, como ya se mencionó, en caso de que no se cumpla el valor \textoazul{\texttt{True}}, no se ejecutan las instrucciones contenidas.
@@ -421,16 +426,19 @@ if distancia < 1000:
 print(distancia/tiempo)
 \end{lstlisting}
 \end{frame}
+
+\subsection{El condicional if-else}
+
 \begin{frame}
-\frametitle{El bloque else:}
+\frametitle{El condicional if-else:}
 Cuando tenemos un condicional con \funcionazul{if} y la expresión que se evalúa tiene un valor \textcolor{red}{False}, sabemos que saldrá del bloque condicional.
 \\
 \bigskip
 \pause
-Pero si queremos que se ejecute un bloque de instrucciones a pesar de que la expresión evaluada sea \textcolor{red}{False}, \pause recurrimos a la instrucción \funcionazul{else:}, por lo que se ejecutan las instrucciones contenidas dentro de este bloque.
+Pero si queremos que se ejecute otro bloque de instrucciones a pesar de que al inicio la expresión evaluada sea \textcolor{red}{False}, \pause recurrimos a la instrucción \funcionazul{else:}, por lo que se ejecutan las instrucciones contenidas dentro de este bloque.
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{El bloque \texttt{else:}}
+\frametitle{El condicional \texttt{if-else:}}
 \begin{verbatim}
 if expresion1:
     instruccion1
@@ -444,26 +452,27 @@ siguiente línea código
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Ejemplo de condicional if-else}
-El siguiente ejemplo es un condicional \textoazul{if-else}:
-\pause
 \begin{lstlisting}[caption=La estructura condicional if-else]
 distancia = 1500
 tiempo = 60
 
-if distancia > 1000:
+if distancia < 1000:
     print('La distancia es menor a un kilómetro')
 else:
     print('La distancia es mayor a un kilómetro')
 
-print(distancia/tiempo)
+print('La velocidad es: ', distancia/tiempo)
 \end{lstlisting}
 \end{frame}
+
+\subsection{El condicional if-elif}
+
 \begin{frame}[fragile]
-\frametitle{El condicional \texttt{elif:}}
-El condicional \funcionazul{if} evalúa solo una expresión (o expresiones), \pause en ocasiones se puede incluir la evaluación de una segunda expresión mediante:
-\\
-\bigskip
-\pause
+\frametitle{El condicional \texttt{if-elif:}}
+El condicional \funcionazul{if} evalúa al inicio solo una expresión (o expresiones), \pause en ocasiones se puede incluir la evaluación de una segunda expresión distinta mediante:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El condicional \texttt{if-elif:}}
 \begin{verbatim}
 if expresion1:
     instruccion1
@@ -476,8 +485,7 @@ siguiente línea código
 \end{verbatim}
 \end{frame}
 \begin{frame}
-\begin{frame}
-\frametitle{El condicional \texttt{elif:}}
+\frametitle{El condicional \texttt{if-elif:}}
 La \texttt{expresion1} no se cumple, por lo que se pasa a la siguiente línea.
 \\
 \bigskip
@@ -485,12 +493,26 @@ La \texttt{expresion1} no se cumple, por lo que se pasa a la siguiente línea.
 Si \texttt{expresion2} devuelve un valor \textoazul{\texttt{True}}, entonces se ejecutan las instrucciones contenidas en ese bloque.
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Combinación en un bloque condicional}
-Podemos ocupar en un bloque condicional la evaluación de dos expresiones, en caso de que ambas sean falsas, se ejecuta el código contenido en \funcionazul{else:}
+\frametitle{Ejemplo de condicional if-elif}
+\begin{lstlisting}[caption=La estructura condicional if-elif]
+distancia = 1500
+
+if distancia <= 1000:
+    print('La distancia es menor a un kilómetro')
+elif distancia <= 2000:
+    print('La distancia es menor a dos kilómetros')
+\end{lstlisting}
+\end{frame}    
+
+\subsection{El condicional if-elif-else}
+
+\begin{frame}[fragile]
+\frametitle{El condicional \texttt{if-elif-else:}}
+Podemos ocupar en condicional \texttt{if-elif:} en donde se evalúan dos expresiones, en caso de que ambas sean \textcolor{red}{False}, se ejecuta el código contenido en \funcionazul{else:}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Combinación en un bloque condicional}
-\fontsize{13}{13}\selectfont
+\frametitle{El condicional \texttt{if-elif-else:}}
+\fontsize{12}{12}\selectfont
 \begin{verbatim}
 if expresion1:
     instruccion1
@@ -506,8 +528,8 @@ siguiente línea código
 \end{verbatim}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Ejemplo de condicional}
-\begin{lstlisting}
+\frametitle{Ejemplo de condicional \texttt{if-elif-else:}}
+\begin{lstlisting}[caption=Ejemplo de un condicionla if-elif-else]
 a = int(input('Introduce el valor de a'))
 if a > 0:
     print ("a es positivo")
@@ -518,257 +540,437 @@ else:
     print ("a es negativo")
 \end{lstlisting}
 \end{frame}
+\begin{frame}
+\frametitle{La función \texttt{input}}
+En el ejemplo anterior la función \funcionazul{input}, permite el ingreso de datos por parte del usuario.
+\\
+\bigskip
+\pause
+Todo aquel valor que se introduce, se toma como una \emph{cadena}, por ello se utiliza la función \funcionazul{int ()} para convertirla a un tipo de dato entero.
+\end{frame}
 
-% \subsection{Bucles o Loops}
+\subsection{Bucles o Loops}
 
-% \begin{frame}
-% \frametitle{Bucles}
-% Un bucle es una sentencia que repite un número determinado de veces, un conjunto de instrucciones.
-% \\
-% \bigskip
-% Se evalúa inicialmente una condición, en caso de que se cumple (valor \funcionazul{True}) se ejecutan las instrucciones contenidas.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Bucles}
-% Posteriormente, se revisa el valor de la condición, mientras sea verdadero, las instrucciones se ejecutan nuevamente, el bucle termina cuando que el valor de la condición sea un valor \textcolor{red}{\texttt{False}}.
-% \end{frame}
-% \begin{frame}
-% \frametitle{¿Cuántas veces se va a repetir?}
-% Hay que considerar que se puede conocer de antemano el número de veces que se va a repetir el ciclo.
-% \\
-% \bigskip
-% \pause
-% Cuando no se conoce el número de veces que se va a repetir, hay que ser cuidadosos y evitar los bucles infinitos.
-% \end{frame}
-% \subsection{Sentancia \texttt{for ... in}}
-% \begin{frame}\frametitle{Sentencia for ... in}
-% Es una forma genérica de iterar sobre una secuencia.
-% \\
-% \bigskip
-% Podemos usar como secuencia: tanto listas como tuplas o generar una para ejecutar el bucle un número determinado de veces.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplo}
-% Usaremos un objeto lista y el ciclo \funcionazul{for}
-% \pause
-% \begin{lstlisting}
-% secuencia = ["uno", "dos", "tres"]
-% for elemento in secuencia:
-%     print (elemento)
-% \end{lstlisting}
-% \pause
-% En este ejemplo la instrucción \funcionazul{print} se ejecutará tantas veces como elementos haya en la lista, y en cada iteración la variable elemento tomará el valor de cada uno de los elementos de la lista secuencia.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Iteración sobre secuencia de números}
-% ¿Cómo le hacemos para iterar sobre una serie de números naturales consecutivos?
-% \\
-% \bigskip
-% Por ejemplo de 1 a 20.
-% \\
-% \bigskip
-% \pause
-%  Para ello usaremos la función \funcionazul{range(\ )}. Esta función genera una lista con una progresión aritmética de números naturales.
-%  \end{frame}
-% \begin{frame}
-% \frametitle{Argumentos de la función \texttt{range}}
-% \setbeamercolor{item projected}{bg=green!70!black,fg=black}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item Si le pasamos un único parámetro se generará una lista que va desde $0$ hasta $n-1$. 
-% \item Si le damos dos argumentos: \funcionazul{(inicio,fin)}, generará una lista desde \textoazul{inicio} hasta \textoazul{fin - 1}.
-% \item Si le damos tres argumentos: \funcionazul{(inicio,fin, paso)}, usará el \textoazul{paso} como incremento para generar los elementos de la lista.
-% \end{enumerate}  
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos de for ... in}
-% Escribimos las instrucciones:
-% \begin{lstlisting}
-% print(list(range(10)))
-% print(list(range(5, 10)))
-% print(list(range(0, 10, 3)))
-% \end{lstlisting}
-% \pause
-% La salida será:
-% \begin{lstlisting}
-% [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-% [5, 6, 7, 8, 9]
-% [0, 3, 6, 9]
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos de for ... in}
-% En el siguiente ejemplo el programa imprimirá los números de $0$ a $5$ cada uno en una línea.
-% \pause
-% \begin{lstlisting}
-% for i in range(6):
-%     print(i)
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos de for ... in}
-% Podemos usar una cadena de caracteres como secuencia, de forma que cada iteración del bucle tomaremos una letra de la cadena.
-% \pause
-% \begin{lstlisting}
-% for char in 'ABCD':
-%     print(char)
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos de for ... in}
-% En caso de que necesitemos iterar sobre una lista y a la vez tener el índice de cada posición de la lista usaremos la función \funcionazul{enumerate( )} que devuelve dos valores: la posición y el contenido de la lista.
-% \pause
-% \begin{lstlisting}
-% secuencia = ["manzanas", "peras", "platanos"]
-% for posicion, elemento in enumerate(secuencia):
-%     print (posicion, elemento)
-% \end{lstlisting}
-% \end{frame}
-% \subsection{El bucle while}
-% \begin{frame}
-% \frametitle{El bucle \texttt{while}}
-% Ese bucle repite un conjunto de instrucciones mientras se cumpla una determinada condición que se evalúa al principio de cada ejecución.
-% \end{frame}
-% \begin{frame}
-% \frametitle{El bucle \texttt{while}}
-% Es evidente que las instrucciones del interior del bucle tendrán que hacer algo que pueda cambiar esa condición hasta que en algún momento deje de cumplirse.
-% \\
-% \bigskip
-% En caso contrario tendremos un bucle infinito y el programa no terminará nunca su ejecución.
-% \end{frame}
-% \begin{frame}
-% \frametitle{El bucle \texttt{while}}
-% Una de las características del bucle \funcionazul{while} es que no está fijado previamente el número de veces que se ejecutan las instrucciones del bucle.
-% \\
-% \bigskip
-% Se ejecutarán todas las que sean necesarias mientras se cumpla la condición.
-% \end{frame}
+\begin{frame}
+\frametitle{Bucles}
+Un bucle es una sentencia que ejecuta un mismo conjunto de instrucciones, de manera repetida mientras se satisface una condición.
+\\
+\bigskip
+Se evalúa inicialmente una condición, en caso de que su valor sea (valor \funcionazul{True}) se ejecutan las instrucciones contenidas, \pause la estructura termina al cambiar el valor de la condición.
+\end{frame}
+\begin{frame}
+\frametitle{Las estructuras de bucle}
+En \python{} se tienen dos estructuras iterativas:
+\setbeamercolor{item projected}{bg=aqua,fg=ao}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item \funcionazul{for-in}
+\item \funcionazul{while}
+\end{enumerate}
+\end{frame}
 
-% \begin{frame}
-% \frametitle{Forzar la salida del bucle \texttt{while}}
-% Como hemos mencionado, el ciclo \funcionazul{while} va a iterar mientras se cumpla una condición.
-% \\
-% \bigskip
-% Pero vamos a encontrar que en ocasiones, necesitamos \enquote{salir} del bucle sin que tengamos que esperar a que la condición cambie.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos while}
-% Hay dos palabras reservadas que se usan dentro de un bucle, se trata de \funcionazul{break} y \funcionazul{continue}.
-% \\
-% \bigskip
-% \funcionazul{continue} hace que pasemos de nuevo al principio del bucle aunque no se haya terminado de ejecutar el ciclo anterior.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplo con \texttt{while}}
-% \begin{lstlisting}
-% edad = 0
-% while edad < 18:
-%     edad = edad + 1
-%     if edad % 2 == 0:
-%         continue
-%     print ("Felicidades, tienes " + str(edad))
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos while}
-% Por su parte \funcionazul{break} hace que salgamos del bucle \funcionazul{while} directamente sin necesidad de volver a evaluar la condición y aunque siga siendo cierta.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejemplos while}
-% \begin{lstlisting}
-% while True:
-%     entrada = input("> ")
-%     if entrada == "adios":
-%         break
-%     else:
-%         print (entrada)
-% \end{lstlisting}
-% \end{frame}
-% \section{Manejo de excepciones}
-% \frame{\tableofcontents[currentsection, hideothersubsections]}
-% \subsection{Control de errores}
-% \begin{frame}[fragile]
-% \frametitle{Manejo de excepciones}
-% Cuando comenzamos a programar, nos podemos encontrar con mensajes de error al momento de ejecutar el programa, siendo las causas más comunes:
-% \end{frame}
-% \begin{frame}
-% \frametitle{Manejo de excepciones}
-% \begin{itemize}[<+->]
-% \item Errores de dedo, escribiendo incorrectamente una instrucción, sentencia, variable o constante.
-% \item Errores al momento de introducir los datos, por ejemplo, si el valor que se debe de ingresar es $123.45$, y si nosotros tecleamos $1234.5$, el resultado ya se considera un error.
-% \end{itemize}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Manejo de excepciones}
-% \begin{itemize}[<+->]
-% \item Errores que se muestran en tiempo de ejecución, es decir, todo está bien escrito y los datos están bien introducidos, pero hay un error debido a la lógica del programa o del método utilizado, ejemplo: división entre cero.
-% \end{itemize}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Manejo de errores}
-% En el siguiente ejemplo, obtendremos de antemano un error por intentar una operación matemática no permitida.
-% \\
-% \bigskip
-% \verb|c = 12.0/0.0| \\
-% \pause
-% %\begin{exampleblock}{}
-% \verb|Traceback (most recent call last):| \\
-% \verb|File ''<pyshell#0>'', line 1, in ?| \\
-% \verb|c = 12.0/0.0| \\
-% \verb|ZeroDivisionError: float division|
-% %\end{exampleblock}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Manejo de excepciones}
-% Veamos el siguiente ejemplo
-% \begin{lstlisting}
-% while True print('Hola mundo')
+\subsection*{Sentancia \texttt{for ... in}}
 
-%   File "<stdin>", line 1
-%     while True print('Hola mundo')
-%                    ^
-% SyntaxError: invalid syntax
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Información del error}
-% \fontsize{13}{13}\selectfont
-% El intérprete repite la línea culpable y muestra una pequeña \enquote{flecha} que apunta al primer lugar donde se detectó el error.
-% \\
-% \bigskip
-% Este es causado por (o al menos detectado en) el símbolo que precede a la flecha: en el ejemplo, el error se detecta en la función \azulfuerte{print()}, ya que faltan dos puntos \azulfuerte{(:)} antes del mismo.
-% \\
-% \bigskip
-% Se muestran el nombre del archivo y el número de línea para que sepas dónde mirar en caso de que la entrada venga de un programa.    
-% \end{frame}
-% \begin{frame}
-% \frametitle{Tipos de error en \python}
-% Es importante conocer los distintos tipos de error que pueden generarse en \python, en la documentación oficial, podremos encontrar una lista con el nombre del tipo de error y por qué se genera.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Errores aritméticos}
-% \setbeamercolor{item projected}{bg=green!70!black,fg=white}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item \funcionazul{OverflowError}
-% \item \funcionazul{ZeroDivisionError}
-% \item \funcionazul{FloatingPointError}
-% \end{enumerate}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Errores generales}
-% \setbeamercolor{item projected}{bg=green!70!black,fg=white}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item \funcionazul{ImportError}
-% \item \funcionazul{IndexError}
-% \item \funcionazul{KeyboardInterrupt}
-% \item \funcionazul{NameError}
-% \item \funcionazul{SyntaxError}
-% \item \funcionazul{TabError}
-% \item \funcionazul{ValueError}
-% \end{enumerate}
-% \end{frame}
+\begin{frame}
+\frametitle{Sentencia for ... in}
+Es una forma genérica de iterar sobre una secuencia.
+\\
+\bigskip
+\pause
+Podemos usar como secuencia: \pause tanto \emph{listas} como \emph{tuplas} o generar una, para ejecutar el bucle un número determinado de veces.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo del bucle \texttt{for-in}}
+Usaremos un objeto lista y el ciclo \funcionazul{for-in}:
+\pause
+\begin{lstlisting}[caption=Ejemplo del ciclo for-in]
+alfabeto = ["alfa", "beta", "gama", "delta"]
+for letra in alfabeto:
+    print (letra)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo del bucle \texttt{for-in}}
+En este ejemplo la instrucción \funcionazul{print} se ejecutará tantas veces como elementos haya en la lista \emph{alfabeto}, en cada iteración la variable \emph{letra} tomará el valor de cada uno de los elementos de la lista.
+\end{frame}
+\begin{frame}
+\frametitle{Iteración sobre secuencia de números}
+¿Cómo le hacemos para iterar sobre una serie de números naturales consecutivos? \pause Por ejemplo del $1$ al $20$.
+\\
+\bigskip
+\pause
+ Para ello usaremos la función \funcionazul{range(\ )}. Esta función genera una lista con una progresión aritmética de números naturales.
+ \end{frame}
+\begin{frame}
+\frametitle{Argumentos de la función \texttt{range}}
+\setbeamercolor{item projected}{bg=armygreen,fg=aquamarine}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Si le pasamos un único parámetro se generará una lista que va desde $0$ hasta $n-1$.
+\pause
+\begin{align*}
+\mbox{range} (10)
+\end{align*}
+\seti
+\end{enumerate}  
+\end{frame}
+\begin{frame}
+\frametitle{Argumentos de la función \texttt{range}}
+\setbeamercolor{item projected}{bg=armygreen,fg=aquamarine}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti    
+\item Si le damos dos argumentos: \funcionazul{(inicio, fin)}, generará una lista desde \textoazul{inicio} hasta \textoazul{fin - 1}.
+\pause
+\begin{align*}
+\mbox{range} (1, 10)
+\end{align*}
+\seti
+\end{enumerate}  
+\end{frame}
+\begin{frame}
+\frametitle{Argumentos de la función \texttt{range}}
+\setbeamercolor{item projected}{bg=armygreen,fg=aquamarine}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti
+\item Si le damos tres argumentos: \break \hfill \funcionazul{(inicio, fin, paso)}, usará el \textoazul{paso} como incremento para generar los elementos de la lista.
+\pause
+\begin{align*}
+\mbox{range} (1, 20, 3)
+\end{align*}    
+\end{enumerate}  
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplos del bucle \texttt{for-in}}
+\begin{lstlisting}[caption=Ejemplos con varios parámetros en la función range]
+print(list(range(10)))
+print()
+print(list(range(1, 10)))
+print()
+print(list(range(1, 20, 3)))
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Recorriendo los elementos de una cadena}
+Podemos usar una cadena de caracteres como secuencia, de forma que en cada iteración se tomará un elemento de la cadena.
+\pause
+\begin{lstlisting}[caption=Recorriendo una cadena]
+for letra in 'ABCD':
+    print(letra)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Recorriendo una lista con \texttt{enumerate}}
+En caso de que necesitemos iterar sobre una \emph{lista} y a la vez recuperar el índice de cada elemento de la lista, \pause usaremos la función \funcionazul{enumerate( )} que devuelve dos valores: la \textcolor{darkgreen}{índice} y el \textcolor{lava}{elemento} de la lista.
+\pause
+\begin{lstlisting}[caption=Recorriendo con índices y elementos de una lista]
+figura = ["recta", "círculo", "cono", "plano", "esfera"]
+for indice, elemento in enumerate(figura):
+    print(indice, elemento)
+\end{lstlisting}
+\end{frame}
+
+\subsection{Sentencia \texttt{while}}
+
+\begin{frame}
+\frametitle{La sentencia \texttt{while}}
+Ese bucle repite un conjunto de instrucciones mientras se cumpla una determinada condición que se evalúa al principio de cada ejecución.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La sentencia \texttt{while}}
+\fontsize{12}{12}\selectfont
+\begin{verbatim}
+while expresion:
+    instruccion1
+    instruccion2
+    ...
+
+siguiente línea código
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo de una sentencia \texttt{while}}
+\begin{lstlisting}[caption=Primer ejemplo de un ciclo while]
+angulo = 30
+
+while angulo <= 42:
+    print(angulo)
+    angulo = angulo + 1
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Ciclo \texttt{while} infinito}
+Es evidente que las instrucciones dentro del bucle \textoazul{while} tendrán que hacer algo que cambie el valor de la condición, para que termine la sentencia.
+\\
+\bigskip
+En caso contrario tendremos un \textcolor{brickred}{bucle infinito} y el programa nunca terminará su ejecución.
+\end{frame}
+\begin{frame}
+\frametitle{Repeticiones en el ciclo \texttt{while}}
+Una de las características del bucle \funcionazul{while} es que no está fijado previamente el número de veces que se ejecutan las instrucciones del bucle.
+\\
+\bigskip
+Se ejecutarán todas las que sean necesarias mientras se cumpla la condición.
+\end{frame}
+\begin{frame}
+\frametitle{Forzar la salida del bucle \texttt{while}}
+Como hemos mencionado, la sentencia \funcionazul{while} va a iterar mientras se cumpla una condición.
+\\
+\bigskip
+Pero vamos a encontrar que en ocasiones, necesitamos \enquote{salir} del bucle sin que tengamos que esperar a que la condición cambie.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Forzar la salida del bucle \texttt{while}}
+Hay dos palabras reservadas que se usan dentro de un bucle \texttt{while}:
+\pause
+\setbeamercolor{item projected}{bg=bronze,fg=bubbles}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item \funcionazul{continue}.
+\item \funcionazul{break}.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Forzar la salida con \texttt{continue}}
+Con \funcionazul{continue} pasamos de nuevo al principio del bucle, aunque no se haya terminado de ejecutar el ciclo.
+\begin{lstlisting}
+edad = 0
+while edad < 18:
+    edad = edad + 1
+    if edad % 2 == 0:
+        continue
+    print ("Felicidades, tienes " + str(edad))
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Forzar la salida con \texttt{break}}
+Por su parte, \funcionazul{break} hace que salgamos del bucle \funcionazul{while} directamente sin necesidad de volver a evaluar la condición, aunque siga siendo cierta.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Forzar la salida con \texttt{break}}
+\begin{lstlisting}[caption=Forzando la salida del bucle con break]
+while True:
+    entrada = input("> ")
+    if entrada == "adios":
+        break
+    else:
+        print (entrada)
+\end{lstlisting}
+\end{frame}
+
+\section{Manejo de excepciones}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Tipos de errores}
+
+\begin{frame}[fragile]
+\frametitle{Manejo de excepciones}
+Cuando comenzamos a programar, nos podemos encontrar con mensajes de error al momento de ejecutar el programa, siendo las causas más comunes:
+\pause
+\setbeamercolor{item projected}{bg=burgundy,fg=buff}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Errores de dedo: escribiendo incorrectamente una instrucción, sentencia, variable o constante.
+\item Errores al momento de introducir los datos, por ejemplo, si el valor que se debe de ingresar es $123.45$, y si nosotros tecleamos $1234.5$, el resultado ya se considera un error.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejo de excepciones}
+\setbeamercolor{item projected}{bg=burgundy,fg=buff}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti    
+\item Errores que se muestran en tiempo de ejecución, es decir, todo está bien escrito y los datos están bien introducidos, pero hay un error debido a la lógica del programa o del método utilizado, ejemplo: división entre cero.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{El programa se detiene con un error}
+Cuando se presenta un error en la ejecución del código, el programa se detiene.
+\\
+\bigskip
+\pause
+Siendo necesario corregir el error y nuevamente, ejecutar el programa.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejo de errores}
+En el siguiente ejemplo, obtendremos de antemano un error por intentar una operación matemática no permitida.
+\\
+\bigskip
+\verb|c = 12.0/0.0| \\
+\pause
+%\begin{exampleblock}{}
+\verb|Traceback (most recent call last):| \\
+\verb|File ''<pyshell#0>'', line 1, in ?| \\
+\verb|c = 12.0/0.0| \\
+\verb|ZeroDivisionError: float division|
+%\end{exampleblock}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejo de excepciones}
+Veamos el siguiente ejemplo:
+\begin{lstlisting}
+while True print('Hola mundo')
+
+  File "<stdin>", line 1
+    while True print('Hola mundo')
+                   ^
+SyntaxError: invalid syntax
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Información del error}
+\fontsize{13}{13}\selectfont
+El intérprete de \python{} indica la línea \emph{culpable} y muestra una pequeña \enquote{marca} que apunta al lugar donde se detectó el error.
+\\
+\bigskip
+Este es causado por (o al menos detectado en) el símbolo que precede a la flecha: en el ejemplo, el error se detecta en la función \azulfuerte{print()}, ya que faltan dos puntos \azulfuerte{(:)} antes del mismo.
+\\
+\bigskip
+Se muestran el nombre del archivo y el número de línea para que sepas dónde mirar en caso de que la entrada venga de un programa.    
+\end{frame}
+\begin{frame}
+\frametitle{Tipos de error en \python}
+Es importante conocer los distintos tipos de error que pueden generarse en \python, en la documentación oficial podremos encontrar una lista con el nombre del tipo de error y por qué se genera.
+\end{frame}
+\begin{frame}
+\frametitle{Errores aritméticos}
+\setbeamercolor{item projected}{bg=charcoal,fg=champagne}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item \funcionazul{OverflowError}
+\item \funcionazul{ZeroDivisionError}
+\item \funcionazul{FloatingPointError}
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Errores generales}
+\setbeamercolor{item projected}{bg=deeplilac,fg=deeppeach}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item \funcionazul{ImportError}
+\item \funcionazul{IndexError}
+\item \funcionazul{KeyboardInterrupt}
+\item \funcionazul{NameError}
+\item \funcionazul{SyntaxError}
+\item \funcionazul{TabError}
+\item \funcionazul{ValueError}
+\end{enumerate}
+\end{frame}
+
+\subsection{Creando un manejo de excepciones}
+
+\begin{frame}
+\frametitle{¿Qué es el manejo de excepciones?}
+En programación se conoce como \textoazul{excepción} a un error que se detecta en ejecución.
+\\
+\bigskip
+\pause
+El manejo de excepciones es un código que las gestiona y que le permiten al usuario dar solución para que el programa continúe.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Estructura del manejo de excepciones}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.95]{Imagenes/Manejo_Excepciones_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejemplo de un manejo de excepción}
+\begin{lstlisting}[caption=Un error por la variable x no definida]
+try:
+    print(x)
+except NameError:
+    print('La variable \'x\' no está definida')
+except:
+    print('Algo salió mal')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Otro ejemplo de un manejo de excepción}
+\begin{lstlisting}[caption=Manejo con un else]
+    try:
+    print('Hola mundo!')
+except:
+    print('Algo salió mal')
+else:
+    print('No hubo problemas')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Otro ejemplo de un manejo de excepción}
+\begin{lstlisting}[caption=Manejo con un else]
+try:
+    print('Hola mundo!')
+except:
+    print('Algo salió mal')
+else:
+    print('No hubo problemas')
+finally:
+    print('Salimos del manejo de excepciones')
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Generando excepciones propias}
+Podemos generar una excepción si se produce una condición en particular.
+\\
+\bigskip
+\pause
+Para \enquote{lanzar} (o generar) una excepción, usamos la palabra clave \funcionazul{raise}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Generando excepción por tipo de error}
+Podems definir el tipo de error para generar la excepción y el texto que se le mostrará al usuario.
+\begin{lstlisting}[caption=Generando una excepción]
+x = 'Hola!'
+
+if not type(x) is int:
+    raise TypeError('Solo se permiten enteros')
+\end{lstlisting}    
+\end{frame}
+\begin{frame}
+\frametitle{Algunos tipos de error}
+\setbeamercolor{item projected}{bg=dodgerblue,fg=eggshell}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item \textoazul{ArtimethicError}: Errores aritméticos.
+\item \textoazul{FloatingPointError}: Error en una operación de punto flotante.
+\item \textoazul{OverflowError}: Resultado demasiado grande para representarlo.
+\item \textoazul{ZeroDivisionError}: Cuando el segundo argumento de una división o módulo es $0$.
+\item \textoazul{EOFError}: Se intentó leer más allá del final del archivo.
+\item \textoazul{IOError}: Error en una operación de entrada/salida.
+\end{enumerate}
+\end{frame}
 % \begin{frame}[fragile]
 % \frametitle{Manejando excepciones}
 % Es posible escribir programas que manejen determinadas excepciones. 
