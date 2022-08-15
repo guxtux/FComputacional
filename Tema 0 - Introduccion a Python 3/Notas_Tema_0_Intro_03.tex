@@ -17,7 +17,7 @@
 \frame[allowframebreaks]{\tableofcontents[currentsection, hideallsubsections]}
 
 \section{Funciones}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{¿Para qué usar funciones?}
 
 \begin{frame}
@@ -281,146 +281,378 @@ print("El modulo es: {0:}".format(n))
 print("El argumento es: {0:.4f}".format(a))
 \end{lstlisting}
 \end{frame}
-% \subsection{Número variable de argumentos}
-% \begin{frame}[fragile]
-% \frametitle{Número variable de argumentos}
-% ¿Cómo le hacemos para que una función acepte un número no prefijado de argumentos?
-% \\
-% \medskip
-% Es posible pasar una lista o tupla, pero \python\ ofrece una mejor solución:
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Número variable de argumentos}
-% \begin{lstlisting}[caption=Uso de *args, basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
-% import math
 
-% def miatan(*args ):
-% # args es una tupla de argumentos
-%     if len(args) == 1:
-%         return math.atan(args[0])
-%     else :
-%         return math.atan2(args[0],args[1])
+\subsection{Número variable de argumentos}
 
-% print(miatan (0.2)) # 0.19739
-% print(miatan (2.0,10.0)) # 0.19739
-% print(miatan (-2.0,-10.0)) # -2.94419
-% \end{lstlisting}
-% \end{frame}
-% \subsection{Funciones lambda}
-% \begin{frame}
-% \frametitle{Funciones lambda}
-% \python\ admite una interesante sintaxis que permite definir funciones mínimas, de una línea, sobre la marcha. 
-% \\
-% \bigskip
-% Se trata de las denominadas funciones \azulfuerte{lambda}, que pueden utilizarse en cualquier lugar donde se necesite una función.
-% \end{frame}
-% \begin{frame}[allowframebreaks, fragile]
-% \frametitle{Funciones lambda}
-% \begin{lstlisting}[caption=Ejemplo de función lambda,basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
-% def f(x):
-% 	return x*2
+\begin{frame}[fragile]
+\frametitle{Número variable de argumentos}
+Hasta el momento hemos revisado que una función con un número determinado de parámetros, debe de llamarse con ese número de parámetros.
+\\
+\bigskip
+\pause
+Si nos hace falta alguno, o escribimos un argumento demás, nos marcará un error.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Número variable de argumentos}    
+¿Cómo le hacemos para que una función acepte un número no prefijado de argumentos?
+\\
+\
+\pause
+Es posible pasar una lista o tupla, pero \python\ ofrece una mejor solución:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Número variable de argumentos}
+\begin{lstlisting}[caption=Uso de *args, basicstyle=\linespread{1.2}\ttfamily\footnotesize, columns=fullflexible,escapeinside=||]
+import math
 
-% print(f(3))
-% #Devuelve 6
+def miatan(*args):
+# args es una tupla de argumentos
+    if len(args) == 1:
+        return math.atan(args[0])
+    else :
+        return math.atan2(args[0],args[1])
 
-% g = lambda x: x*2
-% print(g(3))
-% #Devuelve 6
+print(miatan (0.2)) # 0.19739
+print(miatan (2.0, 10.0)) # 0.19739
+print(miatan (-2.0, -10.0)) # -2.94419
+\end{lstlisting}
+\end{frame}
 
-% print((lambda x: x*2)(3))
-% #se usa lambda dentro del print
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Funciones lambda}
-% La primera función \azulfuerte{lambda} consigue el mismo efecto que la función \azulfuerte{f(x)}.
-% \\
-% \bigskip
-% Nótese que: la lista de argumentos no está entre paréntesis, y falta la palabra reservada \azulfuerte{return} (está implícita, ya que la función entera debe ser una única expresión). 
-% \\
-% \bigskip
-% Igualmente, la función no tiene nombre, pero puede ser llamada mediante la variable a que se ha asignado.
-% \end{frame}
-% \section{Módulos}
-% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
-% \subsection{Módulos en \python}
-% \begin{frame}[fragile]
-% \frametitle{Módulos}
-% Es una buena práctica almacenar las funciones en módulos.
-% \\
-% \bigskip
-% Un módulo es un archivo en donde se dejan las funciones, el nombre del módulo es el nombre del archivo.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Uso de los módulos}
-% Un módulo se carga al programa con la instrucción
-% \funcionazul{
-% \begin{center}
-% \texttt{from nombre\_modulo import *}
-% \end{center}
-% }
-% \python\ incluye un número grande de módulos que contienen funciones y métodos para varias tareas. 
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Uso de los módulos}
-% La gran ventaja de los módulos es que están disponibles en internet y se pueden descargar, dependiendo de la tarea que se requiera atender.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Usando el módulo \texttt{math}}
-% Muchas funciones matemáticas no se pueden llamar directo del intérprete, pero para ello existe el módulo \funcionazul{math}.
-% \\
-% \bigskip
-% Hay tres diferentes maneras en las que se puede llamar y utilizar las funciones de un módulo.
-% \begin{exampleblock}{}
-% \verb|from math import *|
-% \end{exampleblock}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Usando el módulo \texttt{math}}
-% De esta manera, se importan todas las funciones definidas en el módulo \funcionazul{math}, siendo quizá un gasto innecesario de recursos, pero también generar conflictos con definiciones cargadas de otros módulos.
-% \end{frame}
-% \begin{frame}[fragile]
-% \begin{exampleblock}{}
-% \verb|from math import func1, func2,...|
-% \end{exampleblock}
-% \pause
-% \begin{exampleblock}{}
-% \verb|>>> from math import log,sin| \\
-% \verb|>>> print (log(sin(0.5)))| \\
-% \verb|-0.735166686385|
-% \end{exampleblock}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Usando el módulo \texttt{math}}
-% El tercer método que es el más usado en programación, es tener disponible el módulo:
-% \begin{center}
-% \verb|import math|
-% \end{center}
-% Las funciones en el módulo se pueden usar con el nombre del módulo como prefijo:
-% \begin{exampleblock}{}
-% \verb|>>> import math| \\
-% \verb|>>> print (math.log(math.sin(0.5)))|
-% \verb|-0.735166686385|
-% \end{exampleblock}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Contenido del módulo \texttt{math}}
-% Podemos ver el contenido de un módulo con la instrucción:
-% \\
-% \verb|>>> import math| \\
-% \verb|>>> dir(math)|
-% \fontsize{10}{10}\selectfont
-% \begin{verbatim}
-% ['__doc__', '__name__', '__package__', 'acos',
-% 'acosh',  'asin', 'asinh', 'atan', 'atan2',
-% 'atanh', 'ceil', 'copysign', 'cos', 'cosh',
-% 'degrees', 'e', 'erf', 'erfc', 'exp', 'expm1',
-% 'fabs', 'factorial', 'floor', 'fmod', 'frexp',
-% 'fsum', 'gamma', 'hypot', 'isinf', 'isnan',
-% 'ldexp', 'lgamma', 'log', 'log10', 'log1p',
-% 'modf', 'pi', 'pow', 'radians', 'sin', 'sinh',
-% 'sqrt', 'tan', 'tanh', 'trunc']
-% \end{verbatim}
-% \end{frame}
+\subsection{Funciones lambda}
 
+\begin{frame}
+\frametitle{Funciones lambda}
+\python\ admite una interesante sintaxis que permite definir funciones mínimas, de una línea, sobre la marcha. 
+\\
+\bigskip
+\pause
+Se trata de las denominadas funciones \azulfuerte{lambda}, que pueden utilizarse en cualquier lugar donde se necesite una función.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Funciones lambda}
+\begin{lstlisting}[caption=Ejemplo de función lambda,basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+cuadrado = lambda x: x**2
+print(cuadrado(3))
+#Devuelve 9
+
+print((lambda x: x**2)(3))
+#se usa lambda dentro del print
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Funciones lambda}
+Nótese que:
+\setbeamercolor{item projected}{bg=bistre,fg=beige}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item La lista de argumentos no está entre paréntesis.
+\item Falta la palabra reservada \azulfuerte{return} (está implícita, ya que la función entera debe ser una única expresión). 
+\item La función no tiene nombre, pero puede ser llamada mediante la variable a que se ha asignado.
+\end{enumerate}
+\end{frame}
+
+\section{Módulos}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Módulos en \python}
+
+\begin{frame}[fragile]
+\frametitle{Módulos}
+Es una buena práctica de programación que almacenemos las funciones en módulos.
+\\
+\bigskip
+\pause
+Un módulo es un archivo de \python{} en donde se dejan las funciones que hemos construido, el nombre del módulo es el nombre del archivo.
+\end{frame}
+\begin{frame}
+\frametitle{Ventaja de usar módulos}
+Cuando creamos un módulo, todas las funciones están disponibles para cualquiera de los programas que estemos generando.
+\\
+\bigskip
+\pause
+Basta con identificar la ruta del archivo y hacer la referencia dentro de nuestro programa.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Uso de los módulos}
+Un módulo se carga al programa con la instrucción:
+\pause
+\funcionazul{
+\begin{center}
+\texttt{from nombre\_modulo import *}
+\end{center}
+}
+\python\ incluye un número grande de módulos que contienen funciones y métodos para varias tareas. 
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Usando el módulo \texttt{math}}
+Muchas funciones matemáticas no se pueden llamar directo del intérprete, \pause anteriormente se revisaron algunas de las funciones incluidas, \pause para ocupar un conjunto de funciones matemáticas, ocupamos el módulo \funcionazul{math}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Usando el módulo \texttt{math}}
+Hay tres diferentes maneras en las que se puede llamar y utilizar las funciones de un módulo.
+\begin{exampleblock}{}
+\verb|from math import *|
+\end{exampleblock}
+\end{frame}
+\begin{frame}
+\frametitle{Usando el módulo \texttt{math}}
+De esta manera, se importan todas las funciones definidas en el módulo \funcionazul{math}, siendo quizá un gasto innecesario de recursos, pero también generar conflictos con definiciones cargadas de otros módulos.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Segunda forma de llamar a \texttt{math}}
+\begin{exampleblock}{}
+\verb|from math import func1, func2,...|
+\end{exampleblock}
+\pause
+\begin{exampleblock}{}
+\verb|>>> from math import log, sin| \\
+\verb|>>> print (log(sin(0.5)))| \\
+\verb|-0.735166686385|
+\end{exampleblock}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Usando el módulo \texttt{math}}
+El tercer método es el más usado en programación, dejando disponible el módulo:
+\begin{center}
+\verb|import math|
+\end{center}
+\pause
+Las funciones en el módulo se pueden usar con el nombre del módulo como prefijo:
+\pause
+\begin{exampleblock}{}
+\verb|>>> import math| \\
+\verb|>>> print (math.log(math.sin(0.5)))|
+\verb|-0.735166686385|
+\end{exampleblock}
+\end{frame}
+\begin{frame}
+\frametitle{Consideraciones}
+Hay que tomar en cuenta que: habrá funciones que existen dentro del módulo \texttt{math}, \pause pero también con el mismo nombre las encontraremos en otros módulos: \funcionazul{numpy} y \funcionazul{scipy}.
+\\
+\bigskip
+\pause
+Por ello se recomienda el uso de \enquote{alias} que nos permitan identificar el módulo origen de la función.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Contenido del módulo \texttt{math}}
+Podemos ver el contenido de un módulo con la instrucción:
+\\
+\verb|>>> import math| \\
+\verb|>>> dir(math)|
+\fontsize{10}{10}\selectfont
+\begin{verbatim}
+['__doc__', '__name__', '__package__', 'acos',
+'acosh',  'asin', 'asinh', 'atan', 'atan2',
+'atanh', 'ceil', 'copysign', 'cos', 'cosh',
+'degrees', 'e', 'erf', 'erfc', 'exp', 'expm1',
+'fabs', 'factorial', 'floor', 'fmod', 'frexp',
+'fsum', 'gamma', 'hypot', 'isinf', 'isnan',
+'ldexp', 'lgamma', 'log', 'log10', 'log1p',
+'modf', 'pi', 'pow', 'radians', 'sin', 'sinh',
+'sqrt', 'tan', 'tanh', 'trunc']
+\end{verbatim}
+\end{frame}
+
+\section{Graficación con python}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Librería matplotlib}
+
+\begin{frame}
+\frametitle{Graficación con \python}
+Una buena parte del trabajo que tendremos que hacer como físicos es utilizar un conjunto de datos que por si solos, no van a darnos información sobre un modelo o un fenómeno, por ello, será necesario usar gráficas.
+\\
+\medskip
+\pause
+En \python{} se incluye un módulo de graficación bastante versátil para generar gráficas y exportarlas a diferentes tipos de archivos. \pause La librería se llama \funcionazul{matplotlib}.
+\end{frame}
+\begin{frame}
+\frametitle{La librería \texttt{matplotlib.pyplot}}
+Es una colección de funciones de estilo de mando, de tal manera que \funcionazul{matplotlib} funciona a la manera de \texttt{MATLAB}.
+\\
+\bigskip
+\pause
+Cada instrucción \funcionazul{pyplot} aplica un cambio a una figura: por ejemplo, crear una figura, crear un área de trazado en una figura, dibujar algunas líneas en un área de trazado, decorar con etiquetas, etc.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejercicio 1}
+\begin{lstlisting}[caption=Primer ejercicio de graficación]
+import matplotlib.pyplot as plt
+
+plt.plot([1, 2, 3, 4])
+plt.ylabel('Algunos numeros')
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejercicio de graficación 1}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.35]{Imagenes/plotEjercicio1.eps}<2> 
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Entendiendo la gráfica obtenida}
+Te estarás preguntando: ¿por qué tenemos en el eje $x$ el rango $0-3$ y en el eje $y$ el rango  $1-4$?.
+\\
+\medskip
+\pause
+Si proporcionamos una única lista o matriz en el comando \funcionazul{plot}, \funcionazul{matplotlib} asume que es una secuencia de valores de $y$, \pause por lo que genera automáticamente los valores de $x$ para nosotros.
+\end{frame}
+\begin{frame}
+\frametitle{Entendiendo la gráfica obtenida}
+Como los índices en \python{} comienzan en $0$, el vector $x$ por defecto tiene la misma longitud que $y$, pero inicia con $0$.
+\\
+\bigskip
+\pause
+De ahí que los datos en el eje $x$ son: $[0, 1, 2, 3]$.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejercicio de graficación 2}
+\begin{lstlisting}[caption=Graficando dos listas]
+import matplotlib.pyplot as plt
+
+plt.plot([1, 2, 3, 4], [1, 4, 9, 16], 'ro')
+plt.axis([0, 6, 0, 20])
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejercicio de graficación 2}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.475]{Imagenes/plotEjercicio2.eps}<2> 
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Consideración importante}
+Nótese que se grafican solo los puntos, \pause no hay una línea que los conecte.
+\\
+\bigskip
+\pause
+La unión de los puntos a veces ayuda para entender la visualización, pero no debemos de asumir que el comportamiento de los datos siempre debe de ser una línea que una los puntos.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Interpretando la gráfica}
+Por cada par $x$, $y$ de argumentos, existe un tercer argumento opcional: que es la cadena de formato que indica el \emph{color} y el \emph{tipo de línea}, en el ejemplo \texttt{'ro' = red o} (círculo).
+\\
+\medskip
+\pause
+Las letras y los símbolos de la cadena de formato se concatenanen una cadena de color y estilo de línea. \pause La cadena de formato por defecto es \verb|'b-'|, que es una línea de color azul.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Tipos de líneas}
+\renewcommand{\arraystretch}{0.9}
+\begin{tabular}{l | l}
+carácter & descripción \\ \hline
+\verb|'-'|	& línea sólida \\ \hline
+\verb|'--'| & línea cortada \\ \hline
+\verb|'-.'| & línea-punto \\ \hline
+\verb|':'|	& línea de puntos \\ \hline
+\verb|'.'|	& marca de punto \\ \hline
+\verb|','|	& marca de pixel \\ \hline
+\verb|'o'|	& marca de círculo \\ \hline
+\verb|'v'|	& marca de triándulo hacia abajo \\ \hline
+\verb|'^'|	& marca de triángulo hacia arriba
+\end{tabular}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Lista de colores}
+\renewcommand{\arraystretch}{0.8}
+\begin{tabular}{l | l}
+carácter & color \\ \hline
+\verb|'b'| & azul \\ \hline
+\verb|'g'| & verde \\ \hline
+\verb|'r'| & rojo \\ \hline
+\verb|'c'| & cyan \\ \hline
+\verb|'m'| & magenta \\ \hline
+\verb|'y'| & amarillo \\ \hline
+\verb|'k'| & negro \\ \hline
+\verb|'w'| & blanco
+\end{tabular}
+\end{frame}
+\begin{frame}
+\frametitle{Extendiendo el alcance de las gráficas}
+\texttt{matplotlib} se limita a trabajar con listas, por lo que sería bastante acotado para el procesamiento y análisis numérico.
+\\
+\medskip
+\pause
+Por lo general, se utilizan los arreglos del módulo \funcionazul{numpy}, \pause de hecho, todas las secuencias se convierten en matrices internamente.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecicio de graficación 3}
+El siguiente ejemplo ilustra un trazado de líneas con varios estilos diferentes en una sola instucción utilizando un arreglo.
+\pause
+\begin{lstlisting}[caption=Gráfica más elaborada con un arreglo]
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.arange(0., 5., 0.2)
+plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Gráfica obtenida}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.475]{Imagenes/plotEjercicio3.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejercicio de graficación 4}
+Trabajando con múltiples gráficas. \pause En ocasiones vamos a necesitar mostrar dos (o más gráficas) para un mismo problema: por ejemplo graficar el cambio de distancia y la velocidad de un móvil, ambas variables en gráficas separadas.
+\\
+\bigskip
+\pause
+Esta tarea se resuelve de manera sencilla como veremos en el siguiente ejemplo.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Ejercicio de graficación 4}
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def f(t):
+    return np.exp(-t) * np.cos(2*np.pi*t)
+
+t1 = np.arange(0.0, 5.0, 0.1)
+t2 = np.arange(0.0, 5.0, 0.02)
+
+plt.figure(1)
+plt.subplot(211)
+plt.plot(t1, f(t1), 'bo', t2, f(t2), 'k')
+
+plt.subplot(212)
+plt.plot(t2, np.cos(2 * np.pi * t2), 'r--')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Subplots obtenidas}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.475]{Imagenes/plotEjercicio4.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Las instrucciones para los subplots}
+El comando \funcionazul{figure()} aquí es opcional, ya \funcionazul{figure(1)} se crea de forma predeterminada, \pause así mismo \funcionazul{subplot(111)} se crea de forma predeterminada si no se especifica manualmente un eje.
+\end{frame}
+\begin{frame}
+\frametitle{Las instrucciones para los subplots}
+El comando \funcionazul{subplot()} especifica \texttt{numrows, numcols, fignum} donde \texttt{fignum} varía en rango de 1 a \texttt{numrows * numcols}.
+\\
+\bigskip
+\pause
+Las comas en el comando \funcionazul{subplot()} son opcionales si \texttt{numrows * numcols} $<10$. Por tanto \texttt{subplot(211)} es idéntica a la \texttt{subplot(2,1,1)}.
+\end{frame}
+\begin{frame}
+\frametitle{Más recursos para graficar con \python}
+Lo que hemos visto es una revisión muy básica y general de cómo generar una gráfica con \python, hay todavía una enorme cantidad de información sobre \funcionazul{matplotlib}, encontrarás en la página oficial de la librería, bastante documentación, ejemplos y elementos para extender completamente esta herramienta.
+\end{frame}
+\begin{frame}
+\frametitle{Más recursos para graficar con \python}
+Se les proporcionará una guía breve de graficación, con la intención de que revisen casos prácticos aplicados a la física. Para cada gráfica que usemos más adelante en el curso, tendrán oportunidad de agregar más elementos que ustedes consideren.
+\end{frame}
 \end{document}

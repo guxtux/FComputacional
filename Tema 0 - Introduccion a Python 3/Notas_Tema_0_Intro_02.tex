@@ -344,7 +344,7 @@ No pueden utilizarse las palabras reservadas de \python{} para ningún tipo de i
 \begin{tabular}{c c c c c }
 del & for & is & raise & assert \\ \hline
 elif & global & else & or & yield  \\ \hline
-from & lamda & return & break & system \\ \hline
+from & lambda & return & break & system \\ \hline
 not & try & class & except & if \\ \hline
 while & continue & exec & import & pass \\ \hline
 def & finally & in & print & del \\ \hline
@@ -556,7 +556,7 @@ Todo aquel valor que se introduce, se toma como una \emph{cadena}, por ello se u
 Un bucle es una sentencia que ejecuta un mismo conjunto de instrucciones, de manera repetida mientras se satisface una condición.
 \\
 \bigskip
-Se evalúa inicialmente una condición, en caso de que su valor sea (valor \funcionazul{True}) se ejecutan las instrucciones contenidas, \pause la estructura termina al cambiar el valor de la condición.
+Se evalúa inicialmente una condición, en caso de que su valor sea (valor \funcionazul{True}) se ejecutan las instrucciones contenidas, \pause la repetición termina al cambiar el valor de la condición.
 \end{frame}
 \begin{frame}
 \frametitle{Las estructuras de bucle}
@@ -572,7 +572,7 @@ En \python{} se tienen dos estructuras iterativas:
 \end{enumerate}
 \end{frame}
 
-\subsection*{Sentancia \texttt{for ... in}}
+\subsection*{Sentencia \texttt{for ... in}}
 
 \begin{frame}
 \frametitle{Sentencia for ... in}
@@ -584,12 +584,12 @@ Podemos usar como secuencia: \pause tanto \emph{listas} como \emph{tuplas} o gen
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Ejemplo del bucle \texttt{for-in}}
-Usaremos un objeto lista y el ciclo \funcionazul{for-in}:
+Usaremos un objeto alfabeto y el ciclo \funcionazul{for-in}:
 \pause
 \begin{lstlisting}[caption=Ejemplo del ciclo for-in]
 alfabeto = ["alfa", "beta", "gama", "delta"]
 for letra in alfabeto:
-    print (letra)
+    print(letra)
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
@@ -615,7 +615,7 @@ En este ejemplo la instrucción \funcionazul{print} se ejecutará tantas veces c
 \item Si le pasamos un único parámetro se generará una lista que va desde $0$ hasta $n-1$.
 \pause
 \begin{align*}
-\mbox{range} (10)
+\mbox{range}(10)
 \end{align*}
 \seti
 \end{enumerate}  
@@ -629,10 +629,10 @@ En este ejemplo la instrucción \funcionazul{print} se ejecutará tantas veces c
 }
 \begin{enumerate}[<+->]
 \conti    
-\item Si le damos dos argumentos: \funcionazul{(inicio, fin)}, generará una lista desde \textoazul{inicio} hasta \textoazul{fin - 1}.
+\item Si le damos dos argumentos: \funcionazul{range(inicio, fin)}, generará una lista desde \textoazul{inicio} hasta \textoazul{fin - 1}.
 \pause
 \begin{align*}
-\mbox{range} (1, 10)
+\mbox{range}(1, 10)
 \end{align*}
 \seti
 \end{enumerate}  
@@ -646,10 +646,10 @@ En este ejemplo la instrucción \funcionazul{print} se ejecutará tantas veces c
 }
 \begin{enumerate}[<+->]
 \conti
-\item Si le damos tres argumentos: \break \hfill \funcionazul{(inicio, fin, paso)}, usará el \textoazul{paso} como incremento para generar los elementos de la lista.
+\item Si le damos tres argumentos: \break \hfill \funcionazul{range(inicio, fin, paso)}, usará el \textoazul{paso} como incremento para generar los elementos de la lista.
 \pause
 \begin{align*}
-\mbox{range} (1, 20, 3)
+\mbox{range}(1, 20, 3)
 \end{align*}    
 \end{enumerate}  
 \end{frame}
@@ -947,7 +947,7 @@ Para \enquote{lanzar} (o generar) una excepción, usamos la palabra clave \funci
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Generando excepción por tipo de error}
-Podems definir el tipo de error para generar la excepción y el texto que se le mostrará al usuario.
+Podemos definir el tipo de error para generar la excepción y el texto que se le mostrará al usuario.
 \begin{lstlisting}[caption=Generando una excepción]
 x = 'Hola!'
 
@@ -966,6 +966,18 @@ if not type(x) is int:
 \item \textoazul{ArtimethicError}: Errores aritméticos.
 \item \textoazul{FloatingPointError}: Error en una operación de punto flotante.
 \item \textoazul{OverflowError}: Resultado demasiado grande para representarlo.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Algunos tipos de error}
+\setbeamercolor{item projected}{bg=dodgerblue,fg=eggshell}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti    
 \item \textoazul{ZeroDivisionError}: Cuando el segundo argumento de una división o módulo es $0$.
 \item \textoazul{EOFError}: Se intentó leer más allá del final del archivo.
 \item \textoazul{IOError}: Error en una operación de entrada/salida.
