@@ -2,11 +2,11 @@
 \usepackage{caption}
 \captionsetup{font=scriptsize,labelfont=scriptsize}
 \usepackage{listings}
-\lstset{
-basicstyle=\ttfamily,
-columns=flexible,
-breaklines=true
-}
+% \lstset{
+% basicstyle=\ttfamily,
+% columns=flexible,
+% breaklines=true
+% }
 
 \definecolor{ao}{rgb}{0.0, 0.5, 0.0}
 \definecolor{bisque}{rgb}{1.0, 0.89, 0.77}
@@ -24,13 +24,14 @@ breaklines=true
 \definecolor{Comments}{rgb}{0,0,255}
 \definecolor{Numbers}{rgb}{255,128,0}
 
-\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{0.99\textwidth}{#1#2#3}}}
-%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{0.98\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
 \renewcommand{\lstlistingname}{Código}
 
 \lstdefinestyle{codigopython}{%
   language=Python,                % choose the language of the code
-  %basicstyle=\footnotesize\small,       % the size of the fonts that are used for the code
+  basicstyle=\footnotesize\ttfamily,       % the size of the fonts that are used for the code
   numbers=left,                   % where to put the line-numbers
   numberstyle=\scriptsize,      % the size of the fonts that are used for the line-numbers
   stepnumber=1,                   % the step between two line-numbers. If it is 1 each line will be numbered
@@ -60,7 +61,10 @@ breaklines=true
   %
   %keywordstyle=\ttb\color{deepblue}
   %fancyvrb = true,
-literate={0}{{\textcolor{red}{0}}}{1}%
+}
+
+  \lstdefinestyle{FormattedNumber}{%
+            literate={0}{{\textcolor{red}{0}}}{1}%
             {1}{{\textcolor{red}{1}}}{1}%
             {2}{{\textcolor{red}{2}}}{1}%
             {3}{{\textcolor{red}{3}}}{1}%
