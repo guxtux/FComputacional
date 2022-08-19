@@ -267,7 +267,7 @@ Para que en la solución numérica de problemas se tenga el valor más pequeño 
 \end{frame}
 
 \section{Errores}
-\frame{\frametitle{Contenido} \tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\frametitle{Contenido} \tableofcontents[currentsection, hideothersubsections]}
 \subsection{Calculando errores}
 
 \begin{frame}
@@ -462,42 +462,47 @@ De manera coloquial podemos asociar estos conceptos con los siguientes ejemplos:
     \includegraphics[scale=1]{Imagenes/exactitud_precision_01.eps}
 \end{figure}
 \end{frame}
-% \section{Conceptos principales}
-% \frame{\tableofcontents[currentsection, hideothersubsections]}
-% \subsection{Métodos numéricos}
-% \begin{frame}
-% \frametitle{Método numérico}
-% Se puede representar como una cadena de algoritmos $A_{i}$ con $(i = 1, 2, 3, \ldots , N)$ en la entrada y salida.
-% \begin{figure}
-% \centering
-% \includegraphics[scale=0.7]{Imagenes/dibujometodonum.eps} 
-% \end{figure}
-% \end{frame}
-% \begin{frame}
-% \frametitle{La solución que se obtiene}
-% La solución obtenida por un método numérico es \textcolor{blue}{aproximada}, es decir, hay cierta diferencia entre la solución exacta y la solución numérica.
-% \\
-% \bigskip
-% \pause
-% Hay que considerar que en ocasiones, no tendremos conocimiento de antemano de la solución \enquote{exacta}.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Principales causas de la diferencia}
-% \begin{itemize}[<+->]
-% \item Falta de correspondencia entre el problema (modelo) matemático y el fenómeno físico real.
-% \item Errores en los datos iniciales (parámetros de entrada).
-% \item Errores en el método numérico usado para resolver el problema.
-% \item Errores de redondeo en las operaciones aritméticas.
-% \end{itemize}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Nuestra tarea al momento de resolver}
-% Si tenemos identificadas las posibles fuentes de error, nuestra tarea será minimizar los errores al momento de proponer una solución numérica.
-% \\
-% \bigskip
-% \pause
-% Veremos la importancia de medir la magnitud de un error.
-% \end{frame}
+
+\section{Conceptos principales}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Método numérico}
+
+\begin{frame}
+\frametitle{Método numérico}
+Se puede representar como una cadena de algoritmos $A_{i}$ con $(i = 1, 2, 3, \ldots , N)$ en la entrada y salida.
+\\
+\bigskip
+\pause
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{Imagenes/dibujometodonum.eps} 
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{La solución que se obtiene}
+La solución obtenida por un método numérico es \textcolor{blue}{aproximada}, es decir, hay cierta diferencia entre la solución exacta y la solución numérica.
+\\
+\bigskip
+\pause
+Hay que considerar que en ocasiones, no tendremos conocimiento de antemano de la solución \enquote{exacta}.
+\end{frame}
+\begin{frame}
+\frametitle{Principales causas de la diferencia}
+\begin{itemize}[<+->]
+\item[\ding{217}] Falta de correspondencia entre el problema (modelo) matemático y el fenómeno físico real.
+\item[\ding{217}] Errores en los datos iniciales (parámetros de entrada).
+\item[\ding{217}] Errores en el método numérico usado para resolver el problema.
+\item[\ding{217}] Errores de redondeo en las operaciones aritméticas.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Nuestra tarea al momento de resolver}
+Si tenemos identificadas las posibles fuentes de error, nuestra tarea será minimizar los errores al momento de proponer una solución numérica.
+\\
+\bigskip
+\pause
+Veremos la importancia de medir la magnitud de un error.
+\end{frame}
 % % \subsection{Modelos y métodos numéricos}
 % % %\section{\texorpdfstring{this is a very long title I \\ want to}{want to break manually}}
 % \begin{frame}
@@ -510,25 +515,277 @@ De manera coloquial podemos asociar estos conceptos con los siguientes ejemplos:
 % \item Convergencia.
 % \end{itemize}
 % \end{frame}
-% \begin{frame}
-% \frametitle{Aproximación}
-% Es la proximidad de un modelo numérico al modelo original (diferencial, integral, etc.) o el
-% grado de aproximación, caracteriza el error que se introduce al hacer discreto el modelo
-% continuo.
-% \\
-% \bigskip
-% El grado de aproximación $n$ se estima mediante un factor que tiene el error entre dos modelos.
+
+\subsection{Aproximación}
+
+\begin{frame}
+\frametitle{Aproximación}
+Es la proximidad de un modelo numérico al modelo original (diferencial, integral, etc.) o el
+grado de aproximación, caracteriza el error que se introduce al hacer discreto el modelo
+continuo.
+\\
+\bigskip
+\pause
+El grado de aproximación $n$ se estima mediante un factor que tiene el error entre dos modelos.
+\end{frame}
+
+\subsection{Estabilidad}
+
+\begin{frame}
+\frametitle{Estabilidad}
+\begin{itemize}[<+->]
+\item[\ding{221}] Caracteriza la manera de propagación de los errores iniciales dentro del algoritmo en el
+proceso del cálculo.
+\item[\ding{221}] Si el incremento de errores iniciales es considerable y sin ningún control, entonces el
+método numérico se llama \textcolor{red}{inestable}.
+\item[\ding{221}] Si los errores de cálculos dependen continuamente de los errores iniciales, entonces el método se llama \textcolor{blue}{estable}.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Primer ejemplo}
+Considera la siguiente sucesión:
+\pause
+\begin{align*}
+\dfrac{1}{3^{n}} \hspace{1cm} n = 0, 1, 2, \ldots
+\end{align*}
+\pause
+Haciendo algunas operaciones sencillas, tenemos los primeros valores de la sucesión de $n = 0$ a $n = 3$:
+\pause
+\begin{eqnarray*}
+( x_{0}, x_{1}, x_{2}, x_{3}, \ldots ) \\[0.5em] \pause
+( 1, \, \dfrac{1}{3}, \, \dfrac{1}{27}, \, \dfrac{1}{81}, \ldots )
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{El enésimo más un valor de la sucesión}
+Se puede demostrar fácilmente que el enésimo más un término de la sucesión es:
+\pause
+\begin{align*}
+x_{n+1} = \dfrac{13}{3} \, x_{n} - \dfrac{4}{3} \, x_{n-1} \hspace{1cm} n \geq 1
+\end{align*}
+\pause
+También sabemos que se cumple:
+\pause
+\begin{align*}
+\lim_{n \to \infty} \dfrac{1}{3^{n}} = 0
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Pasando a un código}
+Elaboremos un código en Jupyter para que nos devuelve los valores de la sucesión.
+\\
+\bigskip
+\pause
+Como valores iniciales tomaremos: $x_{0} = 1$ y $x_{1} = \dfrac{1}{3}$, veremos que será muy conveniente usar una lista para almacenar los nuevos valores.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Pasando a un código}
+\begin{lstlisting}[caption=Implementando el código de la sucesión]
+x = [1, 1/3]
+
+print('iteracion \t valor')
+print('-'*25)
+
+for i in range(1, 7): |\pause|
+	y = (13/3) * x[-2] - (4/3) * x[-1] |\pause|
+	x.append(y) |\pause|
+	print(i, x[-1], sep='\t\t') 
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{El arreglo luego de los cálculos}
+Tendremos entonces que el arreglo con los valores de la sucesión luego de las operaciones es:
+\\
+\pause
+\begin{align*}
+{}&[1,	0.3333333333333333, 3.8888888888888884, \\
+{}&-3.74074074074074, 21.8395061728395, \\
+{}&-45.32921810699587, 155.07681755829896, \\
+{}&-403.195701874714]
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué ocurre?}
+Lo que pasa es que el error incluido en el enésimo término $x_{n} + \delta_{n}$ es multiplicado por $13/3$, \pause en cada iteración los errores aumentan poco más de cuatro veces.
+\end{frame}
+\begin{frame}
+\frametitle{Segundo ejemplo}
+Ahora considera la siguiente sucesión:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+y_{n} &= \scaleint{6ex}_{\bs 0}^{1} x^{n} \, e^{x} \dd{x} = \\[0.5em] \pause
+&= \dfrac{e}{n+1} - \scaleint{6ex}_{\bs 0}^{1} e^{x} \, \dfrac{x^{n+1}}{n + 1} \dd{x} \\[0.5em] \pause
+&= \dfrac{1}{n+1} \big( e - y_{n+1} \big)
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Apoyándose con una gráfica}
+En una primera instancia, conforme el valor de $n$ aumenta, la integral (vista como el área debajo de la curva) debería tender a cero.
+\\
+\bigskip
+\pause
+Para revisar esto, hagamos una gráfica de $y_{n}$, para $n = 1, 2, 4, 8$.
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de la función}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{Imagenes/Estabilidad_02.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio de clase}
+\textbf{Ejercicio de clase 1:} Elabora un código y genera la gráfica correspondiente para la función $f(x)$ para $n = 1, 2, 4, 8$.
+\\
+\bigskip
+\pause
+Fecha de entrega: para la siguiente clase a más tardar 6 pm, vía Moodle.
+\end{frame}
+% \begin{frame}[allowframebreaks, fragile]
+% \frametitle{Gráfica de $y_{n}$}
+% import matplotlib.pyplot as plt
+% import numpy as np
+
+% def funcion(n, x):
+%     return (x**n) * np.exp(x)
+
+% x = np.linspace(0, 1, 100)
+
+% n = [1, 2, 4, 8]
+
+% for i in n:
+%     plt.plot(x, funcion(i, x), label='n = {0:}'.format(i))
+
+% plt.title('Grafica de la funcion')
+% plt.xlabel('x')
+% plt.ylabel('f(x)')
+% plt.legend(loc='best')
+% plt.show()
 % \end{frame}
-% \begin{frame}
-% \frametitle{Estabilidad}
-% \begin{itemize}[<+->]
-% \item Caracteriza la manera de propagación de los errores iniciales dentro del algoritmo en el
-% proceso del cálculo.
-% \item Si el incremento de errores iniciales es considerable y sin ningún control, entonces el
-% método numérico se llama \textcolor{red}{inestable}.
-% \item Si los errores de cálculos dependen continuamente de los errores iniciales, entonces el método se llama \textcolor{blue}{estable}.
-% \end{itemize}
-% \end{frame}
+\begin{frame}
+\frametitle{Pasemos al código}
+Comprobamos que al menos en la gráfica el límite de la función cuando $n$ aumenta, tiende a cero.
+\\
+\bigskip
+\pause
+Ahora pasemos al código.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Pasemos al código}
+\begin{lstlisting}[caption=Código para el ejemplo 2]
+x = [np.exp(1) - 1]
+
+print('iteracion \t valor')
+print('-'*25)
+
+for i in range(1, 7): |\pause|
+	y = np.exp(1) - (i + 1) * x[-1] |\pause|
+	x.append(y) |\pause|
+	print(i, x[-1], sep='\t\t')
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{¿Dónde está el error?}
+Encontramos que la sucesión diverge, ¿pero por qué?
+\\
+\bigskip
+\pause
+En cada paso el error $h_{n}$ se multiplica por un número cada vez más grande ($n$), por lo que tenemos estos valores.
+\end{frame}
+\begin{frame}
+\frametitle{De los dos ejemplos}
+Los dos ejemplos que presentamos, los cálculos efectuados son \textoazul{inestables}, \pause por que los errores producidos en una iteración, se incrementan en iteraciones posteriores.
+\end{frame}
+
+\subsection{Condición}
+
+\begin{frame}
+\frametitle{Condición}
+La condición (\emph{condicionamiento}) de una función $f(x)$ mide la sensibilidad de los valores de $f(x)$ a pequeños
+cambios de $x$, se define como:
+\pause
+\begin{align*}
+C = \abs{ \dfrac{E_{\text{rel}} \, (f (x))}{E_{_\text{rel}} (x)} }
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Definición de condición}
+Del teorema del valor medio en cálculo, podemos expresar:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+f (x_{T}) - f (x_{A})  &\approx \pderivada{f} (x_{T}) \, (x_{T} - x_{A}) \\ \pause
+\rightarrow E_{\text{rel}} (f (x)) &\approx \dfrac{ \pderivada{f} (x_{T})}{ f(x_{T})} (x_{T} - x_{A})
+\end{aligned}
+\end{eqnarray*}
+luego entonces:
+\pause
+\begin{align*}
+C \approx \abs{ x_{T} \dfrac{\pderivada{f} (x_{T})}{f (x_{T})} }
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Definición de condición}
+Se utilizará a $C$ como definición de condición para funciones $f (x)$ de una variable real.
+\\
+\bigskip
+\pause
+Entonces el número de condición será:
+\pause
+\begin{align*}
+C = \abs{ x \, \dfrac{\pderivada{f} (x)}{f (x)} }
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Valores del número de condición}
+\setbeamercolor{item projected}{bg=red,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Para un $x$ dado $0 < C (x) < 1$ se dirá que \emph{el problema está bien condicionado}, \pause y cuanto menor sea $C$, mejor condicionado. \pause
+\item Si $C (x) > 1$, el problema estará mal condicionado.
+\item Si $C (x) = 1$, el error relativo se mantiene.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplos}
+¿Las siguientes funciones están bien condicionadas?
+\pause
+\setbeamercolor{item projected}{bg=cadetblue,fg=amber}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item $f (x) = \sqrt{x} \hspace{1.5cm} C (x) = ?$
+\item $g (x) = x^{2} - 1 \hspace{1.5cm} C (x) = ?$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Los números de condición}
+Haciendo las cuentas tendremos que para las funciones:
+\pause
+\begin{align*}
+C (f (x) ) = \dfrac{1}{2} \hspace{0.75cm} &\Rightarrow 0 < C (f (x) ) < 1 \\
+\therefore \quad &\text{Problema bien condicionado}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Los números de condición}
+El $C (g (x) )$ lo visualizamos con una gráfica:
+\pause
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{Imagenes/Condicion_02.eps}
+\end{figure}
+\end{frame}
+
+
+
 % \begin{frame}
 % \frametitle{Convergencia}
 % \begin{itemize}
@@ -869,48 +1126,6 @@ De manera coloquial podemos asociar estos conceptos con los siguientes ejemplos:
 % \\
 % \bigskip
 % Esta propagación puede describirse en términos de dos conceptos relacionados: los de estabilidad y condición.
-% \end{frame}
-% \subsection{Condición}
-% \begin{frame}
-% \frametitle{Condición}
-% La condición de una función $f(x)$ mide la sensibilidad de los valores de $f(x)$ a pequeños
-% cambios de $x$, se define como:
-% \[ C = \left | \dfrac{E_{rel} (f(x))}{E_{rel}(x)} \right |  \]
-% \end{frame}
-% \begin{frame}
-% \frametitle{Definición de condición}
-% Del teorema del valor medio en cálculo, podemos expresar
-% \[ \begin{split} f(x_{T}) - f(x_{A}) & \approx f^{\prime}(x_{t})(x_{T} - x_{A}) \rightarrow E_{rel}(f(x)) \approx \\ 
-%  & \approx \dfrac{f^{\prime}(x_{T})}{f(x_{T})} (x_{T} - x_{A}) \end{split} \]
-% luego
-% \[ C \approx \left | x_{T} \dfrac{f^{\prime}(x_{T})}{f(x_{T})} \right | \]
-% \end{frame}
-% \begin{frame}
-% \frametitle{Definición de condición}
-% Se utilizará ésta definición como definición de condición para funciones $f(x)$ de una variable real.
-% \\
-% \bigskip
-% Entonces los números de condición serán
-% \[ C = \left | x \dfrac{f^{\prime}(x)}{f(x)} \right | \]
-% \end{frame}
-% \begin{frame}
-% \frametitle{Definición de condición}
-% \[ C = \left | x \dfrac{f^{\prime}(x)}{f(x)} \right | \]
-% \setbeamercolor{item projected}{bg=red!70!black,fg=white}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item Para un $x$ dado $0 < C(x) < 1$ se dirá que el problema está bien condicionado, y cuanto menor sea $C$, mejor condicionado.
-% \item Si $C(x) > 1$, el problema estará mal condicionado.
-% \item Si $C(x) = 1$, el error relativo se mantiene.
-% \end{enumerate}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Ejemplos}
-%  Las siguientes funciones están bien condicionadas?
-% \begin{enumerate}
-% \item $f(x) = \sqrt{x} \hspace{1.5cm} C(x) = ?$
-% \item $g(x) = x^{2}-1 \hspace{1.5cm} C(x) = ?$
-% \end{enumerate}
 % \end{frame}
 % \subsection{Estabilidad}
 % \begin{frame}
