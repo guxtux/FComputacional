@@ -587,36 +587,443 @@ Los números en precisión doble tienen aproximadamente $16$ decimales de precis
 \end{align*}
 \end{frame}
 
-% \section{Fuentes de errores}
-% \frame{\tableofcontents[currentsection, hideothersubsections]}
-% \subsection{Algo de teoría de errores}
-% \begin{frame}
-% \frametitle{Hablando de errores}
-% Para entender el por qué los errores deben ser motivo de preocupación, imaginemos un programa con el siguiente flujo lógico
-% \begin{equation}
-% \text{Inicio } \rightarrow U_{1} \rightarrow U_{2} \rightarrow \ldots \rightarrow U_{n} \rightarrow \text{ Fin} 
-% \label{eq:ecuacion_02_01}
-% \end{equation}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Hablando de errores}
-% \begin{equation*}
-% \text{Inicio } \rightarrow U_{1} \rightarrow U_{2} \rightarrow \ldots \rightarrow U_{n} \rightarrow \text{ Fin} 
-% \end{equation*}
-% Donde cada unidad $U$ puede ser una declaración de una tarea o un paso.
-% \\
-% \bigskip
-% Si cada unidad tiene probabilidad $p$ de ser correcta, entonces la probabilidad conjunta $P$ de que todo el programa sea correcto es $P = p^{n}$.
-% \\
-% \end{frame}
-% \begin{frame}
-% \frametitle{Hablando de errores}
-% Digamos que tenemos un programa de tamaño mediano con $n = 1000$ pasos y que la probabilidad de que cada paso sea correcto es casi uno, $p \simeq 0.9993$.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Hablando de errores}
-% Esto significa que terminas con $P \simeq \frac{1}{2}$, es decir, la respuesta final es tan probablemente correcta como equivocada.
-% \end{frame}
+\section{Fuentes de errores}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Algo de teoría de errores}
+
+\begin{frame}
+\frametitle{Hablando de errores}
+Para entender el por qué los errores deben ser motivo de preocupación, imaginemos un programa con el siguiente flujo lógico:
+\pause
+\begin{equation}
+\text{Inicio } \rightarrow U_{1} \rightarrow U_{2} \rightarrow \ldots \rightarrow U_{n} \rightarrow \text{ Fin} 
+\label{eq:ecuacion_02_01}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Hablando de errores}
+\begin{equation*}
+\text{Inicio } \rightarrow U_{1} \rightarrow U_{2} \rightarrow \ldots \rightarrow U_{n} \rightarrow \text{ Fin} 
+\end{equation*}
+Donde cada unidad $U$ puede ser una declaración de una tarea o un paso.
+\\
+\bigskip
+\pause
+Si cada unidad tiene probabilidad $p$ de ser correcta, entonces la probabilidad conjunta $P$ de que todo el programa sea correcto es $P = p^{n}$.
+\\
+\end{frame}
+\begin{frame}
+\frametitle{Hablando de errores}
+Digamos que tenemos un programa de tamaño mediano con $n = 1000$ pasos y que la probabilidad de que cada paso sea correcto es casi uno, $p \simeq 0.9993$.
+\end{frame}
+\begin{frame}
+\frametitle{Hablando de errores}
+Esto significa que terminaremos con $P \simeq \frac{1}{2}$, es decir, la respuesta final es tan probablemente correcta como equivocada.
+\end{frame}
+\begin{frame}
+\frametitle{Hagamos una sencilla suma}
+El resultado de la siguiente suma es muy sencillo:
+\pause
+\begin{align*}
+1.0 + 0.00001
+\end{align*}
+\pause
+Repitamos esta suma $10000$ veces, ya conocemos de antemano su resultado. \pause Hagamos un código en \python.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Sumando valores}
+\begin{lstlisting}[caption=Sumando en un ciclo]
+suma = 1.0
+
+for in in range(1, 10000):
+    suma += 0.00001
+
+print('La suma es: {0:}'.format(suma))
+\end{lstlisting}
+Calcula el error relativo.
+\end{frame}
+\begin{frame}
+\frametitle{¿En qué nos equivocamos?}
+El error relativo es: $\num{9.0909d-6}$, \pause vayamos por partes para revisar dónde se origina el error:
+\\
+\bigskip
+\pause
+Para ello, tenemos que ocupar la representación en binario de los dos sumandos: $1.0$ y $0.00001$.
+\end{frame}
+\begin{frame}
+\frametitle{Los sumandos}
+En binario tenemos que:
+\pause
+\begin{align*}
+{}&(1)_{10} = (0.1000 0000 0000 0000 0000 0000 0000 0000 0000) \times 2^{1} \\
+{}&(0.00001)_{10} = (0.1010011111000101) \times 2^{-32}
+\end{align*}
+\pause
+Ahora sumemos estos dos números.
+\end{frame}
+\begin{frame}
+\frametitle{El valor luego de la suma}
+Así llegamos al valor:
+\pause
+\begin{eqnarray*}
+{}&(1)_{10} + (0.00001)_{10} \simeq \\[0.5em] \pause
+&\simeq (0.10000000000000001010011111000101) \times 2^{1}
+\end{eqnarray*}
+\pause
+Cuya representación en decimal es:
+\pause
+\begin{align*}
+1.00000000000000005551115123125782
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Error acumulado}
+Entonces cada vez que sumemos $0.00001$ a $1$ se agrega un error de $\num{5.5511d-17}$, \pause y su hacemos la operacion diez mil veces, \pause encontramos un error en el valor la suma que anticipamos como exacto. 
+\end{frame}
+\begin{frame}
+\frametitle{Ajustando el código}
+Nuestro trabajo será siempre minimizar los errores como en el caso de la suma anterior.
+\\
+\bigskip
+\pause
+En ese mismo ejemplo haremos un ajuste en el código y veremos el resultado obtenido.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Un ajuste al código}
+\begin{lstlisting}[caption=Una agrupación en la suma]
+suma = 1.0
+
+for i in range(1, 100):
+    total = 0.0
+    for j in range(1, 100):
+        total += 0.00001
+    
+    suma = suma + total
+
+print('La suma es: {0:}'.format(suma))
+print()
+print('El error relativo es: {0:}'.format(error_relativo(1.1, suma)))
+\end{lstlisting}
+\pause
+El error disminuye $3$ órdenes de magnitud.
+\end{frame}
+
+\subsection{Un modelo equivocado}
+
+\begin{frame}
+\frametitle{Una fuente de error}
+Se consider un tipo de error cuando consideramos un modelo que no está en congruencia con la física.
+\\
+\bigskip
+\pause
+Veamos el siguiente ejemplo.
+\end{frame}
+\begin{frame}
+\frametitle{Planteando el problema}
+La bicicleta es una forma muy eficiente de transporte, este es un hecho bien conocido por cualquier persona que la utliza.
+\\
+\bigskip
+\pause
+Nuestro objetivo en este ejercicio es comprender los factores que determinan la velocidad máxima de una bicicleta y estimar la velocidad de un caso real.
+\end{frame}
+\begin{frame}
+\frametitle{Primera aproximación}
+Comenzaremos haciendo \textoazul{caso omiso de la fricción}; \pause tendremos que añadirlo al final, por supuesto, pero debemos primero entender cómo lidiar con el caso más simple y sin fricción.
+\end{frame}
+\begin{frame}
+\frametitle{Usando la mecánica de Newton}
+La ecuación de movimiento corresponde a la segunda ley de Newton, que escribimos de la forma:
+\pause
+\begin{equation}
+\dv{v}{t} = \dfrac{F}{m}
+\label{EqNewton2}
+\end{equation}
+donde $v$ es la velocidad, $m$ es la masa de la combinación de la bicicleta-conductor, $t$ es el tiempo, y $F$ es la fuerza en la bicicleta que viene del esfuerzo del conductor (en este caso vamos a suponer que la bicicleta se mueve sobre un terreno plano).
+\end{frame}
+\begin{frame}
+\frametitle{Simplificando el sistema}
+Tratar correctamente a $F$ se complica por la mecánica de la bicicleta, \pause ya que la fuerza ejercida por el ciclista se transmite a las ruedas por medio del plato, engranajes, cadena, etc.
+\\
+\bigskip
+\pause
+Esto hace que sea muy difícil obtener una expresión exacta para $F$.
+\end{frame}
+\begin{frame}
+\frametitle{Abordando el problema con otro enfoque}
+Sin embargo, hay otra manera de abordar este problema que evita la necesidad de conocer la fuerza.
+\\
+\bigskip
+\pause
+Este enfoque alternativo implica la formulación del problema en términos de la potencia generada por el ciclista.
+\end{frame}
+\begin{frame}
+\frametitle{Abordando el problema con otro enfoque}
+Estudios fisiológicos de ciclistas de carreras han demostrado que estos atletas son capaces de producir una potencia de salida de aproximadamente $\SI{400}{\watt}$ durante largos períodos de tiempo ($\sim \SI{1}{\hour}$)
+\end{frame}
+\begin{frame}
+\frametitle{Reescribiendo la ecuación de movimiento}
+Usando las ideas de trabajo-energía podemos reescribir (\ref{EqNewton2}) como:
+\pause
+\begin{equation}
+\dv{E}{t} = P
+\label{EqPotencia}
+\end{equation}
+donde $E$ es la energía total, $P$ es la potencia de salida del ciclista.
+\end{frame}
+\begin{frame}
+\frametitle{Relación entre la potencia y acelaración}
+Para un trayecto plano la energía es totalmente cinética, es decir, $E = \frac{1}{2} m v^{2}$, y $\dv*{E}{t} = m \, v (\dv*{v}{t})$, usando esto en la ec. (\ref{EqPotencia}), resulta:
+\pause
+\begin{equation}
+\dv{v}{t} = \dfrac{P}{m \, v}
+\label{EqPotenciavel}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Cuando la potencia es constante}
+Si $P$ es una constante, la ecuación (\ref{EqPotenciavel}), se puede resolver de manera analítica, rearreglando términos:
+\pause
+\begin{equation}
+\scaleint{6ex}_{\bs v_{0}}^{v} v^{\prime} \dd{v^{\prime}} = \scaleint{6ex}_{\bs 0}^{t} \dfrac{P}{m} \dd{t^{\prime}}
+\label{EqIntegral}
+\end{equation}
+donde $v_{0}$ es la velocidad de la bicicleta en $t = 0$.
+\end{frame}
+\begin{frame}
+\frametitle{Abordando el problema con otro enfoque}
+Integrando ambos lados de la ecuación y resolviendo para $v$, tenemos que:
+\pause
+\begin{equation}\label{Eqvres}
+v = \sqrt{v_{0}^{2} + 2 \, P \dfrac{t}{m}}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{¿La solución es consistente con la física?}
+Si bien esta es la solución correcta de la ecuación de movimiento (\ref{EqPotenciavel}), nuestro trabajo no concluye aquí: \pause ya que predice que \textcolor{lava}{la velocidad se incrementará sin límite para tiempos muy largos}.
+\\
+\bigskip
+\pause
+Este resultado no es congruente con la física que conocemos.
+
+\end{frame}
+\begin{frame}
+\frametitle{Segunda aproximación}
+Vamos a corregir este resultado: cuando se generaliza el modelo se debe de \textoazul{incluir el efecto de la resistencia del aire}.
+\\
+\bigskip
+\pause
+El nuevo término que vamos a añadir a la ecuación de movimiento nos obliga a desarrollar una solución numérica, así que con eso en mente se considera un tratamiento numérico de la ec. (\ref{EqPotenciavel}).
+\end{frame}
+\begin{frame}
+\frametitle{Haciendo diferencias}
+Comenzamos con la forma de diferencias finitas para la derivada de la velocidad:
+\pause
+\begin{equation}
+\dv{v}{t} \simeq \dfrac{v_{i + 1} - v_{i}}{\Delta t}
+\label{Eqderivada}
+\end{equation}
+donde asumimos que $\Delta t$ es paso discreto pequeño, y $v_{i}$ es la velocidad al tiempo $t_{i} \equiv i \Delta t$
+\end{frame}
+\begin{frame}
+\frametitle{Relación entre velocidad y potencia}
+Por lo que de la ecuación (\ref{EqPotenciavel}):
+\pause
+\begin{equation}
+v_{i + 1} = v_{i} + \dfrac{P}{m \, v_{i}} \, \Delta \, t
+\label{Eqveli+1}
+\end{equation}
+Dada la velocidad en un tiempo $i$ (es decir, $v_{i}$), podemos usar (\ref{Eqveli+1}) para calcular un valor \textit{aproximado} de la velocidad en el siguiente paso $v_{i+1}$.
+\end{frame}
+\begin{frame}
+\frametitle{Abordando el problema con otro enfoque}
+Si conocemos la velocidad inicial $v_{0}$, podemos obtener $v_{1}$, $v_{2}$, y así sucesivamente.
+\\
+\bigskip
+\pause
+Ya contamos con suficientes elementos para proponer un código en \python{}, incluiremos una gráfica del resultado.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Abordando el problema con otro enfoque}
+\begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+import matplotlib.pyplot as plt
+from math import sqrt
+
+t = []
+v = []
+
+dt = 1
+
+potencia = 400
+masa = 70
+tmax = 200
+nmax = tmax/dt
+
+t.append(0)
+v.append(4)
+
+for i in range(int(tmax/dt)):
+    ti = t[i-1] + dt
+    vi = sqrt(v[i]**2 + (2 * potencia * dt)/masa)
+    
+    
+    t.append(ti)
+    v.append(vi)
+
+plt.plot(v, "r-")
+plt.xlabel("tiempo [s]")
+plt.ylabel("velocidad m/s")
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado de la velocidad sin fricción}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.475]{Imagenes/EjerBicicleta01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado ¿correcto?}
+Consideremos que:
+\setbeamercolor{item projected}{bg=amber,fg=black}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Hemos desarrollado un algoritmo que resuelve el problema inicial.
+\item Los valores son consistentes.
+\item La gráfica nos indica el comportamiento de la solución.
+\end{enumerate}
+\pause
+Aún así: ¿debemos de considerar el problema como bien resuelto? \pause \textcolor{auburn}{No!}
+\end{frame}
+
+\section*{Considerando la fricción del aire}
+
+\begin{frame}
+\frametitle{Segunda aproximación}
+La fuerza debida a la fricción puede aproximarse de manera inicial como:
+\pause
+\begin{equation}
+F_{a} \simeq - B_{1} \, v - B_{2} v^{2}
+\label{EqFfriccion}
+\end{equation}
+Para velocidades muy bajas, el primer término es el que domina, y el coeficiente $B_{1}$ se puede calcular para objetos con formas sencillas.
+\end{frame}
+\begin{frame}
+\frametitle{El tamaño del  objeto}
+Para una velocidad razonable $v^{2}$ el término domina sobre los demás, pero $B_{2}$ no puede calcularse exactamente en objetos sencillos como una pelota de beisbol, menos para una bicicleta.
+\end{frame}
+\begin{frame}
+\frametitle{Haciendo otra aproximación}
+Podemos aproximar el valor de $B_{2}$ como sigue:
+\\
+\bigskip
+\pause
+Si un objeto se mueve a través de la atmósfera, debe empujar fuera del camino el aire delante de él. 
+\end{frame}
+\begin{frame}
+\frametitle{Haciendo otra aproximación}
+La masa de aire movida en el tiempo $\dd{t}$ es $m_{\text{aire}} \sim \rho A \: v \: \dd{t}$, donde $\rho$ 
+es la densidad del aire y $A$ el área frontal del objeto.
+\\
+\bigskip
+\pause
+Este aire tiene una velocidad de orden $v$, y por lo tanto, su energía cinética es $E_{\text{aire}} \sim m_{\text{aire}} \: v^{2} / 2$.
+\end{frame}
+\begin{frame}
+\frametitle{Haciendo otra aproximación}
+Este es también el trabajo realizado por la fuerza de arrastre (la fuerza sobre el objeto debido a la resistencia del aire) en el tiempo $\dd{t}$, por lo $F_{a} \: \dd{t} = E_{\text{aire}}$.
+\\
+\bigskip
+\pause
+Al juntar estos resultados, encontramos que:
+\pause
+\begin{align*}
+F_{a} \simeq - C \: \rho \: A \: v^{2}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Nueva expresión}
+Incluyendo este término en la expresión para la velocidad:
+\pause
+\begin{equation}
+v_{i+1} = v_{i} + \dfrac{P}{m \: v_{i}} \Delta \: t - \dfrac{C \: \rho \: A \: v_{i}^{2}}{m} \: \Delta \: t
+\label{Eqvelifriccion}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Pasando al código}
+\textbf{Ejercicio a cuenta 2: } Implementar el código en \python, considerando los valores $C = 0.5$ y $A=0.33$.
+\\
+\bigskip
+\pause
+De tal manera que al obtener la gráfica de la solución, debes de presentar una figura con el siguiente resultado:
+\end{frame}
+\begin{frame}
+\frametitle{Velocidad en las dos aproximaciones}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.475]{Imagenes/EjerBicicleta02.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Conclusión importante}
+El resultado que tenemos a partir de nuestra solución numérica con la segunda aproximación, \textcolor{ao}{es más congruente con la física}.
+\\
+\bigskip
+\pause
+Nota que a pesar de tener un algoritmo que resuelve una ecuación de movimiento, nuestrto trabajo no termina con proporcionar una respuesta con el código, \pause sino que revisemos la consistencia de la solución con la física que ya manejamos.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta:}
+\textbf{Ejercicio a cuenta 3: } El número $ln 2$ se puede calcular de la serie:
+\begin{align*}
+\ln 2 = 1 - \dfrac{1}{2} + \dfrac{1}{3} -\dfrac{1}{4} + \ldots
+\end{align*}
+Se sabe del análisis que esta serie converge y que la magnitud del error en cualquier suma parcial es menor que la magnitud del primer término despreciado. Estima el número de términos que se requerirían para calcular $\ln 2$ con 10 decimales.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+\textbf{Ejercicio a cuenta 4: } El 25 de febrero de 1991, durante la guerra del Golfo, una batería de misiles Patriot americanos en Dharan (Arabia Saudita) no lograron interceptar un misil Scud iraquí. Murieron 28 soldados americanos.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+La causa: los errores numéricos por utilizar truncado en lugar de redondeo en el sistema que calcula el momento exacto en que debe ser lanzado el misil.
+\\
+\bigskip
+\pause
+Las computadoras de los Patriot que han de seguir la trayectoria del misil Scud, la predicen punto a punto en función de su velocidad conocida y del momento en que fue detectado por última vez en el radar.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+La velocidad es un número real. El tiempo es una magnitud real pero el sistema la calculaba mediante un reloj interno que contaba décimas de segundo, por lo que representaban el tiempo como una variable entera.
+\\
+\bigskip
+\pause
+Cuanto más tiempo lleva el sistema funcionando más grande es el entero que representa el tiempo.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+Las computadoras del Patriot almacenan los números reales representados en punto flotante con una mantisa de $24$ bits.
+\\
+\bigskip
+\pause
+Para convertir el tiempo entero en un número real se multiplica éste por $1/10$, y se trunca el resultado (en lugar de redondearlo). El número $1/10$ se almacenaba truncado a $24$ bits.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+El pequeño error debido al truncado, se hace grande cuando se multiplica por un número (entero) grande, y puede conducir a un error significativo.
+\\
+\bigskip
+La batería de los Patriot llevaba en funcionamiento más de $100$ horas, por lo que el tiempo entero era un número muy grande y el número real resultante tendrá un error cercano a $0.34$ segundos. \pause Explica a detalle qué fue lo que ocurrió.
+\end{frame}
+\begin{frame}
+\frametitle{Lista de ejercicios del Tema 1}
+Revisa en Moodle una lista de ejercicios del Tema 1, serán el tipo de ejercicios para el Examen-Tarea.
+\end{frame}
+
 % \begin{frame}
 % \frametitle{Hablando de errores}
 % El problema es que como científicos, queremos un resultado correcto o al menos en el que la incertidumbre sea pequeña y de tamaño conocido.
