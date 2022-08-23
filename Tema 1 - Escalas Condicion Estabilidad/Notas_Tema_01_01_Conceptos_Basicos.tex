@@ -16,7 +16,7 @@
 \frame[allowframebreaks]{\frametitle{Contenido} \tableofcontents[currentsection, hideallsubsections]}
 
 \section{Tema 1}
-\frame{\frametitle{Contenido} \tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\frametitle{Contenido} \tableofcontents[currentsection, hideothersubsections]}
 \subsection{Objetivos del Tema}
 
 \begin{frame}
@@ -47,7 +47,7 @@ Al concluir el Tema 1, el alumno:
 \end{frame}
 
 \section{Física Computacional}
-\frame{\frametitle{Contenido}  \tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\frametitle{Contenido}  \tableofcontents[currentsection, hideothersubsections]}
 \subsection{¿Qué es la FC?}
 
 \begin{frame}
@@ -164,7 +164,7 @@ El desarrollo de las habilidades de programación, están en función del tiempo
 \end{frame}
 
 \section{Conceptos básicos}
-\frame{\frametitle{Contenido} \tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\frametitle{Contenido} \tableofcontents[currentsection, hideothersubsections]}
 \subsection{Computadoras y números}
 
 \begin{frame}
@@ -464,7 +464,7 @@ De manera coloquial podemos asociar estos conceptos con los siguientes ejemplos:
 \end{frame}
 
 \section{Conceptos principales}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{Método numérico}
 
 \begin{frame}
@@ -784,250 +784,274 @@ El $C (g (x) )$ lo visualizamos con una gráfica:
 \end{figure}
 \end{frame}
 
+\section{Polinomios de Taylor}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Su uso en cómputo}
 
 
-% \begin{frame}
-% \frametitle{Convergencia}
-% \begin{itemize}
-% \item  Significa que la solución numérica converge hacia la solución exacta cuando el tamaño de la malla $h$ tiene a cero, o el número de truncación $N$ tiende al infinito.
-% \end{itemize}
-% \end{frame}
-% \section{Errores en los métodos numéricos}
-% \frame{\tableofcontents[currentsection, hideothersubsections]}
-% \subsection{Tipos de errores}
-% \begin{frame}
-% \frametitle{Tipos de errores en los métodos numéricos}
-% \begin{itemize}[<+->]
-% \item \textcolor{brown}{Truncamiento}: se debe a las aproximaciones utilizadas en la fórmula
-% matemática del modelo.
-% \item \textcolor{orange}{Redondeo}: se asocia al hecho de que la representación de un número en la computadora se hace con un conjunto limitado de dígitos.
-% \end{itemize}
-% \end{frame}
-% \subsection{Series de Taylor}
-% \begin{frame}
-% \frametitle{Series de Taylor}
-% \begin{itemize}[<+->]
-% \item Las soluciones numéricas son en su mayoría, aproximaciones de las soluciones exactas.
-% \item Gran parte de los métodos numéricos se basan en la aproximación de funciones por medio de polinomios.
-% \end{itemize}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Series de Taylor}
-% El desarrollo de Taylor es una serie infinita de potencias, representa de manera exacta a una función dentro de un cierto radio alrededor de un punto dado.
-% \\
-% \medskip
-% Al comparar el desarrollo polinomial de la solución numérica con la serie de Taylor de la solución exacta, es posible evaluar el error, conocido como error de \textcolor{blue}{truncamiento}.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Serie de Taylor truncada}
-% Si se ignoran todos los términos de la serie de Taylor, excepto algunos cuantos, se puede obtener un polinomio que se aproxime a la función verdadera.
-% \\
-% \medskip
-% A éste polinomio se le llama \textit{serie de Taylor truncado} y se usa como punto de partida para obtener métodos numéricos.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Definición de Serie de Taylor}
-% Una función $f(x)$ es analítica en $x=a$ si $f(x)$ se puede representar por medio de una serie de potencias en términos de $h = x-a$ dentro de un radio de convergencia $D > |x-a|> 0$.
-% \\
-% \bigskip
-% \pause
-% Una condición necesaria para que una función sea analítica es que todas sus derivadas sean continuas tanto en $x=a$ como en alguna vecindad alrededor de ese punto.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Punto analítico}
-% Un punto en donde una función $f(x)$ no es analítica recibe el nombre de \emph{punto singular}. 
-% \\
-% \medskip
-% \pause
-% Si $f(x)$ es diferenciable en todas las partes de la vecindad de $x_{0}$, excepto en $x_{0}$ , entonces $x_{0}$ es un punto singular.
-% \\
-% \medskip
-% Los polinomios son analíticos en todas partes.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Serie para una función análitica}
-% Si $f$ es analítica alrededor de $x = a$, se puede representar $f(x$) de manera exacta en la
-% vecindad de $x = a$ por medio de una serie de Taylor, dada por:
-% %\fontsize{14}{14}\selectfont
-% \begin{align*}
-% f(x) = f(a) + h \: f^{\prime}(a) &+ \dfrac{h^{2}}{2} \: f^{\prime \prime}(a) + \dfrac{h^{3}}{6} \: f^{\prime \prime \prime}(a) + \ldots \\
-% &+ \ldots + \dfrac{h^{m}}{m!} \: f^{m}(a) + \ldots
-% \end{align*}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Unicidad de la serie}
-% La serie de Taylor es única, esto quiere decir que no existe otra serie de potencias en $h = x-a$ para representar $f(x)$
-% \\
-% \bigskip
-% El desarrollo de Taylor de una función alrededor de $x = 0$ recibe el nombre de serie de Maclaurin.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Truncamiento necesario}
-% En aplicaciones prácticas, se debe de truncar la serie de Taylor después cierto orden, ya que es imposible incluir un número infinito de términos. Si la serie se trunca después del término $N$, se expresa por:
-% \begin{align*}
-% f(x) &= f(a) + h \, f^{\prime}(a) + \dfrac{h^{2}}{2} f^{\prime \prime}(a) + \dfrac{h^{3}}{6} \,f^{\prime \prime \prime}(a) + \ldots \\
-% &= + \ldots + \dfrac{h^{N}}{N!} f^{N}(a) + O(h^{N+1}) 
-% \end{align*}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Truncamiento necesario}
-% \begin{align*}
-% f(x) &= f(a) + h \, f^{\prime}(a) + \dfrac{h^{2}}{2} f^{\prime \prime}(a) + \dfrac{h^{3}}{6} \,f^{\prime \prime \prime}(a) + \ldots \\
-% &= + \ldots + \dfrac{h^{N}}{N!} f^{N}(a) + O(h^{N+1}) 
-% \end{align*}
-% Donde $h=x-a$ y $O(h^{N+1})$ representa el error por el truncamiento de los términos de orden $N+1$
-% \end{frame}
-% \begin{frame}
-% \frametitle{Error por el truncamiento}
-% El error global se puede representar como:
-% \[O(h^{N+1}) = f^{N+1}(a + \xi h) \dfrac{h^{N+1}}{(N+1)!} \hspace{1cm} 0 \leq \xi \leq 1\]
-% Dado que $\xi$ no puede calcularse con exactitud, se aproxima el término del error, haciendo $\xi = 0$
-% \[ O(h^{N+1}) \simeq f^{N+1}(a) \dfrac{h^{N+1}}{(N+1)!}\]
-% \end{frame}
-% \begin{frame}
-% \frametitle{Error por el truncamiento}
-% Si $N=1$ la serie de Taylor truncada es:
-% \begin{align*}
-% f(x) \simeq f(a) + f^{\prime} (a) h \hspace{1cm} h=x-a
-% \end{align*}
-% incluyendo el efecto del error, tenemos que
-% \begin{align*}
-% f(x) \simeq f(a) + f^{\prime}(a) h + O(h^{2})
-% \end{align*}
-% donde
-% \begin{align*}
-% O(h^{2}) \simeq f^{\prime \prime}(a + \xi \, h) \dfrac{h^{2}}{2} \hspace{1cm} 0 \leq \xi \leq 1
-% \end{align*}
-% \end{frame}
-% % \begin{frame}
-% % \frametitle{Redondeo con \python.}
-% % \renewcommand*{\arraystretch}{2.5}
-% % \begin{center}
-% % \captionof{table}{Funciones matemáticas intrínsecas}.
-% % \begin{table}{| l | l |}
-% % \hline
-% % Función & Resultado \\ \hline
-% % \endhead
-% % \texttt{ceil (x)} & Redondea al valor entero mayor más cercano a $x$ \\ \hline
-% % \texttt{floor (x)} & Redondea al valor entero menor más cercano a $x$ \\ \hline
-% % \texttt{round (x [, n])} &  Devuelve el valor de $x$ redondeado a $n$ dígitos desde el punto decimal. \\ \hline
-% % \end{table}
-% % \end{center}
-% % \end{frame}
-% \begin{frame}[allowframebreaks, fragile]
-% \frametitle{Ejemplo con código}
-% \begin{lstlisting}[style=codigopython]
-% from math import ceil, floor, pi
+\begin{frame}
+\frametitle{Los polinomios de Taylor}
+\begin{itemize}[<+->]
+\item[\ding{212}] Las soluciones numéricas son en su mayoría, aproximaciones de las soluciones exactas.
+\item[\ding{212}] Gran parte de los métodos numéricos se basan en la aproximación de funciones por medio de polinomios.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Los polinomios de Taylor}
+Estos polinomios de Taylor se ocupan para aproximar funciones trascendentes para las cuales no existe una expresión explícita calculable en una cantidad finita de pasos.
+\\
+\bigskip
+\pause
+Tales como: \pause aquéllas con radicales o funciones trigonométricas.
+\end{frame}
+\begin{frame}
+\frametitle{Otros polinomios}
+De la matemática conocemos otros tipos de polinomios: \pause \textit{de las funciones especiales}: Chebyshev, Legendre, Laguerre, Hermite, etc.
+\\
+\bigskip
+\pause
+Preo los polinomios de Taylor son los más utilizados.
+\end{frame}
+\begin{frame}
+\frametitle{Los polinomios de Taylor}
+El polinomio de Taylor es una serie infinita de potencias que representa de manera \enquote{exacta} a una función dentro de un cierto radio alrededor de un punto dado.
+\\
+\bigskip
+\pause
+Al comparar el desarrollo polinomial de la solución numérica con el poloinomio de Taylor de la solución exacta, \pause es posible evaluar el error, conocido como error de \textcolor{blue}{truncamiento}.
+\end{frame}
+\begin{frame}
+\frametitle{Polinomio de Taylor truncado}
+Si se ignoran todos los términos del polinomio de Taylor, excepto algunos cuantos, se puede obtener un polinomio que se aproxime a la función verdadera.
+\\
+\bigskip
+\pause
+A éste polinomio se le llama \textit{polinomio de Taylor truncado} y se usa como punto de partida para obtener métodos numéricos.
+\end{frame}
+\begin{frame}
+\frametitle{El polinomio de Taylor}
+Si se conoce el valor de una función $f$ continua en un punto $x^{*}$ y $f$ es infinitamente diferenciable en una vecindad de $x^{*}$, \pause entonces podemos aproximar a $f$ en valores vecinos a $x^{*}$ con una \emph{serie de Taylor}:
+\pause
+\begin{align*}
+f (x) = f (x^{*}) + h \, \pderivada{f} (x^{*}) &+ \dfrac{h^{2}}{2} \, \sderivada{f} (x^{*}) + \dfrac{h^{3}}{3!} \: \tderivada{f} (x^{*}) + \ldots
+\end{align*}
+con $h = x - x^{*}$
+\end{frame}
+\begin{frame}
+\frametitle{Términos pequeños}
+Los términos son cada vez más insignificantes debido al factorial en el denominador, \pause truncando la serie cuando se obtiene una aproximación aceptable.
+\end{frame}
+\begin{frame}
+\frametitle{Polinomio truncado}
+Al truncar el polinomio es posible agregar un término que represente el \emph{error de truncamiento}:
+\pause
+\begin{align*}
+f (x) = f (x^{*}) + h \, \pderivada{f} (x^{*}) &+ \dfrac{h^{2}}{2} \, \sderivada{f} (x^{*}) +  \ldots + \dfrac{h^{n}}{n!} \, \nderivada{f}{n} (\xi)
+\end{align*}
+donde $\xi \in (x^{*} - h, x^{*} + h)$. \pause El último término se conoce como \textoazul{el residuo}.
+\end{frame}
+\begin{frame}
+\frametitle{El residuo}
+El residuo también se presenta como:
+\pause
+\begin{align*}
+f (x) = f (x^{*}) + h \, \pderivada{f} (x^{*}) &+ \dfrac{h^{2}}{2} \, \sderivada{f} (x^{*}) +  \ldots + \order{h^{n}}
+\end{align*}	
+\end{frame}
 
-% a = 10.4563
+\section{Los números en las computadoras}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Base decimal}
 
-% print('El valor de ceil(', a ,') es: ', ceil(a))
+\begin{frame}
+\frametitle{Representación en una computadora}
+Antes de lanzarnos a la revisión de estrategias de solución para un problema real, se requiere entender las limitaciones que tendremos para representar los números en una computadora.
+\end{frame}
+\begin{frame}
+\frametitle{De lo continuo a la discreto}
+Hemos recibido una formación matemática en donde lo común es pensar en intervalos continuos.
+\\
+\bigskip
+\pause
+Donde hemos logrado demostrar que existe un conjunto infinito de valores dentro de un intervalo finito.
+\end{frame}
+\begin{frame}
+\frametitle{De lo continuo a lo discreto}
+Pero en la práctica con las computadoras, no podremos representar esa continuidad.
+\\
+\bigskip
+\pause
+Tendremos que \enquote{truncar} nuestra representación, ya que el hardware que usamos no nos permite contar con esa propiedad de continuidad.
+\end{frame}
+\begin{frame}
+\frametitle{Base decimal}
+El valor decimal de un número de base $r$ es:
+\begin{align*}
+(a \, b \, c \, d \, e \, f \, g.h \, i \, j \, k)_{r}
+\end{align*}
+\pause
+que se calcula como:
+\pause
+\begin{align*}
+a \, r^{6} + b \, r^{5} + c \, r^{4} + d \, r^{3} + e \, r^{2} + f \, r + g + {} \\
+{} + h \, r^{-1} + i \, r^{-2} + j \, r^{-3} + k \, r^{-4}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Un número real en la computadora}
+La menor y mayor magnitud de un número real que se pueden representar en una computadora, varían de acuerdo con el diseño tanto de hardware como de software.
+\\
+\bigskip
+\pause
+Los números reales en una computadora no son continuos. \pause Si nos fijamos en número cercano a cero, el número positivo más pequeño en una IBM es $\num{2.9d-39}$
+\end{frame}
+\begin{frame}
+\frametitle{Un número real en la computadora}
+Por tanto, no se pueden representar números entre $0$ y $\num{2.9d-39}$.
+\\
+\bigskip
+\pause
+A éste intervalo se le conoce como \textcolor{blue}{épsilon de la máquina}.
+\end{frame}
 
-% print('El valor de floor(', a ,') es: ', floor(a))
+\subsection{Epsilon de la máquina}
 
-% % print('El valor de round(', a ,') es: ', round(a,3))
+\begin{frame}
+\frametitle{Epsilon de la máquina}
+Hay dos maneras de definir el épsilon de la máquina:
+\setbeamercolor{item projected}{bg=blue,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Con \textcolor{red}{un épsilon absoluto}.
+\item Con un \textcolor{blue}{épsilon relativo}.
+\end{enumerate}
+\pause 
+El segundo es el más usado, ya que el conjunto de números en la computadora es finito.
+\end{frame}
+\begin{frame}
+\frametitle{Epsilon relativo de la máquina}
+Definición de épsilon relativo:
+\pause
+\begin{align*}
+\varepsilon_{\text{rel}} = \varepsilon = \min[ t > 0 : 1 + t > 1]
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Epsilon absoluto de la máquina}
+El épsilon absoluto se define comparando con cero:
+\pause
+\begin{align*}
+\varepsilon_{\text{abs}} = \min[t > 0 : t \neq 0]
+\end{align*}
+\pause
+\textcolor{blue}{Nota: } En realidad el épsilon depende de la máquina pero también del sistema operativo, del compilador y del tipo de números utilizados.
+\end{frame}
+\begin{frame}
+\frametitle{Números reales en un computadora}
+Para una computadora IBM PC tenemos:
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.75]{Imagenes/epsilonmaquina.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Pensemos cómo calcular el épsilon relativo}
+Una manera sencilla de calcular el épsilon relativo del equipo que estamos usando, es reducir a la mitad un intervalo inicial, hasta cierto punto.
+\\
+\bigskip
+\pause
+Dividimos la unidad a la mitad,  \pause luego volvemos a dividir a la mitad.
+\end{frame}
+\begin{frame}
+\frametitle{Pensemos cómo calcular el épsilon relativo}
+\begin{figure}
+	\begin{tikzpicture}
+		\only<1>{\node (Label1) at (6, 1.5) {Tomamos el valor de $1$};}
 
-% print('El valor de round(', pi ,',3) es: ', round(pi,3))
-% \end{lstlisting}
-% \end{frame}
-% \section{Los números en las computadoras}
-% \frame{\tableofcontents[currentsection, hideothersubsections]}
-% \subsection{Base decimal}
-% \begin{frame}
-% \frametitle{Representación en una computadora}
-% Antes de lanzarnos a la revisión de estrategias de solución para un problema real, se requiere entender las limitaciones que tendremos para representar los números en una computadora.
-% \end{frame}
-% \begin{frame}
-% \frametitle{De lo continuo a la discreto}
-% Hemos recibido una formación matemática en donde lo común es pensar en intervalos continuos.
-% \\
-% \bigskip
-% \pause
-% Donde hemos logrado demostrar que existe un conjunto infinito de valores dentro de un intervalo finito.
-% \end{frame}
-% \begin{frame}
-% \frametitle{De lo continuo a lo discreto}
-% Pero en la práctica con las computadoras, no podremos representar esa continuidad.
-% \\
-% \bigskip
-% \pause
-% Tendremos que \enquote{truncar} nuestra representación, ya que el hardware que usamos no nos permite contar con esa propiedad de continuidad.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Base decimal}
-% El valor decimal de un número de base $r$ es
-% \[(abcdefg.hijk)_{r}\]
-% que se calcula como:
-% \begin{eqnarray*}
-% ar^{6} + br^{5} + cr^{4} + dr^{3} + er^{2} + fr +
-%  g + {} \\
-% {} + hr^{-1} + ir^{-2} + jr^{-3} + kr^{-4}
-% \end{eqnarray*}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Un número real en la computadora}
-% La menor y mayor magnitud de un número real que se pueden representar en una computadora, varían de acuerdo con el diseño tanto de hardware como de software.
-% \\
-% \bigskip
-% Los números reales en una computadora no son continuos. Si nos fijamos en número cercano a cero, el número positivo más pequeño en una IBM es $2.9 \times 10^{-39}$
-% \end{frame}
-% \begin{frame}
-% \frametitle{Un número real en la computadora}
-% Por tanto, no se pueden representar números entre $0$ y $2.9 \times 10^{-39}$ 
-% \\
-% \bigskip
-% A éste intervalo se le conoce como \textcolor{blue}{épsilon de la máquina}.
-% \end{frame}
-% \subsection{Epsilon de la máquina}
-% \begin{frame}
-% \frametitle{Epsilon de la máquina}
-% Hay dos maneras de definir el épsilon de la máquina: \textcolor{red}{un épsilon absoluto} y un \textcolor{blue}{épsilon relativo}.
-% \\
-% \bigskip
-% Este último es el más usado, ya que el conjunto de números en la computadora es finito.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Epsilon relativo de la máquina}
-% Definición de épsilon relativo:
-% \[ \epsilon_{maq} = \epsilon = \min[t>0 : 1+t>1 ] \]
-% \end{frame}
-% \begin{frame}
-% \frametitle{Epsilon absoluto de la máquina}
-% El épsilon absoluto se define comparando con cero:
-% \[ \epsilon_{abs} = \min[t>0 : t \neq 0] \]
-% \textcolor{blue}{En realidad el épsilon depende de la máquina pero también del sistema operativo, del compilador y del tipo de números utilizados.}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Números reales en un computadora}
-% Para una computadora IBM PC tenemos:
-% \fontsize{10}{10}\selectfont
-% \begin{figure}
-% \centering
-% \includegraphics[scale=0.8]{epsilonmaquina.eps}
-% \end{figure}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Calculemos el épsilon con \python}
-% Una manera sencilla de calcular el épsilon del equipo que estamos usando, es reducir a la mitad un intervalo inicial, hasta cierto punto.
-% \\
-% \bigskip
-% \pause
-% Empecemos dividiendo a la mitad la unidad.
-% \begin{figure}
-% \centering
-% \includegraphics[scale=1]{epsilonmaquina_02.eps}
-% \end{figure}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Calculemos el epsilón con \python}
-% \begin{lstlisting}[caption=Código para el épsilon, style=codigopython]
-% t = 1.0;
-% while 1+t != 1:
-%   eps = t
-%   t = t/2
-% print ('el epsilon de la maquina es: ', eps)
-% \end{lstlisting}
-% \end{frame}
+		\draw (0, 0) rectangle (6, 0.5);
+		\draw [<->] (0, -2) -- (6, -2);
+		\draw (0, -1.9) -- (0, -2.1);
+		\draw (6, -1.9) -- (6, -2.1);
+		\draw [color=red] (5, -1.7) node {$1$};
+			
+		\pause
+		
+		\only<2>{\node (Label2) at (5, 1.5) {Dividimos a la mitad esta unidad};}
+		
+		\draw (0, -0.1) rectangle (3, -0.6);
+		\draw [dashed] (3,-0.6) -- (3, -2.4);
+		\draw [<->] (0, -2.4) -- (3, -2.4);
+		\draw [color=red] (2.7, -1.7) node {$\frac{1}{2}$};
+		
+		\pause
+
+		\only<3>{\node (Label2) at (5, 1.5) {Nuevamente dividimos a la mitad};}
+
+		\draw (0, -0.7) rectangle (1.5, -1.2);
+		\draw [dashed] (1.5, -1.2) -- (1.5, -2.8);
+		\draw [<->] (0, -2.8) -- (1.5, -2.8);
+		\draw [color=red] (1.3, -1.7) node {$\frac{1}{4}$};
+		
+		\pause
+
+		\only<4>{\node (Label3) at (5, 1.5) {Volvemos a dividir a la mitad};}
+
+		\draw (0, -1.3) rectangle (0.75, -1.8);
+		\draw [dashed] (0.75, -1.8) -- (0.75, -3.2);	
+		\draw [<->] (0, -3.2) -- (0.75, -3.2);
+		\draw [color=red] (0.5, -3.5) node {$\frac{1}{8}$};
+
+		\pause
+		
+		\only<5>{\node (Label4) at (5, 1.5) {Seguimos dividiendo a la mitad ...};}
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Pasando al código}
+Una vez que nos hemos hecho a la idea del procedimiento a seguir, \pause ya podemos proponer una serie de pasos para obtener el valor del \emph{épsilon relativo de la máquina}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Calculemos el épsilon con \python}
+\begin{lstlisting}[caption=Código para el épsilon]
+t = 1.0
+
+while 1 + t != 1: |\pause|
+  eps = t |\pause|
+  t = t/2 |\pause|
+
+print('El epsilon de la maquina es: {0:}'.format(eps))
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{¿Cómo obtener los valores mínimo y máximo?}
+Por curiosidad podemos revisar cuáles son los números más pequeño y más grande para los tipos de datos entero y de punto flotante que podemos representar en una computadora.
+\\
+\bigskip
+\pause
+Al igual que en el ejemplo anterior, ocupar inicialmente un bucle sería buena idea, pero veamos algunas funciones útiles en \python.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Usando una librería y funciones}
+\begin{lstlisting}[caption=Obteniendo valores mínimo y máximo]
+import sys
+
+i = sys.maxsize
+print(i)
+
+f1 = sys.float_info.max
+print(f1)
+
+f2 = sys.float_info.min
+print(f2)
+
+eps2 = sys.float_info.epsilon
+print(eps2)
+\end{lstlisting}
+\end{frame}
 % % % \begin{frame}
 % % % \frametitle{Error de truncamiento}
 % % % Se originan al emplear al número finito de términos para calcular un valor que requiere un número infinito de términos.
