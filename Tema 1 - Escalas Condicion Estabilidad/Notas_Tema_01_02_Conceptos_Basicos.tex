@@ -15,333 +15,671 @@
 \section*{Contenido}
 \frame[allowframebreaks]{\frametitle{Contenido} \tableofcontents[currentsection, hideallsubsections]}
 
-\section{Números en la computadora}
+\section{Más conceptos importantes}
 \frame{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{Los números en la computadora}
+\subsection{Condición}
 
 \begin{frame}
-\frametitle{Los números en la computadora}
-Las computadoras son herramientas muy poderosas, pero tienen un alcance finito.
-\\
-\bigskip
-\pause
-Un problema que se presenta en el diseño de computadora es cómo representar un número arbitrario usando una cantidad finita de espacio de memoria y cómo tratar con las limitaciones que surgen de esta representación.
-\end{frame}
-\begin{frame}
-\frametitle{Los números en la computadora}
-Como consecuencia de que las memorias de la computadora se basan en un estado de magnetización o electrónico de un giro que apunta hacia arriba o hacia abajo, las unidades más elementales de memoria de la computadora son los dos enteros binarios (bits) $0$ y $1$.
-\end{frame}
-\begin{frame}
-\frametitle{Los números en la computadora}
-Esto significa que la forma en que se almacenan los números en memoria, es como cadenas largas de ceros y unos, es decir, de modo binario.
-\end{frame}
-
-\subsection{Rango de operación}
-
-\begin{frame}
-\frametitle{Rango de representación}
-De esta manera: $N$ bits almacena números enteros en el rango $[0, 2^{N}]$, pero debido a que el signo del número entero está representado por el primer bit (un bit cero para números positivos), el rango real disminuye a:
+\frametitle{Condición}
+La condición (\emph{condicionamiento}) de una función $f(x)$ mide la sensibilidad de los valores de $f(x)$ a pequeños
+cambios de $x$, se define como:
 \pause
 \begin{align*}
-\big[ 0, 2^{N- 1} \big]
+C = \abs{ \dfrac{E_{\text{rel}} \, (f (x))}{E_{_\text{rel}} (x)} }
 \end{align*}
 \end{frame}
 \begin{frame}
-\frametitle{Otras bases de operación}
-La representación binaria de números a través de ceros y unos, funciona y opera bien para las computadoras, pero no para los usuarios.
-\\
-\bigskip
+\frametitle{Definición de condición}
+Del teorema del valor medio en cálculo, podemos expresar:
 \pause
-Es por ello que las cadenas binarias se convierten en números octal, decimal o hexadecimal antes de que los resultados se presenten a los usuarios.
-\end{frame}
-\begin{frame}
-\frametitle{Otras bases de operación}
-Los números octales y hexadecimales son también oportunos porque en la conversión no se pierde precisión.
-\\
-\bigskip
-\pause
-Pero no todo queda bien ya que nuestras reglas decimales de aritmética no funcionan para ellos.
-\end{frame}
-
-\subsection{Aritmética binaria}
-
-\begin{frame}
-\frametitle{Desventaja de la aritmética binaria}
-La conversión a números decimales hace que los números sean más fáciles de trabajar, pero a menos que el número sea una potencia de $2$, el proceso conduce a una disminución en la precisión.
-\end{frame}
-\begin{frame}
-\frametitle{Longitud de palabra}
-Una descripción de un sistema informático particular indica normalmente la \emph{longitud de la palabra}, siendo el número de bits utilizados para almacenar un número.
-\\
-\bigskip
-\pause
-La longitud se expresa en bytes, donde:
-\pause
-\begin{align*}
-1 \text{ byte} \equiv 1 \text{ B} \equiv 8 \: \si{\bit}
-\end{align*}
-\end{frame}
-
-\subsection{Unidades de medida}
-
-\begin{frame}
-\frametitle{Unidades de medida}
-Tanto la memoria como el almacenamiento se mide en bytes, kilobytes, megabytes, gigabytes, terabytes y petabytes $(\num{10d15})$.
-\\
-\bigskip
-\pause
-No debemos de confundirnos al elegir las unidades de medida, ya que el prefijo \emph{kilo}, no siempre equivale a $1000$
-\pause
-\begin{align*}
-1 \: \si{\kilo} =   1 \: \si{\kilo \byte} = \num{2d10} \, \si{\byte} = 1024 \: \si{byte}
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Unidades de medida}
-La memoria de las primeras computadoras usaban palabras de $8$ bits, esto implicaba que el mayor entero era $2^{7} = 128$, ($7$ debido a $1$ bit para el signo).
-\end{frame}
-\begin{frame}
-\frametitle{Overflow y underflow}
-Si queríamos almacenar un número más grande, tanto el hardware como el software se diseñaban para generar un \textoazul{desbordamiento (overflow)}.
-\\
-\bigskip
-\pause
-Se genera un \textoazul{underflow} cuando queremos representar un número más pequeño del que se puede en el equipo.
-\end{frame}
-\begin{frame}
-\frametitle{Errores de almacenamiento: overflow}
-Los números de máquina tienen un máximo y un mínimo.
-\\
-\bigskip
-Si se supera el máximo, se produce una condición de error conocida como \textoazul{desbordamiento -overflow-}.
-\begin{figure}
-\centering
-\includestandalone[scale=0.75]{Figuras/over_underflow}
-\end{figure}
-\end{frame}
-\begin{frame}
-\frametitle{Errores de almacenamiento: underflow}
-\begin{figure}
-\centering
-\includestandalone[scale=0.75]{Figuras/over_underflow}
-\end{figure}
-Si se cae por debajo del mínimo, se produce una condición de error conocida como \textoazul{subflujo -underflow-}.
-\end{frame}
-\begin{frame}
-\frametitle{Manejo del overflow y del underflow}
-En este último caso, el software y el hardware se pueden configurar para que los overflow se pongan a cero sin que se le avise al usuario.
-\\
-\bigskip
-\pause
-En contraste, los overflow suelen detener la ejecución.
-\end{frame}
-\begin{frame}
-\frametitle{Alcance de 64 bits}
-Usando $64$ bits, se permiten enteros en el rango $1 - 2^{63} \simeq \num{1d19}$.
-\\
-\bigskip
-\pause
-Que podría en apariencia ser una rango mucho más grande, pero no lo es cuando se compara con el rango de escalas que tenemos en el mundo real: del radio del universo al radio de un protón, tenemos aproximadamente $\num{1d41}$ órdenes de magnitud.
-\end{frame}
-
-\section{Estándar IIIE 754}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{Representación en la computadora}
-
-\begin{frame}
-\frametitle{Tipos de notación}
-Los números reales se representan en computadoras en notación de punto fijo o punto flotante.
-\\
-\bigskip
-\pause
-La notación de punto fijo se puede utilizar para números con un número fijo de lugares luego del punto decimal (raíz) o para números enteros.
-\end{frame}
-\begin{frame}
-\frametitle{Tipos de notación}
-Tiene como ventaja que se utiliza la aritmética complementaria de dos y por tanto, almacenar enteros exactamente.
-\end{frame}
-
-\subsection{Números de punto fijo}
-
-\begin{frame}
-\frametitle{Números de punto fijo}
-En la representación de punto fijo con $N$ bits y con un formato de complemento de dos, un número se representa como
-\begin{align}
+\begin{eqnarray*}
 \begin{aligned}
-N_{\text{fijo}} = \text{signo} \times (\alpha_{n} \: 2^{n} &+ \alpha_{n-1} \: 2^{n-1} + \ldots + \\
-&+ \alpha_{0} \: 2^{0} + \ldots + \alpha_{-m} \: 2^{-m} )
-\label{eq:ecuacion_01_01}
+f (x_{T}) - f (x_{A})  &\approx \pderivada{f} (x_{T}) \, (x_{T} - x_{A}) \\ \pause
+\rightarrow E_{\text{rel}} (f (x)) &\approx \dfrac{ \pderivada{f} (x_{T})}{ f(x_{T})} (x_{T} - x_{A})
 \end{aligned}
-\end{align}
-donde $n + m = N - 2$.
+\end{eqnarray*}
+luego entonces:
+\pause
+\begin{align*}
+C \approx \abs{ x_{T} \dfrac{\pderivada{f} (x_{T})}{f (x_{T})} }
+\end{align*}
 \end{frame}
 \begin{frame}
-\frametitle{Números de punto fijo}
-Es decir, $1$ bit se utiliza para almacenar el signo, con los restantes $(N - 1)$ bits se usan para almacenar los $\alpha_{i}$ valores (se entienden las potencias de 2).
+\frametitle{Definición de condición}
+Se utilizará a $C$ como definición de condición para funciones $f (x)$ de una variable real.
 \\
 \bigskip
 \pause
-Los valores particulares para $N$, $m$ y $n$ son dependientes de la máquina.
-\end{frame}
-\begin{frame}
-\frametitle{Rango de los enteros}
-Los enteros se representan típicamente con $4$ bytes ($32$ bits) de longitud, en el rango:
+Entonces el número de condición será:
 \pause
 \begin{align*}
--2147483648 \leq 4 - \text{B entero} \leq 2147483647
+C = \abs{ x \, \dfrac{\pderivada{f} (x)}{f (x)} }
 \end{align*}
 \end{frame}
 \begin{frame}
-\frametitle{Ventaja de la representación}
-Una ventaja de la representación (\ref{eq:ecuacion_01_01}) es que se puede contar con todos los números de punto fijo para tener el mismo error absoluto de $2^{-m-1}$ (el término se deja fuera del extremo derecho de (\ref{eq:ecuacion_01_01}).
+\frametitle{Valores del número de condición}
+\setbeamercolor{item projected}{bg=red,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Para un $x$ dado $0 < C (x) < 1$ se dirá que \emph{el problema está bien condicionado}, \pause y cuanto menor sea $C$, mejor condicionado. \pause
+\item Si $C (x) > 1$, el problema estará mal condicionado.
+\item Si $C (x) = 1$, el error relativo se mantiene.
+\end{enumerate}
 \end{frame}
 \begin{frame}
-\frametitle{Desventaja de la representación}
- La correspondiente desventaja es que los números pequeños (aquellos para los cuales la primera cadena de valores de $\alpha$ son ceros) tienen grandes errores relativos.
- \end{frame}
- \begin{frame}
- \frametitle{Utilidad de los enteros}
- Dado que en el mundo real \textcolor{red}{los errores relativos tienden a ser más importantes que los absolutos}, los números enteros se utilizan principalmente para fines de conteo y en aplicaciones especiales.
-\end{frame}
-
-% \subsection{Números de punto flotante}
-\begin{frame}
-\frametitle{Números de punto flotante}
-En la mayoría de los cálculos científicos se utilizan números de punto flotante de doble precisión ($64$ bits = $8$ bytes).
-\\
-\bigskip
+\frametitle{Ejemplos}
+¿Las siguientes funciones están bien condicionadas?
 \pause
-La representación en las computadoras de números en punto flotante de números es una versión binaria de lo que comúnmente se conoce como notación científica.
+\setbeamercolor{item projected}{bg=cadetblue,fg=amber}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item $f (x) = \sqrt{x} \hspace{1.5cm} C (x) = ?$
+\item $g (x) = x^{2} - 1 \hspace{1.5cm} C (x) = ?$
+\end{enumerate}
 \end{frame}
 \begin{frame}
-\frametitle{Notación científica}
-Por ejemplo, la velocidad de la luz en notación científica es:
+\frametitle{Los números de condición}
+Haciendo las cuentas tendremos que para las funciones:
 \pause
 \begin{align*}
-c = + \num{2.99792458e8} \si{\meter\per\second}
-\end{align*}
-\pause
-mientras que en notación de ingeniería:
-\pause
-\begin{align*}
-+ \num{	0.299792458e9} \si{\meter\per\second} \text{ ó } \num{0.299795498E9} \si{\meter\per\second} 
+C (f (x) ) = \dfrac{1}{2} \hspace{0.75cm} &\Rightarrow 0 < C (f (x) ) < 1 \\
+\therefore \quad &\text{Problema bien condicionado}
 \end{align*}
 \end{frame}
 \begin{frame}
-\frametitle{Notación científica}
-\begin{align*}
-c = + \num{2.99792458e8} \si{\meter\per\second}
-\end{align*}
-En cada uno de estos casos, el número al frente se denomina \azulfuerte{mantisa} y contiene nueve cifras significativas.
-\\
-\bigskip
+\frametitle{Los números de condición}
+El $C (g (x) )$ lo visualizamos con una gráfica:
 \pause
-La potencia $10$ a la que se eleva se llama \azulfuerte{exponente}, con el signo más ($+$) incluido, como recordatorio de que estos números pueden ser negativos.
-\end{frame}
-\begin{frame}
-\frametitle{Almacenamiento}
-Los números de punto flotante se almacenan en la computadora como una concatenación del bit de signo, el exponente y la mantisa.
-\end{frame}
-\begin{frame}
-\frametitle{Almacenamiento}
-Debido a que sólo se almacena un número finito de bits, el conjunto de números de punto flotante que el equipo puede almacenar exactamente, es decir, el conjunto de \azulfuerte{números de máquina}, es mucho menor que el conjunto de los números reales.
-\end{frame}
-\begin{frame}
-\frametitle{Valor en memoria}
-La relación real entre lo que se almacena en la memoria y el valor de un número de punto flotante es algo indirecta, habiendo un número de casos especiales y relaciones utilizadas a lo largo de los años.
-\end{frame}
-\begin{frame}
-\frametitle{Valor en memoria}
-En el pasado, cada sistema operativo de computadora y cada lenguaje de programación contenían sus propios estándares para números de punto flotante.
-\end{frame}
-\begin{frame}
-\frametitle{Valor en memoria}
-El que haya diferentes normas implica que el mismo programa que se ejecuta correctamente en un equipo, podría dar resultados diferentes cuando se utilice en otros equipos con configuración distinta.
-\end{frame}
-\begin{frame}
-\frametitle{Valor en memoria}
-A pesar de que los resultados eran sólo ligeramente diferentes, el usuario nunca podría estar seguro de si la falta de reproducibilidad de un caso de prueba se debía a la computadora particular que se está utilizando o a un error en la implementación del programa.
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.85]{Imagenes/Condicion_02.eps}
+\end{figure}
 \end{frame}
 
-\subsection{Estándar IEEE 754}
+\section{Polinomios de Taylor}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Su uso en cómputo}
+
 
 \begin{frame}
-\frametitle{Estándar IEEE 754}
-En 1987, el Instituto de Ingenieros Eléctricos y Electrónicos (IEEE) y el American National Standards Institute (ANSI) adoptaron el estándar \azulfuerte{IEEE 754} para la aritmética de punto flotante.
-\end{frame}
-\begin{frame}
-\frametitle{Estándar IEEE 754}
-Cuando se sigue el estándar, se espera que los tipos de datos primitivos tengan la precisión y los intervalos dados en la siguiente tabla:
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{IEEE 754 para Tipos de Datos Primitivos}
-\begin{table}
-\fontsize{10}{10}\selectfont
-\begin{tabular}{l c c c l}
-\hline
-Nombre & Tipo & Bits & Byte & Rango \\ \hline
-\texttt{boolean} & Lógico & 1 & $\dfrac{1}{8}$ & \texttt{True} o \texttt{False} \\ \hline
-\texttt{char} & String & 16 & 2 & \verb|'u0000'| $\longleftrightarrow$ \verb|'uFFFF'| \\ \hline
-\texttt{byte} & Integer & 8 & 1 & $-128 \longleftrightarrow +127$ \\ \hline
-\texttt{short} & Integer & 16 & 2 & $-32768 \longleftrightarrow +32767$ \\ \hline
-\texttt{int} & Integer & 32 & 4 & checar en tablas \\ \hline
-\texttt{long} & Integer & 64 & 8 & checar en tablas \\ \hline
-\texttt{float} & Floating & 32 & 4 & checar en tablas \\ \hline
-\texttt{double} & Flaoting & 64 & 8 & checar en tablas \\ \hline
-\end{tabular}
-\end{table}
-\end{frame}
-\begin{frame}
-\frametitle{Apego al IEEE 754}
- Cuando las computadoras y el software se apegan a este estándar, está garantizado que un programa producirá resultados idénticos en diferentes equipos.
- \end{frame}
- \begin{frame}
- \frametitle{Apego al IEEE 754}
- En realidad hay una serie de componentes en el estándar IEEE, y diferentes fabricantes de computadoras o procesadores pueden apegarse a sólo algunos de ellos.
- \\
- \bigskip
- \pause
- Además, \python\ puede no seguir a todos a medida que se desarrolla, pero probablemente con el tiempo lo haga.
- \end{frame}
-
- \subsection{Notación de punto flotante}
-
- \begin{frame}
- \frametitle{Notación de punto flotante}
- Normalmente un número de punto flotante $x$ se almacena como:
- \pause
- \begin{align}
- x_{f} = (-1)^{s} \times 1.f \times 2^{e - \text{sesgo}}
-  \label{eq:ecuacion_01_02}
-\end{align}
-esto es, con partes por separado para:
-\pause
- \begin{itemize}[<+->]
- \item[\ding{213}] El signo $s$.
- \item[\ding{213}] La parte fraccional de la mantisa $f$.
- \item[\ding{213}] El valor del exponente $e$.
+\frametitle{Los polinomios de Taylor}
+\begin{itemize}[<+->]
+\item[\ding{212}] Las soluciones numéricas son en su mayoría, aproximaciones de las soluciones exactas.
+\item[\ding{212}] Gran parte de los métodos numéricos se basan en la aproximación de funciones por medio de polinomios.
 \end{itemize}
 \end{frame}
 \begin{frame}
-\frametitle{Almacenamiento en punto flotante}
-Todas las partes se almacenan en forma binaria y ocupan segmentos adyacentes de una sola palabra de $32$ bits o dos palabras adyacentes de $32$ bits para palabras dobles.
+\frametitle{Los polinomios de Taylor}
+Estos polinomios de Taylor se ocupan para aproximar funciones trascendentes para las cuales no existe una expresión explícita calculable en una cantidad finita de pasos.
 \\
 \bigskip
-El signo $s$ se almacena como un solo bit, con $s = 0$ ó $1$ para un signo positivo o negativo.
+\pause
+Tales como: \pause aquéllas con radicales o funciones trigonométricas.
 \end{frame}
 \begin{frame}
-Se usan ocho bits para almacenar el exponente $e$, lo que significa que $e$ puede estar en el rango $0 \leq e \leq 255$.
+\frametitle{Otros polinomios}
+De la matemática conocemos otros tipos de polinomios: \pause \textit{de las funciones especiales}: Chebyshev, Legendre, Laguerre, Hermite, etc.
 \\
 \bigskip
-Los extremos, $e = 0$ y $e = 255$, son casos especiales.
+\pause
+Preo los polinomios de Taylor son los más utilizados.
 \end{frame}
 \begin{frame}
-\frametitle{Casos especiales del estándar IIEEE}
+\frametitle{Los polinomios de Taylor}
+El polinomio de Taylor es una serie infinita de potencias que representa de manera \enquote{exacta} a una función dentro de un cierto radio alrededor de un punto dado.
+\\
+\bigskip
+\pause
+Al comparar el desarrollo polinomial de la solución numérica con el poloinomio de Taylor de la solución exacta, \pause es posible evaluar el error, conocido como error de \textcolor{blue}{truncamiento}.
+\end{frame}
+\begin{frame}
+\frametitle{Polinomio de Taylor truncado}
+Si se ignoran todos los términos del polinomio de Taylor, excepto algunos cuantos, se puede obtener un polinomio que se aproxime a la función verdadera.
+\\
+\bigskip
+\pause
+A éste polinomio se le llama \textit{polinomio de Taylor truncado} y se usa como punto de partida para obtener métodos numéricos.
+\end{frame}
+\begin{frame}
+\frametitle{El polinomio de Taylor}
+Si se conoce el valor de una función $f$ continua en un punto $x^{*}$ y $f$ es infinitamente diferenciable en una vecindad de $x^{*}$, \pause entonces podemos aproximar a $f$ en valores vecinos a $x^{*}$ con una \emph{serie de Taylor}:
+\pause
+\begin{align*}
+f (x) = f (x^{*}) + h \, \pderivada{f} (x^{*}) &+ \dfrac{h^{2}}{2} \, \sderivada{f} (x^{*}) + \dfrac{h^{3}}{3!} \: \tderivada{f} (x^{*}) + \ldots
+\end{align*}
+con $h = x - x^{*}$
+\end{frame}
+\begin{frame}
+\frametitle{Términos pequeños}
+Los términos son cada vez más insignificantes debido al factorial en el denominador, \pause truncando la serie cuando se obtiene una aproximación aceptable.
+\end{frame}
+\begin{frame}
+\frametitle{Polinomio truncado}
+Al truncar el polinomio es posible agregar un término que represente el \emph{error de truncamiento}:
+\pause
+\begin{align*}
+f (x) = f (x^{*}) + h \, \pderivada{f} (x^{*}) &+ \dfrac{h^{2}}{2} \, \sderivada{f} (x^{*}) +  \ldots + \dfrac{h^{n}}{n!} \, \nderivada{f}{n} (\xi)
+\end{align*}
+donde $\xi \in (x^{*} - h, x^{*} + h)$. \pause El último término se conoce como \textoazul{el residuo}.
+\end{frame}
+\begin{frame}
+\frametitle{El residuo}
+El residuo también se presenta como:
+\pause
+\begin{align*}
+f (x) = f (x^{*}) + h \, \pderivada{f} (x^{*}) &+ \dfrac{h^{2}}{2} \, \sderivada{f} (x^{*}) +  \ldots + \order{h^{n}}
+\end{align*}	
+\end{frame}
+
+\section{Los números en las computadoras}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Base decimal}
+
+\begin{frame}
+\frametitle{Representación en una computadora}
+Antes de lanzarnos a la revisión de estrategias de solución para un problema real, se requiere entender las limitaciones que tendremos para representar los números en una computadora.
+\end{frame}
+\begin{frame}
+\frametitle{De lo continuo a la discreto}
+Hemos recibido una formación matemática en donde lo común es pensar en intervalos continuos.
+\\
+\bigskip
+\pause
+Donde hemos logrado demostrar que existe un conjunto infinito de valores dentro de un intervalo finito.
+\end{frame}
+\begin{frame}
+\frametitle{De lo continuo a lo discreto}
+Pero en la práctica con las computadoras, no podremos representar esa continuidad.
+\\
+\bigskip
+\pause
+Tendremos que \enquote{truncar} nuestra representación, ya que el hardware que usamos no nos permite contar con esa propiedad de continuidad.
+\end{frame}
+\begin{frame}
+\frametitle{Base decimal}
+El valor decimal de un número de base $r$ es:
+\begin{align*}
+(a \, b \, c \, d \, e \, f \, g.h \, i \, j \, k)_{r}
+\end{align*}
+\pause
+que se calcula como:
+\pause
+\begin{align*}
+a \, r^{6} + b \, r^{5} + c \, r^{4} + d \, r^{3} + e \, r^{2} + f \, r + g + {} \\
+{} + h \, r^{-1} + i \, r^{-2} + j \, r^{-3} + k \, r^{-4}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Un número real en la computadora}
+La menor y mayor magnitud de un número real que se pueden representar en una computadora, varían de acuerdo con el diseño tanto de hardware como de software.
+\\
+\bigskip
+\pause
+Los números reales en una computadora no son continuos. \pause Si nos fijamos en número cercano a cero, el número positivo más pequeño en una IBM es $\num{2.9d-39}$
+\end{frame}
+\begin{frame}
+\frametitle{Un número real en la computadora}
+Por tanto, no se pueden representar números entre $0$ y $\num{2.9d-39}$.
+\\
+\bigskip
+\pause
+A éste intervalo se le conoce como \textcolor{blue}{épsilon de la máquina}.
+\end{frame}
+
+\subsection{Epsilon de la máquina}
+
+\begin{frame}
+\frametitle{Epsilon de la máquina}
+Hay dos maneras de definir el épsilon de la máquina:
+\setbeamercolor{item projected}{bg=blue,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Con \textcolor{red}{un épsilon absoluto}.
+\item Con un \textcolor{blue}{épsilon relativo}.
+\end{enumerate}
+\pause 
+El segundo es el más usado, ya que el conjunto de números en la computadora es finito.
+\end{frame}
+\begin{frame}
+\frametitle{Epsilon relativo de la máquina}
+Definición de épsilon relativo:
+\pause
+\begin{align*}
+\varepsilon_{\text{rel}} = \varepsilon = \min[ t > 0 : 1 + t > 1]
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Epsilon absoluto de la máquina}
+El épsilon absoluto se define comparando con cero:
+\pause
+\begin{align*}
+\varepsilon_{\text{abs}} = \min[t > 0 : t \neq 0]
+\end{align*}
+\pause
+\textcolor{blue}{Nota: } En realidad el épsilon depende de la máquina pero también del sistema operativo, del compilador y del tipo de números utilizados.
+\end{frame}
+\begin{frame}
+\frametitle{Números reales en un computadora}
+Para una computadora IBM PC tenemos:
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.75]{Imagenes/epsilonmaquina.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Pensemos cómo calcular el épsilon relativo}
+Una manera sencilla de calcular el épsilon relativo del equipo que estamos usando, es reducir a la mitad un intervalo inicial, hasta cierto punto.
+\\
+\bigskip
+\pause
+Dividimos la unidad a la mitad,  \pause luego volvemos a dividir a la mitad.
+\end{frame}
+\begin{frame}
+\frametitle{Pensemos cómo calcular el épsilon relativo}
+\begin{figure}
+	\begin{tikzpicture}
+		\only<1>{\node (Label1) at (6, 1.5) {Tomamos el valor de $1$};}
+
+		\draw (0, 0) rectangle (6, 0.5);
+		\draw [<->] (0, -2) -- (6, -2);
+		\draw (0, -1.9) -- (0, -2.1);
+		\draw (6, -1.9) -- (6, -2.1);
+		\draw [color=red] (5, -1.7) node {$1$};
+			
+		\pause
+		
+		\only<2>{\node (Label2) at (5, 1.5) {Dividimos a la mitad esta unidad};}
+		
+		\draw (0, -0.1) rectangle (3, -0.6);
+		\draw [dashed] (3,-0.6) -- (3, -2.4);
+		\draw [<->] (0, -2.4) -- (3, -2.4);
+		\draw [color=red] (2.7, -1.7) node {$\frac{1}{2}$};
+		
+		\pause
+
+		\only<3>{\node (Label2) at (5, 1.5) {Nuevamente dividimos a la mitad};}
+
+		\draw (0, -0.7) rectangle (1.5, -1.2);
+		\draw [dashed] (1.5, -1.2) -- (1.5, -2.8);
+		\draw [<->] (0, -2.8) -- (1.5, -2.8);
+		\draw [color=red] (1.3, -1.7) node {$\frac{1}{4}$};
+		
+		\pause
+
+		\only<4>{\node (Label3) at (5, 1.5) {Volvemos a dividir a la mitad};}
+
+		\draw (0, -1.3) rectangle (0.75, -1.8);
+		\draw [dashed] (0.75, -1.8) -- (0.75, -3.2);	
+		\draw [<->] (0, -3.2) -- (0.75, -3.2);
+		\draw [color=red] (0.5, -3.5) node {$\frac{1}{8}$};
+
+		\pause
+		
+		\only<5>{\node (Label4) at (5, 1.5) {Seguimos dividiendo a la mitad ...};}
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Pasando al código}
+Una vez que nos hemos hecho a la idea del procedimiento a seguir, \pause ya podemos proponer una serie de pasos para obtener el valor del \emph{épsilon relativo de la máquina}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Calculemos el épsilon con \python}
+\begin{lstlisting}[caption=Código para el épsilon]
+t = 1.0
+
+while 1 + t != 1: |\pause|
+  eps = t |\pause|
+  t = t/2 |\pause|
+
+print('El epsilon de la maquina es: {0:}'.format(eps))
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{¿Cómo obtener los valores mínimo y máximo?}
+Por curiosidad podemos revisar cuáles son los números más pequeño y más grande para los tipos de datos entero y de punto flotante que podemos representar en una computadora.
+\\
+\bigskip
+\pause
+Al igual que en el ejemplo anterior, ocupar inicialmente un bucle sería buena idea, pero veamos algunas funciones útiles en \python.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Usando una librería y funciones}
+\begin{lstlisting}[caption=Obteniendo valores mínimo y máximo]
+import sys
+
+i = sys.maxsize
+print(i)
+
+f1 = sys.float_info.max
+print(f1)
+
+f2 = sys.float_info.min
+print(f2)
+
+eps2 = sys.float_info.epsilon
+print(eps2)
+\end{lstlisting}
+\end{frame}
+
+\section{Punto flotante}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Introducción}
+
+\begin{frame}
+\frametitle{Introducción}
+La aritmética que se realiza en una computadora es distinta a la aritmética que hemos aprendido de los cursos de álgebra o cálculo.
+\end{frame}
+\begin{frame}
+\frametitle{Introducción}
+Pensaríamos que siempre serían verdaderas las siguientes operaciones:
+\pause
+\begin{itemize}
+\item[\ding{213}] $2 + 2 = 4$
+\item[\ding{213}] $4 * 4 = 16$
+\item[\ding{213}] $(\sqrt{3})^{2} = 3$
+\end{itemize}
+Sin embargo, la tercera  operación no siempre se da como la conocemos.
+\end{frame}
+\begin{frame}
+\frametitle{Introducción}
+En nuestro mundo matemático se permiten y se manejan  números expresados con una cantidad infinita de cifras.
+\end{frame}
+\begin{frame}
+\frametitle{Introducción}
+Sin embargo, en el mundo computacional, cada número representable tiene sólo un número finito de cifras. Esto significa que sólo los números enteros y algunos números racionales se pueden presentar con exactitud. 
+\end{frame}
+\begin{frame}
+\frametitle{Introducción}
+Puesto que el número $\sqrt{3}$ no es racional, la computadora le da una representación aproximada, cuyo cuadrado no es $3$, aunque si lo bastante cercano a $3$ para que sea aceptable en la mayor parte de las situaciones.
+\end{frame}
+
+\subsection{Números de punto flotante}
+
+\begin{frame}
+\frametitle{Representación de punto flotante}
+Todos los números deben ser almacenados en la computadora de tal manera que las operaciones aritméticas puedan ejecutarse  con estos números.
+\\
+\bigskip
+\pause
+La mayoría de las computadoras tiene dos maneras de guardar estos números:
+\setbeamercolor{item projected}{bg=ao,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Formato de enteros.
+\item Formato de punto flotante.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Representación de enteros}
+Los número enteros son relativamente directos, en donde debemos de considerar el intervalo donde se puede representar.
+\\
+\bigskip
+\pause
+El formato punto flotante es una forma más general permitiendo almacenar números que no son enteros, revisaremos el formato estándar de representación.
+\end{frame}
+\begin{frame}
+\frametitle{Punto flotante para decimales}
+Consideremos un número $x$ distinto de cero, escrito en el sistema decimal de manera única como:
+\pause
+\begin{align*}
+x =  \sigma \cdot \overline{x} \cdot 10^{e}
+\end{align*}
+\pause
+donde: 
+\begin{itemize}[<+->]
+\item[\ding{212}] El \textcolor{lava}{signo} es $\sigma= \pm 1$,
+\item[\ding{212}] El \textcolor{cadmiumgreen}{exponente} $e$ es un entero.
+\item[\ding{212}] La \textcolor{darkmagenta}{mantisa} es tal que $ 1 \leq \overline{x} \leq 10$.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de representación}
+Consideremos el número:
+\begin{align*}
+123.45 = + 1 \cdot (1.2345) \cdot 10^{2}
+\end{align*}
+\pause
+Entonces:
+\begin{itemize}[<+->]
+\item[\ding{212}] El \textcolor{lava}{signo} es $\sigma = +1$
+\item[\ding{212}] El \textcolor{cadmiumgreen}{exponente} es $e = 2$
+\item[\ding{212}] La \textcolor{darkmagenta}{mantisa} es $\overline{x} =1.2345$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Punto flotante en binario}
+El sistema binario representa los números como una suma de múltiplos enteros de potencias de $2$.
+\\
+\bigskip
+\pause
+La base del sistema binario son los dígitos $0$ y $1$.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de representación}
+El siguiente número $x$ en binario tiene el valor en el sistema decimal como:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+(1101.11)_{2} &= 1 \cdot 2^{3} + 1 \cdot 2^{2} + 0 \cdot 2^{1} + 1 \cdot 2^{0} + \\
+ &+ 1 \cdot 2^{-1} + 1 \cdot 2^{-2} = \\[0.5em] \pause
+ &= ?
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Representación de punto flotante en binario}
+Consideremos el número $x$ escrito en forma binaria, de manera análoga como en el caso decimal:
+\pause
+\begin{align*}
+x =  \sigma \cdot \overline{x} \cdot 2^{e}
+\end{align*}
+\pause
+donde: 
+\begin{itemize}[<+->]
+\item[\ding{212}] El \textcolor{lava}{signo} es $\sigma= \pm 1$,
+\item[\ding{212}] El \textcolor{cadmiumgreen}{exponente} $e$ es un entero.
+\item[\ding{212}] La \textcolor{darkmagenta}{mantisa} es una fracción binaria tal que $ (1)_{2} \leq \overline{x} \leq (10)_{2}$.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de un número de punto flotante}
+Sea el número:
+\pause
+\begin{align*}
+x = (11011.0111)_{2} = +1 \cdot (1.10110111)_{2} \cdot 2^{4}
+\end{align*}
+\pause
+Entonces:
+\pause
+\begin{itemize}[<+->]
+\item[\ding{212}] El \textcolor{lava}{signo} es $\sigma = +1$
+\item[\ding{212}] El \textcolor{cadmiumgreen}{exponente} es $e = 4 = (100)_{2}$
+\item[\ding{212}] La \textcolor{darkmagenta}{mantisa} es $\overline{x} = (1.10110111)_{2}$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Dos observaciones}
+\setbeamercolor{item projected}{bg=buff,fg=byzantine}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Para todo número $x \neq 0$, el primer dígito de la izquierda del punto en $\overline{x}$, es siempre $1$.
+\item La representación de $x$ también está sujeta al número de dígitos binarios en $\overline{x}$ y en el tamaño del exponente.
+\end{enumerate}
+\end{frame}
+
+\section{Precisión en punto flotante}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición de precisión}
+
+\begin{frame}
+\frametitle{Definición}
+El número permitido de dígitos binarios en $\overline{x}$ se le llama \textcolor{blue}{precisión} de la representación de punto flotante binario.
+\end{frame}
+
+\subsection{Estándar IEEE 754}
+\begin{frame}
+\frametitle{El Estándar IEEE 754}
+El estándar IEEE 754 para la aritmética de punto flotante es el formato para números puntos flotante usado en computación.
+\\
+\bigskip
+\pause
+Este estándar maneja dos tipos de precisión: \textcolor{lava}{simple} y \textcolor{ao}{doble}.
+\end{frame}
+
+\subsection{Precisión simple}
+
+\begin{frame}
+\frametitle{Precisión simple}
+En este estándar, la representación de \emph{\textcolor{darkblue}{punto flotante de precisión simple}} de un número $x$, tiene una precisión de $24$ dígitos binarios y el exponente está limitado a $-126 \leq e \leq 127$:
+\pause
+\begin{align*}
+x = \sigma \cdot (1.a_{1} \, a_{2} \, \ldots \, a_{22} \, a_{23}) \cdot 2^{e}
+\end{align*}
+\pause
+En binario:
+\pause
+\begin{align*}
+-(1111110)_{2} \leq e \leq (1111111)_{2}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Posición de los bits}
+Este formato usa $4$ bytes ($32$  bits), distribuidos de la siguiente manera:
+\pause
+\begin{figure}
+    \centering
+    \includegraphics[scale=1.2]{Imagenes/precision_simple.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Posición de los bits}
+\begin{figure}
+    \centering
+    \includegraphics[scale=1.2]{Imagenes/precision_simple.eps}
+\end{figure}
+\begin{itemize}
+\item[\ding{212}] El \textcolor{lava}{signo} $\sigma$ se almacena en el bit $b_{1}$, tal que $b_{1} = 0$ para $\sigma = +1$ y $b_{1} = 1$ para $\sigma = -1$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Posición de los bits}
+\begin{figure}
+    \centering
+    \includegraphics[scale=1.2]{Imagenes/precision_simple.eps}
+\end{figure}
+\begin{itemize}[<+->]
+\item[\ding{212}] Se define $E = e + 127$ como el valor del \textcolor{cadmiumgreen}{exponente} desplazado $127$ lugares.
+\item[\ding{212}] Se almacena el entero binario positivo $E$ en los bits $b_{2}$ a $b_{9}$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Posición de los bits}
+\begin{figure}
+    \centering
+    \includegraphics[scale=1.2]{Imagenes/precision_simple.eps}
+\end{figure}
+\begin{itemize}
+\item[\ding{212}] El número binario $a_{1} \, a_{2} \ldots a_{23}$ se almacena en los bits $b_{10}$ a $b_{32}$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Observaciones al formato}
+El primer dígito binario $1$ de $\overline{x}$ no es guardado en la representación de punto flotante cuando el número se almacena en memoria, \pause pero éste dígito se agrega en $\overline{x}$ cuando el número de punto flotante es llamado de la memoria para ejecutar alguna operación aritmética.
+\end{frame}
+\begin{frame}
+\frametitle{Observaciones al formato}
+Se requiere de una representación especial del número $x = 0$, se almacena como:
+\begin{itemize}
+\item[\ding{212}] $\sigma = 0$
+\item[\ding{212}] $\text{exponente} = 0$
+\item[\ding{212}] $b_{1} \, b_{2} \, \ldots \, b_{32} = (00 \ldots 0)_{2}$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Observaciones al formato}
+En precisión simple, el número $1$ se representa por:
+\pause
+\begin{align*}
+1.00000000000000000000000
+\end{align*}
+\pause
+El siguiente número binario más grande es:
+\pause
+\begin{align*}
+1.00000000000000000000001
+\end{align*}
+siendo $1$ el dígito binario en la posición $23$ en la parte derecha del punto.
+\end{frame}
+\begin{frame}
+\frametitle{Observaciones al formato}
+El épsilon de la máquina es $2^{-23}$, entonces tenemos que:
+\pause
+\begin{align*}
+2^{-23} \simeq \num{1.19d-7}
+\end{align*}
+\pause
+Por lo que con el formato de precisión simple del estándar IEEE 754, se pueden aproximar $7$ dígitos decimales de un número $x$ cuando se escribe en su formato decimal.
+\end{frame}
+
+\subsection{Precisión doble}
+
+\begin{frame}
+\frametitle{Definición de la precisión doble}
+La representación de \emph{\textcolor{darkspringgreen}{punto flotante de precisión doble}} del estándar IEEE 754 de un número $x$, tiene una precisión de $53$ dígitos binarios, y el exponente está limitado a $-1022 \leq e \leq 1023$.
+\pause
+\begin{align*}
+x = \sigma \cdot (1.a_{1} \, a_{2} \, \ldots \, a_{51} \, a_{52}) \cdot 2^{e}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Posición de los bits}
+La precisión doble utiliza $8$ bytes ($64$ bits) y los números se almacenan de la siguiente forma::
+\pause
+\begin{figure}
+    \centering
+    \includegraphics[scale=1.2]{Imagenes/precision_doble.eps}
+\end{figure}
+\vspace*{-1cm}
+Los bits son guardados de manera análoga a la precisión simple, pero con $E = e + 1023$
+\end{frame}
+\begin{frame}
+\frametitle{Observaciones a la precisión doble}
+El épsilon de la máquina en precisión doble es:
+\pause
+\begin{align*}
+2^{-52} \simeq \num{2.22d-16}
+\end{align*}
+\pause
+Con el formato de precisión doble del estándar IEEE 754 se puede utilizar para guardar aproximadamente 16 dígitos de un número $x$.
+\end{frame}
+
+\subsection*{Casos especiales}
+
+\begin{frame}
+\frametitle{Casos especiales del estándar IEEE 754}
+Veamos algunos casos especiales de combinaciones entre el signo $(-1)^{s}$, el exponente $e$ y la mantisa $f$:
+\pause
 \begin{table}
 \fontsize{10}{10}\selectfont
 \begin{tabular}{l c c}
 \hline
-Nombre del número & Valores de $s$, $e$ y $f$ & Valor \\ \hline
+Nombre del número & Valores de $\sigma$, $e$, $f$ & Valor \\ \hline
 Normal & $0 < e < 255$ & $(-1)^{s} \times 2^{e-127} \times 1.f$ \\ \hline
 Subnormal & $e = 0, f \neq 0$ & $(-1)^{s} \times 2^{e-126} \times 0.f$ \\ \hline
 Signo cero $(\pm 0)$ & $e = 0, f = 0$ & $(-1)^{s} \times 0.0$ \\ \hline
@@ -361,7 +699,7 @@ De modo que sólo se almacena la parte fraccional $f$ después del punto binario
 \end{frame}
 \begin{frame}
 \frametitle{Valores $\pm \: \text{INF}$ y $NaN$ }
-Nótese que los valores $\pm \: \text{INF}$ y $\text{NaN}$ no son números en el sentido matemático, es decir, son objetos que pueden ser manipulados o utilizados en cálculos para tomar límites
+Nótese que los valores $\pm \: \text{INF}$ y $\text{NaN}$ no son números en el sentido matemático, es decir, son objetos que pueden ser manipulados o utilizados en cálculos para tomar límites.
 \\
 \bigskip
 \pause
@@ -401,79 +739,477 @@ El exponente real, que puede ser negativo, es:
 \pause
 \begin{equation}
 p = e - \text{sesgo}
-\label{eq:ecuacion_01_03}
+\label{eq:ecuacion_01_03b}
 \end{equation}
 \end{frame}
+
+
+
+
+% \section{Números en la computadora}
+% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Los números en la computadora}
+
+% \begin{frame}
+% \frametitle{Los números en la computadora}
+% Las computadoras son herramientas muy poderosas, pero tienen un alcance finito.
+% \\
+% \bigskip
+% \pause
+% Un problema que se presenta en el diseño de computadora es cómo representar un número arbitrario usando una cantidad finita de espacio de memoria y cómo tratar con las limitaciones que surgen de esta representación.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Los números en la computadora}
+% Como consecuencia de que las memorias de la computadora se basan en un estado de magnetización o electrónico de un giro que apunta hacia arriba o hacia abajo, las unidades más elementales de memoria de la computadora son los dos enteros binarios (bits) $0$ y $1$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Los números en la computadora}
+% Esto significa que la forma en que se almacenan los números en memoria, es como cadenas largas de ceros y unos, es decir, de modo binario.
+% \end{frame}
+
+% \subsection{Rango de operación}
+
+% \begin{frame}
+% \frametitle{Rango de representación}
+% De esta manera: $N$ bits almacena números enteros en el rango $[0, 2^{N}]$, pero debido a que el signo del número entero está representado por el primer bit (un bit cero para números positivos), el rango real disminuye a:
+% \pause
+% \begin{align*}
+% \big[ 0, 2^{N- 1} \big]
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Otras bases de operación}
+% La representación binaria de números a través de ceros y unos, funciona y opera bien para las computadoras, pero no para los usuarios.
+% \\
+% \bigskip
+% \pause
+% Es por ello que las cadenas binarias se convierten en números octal, decimal o hexadecimal antes de que los resultados se presenten a los usuarios.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Otras bases de operación}
+% Los números octales y hexadecimales son también oportunos porque en la conversión no se pierde precisión.
+% \\
+% \bigskip
+% \pause
+% Pero no todo queda bien ya que nuestras reglas decimales de aritmética no funcionan para ellos.
+% \end{frame}
+
+% \subsection{Aritmética binaria}
+
+% \begin{frame}
+% \frametitle{Desventaja de la aritmética binaria}
+% La conversión a números decimales hace que los números sean más fáciles de trabajar, pero a menos que el número sea una potencia de $2$, el proceso conduce a una disminución en la precisión.
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Longitud de palabra}
+% Una descripción de un sistema informático particular indica normalmente la \emph{longitud de la palabra}, siendo el número de bits utilizados para almacenar un número.
+% \\
+% \bigskip
+% \pause
+% La longitud se expresa en bytes, donde:
+% \pause
+% \begin{align*}
+% 1 \text{ byte} \equiv 1 \text{ B} \equiv 8 \: \si{\bit}
+% \end{align*}
+% \end{frame}
+
+% \subsection{Unidades de medida}
+
+% \begin{frame}
+% \frametitle{Unidades de medida}
+% Tanto la memoria como el almacenamiento se mide en bytes, kilobytes, megabytes, gigabytes, terabytes y petabytes $(\num{10d15})$.
+% \\
+% \bigskip
+% \pause
+% No debemos de confundirnos al elegir las unidades de medida, ya que el prefijo \emph{kilo}, no siempre equivale a $1000$
+% \pause
+% \begin{align*}
+% 1 \: \si{\kilo} =   1 \: \si{\kilo \byte} = \num{2d10} \, \si{\byte} = 1024 \: \si{byte}
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Unidades de medida}
+% La memoria de las primeras computadoras usaban palabras de $8$ bits, esto implicaba que el mayor entero era $2^{7} = 128$, ($7$ debido a $1$ bit para el signo).
+% \end{frame}
+
+\subsection{Overflow y underflow}
+
 \begin{frame}
-\frametitle{Formatos básicos del IEEE}
-Hay dos formatos básicos para el IEEE de punto flotante, \textoazul{de precisión simple} y de \textoazul{precisión doble}.
-\end{frame}
-\begin{frame}
-\frametitle{Precisión simple}
-La precisión simple representa a los números de punto flotante de precisión simple (sencilla).
+\frametitle{Overflow y underflow}
+Si queríamos almacenar un número más grande, tanto el hardware como el software se diseñaban para generar un \textoazul{desbordamiento (overflow)}.
 \\
 \bigskip
 \pause
-Ocupan $32$ bits en total: con $1$ bit para el signo, $8$ bits para el exponente y $23$ bits para la mantisa fraccional (lo que da una precisión de $24$ bits cuando el bit fantasma es incluido)
+Se genera un \textoazul{underflow} cuando queremos representar un número más pequeño del que se puede en el equipo.
 \end{frame}
 \begin{frame}
-\frametitle{Precisión doble}
-Es una abreviatura para los números de punto flotante de precisión doble.
+\frametitle{Errores de almacenamiento: overflow}
+Los números de máquina tienen un máximo y un mínimo.
+\\
+\bigskip
+Si se supera el máximo, se produce una condición de error conocida como \textoazul{desbordamiento -overflow-}.
+\begin{figure}
+\centering
+\includestandalone[scale=0.75]{Figuras/over_underflow}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Errores de almacenamiento: underflow}
+\begin{figure}
+\centering
+\includestandalone[scale=0.75]{Figuras/over_underflow}
+\end{figure}
+Si se cae por debajo del mínimo, se produce una condición de error conocida como \textoazul{subflujo -underflow-}.
+\end{frame}
+\begin{frame}
+\frametitle{Manejo del overflow y del underflow}
+En este último caso, el software y el hardware se pueden configurar para que los overflow se pongan a cero sin que se le avise al usuario.
 \\
 \bigskip
 \pause
-Ocupan $64$ bits en total: con $1$ bit para el signo, $10$ bits para el exponente y $53$ bits para la mantisa fraccional (para precisión de $54$ bits). \pause Esto significa que los exponentes y mantisas para la precisión doble no son simplemente el doble de los precisión simple.
+En contraste, los overflow suelen detener la ejecución.
 \end{frame}
-\begin{frame}
-\frametitle{Representación de 32 bits}
-Para ver el esquema en la práctica consideremos la representación de 32 bits:
-\pause
-\begin{table}
-\fontsize{12}{12}\selectfont
-\begin{tabular}{l | c | c | c | c | c|}
-\cline{2-6}
- {} & $s$ & \multicolumn{2}{c|}{$e$} & \multicolumn{2}{c|}{$f$} \\ \hline
- Bit & 31 & 30 & 23 & 22 & 0 \\ \hline
-\end{tabular}
-\end{table}
-\pause
-El bit de signo $s$ está en la posición $31$, el exponente con sesgo, está en los bits $30-23$, y la mantisa fraccional $f$, en los bits $22 - 0$.
-\end{frame}
-\begin{frame}
-\frametitle{Exponente en 32 bits}
-Ya que se usan $8$ bits para almacenar el exponente $e$, y $2^{8} = 256$, el exponente tiene un rango:
-\pause
-\begin{align*}
-0 \leq e \leq 255
-\end{align*}
-\pause
-Con el sesgo = $127_{10}$, el exponente completo queda como:
-\begin{align*}
-p = e_{10} - 127
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Rango del exponente}
-Para la precisión sencilla el exponente tiene el rango:
-\pause
-\begin{align*}
--126 \leq p \leq 127
-\end{align*}
-\pause
-La mantisa $f$ se almacena en los $23$ bits con posición $22-0$. 
-\\
-\bigskip
-\pause
-Para los números normales, esto es, para aquellos con $0 < e < 255$, $f$ es la parte fraccional de la mantisa.
-\end{frame}
-\begin{frame}
-\frametitle{Número en 32 bits}
-Por tanto, el número normal de punto flotante representado en 32 bits es:
-\pause
-\begin{align*}
-(-1)^{s} \times 1.f \times 2^{e-127} 
-\end{align*}
-\end{frame}
+
+% \begin{frame}
+% \frametitle{Alcance de 64 bits}
+% Usando $64$ bits, se permiten enteros en el rango $1 - 2^{63} \simeq \num{1d19}$.
+% \\
+% \bigskip
+% \pause
+% Que podría en apariencia ser una rango mucho más grande, pero no lo es cuando se compara con el rango de escalas que tenemos en el mundo real: del radio del universo al radio de un protón, tenemos aproximadamente $\num{1d41}$ órdenes de magnitud.
+% \end{frame}
+
+% \section{Estándar IIIE 754}
+% \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Notación}
+
+% \begin{frame}
+% \frametitle{Tipos de notación}
+% Los números reales se representan en computadoras en notación de punto fijo o punto flotante.
+% \\
+% \bigskip
+% \pause
+% La notación de punto fijo se puede utilizar para números con un número fijo de lugares luego del punto decimal (raíz) o para números enteros.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Tipos de notación}
+% Tiene como ventaja que se utiliza la aritmética complementaria de dos y por tanto, almacenar enteros exactamente.
+% \end{frame}
+
+% \subsection{Números de punto fijo}
+
+% \begin{frame}
+% \frametitle{Números de punto fijo}
+% En la representación de punto fijo con $N$ bits y con un formato de complemento de dos, un número se representa como
+% \begin{align}
+% \begin{aligned}
+% N_{\text{fijo}} = \text{signo} \times (\alpha_{n} \: 2^{n} &+ \alpha_{n-1} \: 2^{n-1} + \ldots + \\
+% &+ \alpha_{0} \: 2^{0} + \ldots + \alpha_{-m} \: 2^{-m} )
+% \label{eq:ecuacion_01_01}
+% \end{aligned}
+% \end{align}
+% donde $n + m = N - 2$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Números de punto fijo}
+% Es decir, $1$ bit se utiliza para almacenar el signo, con los restantes $(N - 1)$ bits se usan para almacenar los $\alpha_{i}$ valores (se entienden las potencias de 2).
+% \\
+% \bigskip
+% \pause
+% Los valores particulares para $N$, $m$ y $n$ son dependientes de la máquina.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Rango de los enteros}
+% Los enteros se representan típicamente con $4$ bytes ($32$ bits) de longitud, en el rango:
+% \pause
+% \begin{align*}
+% -2147483648 \leq 4 - \text{B entero} \leq 2147483647
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Ventaja de la representación}
+% Una ventaja de la representación (\ref{eq:ecuacion_01_01}) es que se puede contar con todos los números de punto fijo para tener el mismo error absoluto de $2^{-m-1}$ (el término se deja fuera del extremo derecho de (\ref{eq:ecuacion_01_01}).
+% \end{frame}
+% \begin{frame}
+% \frametitle{Desventaja de la representación}
+%  La correspondiente desventaja es que los números pequeños (aquellos para los cuales la primera cadena de valores de $\alpha$ son ceros) tienen grandes errores relativos.
+%  \end{frame}
+%  \begin{frame}
+%  \frametitle{Utilidad de los enteros}
+%  Dado que en el mundo real \textcolor{red}{los errores relativos tienden a ser más importantes que los absolutos}, los números enteros se utilizan principalmente para fines de conteo y en aplicaciones especiales.
+% \end{frame}
+
+% % \subsection{Números de punto flotante}
+% \begin{frame}
+% \frametitle{Números de punto flotante}
+% En la mayoría de los cálculos científicos se utilizan números de punto flotante de doble precisión ($64$ bits = $8$ bytes).
+% \\
+% \bigskip
+% \pause
+% La representación en las computadoras de números en punto flotante de números es una versión binaria de lo que comúnmente se conoce como notación científica.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Notación científica}
+% Por ejemplo, la velocidad de la luz en notación científica es:
+% \pause
+% \begin{align*}
+% c = + \num{2.99792458e8} \si{\meter\per\second}
+% \end{align*}
+% \pause
+% mientras que en notación de ingeniería:
+% \pause
+% \begin{align*}
+% + \num{	0.299792458e9} \si{\meter\per\second} \text{ ó } \num{0.299795498E9} \si{\meter\per\second} 
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Notación científica}
+% \begin{align*}
+% c = + \num{2.99792458e8} \si{\meter\per\second}
+% \end{align*}
+% En cada uno de estos casos, el número al frente se denomina \azulfuerte{mantisa} y contiene nueve cifras significativas.
+% \\
+% \bigskip
+% \pause
+% La potencia $10$ a la que se eleva se llama \azulfuerte{exponente}, con el signo más ($+$) incluido, como recordatorio de que estos números pueden ser negativos.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Almacenamiento}
+% Los números de punto flotante se almacenan en la computadora como una concatenación del bit de signo, el exponente y la mantisa.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Almacenamiento}
+% Debido a que sólo se almacena un número finito de bits, el conjunto de números de punto flotante que el equipo puede almacenar exactamente, es decir, el conjunto de \azulfuerte{números de máquina}, es mucho menor que el conjunto de los números reales.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Valor en memoria}
+% La relación real entre lo que se almacena en la memoria y el valor de un número de punto flotante es algo indirecta, habiendo un número de casos especiales y relaciones utilizadas a lo largo de los años.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Valor en memoria}
+% En el pasado, cada sistema operativo de computadora y cada lenguaje de programación contenían sus propios estándares para números de punto flotante.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Valor en memoria}
+% El que haya diferentes normas implica que el mismo programa que se ejecuta correctamente en un equipo, podría dar resultados diferentes cuando se utilice en otros equipos con configuración distinta.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Valor en memoria}
+% A pesar de que los resultados eran sólo ligeramente diferentes, el usuario nunca podría estar seguro de si la falta de reproducibilidad de un caso de prueba se debía a la computadora particular que se está utilizando o a un error en la implementación del programa.
+% \end{frame}
+
+% \subsection{Estándar IEEE 754}
+
+% \begin{frame}
+% \frametitle{Estándar IEEE 754}
+% En 1987, el Instituto de Ingenieros Eléctricos y Electrónicos (IEEE) y el American National Standards Institute (ANSI) adoptaron el estándar \azulfuerte{IEEE 754} para la aritmética de punto flotante.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Estándar IEEE 754}
+% Cuando se sigue el estándar, se espera que los tipos de datos primitivos tengan la precisión y los intervalos dados en la siguiente tabla:
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{IEEE 754 para Tipos de Datos Primitivos}
+% \begin{table}
+% \fontsize{10}{10}\selectfont
+% \begin{tabular}{l c c c l}
+% \hline
+% Nombre & Tipo & Bits & Byte & Rango \\ \hline
+% \texttt{boolean} & Lógico & 1 & $\dfrac{1}{8}$ & \texttt{True} o \texttt{False} \\ \hline
+% \texttt{char} & String & 16 & 2 & \verb|'u0000'| $\longleftrightarrow$ \verb|'uFFFF'| \\ \hline
+% \texttt{byte} & Integer & 8 & 1 & $-128 \longleftrightarrow +127$ \\ \hline
+% \texttt{short} & Integer & 16 & 2 & $-32768 \longleftrightarrow +32767$ \\ \hline
+% \texttt{int} & Integer & 32 & 4 & checar en tablas \\ \hline
+% \texttt{long} & Integer & 64 & 8 & checar en tablas \\ \hline
+% \texttt{float} & Floating & 32 & 4 & checar en tablas \\ \hline
+% \texttt{double} & Flaoting & 64 & 8 & checar en tablas \\ \hline
+% \end{tabular}
+% \end{table}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Apego al IEEE 754}
+%  Cuando las computadoras y el software se apegan a este estándar, está garantizado que un programa producirá resultados idénticos en diferentes equipos.
+%  \end{frame}
+%  \begin{frame}
+%  \frametitle{Apego al IEEE 754}
+%  En realidad hay una serie de componentes en el estándar IEEE, y diferentes fabricantes de computadoras o procesadores pueden apegarse a sólo algunos de ellos.
+%  \\
+%  \bigskip
+%  \pause
+%  Además, \python\ puede no seguir a todos a medida que se desarrolla, pero probablemente con el tiempo lo haga.
+%  \end{frame}
+
+%  \subsection{Notación de punto flotante}
+
+%  \begin{frame}
+%  \frametitle{Notación de punto flotante}
+%  Normalmente un número de punto flotante $x$ se almacena como:
+%  \pause
+%  \begin{align}
+%  x_{f} = (-1)^{s} \times 1.f \times 2^{e - \text{sesgo}}
+%   \label{eq:ecuacion_01_02}
+% \end{align}
+% esto es, con partes por separado para:
+% \pause
+%  \begin{itemize}[<+->]
+%  \item[\ding{213}] El signo $s$.
+%  \item[\ding{213}] La parte fraccional de la mantisa $f$.
+%  \item[\ding{213}] El valor del exponente $e$.
+% \end{itemize}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Almacenamiento en punto flotante}
+% Todas las partes se almacenan en forma binaria y ocupan segmentos adyacentes de una sola palabra de $32$ bits o dos palabras adyacentes de $32$ bits para palabras dobles.
+% \\
+% \bigskip
+% El signo $s$ se almacena como un solo bit, con $s = 0$ ó $1$ para un signo positivo o negativo.
+% \end{frame}
+% \begin{frame}
+% Se usan ocho bits para almacenar el exponente $e$, lo que significa que $e$ puede estar en el rango $0 \leq e \leq 255$.
+% \\
+% \bigskip
+% Los extremos, $e = 0$ y $e = 255$, son casos especiales.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Casos especiales del estándar IIEEE}
+% \begin{table}
+% \fontsize{10}{10}\selectfont
+% \begin{tabular}{l c c}
+% \hline
+% Nombre del número & Valores de $s$, $e$ y $f$ & Valor \\ \hline
+% Normal & $0 < e < 255$ & $(-1)^{s} \times 2^{e-127} \times 1.f$ \\ \hline
+% Subnormal & $e = 0, f \neq 0$ & $(-1)^{s} \times 2^{e-126} \times 0.f$ \\ \hline
+% Signo cero $(\pm 0)$ & $e = 0, f = 0$ & $(-1)^{s} \times 0.0$ \\ \hline
+% $+ \infty$ & $s = 0, e=255, f = 0$ & \textbf{\texttt{+INF}} \\ \hline
+% $- \infty$ & $s = 1, e=255, f = 0$ & \textbf{\texttt{-INF}} \\ \hline
+% Not a number & $s = u, e=255, f \neq 0$ & \textbf{\texttt{NaN}} \\ \hline
+% \end{tabular}
+% \end{table}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Números normales}
+% Los números normales tienen un valor entre $0 < e < 255$, y con ellos la convención es suponer que el primer bit de la mantisa es un $1$.
+% \\
+% \bigskip
+% \pause
+% De modo que sólo se almacena la parte fraccional $f$ después del punto binario. 
+% \end{frame}
+% \begin{frame}
+% \frametitle{Valores $\pm \: \text{INF}$ y $NaN$ }
+% Nótese que los valores $\pm \: \text{INF}$ y $\text{NaN}$ no son números en el sentido matemático, es decir, son objetos que pueden ser manipulados o utilizados en cálculos para tomar límites
+% \\
+% \bigskip
+% \pause
+% Más bien, son señales para la computadora y para el usuario de que algo ha ido mal y que el cálculo probablemente debería detenerse hasta resolver las cosas.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Los valores $\pm 0$}
+% En contraste, el valor $-0$ se puede utilizar en un cálculo sin problemas.
+% \\
+% \bigskip
+% \pause
+% Algunos lenguajes pueden establecer variables no asignadas como $-0$ como una pista de que aún no se han asignado, pero no es lo más conveniente.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Precisión relativa en punto flotante}
+% Debido a que la incertidumbre (error) está presente sólo en la mantisa y no en el exponente, las representaciones IEEE aseguran que todos los números normales de punto flotante tengan la misma precisión relativa.
+% \end{frame}
+% \begin{frame}
+% \frametitle{El bit fantasma}
+% Debido a que el primer bit se supone que es $1$, no tiene que ser almacenado, y los diseñadores de computadoras sólo necesitan recordar que hay un \emph{bit fantasma} allí para obtener un poco más de precisión.
+% \end{frame}
+% \begin{frame}
+% \frametitle{El primer bit}
+% Durante el procesamiento de números en un cálculo, el primer bit de un resultado intermedio puede llegar a ser cero, pero éste se cambia antes de que se almacene el número final.
+% \\
+% \bigskip
+% \pause
+% Para repetir, en los casos normales, la mantisa real ($1.f$ en notación binaria) contiene un $1$ implícito que precede al punto binario.
+% \end{frame}
+% \begin{frame}
+% \frametitle{El número de sesgo}
+% Con el fin de garantizar que el exponente $e$ almacenado sea siempre positivo, se agrega un número fijo llamado \textoazul{sesgo} al exponente real $p$, antes de que se almacene como exponente $e$.
+% \\
+% \bigskip
+% \pause
+% El exponente real, que puede ser negativo, es:
+% \pause
+% \begin{equation}
+% p = e - \text{sesgo}
+% \label{eq:ecuacion_01_03}
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Formatos básicos del IEEE}
+% Hay dos formatos básicos para el IEEE de punto flotante, \textoazul{de precisión simple} y de \textoazul{precisión doble}.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Precisión simple}
+% La precisión simple representa a los números de punto flotante de precisión simple (sencilla).
+% \\
+% \bigskip
+% \pause
+% Ocupan $32$ bits en total: con $1$ bit para el signo, $8$ bits para el exponente y $23$ bits para la mantisa fraccional (lo que da una precisión de $24$ bits cuando el bit fantasma es incluido)
+% \end{frame}
+% \begin{frame}
+% \frametitle{Precisión doble}
+% Es una abreviatura para los números de punto flotante de precisión doble.
+% \\
+% \bigskip
+% \pause
+% Ocupan $64$ bits en total: con $1$ bit para el signo, $10$ bits para el exponente y $53$ bits para la mantisa fraccional (para precisión de $54$ bits). \pause Esto significa que los exponentes y mantisas para la precisión doble no son simplemente el doble de los precisión simple.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Representación de 32 bits}
+% Para ver el esquema en la práctica consideremos la representación de 32 bits:
+% \pause
+% \begin{table}
+% \fontsize{12}{12}\selectfont
+% \begin{tabular}{l | c | c | c | c | c|}
+% \cline{2-6}
+%  {} & $s$ & \multicolumn{2}{c|}{$e$} & \multicolumn{2}{c|}{$f$} \\ \hline
+%  Bit & 31 & 30 & 23 & 22 & 0 \\ \hline
+% \end{tabular}
+% \end{table}
+% \pause
+% El bit de signo $s$ está en la posición $31$, el exponente con sesgo, está en los bits $30-23$, y la mantisa fraccional $f$, en los bits $22 - 0$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Exponente en 32 bits}
+% Ya que se usan $8$ bits para almacenar el exponente $e$, y $2^{8} = 256$, el exponente tiene un rango:
+% \pause
+% \begin{align*}
+% 0 \leq e \leq 255
+% \end{align*}
+% \pause
+% Con el sesgo = $127_{10}$, el exponente completo queda como:
+% \begin{align*}
+% p = e_{10} - 127
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Rango del exponente}
+% Para la precisión sencilla el exponente tiene el rango:
+% \pause
+% \begin{align*}
+% -126 \leq p \leq 127
+% \end{align*}
+% \pause
+% La mantisa $f$ se almacena en los $23$ bits con posición $22-0$. 
+% \\
+% \bigskip
+% \pause
+% Para los números normales, esto es, para aquellos con $0 < e < 255$, $f$ es la parte fraccional de la mantisa.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Número en 32 bits}
+% Por tanto, el número normal de punto flotante representado en 32 bits es:
+% \pause
+% \begin{align*}
+% (-1)^{s} \times 1.f \times 2^{e-127} 
+% \end{align*}
+% \end{frame}
 % \begin{frame}
 % \frametitle{Números subnormales}
 % Los números subnormales tienen $e=0$, $f \neq 0$; para estos números, $f$ es la mantisa completa.
@@ -546,46 +1282,46 @@ Por tanto, el número normal de punto flotante representado en 32 bits es:
 % \[ \num{1.4e-45} \leq \text{ precision simple } \leq \num{3.4e38} \]
 % \end{frame}
 
-\subsection{Precisión doble}
+% \subsection{Precisión doble}
 
-\begin{frame}
-\frametitle{Representación de la precisión doble}
-Los números de precisión doble se almacenan en dos palabras de $32$ bits, para un total de $64$ bits ($8$) bytes.
-\pause
-\begin{table}
-\fontsize{12}{12}\selectfont
-\begin{tabular}{ l | c | c | c | c | c | c | c |}
-\cline{2-8}
- {} & $s$ & \multicolumn{2}{c|}{$e$} & \multicolumn{2}{c|}{$f$} & \multicolumn{2}{c|}{$f \text{ cont}$} \\ \hline
- Bit & 63 & 62 & 52 & 51 & 32 & 31 & 0 \\ \hline
-\end{tabular}
-\end{table}
-\end{frame}
-\begin{frame}
-\frametitle{Representación de la precisión doble}
-El signo ocupa $1$ bit, el exponente $e$ ocupa $11$ bits, la mantisa fraccional $52$ bits.
-\\
-\bigskip
-\pause
-Los valores se almacenan de manera contigua, en donde parte de la mantisa $f$ se almacena en un palabra de $32$ bits.
-\end{frame}
-\begin{frame}
-\frametitle{Valor del sesgo}
-Para los números de precisión doble, el valor del sesgo es mayor que en los de precisión simple:
-\pause
-\begin{align*}
-\text{sesgo } = 1111111111_{2} = 1023_{10}
-\end{align*}
-por lo que el exponente real es $p = e - 1023$.
-\end{frame}
-\begin{frame}
-\frametitle{Rangos en precisión doble}
-Los números en precisión doble tienen aproximadamente $16$ decimales de precisión ($1$ parte en $2^{52}$), y las magnitudes están en el rango:
-\pause
-\begin{align*}
-\num{4.9e-324} \leq \text{ precision doble } \leq \num{1.8e308}
-\end{align*}
-\end{frame}
+% \begin{frame}
+% \frametitle{Representación de la precisión doble}
+% Los números de precisión doble se almacenan en dos palabras de $32$ bits, para un total de $64$ bits ($8$) bytes.
+% \pause
+% \begin{table}
+% \fontsize{12}{12}\selectfont
+% \begin{tabular}{ l | c | c | c | c | c | c | c |}
+% \cline{2-8}
+%  {} & $s$ & \multicolumn{2}{c|}{$e$} & \multicolumn{2}{c|}{$f$} & \multicolumn{2}{c|}{$f \text{ cont}$} \\ \hline
+%  Bit & 63 & 62 & 52 & 51 & 32 & 31 & 0 \\ \hline
+% \end{tabular}
+% \end{table}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Representación de la precisión doble}
+% El signo ocupa $1$ bit, el exponente $e$ ocupa $11$ bits, la mantisa fraccional $52$ bits.
+% \\
+% \bigskip
+% \pause
+% Los valores se almacenan de manera contigua, en donde parte de la mantisa $f$ se almacena en un palabra de $32$ bits.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Valor del sesgo}
+% Para los números de precisión doble, el valor del sesgo es mayor que en los de precisión simple:
+% \pause
+% \begin{align*}
+% \text{sesgo } = 1111111111_{2} = 1023_{10}
+% \end{align*}
+% por lo que el exponente real es $p = e - 1023$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Rangos en precisión doble}
+% Los números en precisión doble tienen aproximadamente $16$ decimales de precisión ($1$ parte en $2^{52}$), y las magnitudes están en el rango:
+% \pause
+% \begin{align*}
+% \num{4.9e-324} \leq \text{ precision doble } \leq \num{1.8e308}
+% \end{align*}
+% \end{frame}
 
 \section{Fuentes de errores}
 \frame{\tableofcontents[currentsection, hideothersubsections]}
@@ -708,285 +1444,289 @@ print('El error relativo es: {0:}'.format(error_relativo(1.1, suma)))
 El error disminuye $3$ órdenes de magnitud.
 \end{frame}
 
-\subsection{Un modelo equivocado}
+% \subsection{Un modelo equivocado}
 
-\begin{frame}
-\frametitle{Una fuente de error}
-Se consider un tipo de error cuando consideramos un modelo que no está en congruencia con la física.
-\\
-\bigskip
-\pause
-Veamos el siguiente ejemplo.
-\end{frame}
-\begin{frame}
-\frametitle{Planteando el problema}
-La bicicleta es una forma muy eficiente de transporte, este es un hecho bien conocido por cualquier persona que la utliza.
-\\
-\bigskip
-\pause
-Nuestro objetivo en este ejercicio es comprender los factores que determinan la velocidad máxima de una bicicleta y estimar la velocidad de un caso real.
-\end{frame}
-\begin{frame}
-\frametitle{Primera aproximación}
-Comenzaremos haciendo \textoazul{caso omiso de la fricción}; \pause tendremos que añadirlo al final, por supuesto, pero debemos primero entender cómo lidiar con el caso más simple y sin fricción.
-\end{frame}
-\begin{frame}
-\frametitle{Usando la mecánica de Newton}
-La ecuación de movimiento corresponde a la segunda ley de Newton, que escribimos de la forma:
-\pause
-\begin{equation}
-\dv{v}{t} = \dfrac{F}{m}
-\label{EqNewton2}
-\end{equation}
-donde $v$ es la velocidad, $m$ es la masa de la combinación de la bicicleta-conductor, $t$ es el tiempo, y $F$ es la fuerza en la bicicleta que viene del esfuerzo del conductor (en este caso vamos a suponer que la bicicleta se mueve sobre un terreno plano).
-\end{frame}
-\begin{frame}
-\frametitle{Simplificando el sistema}
-Tratar correctamente a $F$ se complica por la mecánica de la bicicleta, \pause ya que la fuerza ejercida por el ciclista se transmite a las ruedas por medio del plato, engranajes, cadena, etc.
-\\
-\bigskip
-\pause
-Esto hace que sea muy difícil obtener una expresión exacta para $F$.
-\end{frame}
-\begin{frame}
-\frametitle{Abordando el problema con otro enfoque}
-Sin embargo, hay otra manera de abordar este problema que evita la necesidad de conocer la fuerza.
-\\
-\bigskip
-\pause
-Este enfoque alternativo implica la formulación del problema en términos de la potencia generada por el ciclista.
-\end{frame}
-\begin{frame}
-\frametitle{Abordando el problema con otro enfoque}
-Estudios fisiológicos de ciclistas de carreras han demostrado que estos atletas son capaces de producir una potencia de salida de aproximadamente $\SI{400}{\watt}$ durante largos períodos de tiempo ($\sim \SI{1}{\hour}$)
-\end{frame}
-\begin{frame}
-\frametitle{Reescribiendo la ecuación de movimiento}
-Usando las ideas de trabajo-energía podemos reescribir (\ref{EqNewton2}) como:
-\pause
-\begin{equation}
-\dv{E}{t} = P
-\label{EqPotencia}
-\end{equation}
-donde $E$ es la energía total, $P$ es la potencia de salida del ciclista.
-\end{frame}
-\begin{frame}
-\frametitle{Relación entre la potencia y acelaración}
-Para un trayecto plano la energía es totalmente cinética, es decir, $E = \frac{1}{2} m v^{2}$, y $\dv*{E}{t} = m \, v (\dv*{v}{t})$, usando esto en la ec. (\ref{EqPotencia}), resulta:
-\pause
-\begin{equation}
-\dv{v}{t} = \dfrac{P}{m \, v}
-\label{EqPotenciavel}
-\end{equation}
-\end{frame}
-\begin{frame}
-\frametitle{Cuando la potencia es constante}
-Si $P$ es una constante, la ecuación (\ref{EqPotenciavel}), se puede resolver de manera analítica, rearreglando términos:
-\pause
-\begin{equation}
-\scaleint{6ex}_{\bs v_{0}}^{v} v^{\prime} \dd{v^{\prime}} = \scaleint{6ex}_{\bs 0}^{t} \dfrac{P}{m} \dd{t^{\prime}}
-\label{EqIntegral}
-\end{equation}
-donde $v_{0}$ es la velocidad de la bicicleta en $t = 0$.
-\end{frame}
-\begin{frame}
-\frametitle{Abordando el problema con otro enfoque}
-Integrando ambos lados de la ecuación y resolviendo para $v$, tenemos que:
-\pause
-\begin{equation}\label{Eqvres}
-v = \sqrt{v_{0}^{2} + 2 \, P \dfrac{t}{m}}
-\end{equation}
-\end{frame}
-\begin{frame}
-\frametitle{¿La solución es consistente con la física?}
-Si bien esta es la solución correcta de la ecuación de movimiento (\ref{EqPotenciavel}), nuestro trabajo no concluye aquí: \pause ya que predice que \textcolor{lava}{la velocidad se incrementará sin límite para tiempos muy largos}.
-\\
-\bigskip
-\pause
-Este resultado no es congruente con la física que conocemos.
+% \begin{frame}
+% \frametitle{Una fuente de error}
+% Se considera un tipo de error cuando consideramos un modelo que no está en congruencia con la física.
+% \\
+% \bigskip
+% \pause
+% Veamos el siguiente ejemplo.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Planteando el problema}
+% La bicicleta es una forma muy eficiente de transporte, este es un hecho bien conocido por cualquier persona que la utliza.
+% \\
+% \bigskip
+% \pause
+% Nuestro objetivo en este ejercicio es comprender los factores que determinan la velocidad máxima de una bicicleta y estimar la velocidad de un caso real.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Primera aproximación}
+% Comenzaremos haciendo \textoazul{caso omiso de la fricción}; \pause tendremos que añadirlo al final, por supuesto, pero debemos primero entender cómo lidiar con el caso más simple y sin fricción.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Usando la mecánica de Newton}
+% La ecuación de movimiento corresponde a la segunda ley de Newton, que escribimos de la forma:
+% \pause
+% \begin{equation}
+% \dv{v}{t} = \dfrac{F}{m}
+% \label{EqNewton2}
+% \end{equation}
+% donde $v$ es la velocidad, $m$ es la masa de la combinación de la bicicleta-conductor, $t$ es el tiempo, y $F$ es la fuerza en la bicicleta que viene del esfuerzo del conductor (en este caso vamos a suponer que la bicicleta se mueve sobre un terreno plano).
+% \end{frame}
+% \begin{frame}
+% \frametitle{Simplificando el sistema}
+% Tratar correctamente a $F$ se complica por la mecánica de la bicicleta, \pause ya que la fuerza ejercida por el ciclista se transmite a las ruedas por medio del plato, engranajes, cadena, etc.
+% \\
+% \bigskip
+% \pause
+% Esto hace que sea muy difícil obtener una expresión exacta para $F$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Abordando el problema con otro enfoque}
+% Sin embargo, hay otra manera de abordar este problema que evita la necesidad de conocer la fuerza.
+% \\
+% \bigskip
+% \pause
+% Este enfoque alternativo implica la formulación del problema en términos de la potencia generada por el ciclista.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Abordando el problema con otro enfoque}
+% Estudios fisiológicos de ciclistas de carreras han demostrado que estos atletas son capaces de producir una potencia de salida de aproximadamente $\SI{400}{\watt}$ durante largos períodos de tiempo ($\sim \SI{1}{\hour}$)
+% \end{frame}
+% \begin{frame}
+% \frametitle{Reescribiendo la ecuación de movimiento}
+% Usando las ideas de trabajo-energía podemos reescribir (\ref{EqNewton2}) como:
+% \pause
+% \begin{equation}
+% \dv{E}{t} = P
+% \label{EqPotencia}
+% \end{equation}
+% donde $E$ es la energía total, $P$ es la potencia de salida del ciclista.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Relación entre la potencia y acelaración}
+% Para un trayecto plano la energía es totalmente cinética, es decir, $E = \frac{1}{2} m v^{2}$, y $\dv*{E}{t} = m \, v (\dv*{v}{t})$, usando esto en la ec. (\ref{EqPotencia}), resulta:
+% \pause
+% \begin{equation}
+% \dv{v}{t} = \dfrac{P}{m \, v}
+% \label{EqPotenciavel}
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Cuando la potencia es constante}
+% Si $P$ es una constante, la ecuación (\ref{EqPotenciavel}), se puede resolver de manera analítica, rearreglando términos:
+% \pause
+% \begin{equation}
+% \scaleint{6ex}_{\bs v_{0}}^{v} v^{\prime} \dd{v^{\prime}} = \scaleint{6ex}_{\bs 0}^{t} \dfrac{P}{m} \dd{t^{\prime}}
+% \label{EqIntegral}
+% \end{equation}
+% donde $v_{0}$ es la velocidad de la bicicleta en $t = 0$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Abordando el problema con otro enfoque}
+% Integrando ambos lados de la ecuación y resolviendo para $v$, tenemos que:
+% \pause
+% \begin{equation}\label{Eqvres}
+% v = \sqrt{v_{0}^{2} + 2 \, P \dfrac{t}{m}}
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% \frametitle{¿La solución es consistente con la física?}
+% Si bien esta es la solución correcta de la ecuación de movimiento (\ref{EqPotenciavel}), nuestro trabajo no concluye aquí: \pause ya que predice que \textcolor{lava}{la velocidad se incrementará sin límite para tiempos muy largos}.
+% \\
+% \bigskip
+% \pause
+% Este resultado no es congruente con la física que conocemos.
 
-\end{frame}
-\begin{frame}
-\frametitle{Segunda aproximación}
-Vamos a corregir este resultado: cuando se generaliza el modelo se debe de \textoazul{incluir el efecto de la resistencia del aire}.
-\\
-\bigskip
-\pause
-El nuevo término que vamos a añadir a la ecuación de movimiento nos obliga a desarrollar una solución numérica, así que con eso en mente se considera un tratamiento numérico de la ec. (\ref{EqPotenciavel}).
-\end{frame}
-\begin{frame}
-\frametitle{Haciendo diferencias}
-Comenzamos con la forma de diferencias finitas para la derivada de la velocidad:
-\pause
-\begin{equation}
-\dv{v}{t} \simeq \dfrac{v_{i + 1} - v_{i}}{\Delta t}
-\label{Eqderivada}
-\end{equation}
-donde asumimos que $\Delta t$ es paso discreto pequeño, y $v_{i}$ es la velocidad al tiempo $t_{i} \equiv i \Delta t$
-\end{frame}
-\begin{frame}
-\frametitle{Relación entre velocidad y potencia}
-Por lo que de la ecuación (\ref{EqPotenciavel}):
-\pause
-\begin{equation}
-v_{i + 1} = v_{i} + \dfrac{P}{m \, v_{i}} \, \Delta \, t
-\label{Eqveli+1}
-\end{equation}
-Dada la velocidad en un tiempo $i$ (es decir, $v_{i}$), podemos usar (\ref{Eqveli+1}) para calcular un valor \textit{aproximado} de la velocidad en el siguiente paso $v_{i+1}$.
-\end{frame}
-\begin{frame}
-\frametitle{Abordando el problema con otro enfoque}
-Si conocemos la velocidad inicial $v_{0}$, podemos obtener $v_{1}$, $v_{2}$, y así sucesivamente.
-\\
-\bigskip
-\pause
-Ya contamos con suficientes elementos para proponer un código en \python{}, incluiremos una gráfica del resultado.
-\end{frame}
-\begin{frame}[allowframebreaks, fragile]
-\frametitle{Abordando el problema con otro enfoque}
-\begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
-import matplotlib.pyplot as plt
-from math import sqrt
+% \end{frame}
+% \begin{frame}
+% \frametitle{Segunda aproximación}
+% Vamos a corregir este resultado: cuando se generaliza el modelo se debe de \textoazul{incluir el efecto de la resistencia del aire}.
+% \\
+% \bigskip
+% \pause
+% El nuevo término que vamos a añadir a la ecuación de movimiento nos obliga a desarrollar una solución numérica, así que con eso en mente se considera un tratamiento numérico de la ec. (\ref{EqPotenciavel}).
+% \end{frame}
+% \begin{frame}
+% \frametitle{Haciendo diferencias}
+% Comenzamos con la forma de diferencias finitas para la derivada de la velocidad:
+% \pause
+% \begin{equation}
+% \dv{v}{t} \simeq \dfrac{v_{i + 1} - v_{i}}{\Delta t}
+% \label{Eqderivada}
+% \end{equation}
+% donde asumimos que $\Delta t$ es paso discreto pequeño, y $v_{i}$ es la velocidad al tiempo $t_{i} \equiv i \Delta t$
+% \end{frame}
+% \begin{frame}
+% \frametitle{Relación entre velocidad y potencia}
+% Por lo que de la ecuación (\ref{EqPotenciavel}):
+% \pause
+% \begin{equation}
+% v_{i + 1} = v_{i} + \dfrac{P}{m \, v_{i}} \, \Delta \, t
+% \label{Eqveli+1}
+% \end{equation}
+% Dada la velocidad en un tiempo $i$ (es decir, $v_{i}$), podemos usar (\ref{Eqveli+1}) para calcular un valor \textit{aproximado} de la velocidad en el siguiente paso $v_{i+1}$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Abordando el problema con otro enfoque}
+% Si conocemos la velocidad inicial $v_{0}$, podemos obtener $v_{1}$, $v_{2}$, y así sucesivamente.
+% \\
+% \bigskip
+% \pause
+% Ya contamos con suficientes elementos para proponer un código en \python{}, incluiremos una gráfica del resultado.
+% \end{frame}
+% \begin{frame}[allowframebreaks, fragile]
+% \frametitle{Abordando el problema con otro enfoque}
+% \begin{lstlisting}[basicstyle=\linespread{1.2}\ttfamily\small, columns=fullflexible,escapeinside=||]
+% import matplotlib.pyplot as plt
+% from math import sqrt
 
-t = []
-v = []
+% t = []
+% v = []
 
-dt = 1
+% dt = 1
 
-potencia = 400
-masa = 70
-tmax = 200
-nmax = tmax/dt
+% potencia = 400
+% masa = 70
+% tmax = 200
+% nmax = tmax/dt
 
-t.append(0)
-v.append(4)
+% t.append(0)
+% v.append(4)
 
-for i in range(int(tmax/dt)):
-    ti = t[i-1] + dt
-    vi = sqrt(v[i]**2 + (2 * potencia * dt)/masa)
+% for i in range(int(tmax/dt)):
+%     ti = t[i-1] + dt
+%     vi = sqrt(v[i]**2 + (2 * potencia * dt)/masa)
     
     
-    t.append(ti)
-    v.append(vi)
+%     t.append(ti)
+%     v.append(vi)
 
-plt.plot(v, "r-")
-plt.xlabel("tiempo [s]")
-plt.ylabel("velocidad m/s")
-plt.show()
-\end{lstlisting}
-\end{frame}
-\begin{frame}
-\frametitle{Resultado de la velocidad sin fricción}
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.475]{Imagenes/EjerBicicleta01.eps}
-\end{figure}
-\end{frame}
-\begin{frame}
-\frametitle{Resultado ¿correcto?}
-Consideremos que:
-\setbeamercolor{item projected}{bg=amber,fg=black}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\item Hemos desarrollado un algoritmo que resuelve el problema inicial.
-\item Los valores son consistentes.
-\item La gráfica nos indica el comportamiento de la solución.
-\end{enumerate}
-\pause
-Aún así: ¿debemos de considerar el problema como bien resuelto? \pause \textcolor{auburn}{No!}
-\end{frame}
+% plt.plot(v, "r-")
+% plt.xlabel("tiempo [s]")
+% plt.ylabel("velocidad m/s")
+% plt.show()
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Resultado de la velocidad sin fricción}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[scale=0.475]{Imagenes/EjerBicicleta01.eps}
+% \end{figure}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Resultado ¿correcto?}
+% Consideremos que:
+% \setbeamercolor{item projected}{bg=amber,fg=black}
+% \setbeamertemplate{enumerate items}{%
+% \usebeamercolor[bg]{item projected}%
+% \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+% }
+% \begin{enumerate}[<+->]
+% \item Hemos desarrollado un algoritmo que resuelve el problema inicial.
+% \item Los valores son consistentes.
+% \item La gráfica nos indica el comportamiento de la solución.
+% \end{enumerate}
+% \pause
+% Aún así: ¿debemos de considerar el problema como bien resuelto? \pause \textcolor{auburn}{No!}
+% \end{frame}
 
-\section*{Considerando la fricción del aire}
+% \section*{Considerando la fricción del aire}
 
+% \begin{frame}
+% \frametitle{Segunda aproximación}
+% La fuerza debida a la fricción puede aproximarse de manera inicial como:
+% \pause
+% \begin{equation}
+% F_{a} \simeq - B_{1} \, v - B_{2} v^{2}
+% \label{EqFfriccion}
+% \end{equation}
+% Para velocidades muy bajas, el primer término es el que domina, y el coeficiente $B_{1}$ se puede calcular para objetos con formas sencillas.
+% \end{frame}
+% \begin{frame}
+% \frametitle{El tamaño del  objeto}
+% Para una velocidad razonable $v^{2}$ el término domina sobre los demás, pero $B_{2}$ no puede calcularse exactamente en objetos sencillos como una pelota de beisbol, menos para una bicicleta.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Haciendo otra aproximación}
+% Podemos aproximar el valor de $B_{2}$ como sigue:
+% \\
+% \bigskip
+% \pause
+% Si un objeto se mueve a través de la atmósfera, debe empujar fuera del camino el aire delante de él. 
+% \end{frame}
+% \begin{frame}
+% \frametitle{Haciendo otra aproximación}
+% La masa de aire movida en el tiempo $\dd{t}$ es $m_{\text{aire}} \sim \rho A \: v \: \dd{t}$, donde $\rho$ 
+% es la densidad del aire y $A$ el área frontal del objeto.
+% \\
+% \bigskip
+% \pause
+% Este aire tiene una velocidad de orden $v$, y por lo tanto, su energía cinética es $E_{\text{aire}} \sim m_{\text{aire}} \: v^{2} / 2$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Haciendo otra aproximación}
+% Este es también el trabajo realizado por la fuerza de arrastre (la fuerza sobre el objeto debido a la resistencia del aire) en el tiempo $\dd{t}$, por lo $F_{a} \: \dd{t} = E_{\text{aire}}$.
+% \\
+% \bigskip
+% \pause
+% Al juntar estos resultados, encontramos que:
+% \pause
+% \begin{align*}
+% F_{a} \simeq - C \: \rho \: A \: v^{2}
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Nueva expresión}
+% Incluyendo este término en la expresión para la velocidad:
+% \pause
+% \begin{equation}
+% v_{i+1} = v_{i} + \dfrac{P}{m \: v_{i}} \Delta \: t - \dfrac{C \: \rho \: A \: v_{i}^{2}}{m} \: \Delta \: t
+% \label{Eqvelifriccion}
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Pasando al código}
+% \textbf{Ejercicio a cuenta 2: } Implementar el código en \python, considerando los valores $C = 0.5$ y $A=0.33$.
+% \\
+% \bigskip
+% \pause
+% De tal manera que al obtener la gráfica de la solución, debes de presentar una figura con el siguiente resultado:
+% \end{frame}
+% \begin{frame}
+% \frametitle{Velocidad en las dos aproximaciones}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[scale=0.475]{Imagenes/EjerBicicleta02.eps}
+% \end{figure}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Conclusión importante}
+% El resultado que tenemos a partir de nuestra solución numérica con la segunda aproximación, \textcolor{ao}{es más congruente con la física}.
+% \\
+% \bigskip
+% \pause
+% Nota que a pesar de tener un algoritmo que resuelve una ecuación de movimiento, nuestrto trabajo no termina con proporcionar una respuesta con el código, \pause sino que revisemos la consistencia de la solución con la física que ya manejamos.
+% \end{frame}
 \begin{frame}
-\frametitle{Segunda aproximación}
-La fuerza debida a la fricción puede aproximarse de manera inicial como:
-\pause
-\begin{equation}
-F_{a} \simeq - B_{1} \, v - B_{2} v^{2}
-\label{EqFfriccion}
-\end{equation}
-Para velocidades muy bajas, el primer término es el que domina, y el coeficiente $B_{1}$ se puede calcular para objetos con formas sencillas.
-\end{frame}
-\begin{frame}
-\frametitle{El tamaño del  objeto}
-Para una velocidad razonable $v^{2}$ el término domina sobre los demás, pero $B_{2}$ no puede calcularse exactamente en objetos sencillos como una pelota de beisbol, menos para una bicicleta.
-\end{frame}
-\begin{frame}
-\frametitle{Haciendo otra aproximación}
-Podemos aproximar el valor de $B_{2}$ como sigue:
-\\
-\bigskip
-\pause
-Si un objeto se mueve a través de la atmósfera, debe empujar fuera del camino el aire delante de él. 
-\end{frame}
-\begin{frame}
-\frametitle{Haciendo otra aproximación}
-La masa de aire movida en el tiempo $\dd{t}$ es $m_{\text{aire}} \sim \rho A \: v \: \dd{t}$, donde $\rho$ 
-es la densidad del aire y $A$ el área frontal del objeto.
-\\
-\bigskip
-\pause
-Este aire tiene una velocidad de orden $v$, y por lo tanto, su energía cinética es $E_{\text{aire}} \sim m_{\text{aire}} \: v^{2} / 2$.
-\end{frame}
-\begin{frame}
-\frametitle{Haciendo otra aproximación}
-Este es también el trabajo realizado por la fuerza de arrastre (la fuerza sobre el objeto debido a la resistencia del aire) en el tiempo $\dd{t}$, por lo $F_{a} \: \dd{t} = E_{\text{aire}}$.
-\\
-\bigskip
-\pause
-Al juntar estos resultados, encontramos que:
-\pause
-\begin{align*}
-F_{a} \simeq - C \: \rho \: A \: v^{2}
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Nueva expresión}
-Incluyendo este término en la expresión para la velocidad:
-\pause
-\begin{equation}
-v_{i+1} = v_{i} + \dfrac{P}{m \: v_{i}} \Delta \: t - \dfrac{C \: \rho \: A \: v_{i}^{2}}{m} \: \Delta \: t
-\label{Eqvelifriccion}
-\end{equation}
-\end{frame}
-\begin{frame}
-\frametitle{Pasando al código}
-\textbf{Ejercicio a cuenta 2: } Implementar el código en \python, considerando los valores $C = 0.5$ y $A=0.33$.
-\\
-\bigskip
-\pause
-De tal manera que al obtener la gráfica de la solución, debes de presentar una figura con el siguiente resultado:
-\end{frame}
-\begin{frame}
-\frametitle{Velocidad en las dos aproximaciones}
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.475]{Imagenes/EjerBicicleta02.eps}
-\end{figure}
-\end{frame}
-\begin{frame}
-\frametitle{Conclusión importante}
-El resultado que tenemos a partir de nuestra solución numérica con la segunda aproximación, \textcolor{ao}{es más congruente con la física}.
-\\
-\bigskip
-\pause
-Nota que a pesar de tener un algoritmo que resuelve una ecuación de movimiento, nuestrto trabajo no termina con proporcionar una respuesta con el código, \pause sino que revisemos la consistencia de la solución con la física que ya manejamos.
-\end{frame}
-\begin{frame}
-\frametitle{Ejercicio a cuenta:}
-\textbf{Ejercicio a cuenta 3: } El número $ln 2$ se puede calcular de la serie:
+\frametitle{Ejercicio a cuenta}
+\textbf{Ejercicio a cuenta: } El número $\ln \, 2$ se puede calcular de la serie:
 \begin{align*}
 \ln 2 = 1 - \dfrac{1}{2} + \dfrac{1}{3} -\dfrac{1}{4} + \ldots
 \end{align*}
-Se sabe del análisis que esta serie converge y que la magnitud del error en cualquier suma parcial es menor que la magnitud del primer término despreciado. Estima el número de términos que se requerirían para calcular $\ln 2$ con 10 decimales.
+Se sabe del análisis que esta serie converge y que la magnitud del error en cualquier suma parcial es menor que la magnitud del primer término despreciado.
 \end{frame}
 \begin{frame}
 \frametitle{Ejercicio a cuenta}
-\textbf{Ejercicio a cuenta 4: } El 25 de febrero de 1991, durante la guerra del Golfo, una batería de misiles Patriot americanos en Dharan (Arabia Saudita) no lograron interceptar un misil Scud iraquí. Murieron 28 soldados americanos.
+Estima el número de términos que se requerirían para calcular $\ln 2$ con $10$ decimales.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+\textbf{Ejercicio a cuenta: } El 25 de febrero de 1991, durante la guerra del Golfo, una batería de misiles Patriot americanos en Dharan (Arabia Saudita) no lograron interceptar un misil Scud iraquí. Murieron 28 soldados americanos.
 \end{frame}
 \begin{frame}
 \frametitle{Ejercicio a cuenta}
@@ -1020,8 +1760,11 @@ El pequeño error debido al truncado, se hace grande cuando se multiplica por un
 La batería de los Patriot llevaba en funcionamiento más de $100$ horas, por lo que el tiempo entero era un número muy grande y el número real resultante tendrá un error cercano a $0.34$ segundos. \pause Explica a detalle qué fue lo que ocurrió.
 \end{frame}
 \begin{frame}
-\frametitle{Lista de ejercicios del Tema 1}
-Revisa en Moodle una lista de ejercicios del Tema 1, serán el tipo de ejercicios para el Examen-Tarea.
+\frametitle{Entrega de los ejercicios a cuenta}
+Estos ejercicios a cuenta, se deberán de entregar a más tardar para el día domingo a las $12$ del día vía Moodle.
+\\
+\bigskip
+Recuerda que puedes usar una notebook de Jupyter o archivo *.py (que deberán estar en un *.zip)
 \end{frame}
 
 % \begin{frame}
