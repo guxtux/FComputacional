@@ -5,42 +5,47 @@ Created on Mon Feb 18 22:05:44 2013
 @author: IIFCES
 """
 
+import matplotlib as mpl
 import numpy as np
 import matplotlib.pyplot as plt
-
-valores = []
-errores = []
-i = []
-exacta = -5.97566
+mpl.rcParams['text.usetex'] = True
 
 def funcion(h):
-    derivada = (np.sin(2*np.pi*(0.45+h))-np.sin(2*np.pi*0.45))/h
+    derivada = (np.sin(2 * np.pi * (0.45 + h)) - np.sin(2 * np.pi * 0.45))/h
     return derivada
-x=0
-n = 1e-1
-#i.append(n)
-print('h \t \t derivada \t error')
-while n > 1e-16:
-    valores.append(funcion(n))
-    errores.append(abs((exacta-valores[x])/exacta))
-    i.append(n)    
-    n =n/10
-    x=x+1
-    print('{0:1.1e} \t {1:1.6f} \t {2:1.6e}'.format(i[x-1], valores[x-1], errores[x-1]))
-    
 
-#print valores
-#print '%e' %(errores)
+def etiquetas():
+    plt.xlabel('Valor de h = $10^{-n}$')
+    plt.ylabel('Error relativo')
+    plt.title('Comportamiento del error al calcular la derivada de $\sin (x)$')
 
-print (len(i), len(errores))
-#plt.axis([1e-15,0,1-15,1e2])
-#plt.xscale('log')
-i.reverse()
-errores.reverse()
+aproximacion = []
+errores = []
+i = []
+
+exacta = -5.97566
+h = 1e-1
+
+print('h \t \t Aprox. derivada \t error relativo')
+print('-'*40)
+
+while h > 1e-16:
+    aproximacion.append(funcion(h))
+    errores.append(np.abs((exacta - aproximacion[-1])/exacta))
+    i.append(h)    
+    h = h/10
+    print('{0:1.1e} \t {1:1.6f} \t {2:1.6e}'.format(i[-1], aproximacion[-1], errores[-1]))
+
+plot1 = plt.figure(1)
+plt.plot(errores, '+b')
+plt.plot(errores, color='r', lw=0.7, ls='dashed')
+etiquetas()
+
+plot2 = plt.figure(2)
 plt.yscale('log')
 plt.plot(i)
-plt.plot(errores)
-plt.xlabel('Valor de h = $10^{-n}$')
-plt.ylabel('Error relativo')
-plt.title('Tendencia del error')
+plt.plot(errores, '+b')
+plt.plot(errores, color='r', lw=0.7, ls='dashed')
+etiquetas()
+
 plt.show()

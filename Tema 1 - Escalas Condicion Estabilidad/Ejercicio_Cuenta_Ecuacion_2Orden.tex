@@ -1,0 +1,32 @@
+\input{../Preambulos/preambulo_materiales}
+\usepackage{minted}
+
+\title{\vspace{-2cm}Ejercicio a cuenta del Tema 1 \\ {\large Curso Física Computacional} \vspace{-3ex}}
+\author{M. en C. Gustavo Contreras Mayén. \texttt{gux7avo@ciencias.unam.mx}}
+\date{}
+
+\begin{document}
+
+\fontsize{14}{14}\selectfont
+\vspace{-4cm}
+\maketitle
+
+Aprendimos en la secundaria a resolver la ecuación homogénea de segundo grado:
+\begin{align}
+a \, x^{2} + b \, x + c = 0
+\label{eq:ecuacion_01}
+\end{align}
+que tiene una solución analítica que se puede escribir como:
+\begin{align}
+x_{1,2} &= \dfrac{-b \pm \sqrt{b^{2} - 4 \, a \, c}}{2 \, a} \label{eq:ecuacion_02} \\[0.5em]
+\pderivada{x}_{1,2} &= \dfrac{-2 \, c}{b \pm \sqrt{b^{2} - 4 \, a \, c}} \label{eq:ecuacion_03}
+\end{align}
+Revisando la expresión anterior vemos que la diferencia en el denominador nos puede incrementar el error, ya que éste aumenta cuando $b^{2} >> 4 \, a \, c$ debido a que la raíz cuadrada y el siguiente término están muy próximas a cancelarse.
+\begin{enumerate}
+\item Escribe un primer programa en \python{} que calcule las cuatro soluciones: \newline $(x_{1}, x_{2}, \pderivada{x}_{1}, \pderivada{x}_{2})$ para valores arbitrarios de $a$, $b$ y $c$.
+\item Con un segundo programa, revisa cómo los errores obtenidos en los cálculos, aumentan conforme hay una diferencia de términos y su relación con el épsilon de la computadora. Prueba con los siguientes valores $a = 1$, $b = 1$, $c = 10^{-n}, n = 1, 2, 3, \ldots$ Considera que las soluciones de la ec. (\ref{eq:ecuacion_02}): $x_{1}, x_{2}$ son los valores exactos.
+\item ¿Cómo mejorarías el programa para obtener la mayor precisión en tu respuesta?
+\end{enumerate}
+
+\textbf{Entrega del ejercicio:} La solución deberás de enviarla vía Moodle con fecha límite el día martes 30 de agosto a las 6pm.
+\end{document}

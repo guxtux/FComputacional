@@ -909,18 +909,18 @@ Esto significa que terminaremos con $P \simeq \frac{1}{2}$, es decir, la respues
 El resultado de la siguiente suma es muy sencillo:
 \pause
 \begin{align*}
-1.0 + 0.00001
+1.0 + 0.0000001
 \end{align*}
 \pause
-Repitamos esta suma $10000$ veces, ya conocemos de antemano su resultado. \pause Hagamos un código en \python.
+Repitamos esta suma $1000000$ veces, ya conocemos de antemano su resultado. \pause Hagamos un código en \python.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Sumando valores}
 \begin{lstlisting}[caption=Sumando en un ciclo]
 suma = 1.0
 
-for in in range(1, 10000):
-    suma += 0.00001
+for in in range(1, 1000001):
+    suma += 0.0000001
 
 print('La suma es: {0:}'.format(suma))
 \end{lstlisting}
@@ -928,7 +928,12 @@ Calcula el error relativo.
 \end{frame}
 \begin{frame}
 \frametitle{¿En qué nos equivocamos?}
-El error relativo es: $\num{9.0909d-6}$, \pause vayamos por partes para revisar dónde se origina el error:
+El error relativo es:
+\begin{align*}
+5.307875351366998e-11
+\end{align*}
+\pause
+Vayamos por partes para revisar dónde se origina el error:
 \\
 \bigskip
 \pause
@@ -962,7 +967,7 @@ Cuya representación en decimal es:
 \end{frame}
 \begin{frame}
 \frametitle{Error acumulado}
-Entonces cada vez que sumemos $0.00001$ a $1$ se agrega un error de $\num{5.5511d-17}$, \pause y su hacemos la operacion diez mil veces, \pause encontramos un error en el valor la suma que anticipamos como exacto. 
+Entonces cada vez que sumemos $0.0000001$ a $1$ se agrega un error de $\num{5.5511d-17}$, \pause y si hacemos la operación un millón veces, \pause encontramos el valor del error relativo que nos devuelve la suma. 
 \end{frame}
 \begin{frame}
 \frametitle{Ajustando el código}
@@ -977,10 +982,10 @@ En ese mismo ejemplo haremos un ajuste en el código y veremos el resultado obte
 \begin{lstlisting}[caption=Una agrupación en la suma]
 suma = 1.0
 
-for i in range(1, 100):
+for i in range(1, 1001):
     total = 0.0
-    for j in range(1, 100):
-        total += 0.00001
+    for j in range(1, 1001):
+        total += 0.0000001
     
     suma = suma + total
 
@@ -988,8 +993,14 @@ print('La suma es: {0:}'.format(suma))
 print()
 print('El error relativo es: {0:}'.format(error_relativo(1.1, suma)))
 \end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado luego del ajuste al código}
+El error realtivo es: $1.00929e-14$, vemos que disminuye $3$ órdenes de magnitud con respecto al primer código.
+\\
+\bigskip
 \pause
-El error disminuye $3$ órdenes de magnitud.
+La estrategia de agrupar las sumas favoreció para que el error relativo disminuyera.
 \end{frame}
 
 \begin{frame}
