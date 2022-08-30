@@ -1,0 +1,191 @@
+\documentclass[12pt]{beamer}
+\usepackage{../Estilos/BeamerFC}
+\usepackage{../Estilos/ColoresLatex}
+\input{../Preambulos/pre_codigo}
+\input{../Preambulos/preambulo_Beamer_Dresden_seahorse}
+\usefonttheme{serif}
+
+
+\title{\large{Operaciones matemáticas básicas}}
+\subtitle{¿Hacia dónde va el Tema 2?}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{1/septiembre/2022}
+
+\begin{document}
+\maketitle
+
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+
+\section{Iniciamos Tema 2}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Objetivos}
+
+\begin{frame}
+\frametitle{Objetivo General del Tema 2}
+Al concluir el Tema 2 del curso, el alumno empleará las técnicas más comunes de operaciones matemáticas necesarias para la solución de problemas numéricos aplicados en la física.
+\end{frame}
+\begin{frame}
+\frametitle{Contenido a revisar}
+Este tema es una base importante de todo el curso, ya que se establecen las operaciones de:
+\setbeamercolor{item projected}{bg=ao(english),fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Interpolación.
+\item Cálculo de raíces.
+\item Diferenciación.
+\item Integración numérica.
+\end{enumerate}
+\end{frame}
+
+\subsection*{Interpolación}
+
+\begin{frame}
+\frametitle{Interpolación}
+\setbeamercolor{item projected}{bg=ashgrey,fg=burgundy}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Método de Lagrange.
+\item Método de Newton.
+\item Extrapolación.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de interpolación}
+La viscosidad cinemática $\mu_{k}$ del agua varía con la temperatura $T$ de la siguiente manera:
+% \begin{table}[H]
+% \centering
+% \begin{large} 
+% \begin{tabular}{15cm}{c | c | c | c | c | c | c | c }
+% $T(^\circ C)$ & $0$ & $21.1$ & $37.8$ & $54.4$ & $71.1$ & $87.8$ & $100$ \\
+% \midrule
+% $\mu_{k} (10^{-3}m^{2}/s)$ & $1.79$ & $1.13$ & $0.696$ & $0.519$ & $0.338$ & $0.321$ & $0.296$ 
+% \end{tabular}
+% \end{large}
+% \end{table}
+Interpolar $\mu_{k}$ para $T= 10^{\circ},30^{\circ},60^{\circ}$ y $90^{\circ}$.
+\end{frame}
+\begin{frame}
+\frametitle{Los datos experimentales}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.575]{Imagenes/Intro_Interpolacion_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{¿Cómo calcular los datos faltantes?}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.575]{Imagenes/Intro_Interpolacion_02.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{una interpolación lineal}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.575]{Imagenes/Intro_Interpolacion_03.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Una interpolación lineal}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.575]{Imagenes/Intro_Interpolacion_04.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Una interpolación cuadrática}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.575]{Imagenes/Intro_Interpolacion_05.eps}
+\end{figure}
+\end{frame} 
+
+
+\subsection*{Cálculo de raíces}
+
+\begin{frame}
+\frametitle{Cálculo de raíces}
+\setbeamercolor{item projected}{bg=auburn,fg=aureolin}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Bisección.
+\item Método de la secante.
+\item Falsa posición.
+\item Newton - Raphson.
+\end{enumerate}
+\end{frame}
+
+\subsection*{Diferenciación}
+
+\begin{frame}
+\frametitle{Diferenciación numérica}
+\setbeamercolor{item projected}{bg=babyblue,fg=cadmiumgreen}
+Método de diferencias:
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Hacia adelante.
+\item Hacia atrás.
+\item Centrales.
+\item De orden mayor.
+\end{enumerate}
+\end{frame}
+
+\subsection*{Integración}
+
+\begin{frame}
+\frametitle{Integración numérica}
+\setbeamercolor{item projected}{bg=brightgreen,fg=brandeisblue}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Fórmulas Newton-Cotes.
+\item Fórmulas Gaussianas.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Fórmulas Newton-Cotes}
+\setbeamercolor{item projected}{bg=bronze,fg=bubblegum}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Trapecio.
+\item Trapecio compuesta.
+\item Trapecio recursiva.
+\item Simpson $1/3$
+\item Simpson $3/8$
+\item Método de Romberg.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Fórmulas Gaussianas}
+\setbeamercolor{item projected}{bg=cadetblue,fg=bubbles}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Polinomios ortogonales.
+\item Gauss-Chebyshev.
+\item Gauss-Hermite.
+\item Gauss-Legendre.
+\end{enumerate}
+\end{frame}
+
+\end{document}
