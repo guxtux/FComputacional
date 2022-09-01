@@ -59,17 +59,16 @@ Este tema es una base importante de todo el curso, ya que se establecen las oper
 \begin{frame}
 \frametitle{Ejemplo de interpolación}
 La viscosidad cinemática $\mu_{k}$ del agua varía con la temperatura $T$ de la siguiente manera:
-% \begin{table}[H]
-% \centering
-% \begin{large} 
-% \begin{tabular}{15cm}{c | c | c | c | c | c | c | c }
-% $T(^\circ C)$ & $0$ & $21.1$ & $37.8$ & $54.4$ & $71.1$ & $87.8$ & $100$ \\
-% \midrule
-% $\mu_{k} (10^{-3}m^{2}/s)$ & $1.79$ & $1.13$ & $0.696$ & $0.519$ & $0.338$ & $0.321$ & $0.296$ 
-% \end{tabular}
-% \end{large}
-% \end{table}
-Interpolar $\mu_{k}$ para $T= 10^{\circ},30^{\circ},60^{\circ}$ y $90^{\circ}$.
+\pause
+\begin{table}[H]
+\centering
+\begin{tabular}{c | c | c | c | c | c | c | c }
+$T$ & $0$ & $21.1$ & $37.8$ & $54.4$ & $71.1$ & $87.8$ & $100$ \\ \hline
+$\mu_{k}$ & $1.79$ & $1.13$ & $0.696$ & $0.519$ & $0.338$ & $0.321$ & $0.296$ 
+\end{tabular}
+\end{table}
+\pause
+¿Cuál será el valor de $\mu_{k}$ para $T = 10^{\circ},30^{\circ},60^{\circ}$ y $90^{\circ}$?
 \end{frame}
 \begin{frame}
 \frametitle{Los datos experimentales}
@@ -86,7 +85,7 @@ Interpolar $\mu_{k}$ para $T= 10^{\circ},30^{\circ},60^{\circ}$ y $90^{\circ}$.
 \end{figure}
 \end{frame}
 \begin{frame}
-\frametitle{una interpolación lineal}
+\frametitle{Una interpolación lineal}
 \begin{figure}
     \centering
     \includegraphics[scale=0.575]{Imagenes/Intro_Interpolacion_03.eps}
@@ -123,6 +122,13 @@ Interpolar $\mu_{k}$ para $T= 10^{\circ},30^{\circ},60^{\circ}$ y $90^{\circ}$.
 \item Falsa posición.
 \item Newton - Raphson.
 \end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Encontrando raíces de una función}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.6]{Imagenes/Encuentra_Raices_01.eps}
+\end{figure}
 \end{frame}
 
 \subsection*{Diferenciación}
@@ -173,6 +179,41 @@ Método de diferencias:
 \item Método de Romberg.
 \end{enumerate}
 \end{frame}
+\begin{frame}
+\frametitle{Aproximación polinomial de $f(x)$}
+\begin{center}
+    \begin{tikzpicture}[font=\footnotesize, scale=1.25]
+        \draw [->] (0,0) -- node [near end, left]{$f(x)$} (0,3);
+        \draw [->] (0,0) -- (7,0);
+        \draw (7.4,0) node {x};
+        \draw [blue] (1,0.5) .. controls(2.5,2) .. (6,0.4);
+        \foreach \x in {1,1.5,...,6} \draw (\x,0) circle (0.03cm);
+        \draw (1,-0.3) node {$x_{0}$};
+        \draw (1,-0.7) node {a};
+        \draw (1.5,-0.3) node {$x_{1}$};
+        \draw (2,-0.3) node {$x_{2}$};
+        \draw (2.5,-0.3) node {$x_{3}$};
+        \draw (3,-0.3) node {$x_{4}$};
+        \draw (5.5,-0.3) node {$x_{n-1}$};
+        \draw (6,-0.3) node {$x_{n}$};
+        \draw (6,-0.7) node {b};
+        \draw [dashed] (1,0) -- (1,0.5);
+        \draw [dashed] (1.5,0) -- (1.5,1.05);
+        \draw [dashed] (2,0) -- (2,1.37);
+        \draw [dashed] (2.5,0) -- (2.5,1.6);
+        \draw [dashed] (3,0) -- (3,1.56);
+        \draw [dashed] (3.5,0) -- (3.5,1.48);
+        \draw [dashed] (4,0) -- (4,1.27);
+        \draw [dashed] (4.5,0) -- (4.5,1.09);
+        \draw [dashed] (5,0) -- (5,0.85);
+        \draw [dashed] (5.5,0) -- (5.5,0.65);
+        \draw [dashed] (6,0) -- (6,0.43);
+        \draw [<->] (2.5,1) -- node [midway, below] {h} (3,1);
+    \end{tikzpicture}
+\end{center}
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Fórmulas Gaussianas}
 \setbeamercolor{item projected}{bg=cadetblue,fg=bubbles}
