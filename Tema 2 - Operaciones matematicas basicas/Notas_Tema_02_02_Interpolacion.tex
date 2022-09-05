@@ -379,220 +379,226 @@ A una temperatura de \textcolor{blue}{$\SI{3.0}{\kelvin}$}, la presión de vapor
 \bigskip
 \visible<3->{El siguiente paso es usar cuatro puntos y construir el polinomio de orden $3$.}
 \end{frame}
-
-\subsection{Ejercicio a resolver}
-
 \begin{frame}
-\frametitle{Ejercicio de interpolación}
-A partir de la siguiente tabla de datos:
-\pause
-\begin{center}
-\renewcommand{\arraystretch}{0.9}
-\begin{tabular}{c | c | c | c | c}
-$x$ & $1$ & $2$ & $3$ & $4$ \\ \hline
-$P (x)$ & $0.671$ & $0.620$ & $0.567$ & $0.512$ \\
-\end{tabular}
-\end{center}
-\pause
-Usa el algoritmo de interpolación de Lagrange con un polinomio de grado $n = 3$, para estimar el valor de $P (x)$ en los siguientes puntos:
-\\
-\medskip
-\begin{align*}
-x = 1.5, 2.5, 3.5
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Corroborar los resultados obtenidos}
-Aunque el enunciado no lo solicite directamente, podemos avanzar en la comprobación de los resultados si graficamos el conjunto de datos de la tabla y los valores que nos devuelve la interpolación.
-\end{frame}
-\begin{frame}
-\frametitle{Corroborar los resultados obtenidos}
-De esta manera veremos la tendencia de los datos de interpolación con los datos de la tabla, si alguno no corresponde, entonces tendremos que revisar nuestro código.
-\end{frame}
-\begin{frame}[allowframebreaks, fragile]
-\frametitle{Solución al problema}
-\begin{lstlisting}[caption=Código para la interpolación de Lagrange, basicstyle=\linespread{0.9}\ttfamily\small, columns=fullflexible]
-import numpy as np
-
-n = 3
-x0 = np.array([1.5, 2.5, 3.5])
-
-x = np.array([1., 2., 3., 4.])
-f = np.array([0.671, 0.620, 0.567, 0.512])
-
-for k in x0:
-    yres = 0
-    for i in range(0, n + 1):
-        z = 1.0
-        for j in range(0, n + 1):
-            if i != j:
-                z = z * (k - x[j])/(x[i] - x[j])
-        yres = yres + z*f[i]
-    
-    print ('El polinomio evaluado en P ({0:}) = {1:}'.format(k,  yres))
-\end{lstlisting}
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{Solución (en la terminal y con una gráfica)}
-\begin{table}
-\centering
-\renewcommand{\arraystretch}{0.9}
-\begin{tabular}{c | l}
-$x$ & $P (x)$ \\
-\hline $1$   & $0.671$ \\
-\hline $1.5$ & $0.64575$ \\
-\hline $2$   & $0.620$ \\
-\hline $2.5$ & $0.59375$ \\
-\hline $3$   & $0.567$ \\
-\hline $3.5$ & $0.53975$ \\
-\hline $4$   & $0.512$
-\end{tabular}
-\end{table}
-\end{frame}
-\begin{frame}
-\frametitle{Solución con una gráfica}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.6]{Imagenes/Ejercicio_Interpolacion_01.eps}
-	%\caption{Gráfica con los datos experimentales}
-\end{figure}
-\end{frame}
-\begin{frame}
-\frametitle{Solución con una gráfica}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.6]{Imagenes/Ejercicio_Interpolacion_02.eps}
-	%\caption{Datos experimentales y el valor de interpolación -bola azul-}
-\end{figure}
-\end{frame}
-
-\section{Ejercicios}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{Ejercicio 1}
-
-\begin{frame}
-\frametitle{Ejercicio 1}
-\setbeamercolor{item projected}{bg=blue,fg=white}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\item Ajusta $x \, \sin(x)$ en el intervalo $[0, \, \pi/2]$ con un polinomio de interpolación de Lagrange de orden $n = 4$, utilizando puntos con igual separación, necesitaremos entonces $n + 1 = 5$ puntos.
+\frametitle{Ejercicio a cuenta}
+Resuelve el ejercicio de interpolar con $4$ puntos de la tabla y obtén el valor de la presión de vapor a $\SI{3.0}{\kelvin}$.
 \\
 \bigskip
-Calcula el error de cada interpolación en cada incremento de $\pi/16$, y genera una gráfica.
-\seti
-\end{enumerate}
+¿Cuál es la diferencia en el resultado al tomar distintos puntos de la tabla? Es decir, tomando $2$ puntos antes y después de los $\SI{3.0}{\kelvin}$, o tomando $3$ antes y $1$ punto después de los $\SI{3.0}{\kelvin}$, etc. Presenta una tabla con los valores. Usando \python{} te será más fácil los cálculos. 
 \end{frame}
+% \subsection{Ejercicio a resolver}
 
-\subsection{Ejercicio 2}
-
-\begin{frame}
-\frametitle{Ejercicio 2}
-\setbeamercolor{item projected}{bg=blue,fg=white}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}
-\conti
-\item Ajusta $\sin(x)$ en $[0, \, 2\pi]$ con el polinomio de interpolación de Lagrange de orden $n = 4$ y $n = 8$, utilizando puntos con igual separación ($5$ y $9$ puntos respectivamente). 
-\\
-\bigskip
-Grafica los polinomios de interpolación junto con $\sin(x)$ y las distribuciones de sus errores.
-\end{enumerate}
-\end{frame}
-% % \begin{frame}[fragile]
-% % \frametitle{Hints para resolver los ejercicios}
-% % Tomemos en cuenta los siguiente:
-% % \setbeamercolor{item projected}{bg=green!70!black,fg=white}
-% % \setbeamertemplate{enumerate items}[circle]
-% % \begin{enumerate}[<+->]
-% % \item Hay que dividir el intervalo $[0,\pi/2]$ con cinco espacios.
-% % \item Se evalúa la función $x \: sin(x)$ en el conjunto de puntos que obtuvimos.
-% % \item Creamos un conjunto de puntos para ajustar con el método de Lagrange.
-% % \item La manera más fácil es con un \texttt{linspace}.
-% % \end{enumerate}
-% % \end{frame}
-% %\begin{frame}[fragile]
-% %\frametitle{Obteniendo los datos para el ejercicio}
-% %\begin{lstlisting}
-% %n=4
-% %x0 = linspace(0.,pi/2,20)
-% %x = linspace(0.,pi/2,5)
-% %f = funcion(x)
-% %calculo=[]
-% %\end{lstlisting}
-% %\end{frame}
-% %\begin{frame}[fragile]
-% %\frametitle{Función f(x)}
-% %\begin{lstlisting}
-% %def funcion(x):
-% %    return x*sin(x)
-% %\end{lstlisting}
-% %\end{frame}
-% %\begin{frame}[fragile]
-% %\frametitle{Método de Lagrange}
-% %\begin{lstlisting}
-% %def metLagrange(n,x0,x):
-% %    for k in x0:
-% %        yres = 0
-% %        for i in range(0,n+1):
-% %            z = 1.0
-% %            for j in range(0,n+1):
-% %                if i != j:
-% %                    z = z * (k-x[j])/(x[i]-x[j])
-% %            yres = yres + z*f[i]
-% %        calculo.append(yres)        
-% %\end{lstlisting}
-% %\end{frame}
-% % \begin{frame}
-% % \frametitle{Solución Ejercicio 1}
-% % \begin{figure}
-% % 	\centering
-% % 	\includegraphics[scale=0.45]{Imagenes/ejercicioTema21_1.eps} 
-% % \end{figure}
-% % \end{frame}
 % \begin{frame}
-% \frametitle{Solución Ejercicio 2}
+% \frametitle{Ejercicio de interpolación}
+% A partir de la siguiente tabla de datos:
+% \pause
+% \begin{center}
+% \renewcommand{\arraystretch}{0.9}
+% \begin{tabular}{c | c | c | c | c}
+% $x$ & $1$ & $2$ & $3$ & $4$ \\ \hline
+% $P (x)$ & $0.671$ & $0.620$ & $0.567$ & $0.512$ \\
+% \end{tabular}
+% \end{center}
+% \pause
+% Usa el algoritmo de interpolación de Lagrange con un polinomio de grado $n = 3$, para estimar el valor de $P (x)$ en los siguientes puntos:
+% \\
+% \medskip
+% \begin{align*}
+% x = 1.5, 2.5, 3.5
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Corroborar los resultados obtenidos}
+% Aunque el enunciado no lo solicite directamente, podemos avanzar en la comprobación de los resultados si graficamos el conjunto de datos de la tabla y los valores que nos devuelve la interpolación.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Corroborar los resultados obtenidos}
+% De esta manera veremos la tendencia de los datos de interpolación con los datos de la tabla, si alguno no corresponde, entonces tendremos que revisar nuestro código.
+% \end{frame}
+% \begin{frame}[allowframebreaks, fragile]
+% \frametitle{Solución al problema}
+% \begin{lstlisting}[caption=Código para la interpolación de Lagrange, basicstyle=\linespread{0.9}\ttfamily\small, columns=fullflexible]
+% import numpy as np
+
+% n = 3
+% x0 = np.array([1.5, 2.5, 3.5])
+
+% x = np.array([1., 2., 3., 4.])
+% f = np.array([0.671, 0.620, 0.567, 0.512])
+
+% for k in x0:
+%     yres = 0
+%     for i in range(0, n + 1):
+%         z = 1.0
+%         for j in range(0, n + 1):
+%             if i != j:
+%                 z = z * (k - x[j])/(x[i] - x[j])
+%         yres = yres + z*f[i]
+    
+%     print ('El polinomio evaluado en P ({0:}) = {1:}'.format(k,  yres))
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Solución (en la terminal y con una gráfica)}
+% \begin{table}
+% \centering
+% \renewcommand{\arraystretch}{0.9}
+% \begin{tabular}{c | l}
+% $x$ & $P (x)$ \\
+% \hline $1$   & $0.671$ \\
+% \hline $1.5$ & $0.64575$ \\
+% \hline $2$   & $0.620$ \\
+% \hline $2.5$ & $0.59375$ \\
+% \hline $3$   & $0.567$ \\
+% \hline $3.5$ & $0.53975$ \\
+% \hline $4$   & $0.512$
+% \end{tabular}
+% \end{table}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Solución con una gráfica}
 % \begin{figure}
 % 	\centering
-% 	\includegraphics[scale=0.45]{Imagenes/ejercicioTema21_2.eps} 
+% 	\includegraphics[scale=0.6]{Imagenes/Ejercicio_Interpolacion_01.eps}
+% 	%\caption{Gráfica con los datos experimentales}
+% \end{figure}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Solución con una gráfica}
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[scale=0.6]{Imagenes/Ejercicio_Interpolacion_02.eps}
+% 	%\caption{Datos experimentales y el valor de interpolación -bola azul-}
 % \end{figure}
 % \end{frame}
 
-\section{Consideraciones importantes}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{Ventajas}
+% \section{Ejercicios}
+% \frame{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Ejercicio 1}
 
-\begin{frame}
-\frametitle{Consideraciones importantes}
-La técnica de interpolación de Lagrange supone que el espaciamiento entre los puntos es la misma, por lo que cuando se presentan puntos que no cumplen ésta condición, la técnica ya no aplicaría.
-\end{frame}
+% \begin{frame}
+% \frametitle{Ejercicio 1}
+% \setbeamercolor{item projected}{bg=blue,fg=white}
+% \setbeamertemplate{enumerate items}{%
+% \usebeamercolor[bg]{item projected}%
+% \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+% }
+% \begin{enumerate}[<+->]
+% \item Ajusta $x \, \sin(x)$ en el intervalo $[0, \, \pi/2]$ con un polinomio de interpolación de Lagrange de orden $n = 4$, utilizando puntos con igual separación, necesitaremos entonces $n + 1 = 5$ puntos.
+% \\
+% \bigskip
+% Calcula el error de cada interpolación en cada incremento de $\pi/16$, y genera una gráfica.
+% \seti
+% \end{enumerate}
+% \end{frame}
 
-\subsection{Desventajas}
+% \subsection{Ejercicio 2}
 
-\begin{frame}
-\frametitle{Desventajas interpolación de Lagrange}
-A continuación se presentan algunas de las desventajas de la primera técnica de interpolación, al interpolación de Lagrange que hemos estudiado.
-\end{frame}
-\begin{frame}
-\frametitle{Desventajas interpolación Lagrange}
-\begin{itemize}[<+->]
-\item[\ding{212}] La cantidad de cálculos necesarios para una interpolación es grande.
-\item[\ding{212}] La interpolación para otro valor de $x$ necesita la misma cantidad de cálculos adicionales, ya que no se pueden utilizar partes de la aplicación previa.
-\end{itemize}
-\end{frame}
-\begin{frame}
-\frametitle{Desventajas interpolación Lagrange}
-\begin{itemize}[<+->]
-\item[\ding{212}] Cuando el número de datos tiene que incrementarse o decrementarse, no se pueden utilizar los resultados de los cálculos previos.
-\item[\ding{212}] La evaluación del error no es fácil.
-\end{itemize}
-\pause
-¿Cómo mejoramos el procedimiento de interpolación?
-\end{frame}
+% \begin{frame}
+% \frametitle{Ejercicio 2}
+% \setbeamercolor{item projected}{bg=blue,fg=white}
+% \setbeamertemplate{enumerate items}{%
+% \usebeamercolor[bg]{item projected}%
+% \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+% }
+% \begin{enumerate}
+% \conti
+% \item Ajusta $\sin(x)$ en $[0, \, 2\pi]$ con el polinomio de interpolación de Lagrange de orden $n = 4$ y $n = 8$, utilizando puntos con igual separación ($5$ y $9$ puntos respectivamente). 
+% \\
+% \bigskip
+% Grafica los polinomios de interpolación junto con $\sin(x)$ y las distribuciones de sus errores.
+% \end{enumerate}
+% \end{frame}
+% % % \begin{frame}[fragile]
+% % % \frametitle{Hints para resolver los ejercicios}
+% % % Tomemos en cuenta los siguiente:
+% % % \setbeamercolor{item projected}{bg=green!70!black,fg=white}
+% % % \setbeamertemplate{enumerate items}[circle]
+% % % \begin{enumerate}[<+->]
+% % % \item Hay que dividir el intervalo $[0,\pi/2]$ con cinco espacios.
+% % % \item Se evalúa la función $x \: sin(x)$ en el conjunto de puntos que obtuvimos.
+% % % \item Creamos un conjunto de puntos para ajustar con el método de Lagrange.
+% % % \item La manera más fácil es con un \texttt{linspace}.
+% % % \end{enumerate}
+% % % \end{frame}
+% % %\begin{frame}[fragile]
+% % %\frametitle{Obteniendo los datos para el ejercicio}
+% % %\begin{lstlisting}
+% % %n=4
+% % %x0 = linspace(0.,pi/2,20)
+% % %x = linspace(0.,pi/2,5)
+% % %f = funcion(x)
+% % %calculo=[]
+% % %\end{lstlisting}
+% % %\end{frame}
+% % %\begin{frame}[fragile]
+% % %\frametitle{Función f(x)}
+% % %\begin{lstlisting}
+% % %def funcion(x):
+% % %    return x*sin(x)
+% % %\end{lstlisting}
+% % %\end{frame}
+% % %\begin{frame}[fragile]
+% % %\frametitle{Método de Lagrange}
+% % %\begin{lstlisting}
+% % %def metLagrange(n,x0,x):
+% % %    for k in x0:
+% % %        yres = 0
+% % %        for i in range(0,n+1):
+% % %            z = 1.0
+% % %            for j in range(0,n+1):
+% % %                if i != j:
+% % %                    z = z * (k-x[j])/(x[i]-x[j])
+% % %            yres = yres + z*f[i]
+% % %        calculo.append(yres)        
+% % %\end{lstlisting}
+% % %\end{frame}
+% % % \begin{frame}
+% % % \frametitle{Solución Ejercicio 1}
+% % % \begin{figure}
+% % % 	\centering
+% % % 	\includegraphics[scale=0.45]{Imagenes/ejercicioTema21_1.eps} 
+% % % \end{figure}
+% % % \end{frame}
+% % \begin{frame}
+% % \frametitle{Solución Ejercicio 2}
+% % \begin{figure}
+% % 	\centering
+% % 	\includegraphics[scale=0.45]{Imagenes/ejercicioTema21_2.eps} 
+% % \end{figure}
+% % \end{frame}
+
+% \section{Consideraciones importantes}
+% \frame{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Ventajas}
+
+% \begin{frame}
+% \frametitle{Consideraciones importantes}
+% La técnica de interpolación de Lagrange supone que el espaciamiento entre los puntos es la misma, por lo que cuando se presentan puntos que no cumplen ésta condición, la técnica ya no aplicaría.
+% \end{frame}
+
+% \subsection{Desventajas}
+
+% \begin{frame}
+% \frametitle{Desventajas interpolación de Lagrange}
+% A continuación se presentan algunas de las desventajas de la primera técnica de interpolación, al interpolación de Lagrange que hemos estudiado.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Desventajas interpolación Lagrange}
+% \begin{itemize}[<+->]
+% \item[\ding{212}] La cantidad de cálculos necesarios para una interpolación es grande.
+% \item[\ding{212}] La interpolación para otro valor de $x$ necesita la misma cantidad de cálculos adicionales, ya que no se pueden utilizar partes de la aplicación previa.
+% \end{itemize}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Desventajas interpolación Lagrange}
+% \begin{itemize}[<+->]
+% \item[\ding{212}] Cuando el número de datos tiene que incrementarse o decrementarse, no se pueden utilizar los resultados de los cálculos previos.
+% \item[\ding{212}] La evaluación del error no es fácil.
+% \end{itemize}
+% \pause
+% ¿Cómo mejoramos el procedimiento de interpolación?
+% \end{frame}
 
 % \section{Interpolación de Newton}
 % \frame{\tableofcontents[currentsection, hideothersubsections]}
