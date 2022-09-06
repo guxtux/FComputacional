@@ -56,23 +56,23 @@ De esta manera veremos la tendencia de los datos de interpolación con los datos
 \end{frame}
 \begin{frame}[allowframebreaks, fragile]
 \frametitle{Solución al problema}
-\begin{lstlisting}[caption=Código para la interpolación de Lagrange, basicstyle=\linespread{0.9}\ttfamily=\small, columns=fullflexible, escapeinside={||}]
+\begin{lstlisting}[caption=Código para la interpolación de Lagrange]
 import numpy as np
 
-n = 3 |\pause|
-x0 = np.array([1.5, 2.5, 3.5]) |\pause|
+n = 3
 
-x = np.array([1., 2., 3., 4.]) |\pause|
-f = np.array([0.671, 0.620, 0.567, 0.512]) |\pause|
+x0 = np.array([1.5, 2.5, 3.5])
+x = np.array([1., 2., 3., 4.])
+f = np.array([0.671, 0.620, 0.567, 0.512])
 
-for k in x0: |\pause\
-    yres = 0 |\pause\
-    for i in range(0, n + 1): |\pause|
-        z = 1.0 |\pause\
-        for j in range(0, n + 1): |\pause|
-            if i != j: |\pause|
-                z = z * (k - x[j])/(x[i] - x[j]) |\pause|
-        yres = yres + z * f[i] |\pause|
+for k in x0:
+    yres = 0
+    for i in range(0, n + 1):
+        z = 1.0
+        for j in range(0, n + 1):
+            if i != j:
+                z = z * (k - x[j])/(x[i] - x[j])
+        yres = yres + z * f[i] 
     
     print ('El polinomio evaluado en P ({0:}) = {1:}'.format(k,  yres))
 \end{lstlisting}
@@ -379,7 +379,7 @@ Definimos:
 \begin{frame}[fragile]
 \frametitle{Estructurando el código en \python}
 Podemos usar el siguiente algoritmo para calcular $P_{n} (x)$:
-\begin{lstlisting}[caption=Algoritmo para calcular $P_{n}$, basicstyle=\linespread{0.9}\ttfamily=\small, columns=fullflexible]
+\begin{lstlisting}[caption=Algoritmo para calcular $P_{n}$]
 p = a[n]
 
 for k in range(1, n + 1):
@@ -489,12 +489,12 @@ Las operaciones en la computadora se pueden realizar con un arreglo unidimension
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Estructurando el código}
-\begin{lstlisting}[caption=Calculando los coeficientes del polinomio, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+\begin{lstlisting}[caption=Calculando los coeficientes del polinomio]
 a = yDatos.copy()
 
 for k in range(1, m):
     for i in range(k, m):
-        a[i] = (a[i] - a[k-_1_])/(xDatos[i] - xDatos[k-_1_])
+        a[i] = (a[i] - a[k-1])/(xDatos[i] - xDatos[k-1])
 \end{lstlisting}
 La función \texttt{.copy()} hace una copia del arreglo, dejando sin cambios en este caso al arreglo \texttt{yDatos}.
 \end{frame}
@@ -539,7 +539,7 @@ Una vez que ya conocemos los coeficientes, el polinomio $P_{n}(x)$ puede evaluar
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Código del módulo}
-\begin{lstlisting}[caption=Funciones \texttt{coeffts} del módulo \texttt{newtonPoli}, style=FormattedNumber, basicstyle=\linespread{0.9}\ttfamily=\small, columns=fullflexible]    
+\begin{lstlisting}[caption=Funciones \texttt{coeffts} del módulo \texttt{newtonPoli}]    
 def coeffts(xDatos, yDatos):
     m = len(xDatos) 
     a = yDatos.copy()
@@ -550,10 +550,11 @@ def coeffts(xDatos, yDatos):
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Código del módulo}
-\begin{lstlisting}[caption=Funciones \texttt{evalPoli} del módulo \texttt{newtonPoli}, style=FormattedNumber, basicstyle=\linespread{0.9}\ttfamily=\small, columns=fullflexible]
+\begin{lstlisting}[caption=Funciones \texttt{evalPoli} del módulo \texttt{newtonPoli}]
 def evalPoli(a, xDatos, x):
     n = len(xDatos) - 1 
     p = a[n]
+
     for k in range(1, n+1):
         p = a[n-k] + (x - xDatos[n-k]) * p
     return p
@@ -607,7 +608,7 @@ En un archivo nuevo en Spyder, llamamos a la librería \funcionazul{numpy} y tam
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Llamada a las librerías}
-\begin{lstlisting}[caption=Llamando a las librerías y módulos, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+\begin{lstlisting}[caption=Llamando a las librerías y módulos]
 import numpy as np
 from newtonPoli import coeffts, evalPoli
 \end{lstlisting}
@@ -616,11 +617,9 @@ from newtonPoli import coeffts, evalPoli
 \frametitle{Definiendo los arreglos}
 Hay que crear los arreglos \texttt{xDatos} y \texttt{yDatos}, el arreglo $a$ se obtiene de la función \funcionazul{coeffts}.
 \pause
-\begin{lstlisting}[caption=Arreglos de la tabla, style=FormattedNumber, basicstyle=\linespread{0.9}\ttfamily=\small, columns=fullflexible]
+\begin{lstlisting}[caption=Arreglos de la tabla]
 xDatos = np.array([0.15,2.3,...,7.95])
-
 yDatos = np.array([4.79867,4.49013,...,1.51909])
-
 a = coeffts(xDatos, yDatos)
 \end{lstlisting}
 Recuerda que se deben de introducir todos los datos de la tabla.
@@ -631,7 +630,7 @@ La siguiente parte es proporcionar el rango de puntos en donde queremos evaluar 
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Evaluación de los puntos}
-\begin{lstlisting}[caption=Evaluando los puntos y el error relativo, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
+\begin{lstlisting}[caption=Evaluando los puntos y el error relativo]
 for x in np.arange(0.0, 8.1, 0.5):
     y = evalPoli(a, xDatos, x)
     print('{:1.1f} \t {:1.5f} \t {:1.5f} \t {:1.5E}'.format(x, y, yExacta, errorRelativo(yExacta, y)))
@@ -688,11 +687,10 @@ Tenemos lo siguiente:
 \item Vamos a evaluar la \textit{función exacta} en el intervalo $[0, 8]$ para mostrar la gráfica, necesitaremos una función que evalúe los datos del intervalo.
 \end{enumerate}
 \end{frame}
-\begin{frame}[fragile]
+\begin{frame}[allowframebreaks, fragile]
 \frametitle{Función y rutina de graficación}
 Dejamos la función en la parte superior del código, para luego usar la rutina de graficación tradicional:
-\pause
-\begin{lstlisting}[caption=Graficando la función exacta, style=FormattedNumber, basicstyle=\linespread{0.9}\ttfamily=\small, columns=fullflexible]
+\begin{lstlisting}[caption=Graficando la función exacta]
 def yExacta(x):
     valor = 4.8 * np.cos(np.pi * x/20.0)
     return valor
