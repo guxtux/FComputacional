@@ -8,7 +8,7 @@ from prettytable import PrettyTable
 import math
 
 def error_relativo(exacto, aproximado):
-    return math.fabs(math.sin(exacto)- aproximado)/math.sin(exacto)*100
+    return math.fabs(math.sin(exacto)- aproximado)/math.sin(exacto)
 
 x = [-2, -1.5, -1, -0.5, 0.5, 1, 1.5, 2]
 

@@ -7,6 +7,7 @@ Created on Thu Mar 07 13:40:35 2013
 import matplotlib.pyplot as plt
 import numpy as np
 from newtonPoli import coeffts, evalPoli
+from prettytable import PrettyTable
 
 def yExacta(x):
     valor = 4.8 * np.cos(np.pi * x/20.0)
@@ -27,15 +28,20 @@ x2 = np.linspace(0, 8)
 
 a = coeffts(xDatos, yDatos)
 
+# tabla = PrettyTable(['x', 'yInterp', 'yExacta'], float_format='1.5')
+
 print('x \t yInterp \t yExacta')
 print('-'*30)
 
 for x in np.arange(0.0, 8.1, 0.5):
     y = evalPoli(a, xDatos, x)
+    # tabla.add_row([x, y, yExacta(x)])
     print('{0:1.5f} \t {1:1.5f} \t {2:1.5f}'.format(x, y, yExacta(x)))
     x0.append(x)
     y0.append(y)
 
+# print(tabla)
+    
 plot1 = plt.figure(1)
 plt.plot(xDatos, yDatos, '+b', label='Datos iniciales')
 etiquetas()

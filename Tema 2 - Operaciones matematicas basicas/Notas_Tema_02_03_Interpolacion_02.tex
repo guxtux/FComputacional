@@ -169,12 +169,28 @@ El ejercicio pide una interpolación con un polinomio de orden $3$, por lo que e
 \begin{frame}[fragile]
 \frametitle{Definiendo el polinomio de interpolación}
 \begin{lstlisting}[caption=Definiendo el polinomio]
+from scipy import interpolate
+
 x1 = np.linspace(1, 4)
 
 interp_1 = interpolate.interp1d(poli_x, poli_y, kind='cubic')
 
 y1 = interp_1(x1)
 \end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Ubicando los elementos del código}
+Recuerda que hay que colocar las partes del código de manera consistente, es decir:
+\setbeamercolor{item projected}{bg=ao,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item La llamada al módulo \funcionazul{interpolate}, debe de quedar al inicio del código.
+\item Las variables $x1$, $interp\_1$ y $y1$ deben de quedar antes de la rutina de graficación.
+\item La siguiente instrucción para la gráfica queda en el apartado para las otras gráficas.
+\end{enumerate}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Datos para graficar}
