@@ -8,6 +8,9 @@ Created on Wed Mar 11 17:47:07 2020
 from numpy import linspace
 from scipy.interpolate import splrep, splev
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+
+mpl.rcParams['text.usetex'] = True
 
 x = linspace(-1, 1, 100)
 y = 1./(1 + 25 * x**2)
