@@ -6,6 +6,7 @@
     urlcolor=red,
     }
 \usepackage{minted}
+\usepackage{menukeys}
 
 \title{\vspace{-2cm}Guía rápida para git \\ {\large Curso Física Computacional} \vspace{-3ex}}
 \author{M. en C. Gustavo Contreras Mayén. \texttt{gux7avo@ciencias.unam.mx}}
@@ -21,25 +22,26 @@
 
 ¿Qué es el \enquote{control de versiones} y por qué debería importarnos?
 \\
-El control de versiones es un sistema que registra los cambios que hacemos en un archivo o conjunto de archivos a lo largo del tiempo para que pueda recuperar versiones específicas más adelante.
+El control de versiones es un sistema que registra los cambios que hacemos en un archivo o conjunto de archivos a lo largo del tiempo para que podamos recuperar versiones específicas más adelante.
 \par
-Pensemos que estamos escribiendo un trabajo final, un reporte o quizá la tesis de la carrera, y queremos conservar todas las versiones de del documento, imágenes, tablas, incluyendo códigos en algún lenguaje o programa específico (lo que sin duda deberíamo), un Sistema de Control de Versiones (Version Control System, \textbf{VCS}) es una opción muy inteligente. Ya que nos permite revertir archivos a un estado anterior, revertir todo el proyecto a un estado anterior, comparar cambios a lo largo del tiempo, en el caso de estar elaborando un proyecto en equipo, ver quién modificó por última vez algo que podría estar causando un problema, quién introdujo un problema y cuándo, y más.
+Pensemos que estamos escribiendo un trabajo final, un reporte o quizá la tesis de la carrera, y queremos conservar todas las versiones de del documento, imágenes, tablas, incluyendo códigos en algún lenguaje o programa específico (lo que sin duda deberíamo), un Sistema de Control de Versiones (Version Control System, \textbf{VCS}) es una opción muy inteligente. Ya que nos permite revertir tanto archivos como todo un proyecto a un estado anterior, comparar cambios a lo largo del tiempo, en el caso de estar elaborando un proyecto en equipo, ver quién modificó por última vez algo que podría estar causando un problema, quién introdujo un problema y cuándo, y más acciones.
 \par
-El uso de un VCS generalmente también significa que si arruina las cosas o pierde archivos, puede recuperarlos fácilmente. 
+El uso de un VCS generalmente también significa que si por alguna razón se arruinan las cosas o se pierden archivos, podemos recuperarlos fácilmente. 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{Imagenes/meme_tesis.jpeg}
+    \includegraphics[scale=0.45]{Imagenes/meme_tesis.jpeg}
     \caption{Ejemplo de un manejo no conveniente para las versiones de la tesis.}
+    \label{fig:figura_tesis}
 \end{figure}
 
 \subsection{Sistemas de control de versiones locales.}
 
-El método de control de versiones elegido por muchas personas es copiar archivos en otro directorio (quizás un directorio con marca de tiempo, si queremos menos problemas). Este enfoque es muy común porque \textit{es muy simple}, pero también es \textbf{increíblemente propenso a errores}: es fácil olvidar en qué directorio se encuentra y escribir accidentalmente en el archivo incorrecto o copiar archivos que no tenía la intención de copiar.
+El método de control de versiones elegido por muchas personas es copiar archivos en otro directorio (quizás un directorio con marca de tiempo, si queremos menos problemas). Este enfoque es muy común porque \textit{es muy simple}, como se muestra en la figura (\ref{fig:figura_tesis}) pero también es \textbf{increíblemente propenso a errores}: es fácil olvidar en qué directorio se encuentra y escribir accidentalmente en el archivo incorrecto o copiar archivos que no teníamos la intención de copiar.
 \par
 Para lidiar con este problema, un equipo de programadores desarrollaron hace mucho tiempo VCS locales que tenían una base de datos simple que mantenía todos los cambios en los archivos bajo control de revisión.
 \par
-Luego de continuar con el desarrollo y hacer cambios en el enfoque del manejo de un VCS, \textbf{Git} nace en año 2005, ha evolucionado y madurado para ser fácil de usar. Es increíblemente rápido, es muy eficiente con proyectos grandes y tiene un increíble sistema de bifurcación (ramas) para el desarrollo no lineal
+Luego de continuar con el desarrollo y hacer cambios en el enfoque del manejo de un VCS, \textbf{Git} nace en año 2005, ha evolucionado y madurado para ser fácil de usar. Es increíblemente rápido, es muy eficiente con proyectos grandes y tiene un increíble sistema de bifurcación (ramas) para el desarrollo no lineal, es decir, no necesariamente los cambios se dan de manera secuencial: Capítulo 1, Capítulo 2, etc. sino que pueden ser: Capítulo 5, Capítulo 2, Bibliografía, Introducción, etc.
 
 \section{Conceptos básicos de Git.}
 
@@ -60,7 +62,7 @@ Antes de utilizar Git debemos de asegurarnos que esté instalado en nuestra comp
 En el sitio web oficial podemos descargar Git para nuestro sistema operativo: \href{https://git-scm.com/downloads}{https://git-scm.com/downloads}.
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{Imagenes/git_01.png}
+    \includegraphics[scale=0.4]{Imagenes/git_01.png}
 \end{figure}
 
 Dependiendo del sistema operativo tendremos que seguir las correspondientes instrucciones y seguir los pasos de instalación.
@@ -69,21 +71,21 @@ Dependiendo del sistema operativo tendremos que seguir las correspondientes inst
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.4]{Imagenes/git_02.png}
+    \includegraphics[scale=0.35]{Imagenes/git_02.png}
 \end{figure}
 
 \subsection*{Versión para Windows.}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.4]{Imagenes/git_03.png}
+    \includegraphics[scale=0.35]{Imagenes/git_03.png}
 \end{figure}
 
 \subsection*{Versión para Linux.}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.4]{Imagenes/git_04.png}
+    \includegraphics[scale=0.35]{Imagenes/git_04.png}
 \end{figure}
 
 Para verificar que tenemos instalado Git, basta con que en la terminal (recordemos que el prompt en la terminal es el símbolo $\$$ ) veamos la versión que tenemos en la computadora:
@@ -94,7 +96,7 @@ Debiendo mostrarse la versión más reciente o la que está instalada.
 
 \section{Sobre el alcance de la guía.}
 
-Esta guía será de ayuda para \textbf{clonar} un repositorio de \texttt{GitHub}, que es un sitio de almacenamiento en la nube donde se almacenan nuestros archivos. Cuando clonamos un repositorio, estamos descargando todo el conjunto de archivos tal cual los ha dejado el propietario del mismo, de tal manera que podemos trabajar de manera local en nuestra computadora.
+Esta guía será de ayuda para \textbf{clonar} un repositorio de \texttt{\textbf{GitHub}}, que es un sitio de almacenamiento en la nube donde se almacenan nuestros archivos. Cuando clonamos un repositorio, estamos descargando todo el conjunto de archivos tal cual los ha dejado el propietario del mismo, de tal manera que podemos trabajar de manera local en nuestra computadora.
 \par
 El curso de Física Computacional tiene un repositorio con los materiales de trabajo: Notebooks de Jupyter, archivos de código, imágenes, etc. con los que se nos facilitará el desarrollo en cada uno de los temas del curso.
 \par
@@ -150,6 +152,7 @@ Sufyan bin Uzayr (2022) \emph{Mastering Git. A Begginer's Guide}, CRC Press.
 
 \subsection*{\Large{En internet.}}
 
+Para abrir la liga presiona \keys{\ctrl} + click izquierdo del ratón sobre el texto en color rojo.
 \begin{enumerate}[label=\alph*)]
 \item \href{https://git-scm.com/}{Sitio web de Git.}
 \item \href{https://git-scm.com/video/what-is-version-control}{¿Qué es el control de versiones? (Video)}
