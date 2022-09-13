@@ -120,293 +120,415 @@ $0.73450$ & $0.73456$ & $0.73462$ & $0.00139$ & $0.00059$	& $-0.00020$ \\ \hline
 \end{tabular}
 \end{table}
 \begin{tikzpicture}[overlay]
-    \uncover<1>{\draw[thick, red] (0, 2.5) rectangle (11.3, 3.3);}
-    \uncover<2>{\draw[thick, blue, fill=blue, opacity=0.2] (7.4, 2.5) rectangle (11.3, 3.3);}
-    \uncover<3>{\draw[thick, blue, fill=blue, opacity=0.2] (5.5, 1.8) rectangle (9.3, 2.4);}
-    \uncover<4>{\draw[thick, blue, fill=blue, opacity=0.2] (7.4, 1.1) rectangle (11.3, 1.7);}
-    \uncover<5>{\draw[thick, blue, fill=blue, opacity=0.2] (7.4, 0.3) rectangle (11.3, 1);}
+    \uncover<1>{\draw[thick, red] (0, 3.3) rectangle (11.3, 3.9);}
+    \uncover<2>{\draw[thick, blue, fill=blue, opacity=0.2] (5.5, 3.3) rectangle (9.3, 3.9);}
+    \uncover<3>{\draw[thick, blue, fill=blue, opacity=0.2] (5.5, 2.5) rectangle (9.3, 3.1);}
+    \uncover<4>{\draw[thick, blue, fill=blue, opacity=0.2] (5.5, 1.8) rectangle (9.3, 2.3);}
+    \uncover<5>{\draw[thick, blue, fill=blue, opacity=0.2] (5.5, 1.1) rectangle (9.3, 1.6);}
+    \uncover<6>{\draw[thick, blue, fill=blue, opacity=0.2] (5.5, 0.4) rectangle (9.3, 1.0);}
 \end{tikzpicture}
 \end{frame}
     
-\begin{frame}[fragile]
-\frametitle{Revisando el código}
-Del código tenemos que:
-\pause
-\begin{verbatim}
-if (switch == 0) and (abs(f3) > abs(f1)) \ 
-                 and (abs(f3) > abs(f2)):
-    return None
-\end{verbatim}
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{Valor de la expresión}
-\begin{table}
-\centering
-\renewcommand{\arraystretch}{0.9}
-\begin{tabular}{l | l | l | l | c}
-$x_{1}$ & $x_{2}$ & $f(x_{1})$ & $f(x_{2})$ & $f (x_{1}) f (x_{2})$ \\ \hline
-$0.0$ & $0.2$ & $5.0$ & $4.608$ & $23.04$ \\ \hline
-$0.2$ & $0.4$ & $4.608$ & $3.464$ & $15.9621$ \\ \hline
-\end{tabular}
-\end{table}    
-
-\begin{table}
-    \centering  
-\begin{tabular}{l  | l | l}
-$\abs{f3} > \abs{f1}$ & $\abs{f3} > \abs{f2}$ & Expresión \\ \hline
-\texttt{True} & \texttt{True} & True \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{tikzpicture}[overlay]
-    \draw[thick, red] (1.7, 6) rectangle (9.5, 7);
-\end{tikzpicture}
-\end{frame}
-
-
-% \subsection{Método de Newton-Raphson}
-% \begin{frame}
-% \frametitle{Método de Newton-Raphson}
-% El método de Newton-Raphson es el algoritmo más conocido para encontrar raíces por una buena razón: es simple y rápido.
-% \\
-% \medskip
-% El único detalle es que utiliza la derivada $f^{\prime}(x)$ así como la función $f(x)$. Por tanto, en los problemas a resolver con este algoritmo, deberá de contemplarse que la derivada sea fácil de calcularse.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Método de Newton-Raphson}
-% El método de N-R se obtiene de la expansión en series de Taylor de $f(x)$ alrededor de $x$:
-% \[ f(x_{i + 1})  = f(x_{i}) + f^{\prime}(x_{i})(x_{i + 1} - x_{i}) + O(x_{i + 1} - x_{i})^{2}\]
-% \end{frame}
-% \begin{frame}
-% Si $x_{i + 1}$ es una raíz de $f(x)=0$, tenemos que:
-% \[ 0 = f(x_{i}) + f^{\prime}(x_{i})(x_{i + 1} - x_{i}) + O(x_{i + 1} - x_{i})^{2} \]
-% Suponiendo que $x_{i}$ está cerca de $x_{i + 1}$, podemos eliminar el último término de la ecuación y resolver para $x_{i+1}$, por lo que la fórmula de Newton-Raphson es:
-% \[ x_{i+1} = x_{i} - \dfrac{f(x_{i})}{f^{\prime}(x_{i})} \]
-% \end{frame}
-% \begin{frame}
-% Si $x$ representa el valor verdadero de la raíz, el error en $x_{i}$ es $E_{i} =x - x_{i}$. Se puede demostrar que si $x_{i+1}$ se calcula de la expresión de N-R, el error es:
-% \[ E_{i+1} = - \dfrac{f^{\prime \prime}(x_{i})}{2 \: f^{\prime}(x_{i})} \; E_{i}^{2}\]
-% Lo que nos dice que el método de N-R converge de manera cuadrática, es decir, el error es el cuadrado del error del punto previo.
-% \end{frame}
 % \begin{frame}[fragile]
-% \frametitle{Representación gráfica}
-% Podemos interpretar que $x_{i+1}$ es el punto en donde la tangente de $f(x_{i})$ cruza el eje de las $x$:
-% \begin{center}
-% 	\begin{tikzpicture}[font=\small, scale=0.8]
-% 		\draw [->] (0,0) -- (7,0);
-% 		\draw [<->] (0,-3) -- (0,3);
-% 		\draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
-% 		\draw (1,-0.3) node {$x_{i}$};
-% 		\draw (1,3.3) node {$f(x_{i})$};
-% 		\draw [dashed] (1.2,0) -- (1.2,2.35);
-% 		\draw (0.8,3.1) -- (2.35,-0.1);
-% 		\draw [dashed] (2.3,0) -- (2.3,0.58);
-% 		\draw (2.3,-0.3) node {$x_{i+1}$};
-% 	\end{tikzpicture}
-% \end{center}
-% \end{frame}
-% \begin{frame}[fragile]
-% El método de N-R es sencillo: se aplica la expresión para $x_{i + 1}$ iniciando con un valor $x_{0}$, hasta alcanzar un criterio de convergencia:
-% \[ \vert x_{i+1} - x_{i} \vert < \varepsilon \]
-% El algoritmo es el siguiente:
-% \setbeamercolor{item projected}{bg=red!70!black,fg=white}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item Sea $x$ un valor inicial para la raíz de $f(x)=0$.
-% \item Calcular $\Delta x = - f(x)/f^{\prime}(x)$.
-% \item Asignar $x \leftarrow x + \Delta x$ y se repiten los pasos 2-3, hasta alcanzar $\vert \Delta x \vert < \varepsilon$.
-% \end{enumerate}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Precaución con el método N-R}
-% Aunque el método de Newton-Raphson converge rápidamente cerca de la raíz, sus características globales de convergencia son pobres. 
-% \\
-% \bigskip
-% La razón es que la línea tangente no es siempre una aproximación aceptable de la función.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Precaución con el método N-R}
-% \begin{center}
-% 	\begin{tikzpicture}[font=\small, scale=0.8]
-% 		\draw [->] (0,0) -- (4,0);
-% 		\draw [<->] (0,-1) -- (0,3);
-% 		\draw [red, thick] (1,3) .. controls (2,3) and (2.5,2) .. (3.5,-2);
-% 		\draw (1.2,3) circle (0.05);
-% 		\draw [blue, ->] (1.2,3) -- (3.5,2.7);
-% 		\draw (4.2,0) node {$x$};
-% 		\draw (-0.5,2) node {$f(x)$};
-% 		\draw [dashed] (1.2,0) -- (1.2,3);
-% 		\draw (1.2,-0.2) node {$x_{0}$};
-% 	\end{tikzpicture}
-% \end{center}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Precaución con el método N-R}
-% \begin{center}
-% \setbeamercovered{invisible}
-% 	\begin{tikzpicture}[decoration={
-%   markings,% activar las marcas
-%   mark= at position 2cm with{\arrow{stealth}}}]
-% 		\draw [->] (0,0) -- (6,0);
-% 		\draw [<->] (0,-2) -- (0,2);
-% 		\draw [red, thick] (0.5,-2) .. controls (3,-1.9) and (3,1.9) .. (5.5,2);
-% 		\draw (4.5,-0.3) node {$x_{0}$};\pause
-% 		\draw [dashed] (4.5,0) -- (4.5,1.69);
-% 		\draw (4.5,1.7) circle (0.04);
-% 		\draw [blue, postaction={decorate}] (4.5,1.7) -- (1,0);
-% 		\draw (1,0.3) node {$x_{1}$};
-% 		\draw (1,0) circle (0.04);\pause
-% 		\draw [dashed] (1,0) -- (1,-1.95);
-% 		\draw (1,-1.95) circle (0.04);
-% 		\draw [blue,, postaction={decorate}] (1,-1.95) -- (5.8,0.1);
-% 	\end{tikzpicture}
-% \end{center}
-% \end{frame}
-% % \subsection{Algoritmo para el método Newton-Raphson}
-% \begin{frame}
-% \frametitle{Algoritmo para el método Newton-Raphson}
-% La siguiente algoritmo para el método de Newton-Raphson supone que la raíz a calcularse inicialmente está en el intervalo (a, b).
-% \end{frame}
-% \begin{frame}
-% \frametitle{Algoritmo para el método Newton-Raphson}
-% El punto medio del intervalo se utiliza como aproximación inicial de la raíz. Los extremos del intervalo se actualizan luego de cada iteración.
-% \\
-% \bigskip
-% Si una iteración del método Newton-Raphson no se mantiene dentro del intervalo, se descarta y se reemplaza con el método de bisección.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Algoritmo para el método Newton-Raphson}
-% Ya que el método \texttt{newtonRaphson} utiliza la función $f(x)$, así como su derivada, (denotadas por $f$ y $df$) deben ser proporcionadas por el usuario.
-% \end{frame}
-% \begin{frame}[plain, allowframebreaks, fragile]
-% \frametitle{Algoritmo de \texttt{Newton-Raphson}}
-% \begin{lstlisting}[caption=Código del método N-R, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
-% def newtonRaphson(f, df, a, b, tol = 1.0e-9):
-%     fa = (f(a)
-%     if fa == 0.0: return a
-%     fb = f(b)
-%     if f(b) == 0.0: return b
-%     if fa*fb > 0.0: print ('La raiz no esta en el intervalo')
-%     x = 0.5 * (a + b)
-
-%     for i in range(30):
-%         fx = f(x)
-%         if abs(fx) < tol: return x
-
-%         if fa*fx < 0.0:
-%             b = x
-%         else:
-%             a = x; fa = fx
-
-%         dfx = df(x)
-        
-%         try: dx = -fx/dfx
-%         except ZeroDivisionError: dx = b - a
-%         x =  x + dx
-        
-%         if(b - x)*(x - a) < 0.0:
-%             dx = 0.5*(b-a)
-%             x = a + dx
-        
-%         if abs(dx) < tol*max(abs(b),1.0): return x
-    
-%     print 'Son demasiadas iteraciones'
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Primer ejercicio}
-% Usando el método de Newton-Raphson, calcular las dos raíces de la función
-% \[ \sin \: x + 3 \: \cos \: x - 2 = 0  \]
-% en el intervalo $(-2, 2)$
-% \end{frame}
-% \begin{frame}
-% \frametitle{Primer paso: graficar la función}
-% La gráfica de la función en el intervalo dado es la siguiente:
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[scale=0.5]{Imagenes/Ejercicio_NR_Seno_01.eps}
-% \end{figure}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Intervalos de las raíces}
-% Con el método de incrementos sucesivos, estimamos cada intervalo donde se encuentran las raíces de la función.
-% \end{frame}
-% \begin{frame}[plain, fragile]
-% \frametitle{Intervalos de las raíces}
-% \begin{lstlisting}[caption=Intervalos para las raíces, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
-% inicio, final, dx = -2., 2. , 0.01
-
-% a!1!, b!1! = buscaraiz(f, inicio, final, 0.1)
-% print('Una raiz esta en  el intervalo [', a!1!, ',', b!1! , ']')
-
-% inicio = b!1!
-
-% a!2!, b!2! = buscaraiz(f, inicio, final, 0.1)
-% print('Una raiz esta en  el intervalo [', a!2!, ',', b!2! , ']')
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Los intervalos}
-% El resultado que nos devuelve la función de incrementos sucesivos es:
+% \frametitle{Revisando el código}
+% Del código tenemos que:
+% \pause
 % \begin{verbatim}
-% Una raíz está en [ -0.6 , -0.5 ]
-% Una raíz está en [ 1.2 , 1.3 ]
+% if (switch == 0) and (abs(f3) > abs(f1)) \ 
+%                  and (abs(f3) > abs(f2)):
+%     return None
 % \end{verbatim}
 % \end{frame}
-% \begin{frame}[allowframebreaks, plain, fragile]
-% \frametitle{Código completo}
-% \begin{lstlisting}[caption=Intervalos para las raíces, style=FormattedNumber, basicstyle=\linespread{1.1}\ttfamily=\small, columns=fullflexible]
-% from ModuloRaices import buscaraiz, newtonRaphson
-% import matplotlib.pyplot as plt
-% import numpy as np
+% \begin{frame}[fragile]
+% \frametitle{Valor de la expresión}
+% \begin{table}
+% \centering
+% \renewcommand{\arraystretch}{0.9}
+% \begin{tabular}{l | l | l | l | c}
+% $x_{1}$ & $x_{2}$ & $f(x_{1})$ & $f(x_{2})$ & $f (x_{1}) f (x_{2})$ \\ \hline
+% $0.0$ & $0.2$ & $5.0$ & $4.608$ & $23.04$ \\ \hline
+% $0.2$ & $0.4$ & $4.608$ & $3.464$ & $15.9621$ \\ \hline
+% \end{tabular}
+% \end{table}    
 
+% \begin{table}
+%     \centering  
+% \begin{tabular}{l  | l | l}
+% $\abs{f3} > \abs{f1}$ & $\abs{f3} > \abs{f2}$ & Expresión \\ \hline
+% \texttt{True} & \texttt{True} & True \\ \hline
+% \end{tabular}
+% \end{table}
 
-% def f(x): return np.sin(x) + 3 * np.cos(x) - 2
-% def df(x): return np.cos(x) - 3 * np.sin(x)
-
-
-% intervalo!1! = []
-% intervalo!2! = []
-
-% inicio, final, dx = -2., 2. , 0.01
-
-
-% a!1!, b!1! = buscaraiz(f, inicio, final, 0.1)
-% print('Una raiz est en [', round(a!1!, 2), ',', round(b!1!, 2) , ']')
-% intervalo!1!.append(a!1!)
-% intervalo!1!.append(b!1!)
-
-% inicio = b!1!
-% a!2!, b!2! = buscaraiz(f, inicio, final, 0.1)
-% print('Una raiz esta en [', round(a!2!,2), ',', round(b!2!,2), ']')
-% intervalo!2!.append(a!2!)
-% intervalo!2!.append(b!2!)
-
-% raiz!1! = newtonRaphson(f, df, intervalo!1![0], intervalo!1![-1], 1.e-4)
-% print(raiz!1!)
-
-% raiz!2! = newtonRaphson(f, df, intervalo!2![0], intervalo!2![-1], 1.e-4)
-% print(raiz!2!)
-
-% x = np.linspace(-2,2)
-% plt.axhline(y=0, ls='dashed', lw=0.7, color='k')
-% plt.plot(x, f(x), color='g')
-% plt.plot(raiz!1!, 0, 'ro', label='Raiz !1! = ' + str(round(raiz!1!, 3)))
-% plt.plot(raiz!2!, 0, 'bo', label='Raiz !2! = ' + str(round(raiz!2!, 3)))
-% plt.legend(loc='lower right')
-% plt.title('Grafica que muestra dos raices de la funcion')
-% plt.show()
-% \end{lstlisting}    
+% \begin{tikzpicture}[overlay]
+%     \draw[thick, red] (1.7, 6) rectangle (9.5, 7);
+% \end{tikzpicture}
 % \end{frame}
-% \begin{frame}
-% \frametitle{Solución}
-% La gráfica de la función en el intervalo dado es la siguiente:
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[scale=0.4]{Imagenes/Ejercicio_NR_Seno_02.eps}
-% 	\caption{Implementando varias etapas, se calcularon las raíces de la función en el  intervalo.}
-% \end{figure}
-% \end{frame}
+
+\section{Método de Newton-Raphson}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición}
+
+\begin{frame}
+\frametitle{Método de Newton-Raphson}
+El método de Newton-Raphson es el algoritmo más conocido para encontrar raíces por una buena razón: es simple y rápido.
+\\
+\bigskip
+\pause
+El único detalle es que utiliza la derivada $\pderivada{f} (x)$ así como la función $ f(x)$. \pause Por tanto, en los problemas a resolver con este algoritmo, deberá de contemplarse que la derivada sea fácil de calcularse.
+\end{frame}
+\begin{frame}
+\frametitle{Método de Newton-Raphson}
+El método de Newton-Raphson (\funcionazul{MNR} se obtiene de la expansión en series de Taylor de $f (x)$ alrededor de $x$:
+\pause
+\begin{align*}
+f (x_{i + 1})  = f (x_{i}) + \pderivada{f} (x_{i})(x_{i + 1} - x_{i}) +\order{x_{i + 1} - x_{i}}^{2}
+\end{align*}
+\end{frame}
+\begin{frame}\frametitle{Método de Newton-Raphson}
+Si $x_{i + 1}$ es una raíz de $f (x) = 0$, tenemos que:
+\pause
+\begin{align*}
+0 = f (x_{i}) + \pderivada{f} (x_{i})(x_{i + 1} - x_{i}) + \order{x_{i + 1} - x_{i}}^{2}
+\end{align*}
+\pause
+Suponiendo que $x_{i}$ está cerca de $x_{i + 1}$, podemos eliminar el último término de la ecuación y resolver para $x_{i+1}$, por lo que la fórmula de Newton-Raphson es:
+\pause
+\begin{align*}
+x_{i+1} = x_{i} - \dfrac{f(x_{i})}{\pderivada{f} (x_{i})}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Error en el método}
+Si $x$ representa el valor verdadero de la raíz, el error en $x_{i}$ es $E_{i} = x - x_{i}$.
+\\
+\bigskip
+\pause
+Se puede demostrar que si $x_{i+1}$ se calcula de la expresión del \funcionazul{MNR}, el error es:
+\pause
+\begin{align*}
+E_{i+1} = - \dfrac{\sderivada{f} (x_{i})}{2 \, \pderivada{f} (x_{i})} \; E_{i}^{2}
+\end{align*}
+Lo que nos dice que el \funcionazul{MNR} converge de manera cuadrática, es decir, el error es el cuadrado del error del punto previo.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Representación gráfica}
+Podemos interpretar que $x_{i+1}$ es el punto en donde la tangente de $f (x_{i})$ cruza el eje de las $x$:
+\pause
+\begin{center}
+	\begin{tikzpicture}[font=\small, scale=0.8]
+		\draw [->] (0,0) -- (7,0);
+		\draw [<->] (0,-3) -- (0,3);
+		\draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
+		\draw (1,-0.3) node {$x_{i}$};
+		\draw (1,3.3) node {$f(x_{i})$};
+		\draw [dashed] (1.2,0) -- (1.2,2.35);
+		\draw (0.8,3.1) -- (2.35,-0.1);
+		\draw [dashed] (2.3,0) -- (2.3,0.58);
+		\draw (2.3,-0.3) node {$x_{i+1}$};
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Criterio de convergencia}
+El \funcionazul{MNR}, es sencillo: \pause se aplica la expresión para $x_{i + 1}$ iniciando con un valor $x_{0}$, hasta alcanzar un criterio de convergencia:
+\pause
+\begin{align*}
+\abs{ x_{i+1} - x_{i} } < \varepsilon
+\end{align*}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Algoritmo del método}
+El algoritmo es el siguiente:
+\pause
+\setbeamercolor{item projected}{bg=lava,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Sea $x$ un valor inicial para la raíz de $f (x) = 0$.
+\item Calcular $\Delta x = - f (x)/\pderivada{f} (x)$.
+\item Asignar $x \leftarrow x + \Delta x$ y se repiten los pasos 2-3, hasta alcanzar $\abs{ \Delta x } < \varepsilon$.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Precaución con el \funcionazul{MNR}}
+Aunque el \funcionazul{MNR} converge rápidamente cerca de la raíz, sus características globales de convergencia son pobres. 
+\\
+\bigskip
+\pause
+La razón es que la línea tangente no es siempre una aproximación aceptable de la función.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Precaución con el \funcionazul{MNR}}
+\begin{center}
+	\begin{tikzpicture}[font=\small, scale=0.8]
+		\draw [->] (0,0) -- (4,0);
+		\draw [<->] (0,-1) -- (0,3);
+		\draw [red, thick] (1,3) .. controls (2,3) and (2.5,2) .. (3.5,-2);
+		\draw (4.2,0) node {$x$};
+		\draw (-0.5,2) node {$f (x)$};
+		\draw (1.2,-0.2) node {$x_{0}$}; \pause
+        \draw [fill=blue] (1.2,3) circle (0.05); \pause
+        \draw [dashed] (1.2,0) -- (1.2,3); \pause
+	    \draw [blue, ->] (1.2,3) -- (3.5,2.7);
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Precaución con el \funcionazul{MNR}}
+\begin{center}
+\setbeamercovered{invisible}
+	\begin{tikzpicture}%[decoration={
+  %markings,% activar las marcas
+  %mark= at position 2cm with{\arrow{stealth}}}]
+		\draw [->] (0,0) -- (6,0);
+		\draw [<->] (0,-2) -- (0,2);
+		\draw [red, thick] (0.5,-2) .. controls (3,-1.9) and (3,1.9) .. (5.5,2);
+		\draw (4.5,-0.3) node {$x_{0}$}; \pause
+		\draw [dashed] (4.5,0) -- (4.5,1.69); \pause
+		\draw [fill=blue] (4.5,1.7) circle (0.04); \pause
+		\draw [blue, postaction={decorate}] (4.5,1.7) -- (1,0); \pause
+		\draw (1,0.3) node {$x_{1}$}; \pause
+		\draw [fill=blue] (1,0) circle (0.04);\pause
+		\draw [dashed] (1,0) -- (1,-1.95); \pause
+		\draw (1,-1.95) circle (0.04); \pause
+		\draw [blue, postaction={decorate}] (1,-1.95) -- (5.8,0.1);
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\subsection{Ver. 1.0 algoritmo para el \texttt{MNR}}
+
+\begin{frame}
+\frametitle{Primera versión del algoritmo}
+Esta versión del algoritmo del \funcionazul{MNR} requiere de un punto $x$ de aproximación a la raíz, así como la función $f$ y la derivada $df$ que se indican dentro del código.
+\\
+\bigskip
+\pause
+La versión 1.0 del \funcionazul{MNR} se debe de guardar en el módulo \funcionazul{moduloRaices}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Primera versión del algoritmo}
+\begin{lstlisting}[caption=Primera versión del MNR]
+def newtonRaphson1(x, f, df, tol=1e-05):
+    for i in range(50):
+        dx = -f(x)/df(x)
+        x = x + dx
+        if abs(dx) < tol: return x, i
+    print('Son demasiadas iteraciones\n')
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Con la versión 1.0 del \funcionazul{MNR} calcula la raíz positiva más pequeña de:
+\begin{align*}
+f (x) = x^{4} - 6.4 \, x^{3} + 6.45 \, x^{2} + 20.538 \, x - 31.752
+\end{align*}
+\pause
+Tip: Para proporcionar el punto $x$ próximo a la función hay que graficar la misma, para que por inspección visual se indique el valor de $x$.
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de la función $f (x)$}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/raices_03_MNR_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Eligiendo el punto $x$}
+Revisando la gráfica anterior, con un acercamiento al trazo de la curva donde $y = 0$, \pause vemos que la raíz está cerca de $2.1$, \pause por lo que proponemos que $x = 2.0$
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código con la ver. 1.0}
+\begin{lstlisting}[caption=Código para resolver el ejercicio 1]
+from moduloRaices import newtonRaphson1
+import numpy as np
+
+def f(x): return x**4 - 6.4*x**3 + 6.45*x**2 + 20.538*x - 31.752
+def df(x): return 4.0*x**3 - 19.2*x**2 + 12.9*x + 20.538
+
+raiz, numIter = newtonRaphson1(2.0, f, df)
+
+print('La raíz es = {0:1.5f}'.format(raiz))
+print('Número de iteraciones realizadas = {0:}'.format(numIter))
+
+x = np.linspace(0, 5)
+
+# Aquí va la rutina de graficación
+# No olvides llamar a las correspondientes librerías
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica con la raíz calculada}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/raices_03_MNR_02.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Error relativo}
+Ocupando el valor exacto de la raíz: $2.1$, el error relativo ocupando el \funcionazul{MNR} es de $\num{4.7619d-6}$.
+\end{frame}
+
+\subsection{Ver. 2.0 del \texttt{MNR}}
+
+\begin{frame}
+\frametitle{Algoritmo para el \funcionazul{MNR}}
+La siguiente versión del algoritmo para el \funcionazul{MNR} supone que la raíz a calcularse inicialmente está en el intervalo (a, b).
+\end{frame}
+\begin{frame}
+\frametitle{Algoritmo para el \funcionazul{MNR}}
+El punto medio del intervalo se utiliza como aproximación inicial de la raíz. \pause Los extremos del intervalo se actualizan luego de cada iteración.
+\\
+\bigskip
+\pause
+Si una iteración del \funcionazul{MNR} no se mantiene dentro del intervalo, se descarta y se reemplaza con el método de bisección.
+\end{frame}
+\begin{frame}
+\frametitle{Algoritmo para el \funcionazul{MNR}}
+Ya que el \funcionazul{MNR} requiere de la función $ f(x)$, así como su derivada, (denotadas por $f$ y $df$), \pause éstas deben ser proporcionadas por el usuario.
+\\
+\bigskip
+\pause
+La nueva versión debe de quedar dentro del \funcionazul{moduloRaices}.
+\end{frame}
+\begin{frame}[plain, allowframebreaks, fragile]
+\frametitle{Algoritmo para el \funcionazul{MNR}}
+\begin{lstlisting}[caption=Código para la segunda versión del MNR]
+def newtonRaphson2(f, df, a, b, tol = 1.0e-9):
+    fa = f(a)
+    if fa == 0.0: return a
+
+    fb = f(b)
+    if f(b) == 0.0: return b
+
+    if fa*fb > 0.0: print('La raiz no esta en el intervalo')
+    x = 0.5 * (a + b)
+
+    for i in range(30):
+        fx = f(x)
+        if abs(fx) < tol: return x
+
+        if fa*fx < 0.0:
+            b = x
+        else:
+            a = x; fa = fx
+
+        dfx = df(x)
+        
+        try: dx = -fx/dfx
+        except ZeroDivisionError: dx = b - a
+        x =  x + dx
+        
+        # Si el resultado esta fuera del intervalo
+        # se usa el metodo de biseccion
+        if (b - x)*(x - a) < 0.0:
+            dx = 0.5*(b-a)
+            x = a + dx
+        
+        if abs(dx) < tol*max(abs(b), 1.0): return x
+    
+    print('Son demasiadas iteraciones')
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio con la versión 2}
+Usando la ver. 2.0 del algoritmo \funcionazul{MNR}, calcula las dos raíces de la función:
+\begin{align*}
+\sin \: x + 3 \: \cos \: x - 2 = 0
+\end{align*}
+en el intervalo $(-2, 2)$
+\end{frame}
+\begin{frame}
+\frametitle{Primer paso: graficar la función}
+La gráfica de la función en el intervalo dado es la siguiente:
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{Imagenes/Ejercicio_NR_Seno_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Intervalos de las raíces}
+Con el método de incrementos sucesivos, estimamos cada intervalo donde se encuentran las raíces de la función.
+\end{frame}
+\begin{frame}[plain, fragile]
+\frametitle{Intervalos de las raíces}
+\begin{lstlisting}[caption=Intervalos para las raíces]
+inicio, final, dx = -2., 2. , 0.01
+
+a1, b1 = buscaraiz(f, inicio, final, 0.1)
+print('Una raiz esta en el intervalo ({0:1.4f}, {1:1.4f})'.format(a1, b1))
+
+inicio = b1
+
+a2, b2 = buscaraiz(f, inicio, final, 0.1)
+print('Otra raiz esta en el intervalo ({0:1.4f}, {1:1.4f})'.format(a1, b2))
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Los intervalos}
+El resultado que nos devuelve la función de incrementos sucesivos es:
+\pause
+\begin{verbatim}
+Una raíz está en [ -0.6 , -0.5 ]
+Una raíz está en [ 1.2 , 1.3 ]
+\end{verbatim}
+\end{frame}
+\begin{frame}[allowframebreaks, plain, fragile]
+\frametitle{Código completo}
+\begin{lstlisting}[caption=Código completo para el ejercicio 1]
+from ModuloRaices import buscaraiz, newtonRaphson
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def f(x): return np.sin(x) + 3 * np.cos(x) - 2
+def df(x): return np.cos(x) - 3 * np.sin(x)
+
+
+intervalo1 = []
+intervalo2 = []
+
+inicio, final, dx = -2., 2. , 0.01
+
+
+a1, b1 = buscaraiz(f, inicio, final, 0.1)
+print('Una raiz esta en el intervalo ({0:1.4f}, {1:1.4f})'.format(a1, b1))
+intervalo1.append(a1)
+intervalo1.append(b1)
+
+inicio = b1
+a2, b2 = buscaraiz(f, inicio, final, 0.1)
+print('Otra raiz esta en el intervalo ({0:1.4f}, {1:1.4f})'.format(a1, b2))
+intervalo2.append(a2)
+intervalo2.append(b2)
+
+raiz1 = newtonRaphson(f, df, intervalo1[0], intervalo1[-1], 1.e-4)
+print('La primera raiz en el intervalo ({0:1.4f}, {1:1.4f}) = '.format(intervalo1[0], intervalo1[-1], raiz1))
+
+raiz2 = newtonRaphson(f, df, intervalo2[0], intervalo2[-1], 1.e-4)
+print('La segunda raiz en el intervalo ({0:1.4f}, {1:1.4f}) = '.format(intervalo2[0], intervalo2[-1], raiz2))
+
+x = np.linspace(-2,2)
+plt.axhline(y=0, ls='dashed', lw=0.7, color='k')
+plt.plot(x, f(x), color='g')
+plt.plot(raiz1, 0, 'ro', label='Raiz 1 = ' + str(round(raiz1, 3)))
+plt.plot(raiz2, 0, 'bo', label='Raiz 2 = ' + str(round(raiz2, 3)))
+plt.legend(loc='lower right')
+plt.title('Grafica que muestra dos raices de la funcion')
+plt.show()
+\end{lstlisting}    
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+La gráfica de la función en el intervalo dado es la siguiente:
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{Imagenes/Ejercicio_NR_Seno_02.eps}
+	\caption{Implementando varias etapas, se calcularon las raíces de la función en el intervalo.}
+\end{figure}
+\end{frame}
 % \begin{frame}
 % \frametitle{Ejercicio}
 % Encontrar la raíz positiva más pequeña de

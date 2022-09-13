@@ -14,9 +14,9 @@ def buscaraiz(f, a, b, dx):
         x1 = x2; f1 = f2
         x2 = x1 + dx; f2 = f(x2)
     else:
-        return x1,x2
+        return x1, x2
 
-def biseccion(f,x1,x2,switch=0,tol=1.0e-9):
+def biseccion(f, x1, x2, switch=0, tol=1.0e-9):
     f1 = f(x1)
     if f1 == 0.0: return x1
     f2 = f(x2)
