@@ -16,7 +16,7 @@
 \section*{Contenido}
 \frame{\tableofcontents[currentsection, hideallsubsections]}
 
-\section{Método de bisección}
+\section{Bisección}
 \frame{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{La variable \texttt{switch}}
 
@@ -164,7 +164,7 @@ $0.73450$ & $0.73456$ & $0.73462$ & $0.00139$ & $0.00059$	& $-0.00020$ \\ \hline
 % \end{tikzpicture}
 % \end{frame}
 
-\section{Método de Newton-Raphson}
+\section{Newton-Raphson}
 \frame{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{Definición}
 
@@ -368,14 +368,14 @@ x = np.linspace(0, 5)
 \end{frame}
 \begin{frame}
 \frametitle{Error relativo}
-Ocupando el valor exacto de la raíz: $2.1$, el error relativo ocupando el \funcionazul{MNR} es de $\num{4.7619d-6}$.
+Usando el valor exacto de la raíz: $2.1$, el error relativo ocupando el \funcionazul{MNR} es de $\num{4.7619d-6}$.
 \end{frame}
 
 \subsection{Ver. 2.0 del \texttt{MNR}}
 
 \begin{frame}
 \frametitle{Algoritmo para el \funcionazul{MNR}}
-La siguiente versión del algoritmo para el \funcionazul{MNR} supone que la raíz a calcularse inicialmente está en el intervalo (a, b).
+La siguiente versión 2. 0 del algoritmo para el \funcionazul{MNR} supone que la raíz a calcularse, está en el intervalo $[a, b]$.
 \end{frame}
 \begin{frame}
 \frametitle{Algoritmo para el \funcionazul{MNR}}
@@ -442,10 +442,9 @@ en el intervalo $(-2, 2)$
 \end{frame}
 \begin{frame}
 \frametitle{Primer paso: graficar la función}
-La gráfica de la función en el intervalo dado es la siguiente:
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.5]{Imagenes/Ejercicio_NR_Seno_01.eps}
+    \includegraphics[scale=0.55]{Imagenes/raices_03_MNR_03.eps}
 \end{figure}
 \end{frame}
 \begin{frame}[fragile]
@@ -475,58 +474,62 @@ Una raíz está en [ -0.6 , -0.5 ]
 Una raíz está en [ 1.2 , 1.3 ]
 \end{verbatim}
 \end{frame}
-\begin{frame}[allowframebreaks, plain, fragile]
+\begin{frame}[allowframebreaks, fragile]
 \frametitle{Código completo}
 \begin{lstlisting}[caption=Código completo para el ejercicio 1]
 from ModuloRaices import buscaraiz, newtonRaphson
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 def f(x): return np.sin(x) + 3 * np.cos(x) - 2
-def df(x): return np.cos(x) - 3 * np.sin(x)
 
+def df(x): return np.cos(x) - 3 * np.sin(x)
 
 intervalo1 = []
 intervalo2 = []
 
 inicio, final, dx = -2., 2. , 0.01
 
-
+# Se determina el intervalo para la primera raíz
 a1, b1 = buscaraiz(f, inicio, final, 0.1)
 print('Una raiz esta en el intervalo ({0:1.4f}, {1:1.4f})'.format(a1, b1))
 intervalo1.append(a1)
 intervalo1.append(b1)
 
+# Se determina el intervalo para la segunda raíz
 inicio = b1
 a2, b2 = buscaraiz(f, inicio, final, 0.1)
-print('Otra raiz esta en el intervalo ({0:1.4f}, {1:1.4f})'.format(a1, b2))
+print('Otra raiz esta en el intervalo ({0:1.4f}, {1:1.4f})'.format(a2, b2))
 intervalo2.append(a2)
 intervalo2.append(b2)
 
-raiz1 = newtonRaphson(f, df, intervalo1[0], intervalo1[-1], 1.e-4)
+# Se ocupa la ver. 2.0 del algoritmo MNR
+raiz1 = newtonRaphson2(f, df, intervalo1[0], intervalo1[-1], 1.e-4)
 print('La primera raiz en el intervalo ({0:1.4f}, {1:1.4f}) = '.format(intervalo1[0], intervalo1[-1], raiz1))
 
-raiz2 = newtonRaphson(f, df, intervalo2[0], intervalo2[-1], 1.e-4)
+# Se ocupa la ver. 2.0 del algoritmo MNR
+raiz2 = newtonRaphson2(f, df, intervalo2[0], intervalo2[-1], 1.e-4)
 print('La segunda raiz en el intervalo ({0:1.4f}, {1:1.4f}) = '.format(intervalo2[0], intervalo2[-1], raiz2))
 
-x = np.linspace(-2,2)
-plt.axhline(y=0, ls='dashed', lw=0.7, color='k')
+x = np.linspace(-2, 2)
+
+# Rutina de graficacion
+plot1 = plt.figure(1)
+plt.plot(x, f(x))
+
+plot2 = plt.figure(2)
 plt.plot(x, f(x), color='g')
 plt.plot(raiz1, 0, 'ro', label='Raiz 1 = ' + str(round(raiz1, 3)))
 plt.plot(raiz2, 0, 'bo', label='Raiz 2 = ' + str(round(raiz2, 3)))
-plt.legend(loc='lower right')
-plt.title('Grafica que muestra dos raices de la funcion')
+
 plt.show()
 \end{lstlisting}    
 \end{frame}
 \begin{frame}
-\frametitle{Solución}
-La gráfica de la función en el intervalo dado es la siguiente:
+\frametitle{Solución con el valor de las dos raíces}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.4]{Imagenes/Ejercicio_NR_Seno_02.eps}
-	\caption{Implementando varias etapas, se calcularon las raíces de la función en el intervalo.}
+    \includegraphics[scale=0.55]{Imagenes/raices_03_MNR_04.eps}
 \end{figure}
 \end{frame}
 % \begin{frame}
@@ -592,210 +595,556 @@ La gráfica de la función en el intervalo dado es la siguiente:
 % 	\includegraphics[scale=0.5]{Imagenes/Raiz_NR_02.eps}
 % \end{figure}
 % \end{frame}
-% %\begin{frame}
-% % \frametitle{Ejercicios}
-% % \begin{enumerate}
-% % \item Encuentra las raíces de $x \sin x + 3 \cos x - x = 0$ en el intervalo $(-6,6)$ \\
-% % \item Calcula todas las raíces reales de $x^{4} + 0.9x^{3} - 2.3x^{2} + 3.6x - 25.2 = 0$. \\
-% % \item Calcula todas las raíces reales de $x^{4} + 2x^{3} - 7x^{2} + 3 = 0$. \\
-% % \item Calcula todas las raíces de $\sin x - 0.1x = 0$.
-% % \end{enumerate}
-% % \end{frame}
-% \subsection{Método de la falsa posición}
-% \begin{frame}
-% \frametitle{Método de la falsa posición}
-% Este método es parecido al de bisección, ya que el intervalo que contiene a la raíz se va reduciendo.
-% \\
-% \bigskip
-% En vez de bisectar de manera monótona el intervalo, se utiliza una interpolación lineal ajustada a dos puntos extremos para encontrar la aproximación de la raíz.
-% \end{frame}
-% \begin{frame}
-% La función está bien aproximada por la interpolación lineal, con lo que las raíces tendrán una buena precisión; la iteración convergerá más rápido que como ocurre con el método de bisección.
-% \end{frame}
-% \begin{frame}
-% Dado un intervalo $[a,c]$ que contenga a la raíz, la función lineal que pasa por $(a,f(a))$ y $(c,f(c))$ se escribe como:
-% \[ y = f(a) + \dfrac{f(c) - f(a)}{c - a} \: (x - a) \]
-% de donde se despeja $x$:
-% \[ x = a + \dfrac{c - a}{f(c) - f(a)} \: \big[ y - f(a)\big] \]
-% \end{frame}
-% \begin{frame}
-% La coordenada $x$ en donde la línea intersecta al eje $x$ se determina al hacer $y=0$ en la ecuación anterior, por tanto:
-% \[ b = a - \dfrac{c - a}{f(c) - f(a)} \: f(a) = \dfrac{a \: f(c) - c \: f(a)}{f(c)-f(a)} \]
-% Después de encontrar $b$, el intervalo $[a, c]$ se divide en $[a, b]$ y $[b, c]$.
-% \end{frame}
-% \begin{frame}
-% Si $f(a) \: f(b) \leq 0$, la raíz se encuentra en $[a, b]$; en caso contrario, está en $[b, c]$. 
-% \\
-% \bigskip
-% Los extremos del nuevo intervalo que contiene a la raíz se renombran para el siguiente paso como $a$ y $c$.
-% \\
-% \bigskip
-% El procedimiento de interpolación se repite hasta que las raíces estimadas convergen.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Método de la falsa posición}
-% \begin{center}
-% 	\begin{tikzpicture}[font=\small]
-% 		\draw [->] (0,0) -- (7,0);
-% 		\draw [<->](0,-3) -- (0,3);
-% 		\draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
-% 		\draw (1,-0.3) node {$a$};
-% 		\draw (0.7, 2.4) node {$f(a)$};
-% 		\draw (6,0.3) node {$c$};
-% 		\draw (6.3, -2.4) node {$f(c)$};
-% 		\draw [dashed] (1.2,0) -- (1.2,2.35);
-% 		\draw [dashed] (6.3,0) -- (6.3,-1.98);\pause
-% 		\draw (1.2,2.35) -- (6.3,-1.98);
-% 		\draw  (3,3) node {1a. interpolación};
-% 		\draw [->] (3,2.6) -- (2,2);\pause
-% 		\draw  (5,1) node {1a. aproximación};
-% 		\draw [->] (5,0.6) -- (4.1,0.1);
-% 		\draw (4,0.3) node {$b_{1}$};
-% 		\draw (4, -1.3) node {$f(b_{1})$};
-% 		\draw [dashed] (4,0) -- (4,-0.9);
-% 	\end{tikzpicture}
-% \end{center}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Método de la falsa posición}
-% \begin{figure}
-% 	\centering
-% 	\begin{tikzpicture}[font=\small]
-% 		\draw [->] (0,0) -- (7,0);
-% 		\draw [<->] (0,-3) -- (0,3);
-% 		\draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
-% 		\draw (1,-0.3) node {$a$};
-% 		\draw (0.7, 2.4) node {$f(a)$};
-% 		\draw (4,0.3) node {$c$};
-% 		\draw (4, -1.3) node {$f(c)$};
-% 		\draw [dashed] (4,0) -- (4,-0.9);
-% 		\draw [dashed] (1.2,0) -- (1.2,2.35);\pause
-% 		\draw (1.2,2.35) -- (4,-0.9);
-% 		\draw  (4,2) node {2a. interpolación};
-% 		\draw [->] (4,1.6) -- (2.5,1);\pause
-% 		\draw [dashed] (3.25,0) -- (3.25,-0.43);
-% 		\draw (3.2, 0.3) node {$b_{2}$};
-% 		\draw (3, -0.75) node {$f(b_{2})$};
-% 		\draw  (6,1) node {2a. aproximación};
-% 		\draw [->] (5.5,0.8) -- (3.3,0.1);
-% 	\end{tikzpicture}
-% 	\caption{Se renombran los extremos y se realiza la segunda aproximación lineal.}
-% \end{figure}
-% \end{frame}
-% \begin{frame}
-% \textcolor{red}{La desventaja de este método es que aparecen extremos fijos}: uno de los extremos de la sucesión de intervalos no se mueve del punto original, por lo que las aproximaciones a la raíz, denotadas por $b_{1}$, $b_{2}$, $b_{3}$, etc. convergen a la raíz exacta solamente por un lado.
-% \end{frame}
-% \begin{frame}
-% Los extremos fijos no son deseables debido a que hacen más lenta la convergencia, en particular cuando el intervalo es grande o cuando la función se desvía de manera significativa de una línea recta en el intervalo.
-% \\
-% \bigskip
-% ¿Qué podemos hacer al respecto?
-% \end{frame}
-% \subsection{Método de la falsa posición modificado}
-% \begin{frame}
-% \frametitle{Método de la falsa posición modificado}
-% En este método, el valor de $f$ en un punto fijo se divide a la mitad si este punto se ha repetido más de dos veces.
-% \\
-% \bigskip
-% El extremo que se repite se llama extremo fijo. La excepción para esta regla es que para $i = 2$, el valor de $f$ en un extremo se divide entre $2$ de inmediato si no se mueve.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Método de falsa posición modificado}
-% \begin{figure}
-% 	\centering
-% 	\begin{tikzpicture}[font=\small]
-% 		\draw [->] (0,0) -- (7,0);
-% 		\draw [<->](0,-3) -- (0,3);
-% 		\draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
-% 		\draw (1,-0.3) node {$a$};
-% 		\draw (0.7, 2.4) node {$f(a)$};
-% 		\draw (6,0.3) node {$c$};
-% 		\draw (6.3, -2.4) node {$f(c)$};
-% 		\draw [dashed] (1.2,0) -- (1.2,2.35);
-% 		\draw [dashed] (6.3,0) -- (6.3,-1.98);\pause
-		
-% 		\draw (1.2,2.35) -- (6.3,-1.98);
-% 		\draw  (3,3) node {1a. interpolación};
-% 		\draw [->] (3,2.6) -- (2,2);\pause
-% 		\draw  (5,1) node {1a. aproximación};
-% 		\draw [->] (5,0.6) -- (4.1,0.1);
-% 		\draw (4,0.3) node {$b_{1}$};
-% 		\draw (4, -1.3) node {$f(b_{1})$};
-% 		\draw [dashed] (4,0) -- (4,-0.9);
 
-% 	\end{tikzpicture}
-% \end{figure}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Método de la falsa posición modificado}
-% \begin{figure}
-% 	\centering
-% 	\begin{tikzpicture}[font=\small]
-% 		\draw [->] (0,0) -- (7,0);
-% 		\draw [<->] (0,-3) -- (0,3);
-% 		\draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
-% 		\draw (1,-0.3) node {$a$};
-% 		\draw (0.7, 2.4) node {$f(a)$};
-% 		\draw (4,0.3) node {$c$};
-% 		\draw (4, -1.3) node {$f(c)$};
-% 		\draw [dashed] (4,0) -- (4,-0.9);
-% 		\draw [dashed] (1.2,0) -- (1.2,2.35);\pause
-% 		\draw  (4,2) node {2a. interpolación};
-% 		\draw [->] (4,1.6) -- (1.8,1);
-% 		\draw (1.2,1.3) -- (4,-0.9);
-% 		\draw (0.8, 1.3) node {$\frac{f(a)}{2}$};
-% 		\pause
-% 		\draw [dashed] (3.25,0) -- (3.25,-0.43);
-% 		\draw (3.2, 0.3) node {$b_{2}$};
-% 		\draw (3, -0.75) node {$f(b_{2})$};
-% 		\draw  (6,1) node {2a. aproximación};
-% 		\draw [->] (5.5,0.8) -- (3.3,0.1);
-% 	\end{tikzpicture}
-% 	\caption{Se evitan los extremos fijos de tal manera que se acelera la convergencia.}
-% \end{figure}
-% \end{frame}
-% \subsection{Método de la secante}
-% \begin{frame}
-% \frametitle{Método de la secante}
-% A diferencia del método de Newton, el valor de $f^{\prime}$ se aproxima utilizando dos valores de iteraciones consecutivas de $f$.
-% \\
-% \bigskip
-% Con lo que se elimina la necesidad de evaluar tanto a $f$ como a $f^{\prime}$ en cada iteración.
-% \end{frame}
-% \begin{frame}
-% Las aproximaciones sucesivas para la raíz en el método de la secante están dadas por:
-% \[ x_{n} = x_{n - 1} - y_{n - 1} \dfrac{x_{n - 1} - x_{n - 2}}{y_{n - 1}- y_{n - 2}}, \hspace{1cm} n = 2,3,\ldots \]
-% donde $x_{0}$ y $x_{1}$ son dos suposiciones iniciales para comenzar la iteración.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Método de la secante}
-% \setbeamercovered{invisible}
-% \begin{center}
-% 	\begin{tikzpicture}[font=\small]
-% 		\draw [->] (0,0) -- (7.5,0);
-% 		\draw [->] (0,0) -- (0,4);
-% 		\draw [red, thick](7,3.5) .. controls (6.3,2) and (4.5,0.3) .. (1,0);
-% 		\draw [dashed] (6.8,3.1) -- (6.8,0);
-% 		\draw (6.6,-0.3) node {$x_{0}$};
-% 		\draw (6.6, 3.3) node {$f_{0}$};
-% 		\draw [dashed] (5.5,1.65) -- (5.5,0);
-% 		\draw (5.25,-0.3) node {$x_{1}$};
-% 		\draw (5.25, 1.8) node {$f_{1}$};
-% 		\draw (6.8,3.1) -- (4.1,0);\pause
-% 		\draw (4,-0.3) node {$x_{2}$};
-% 		\draw [dashed] (4.1,0) -- (4.1,0.8);
-% 		\draw (3.9, 1) node {$f_{2}$};\pause
-% 		\draw (5.5,1.65) -- (2.9,0);
-% 		\draw (2.8,-0.3) node {$x_{3}$};
-% 	\end{tikzpicture}
-% \end{center}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Atento aviso}
-% En las técnicas de falsa posición, falsa posición modificada y el método de la secante, no hemos presentado como tal un código en \python{} que nos devuelva las raíces, por lo que tendrás que proponer un código para cada una de las técnicas.
-% \\
-% \medskip
-% Ese código lo vas a utilizar par resolver los problmeas y ejercicios del examen.
-% \end{frame}
+\subsection{Ejercicios a cuenta}
 
+\begin{frame}
+\frametitle{Resuelve con el \funcionazul{MNR}}
+\setbeamercolor{item projected}{bg=armygreen,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Encuentra las raíces de $x \, \sin x + 3 \, \cos x - x = 0$ en el intervalo $(-6, 6)$ \\
+\item Calcula todas las raíces reales de $x^{4} + 0.9 \, x^{3} - 2.3 \, x^{2} + 3.6 \, x - 25.2 = 0$. \\
+\item Calcula todas las raíces reales de $x^{4} + 2 \, x^{3} - 7 \, x^{2} + 3 = 0$. \\
+\item Calcula todas las raíces de $\sin x - 0.1 \, x = 0$.
+\end{enumerate}
+\end{frame}
+
+\section{Falsa posición}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición}
+
+\begin{frame}
+\frametitle{Método de la falsa posición}
+Este método es parecido al de bisección, ya que el intervalo que contiene a la raíz se va reduciendo.
+\\
+\bigskip
+\pause
+En vez de bisectar de manera monótona el intervalo, se utiliza una interpolación lineal ajustada a dos puntos extremos para encontrar la aproximación de la raíz.
+\end{frame}
+\begin{frame}
+\frametitle{Usando una interpolación lineal}
+La función está bien aproximada por la interpolación lineal, con lo que las raíces tendrán una buena precisión; la iteración convergerá más rápido que como ocurre con el método de bisección.
+\end{frame}
+\begin{frame}
+\frametitle{Ecuación de la recta}
+Dado un intervalo $[a, c]$ que contenga a la raíz, la función lineal que pasa por $(a, f(a))$ y $(c, f(c))$ se escribe como:
+\pause
+\begin{align*}
+y = f (a) + \dfrac{f (c) - f (a)}{c - a} \: (x - a)
+\end{align*}
+\pause
+de donde se despeja $x$:
+\pause
+\begin{align*}
+x = a + \dfrac{c - a}{f (c) - f (a)} \: \big[ y - f (a)\big]
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Calculando el nuevo punto}
+La coordenada $x$ en donde la línea intersecta al eje $x$ se determina al hacer $y = 0$ en la ecuación anterior, por tanto:
+\pause
+\begin{align*}
+b = a - \dfrac{c - a}{f (c) - f (a)} \: f(a) = \dfrac{a \: f (c) - c \: f (a)}{f (c)-f (a)}
+\end{align*}
+Después de encontrar $b$, el intervalo $[a, c]$ se divide en $[a, b]$ y $[b, c]$.
+\end{frame}
+\begin{frame}
+\frametitle{Revisando el producto de la función evaluada}
+Si $f (a) * f (b) \leq 0$, la raíz se encuentra en $[a, b]$; \pause en caso contrario, está en $[b, c]$. 
+\\
+\bigskip
+\pause
+Los extremos del nuevo intervalo que contiene a la raíz se renombran para el siguiente paso como $a$ y $c$. \pause El procedimiento de interpolación se repite hasta que las raíces estimadas convergen.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Método de la falsa posición}
+\begin{center}
+\begin{tikzpicture}[font=\small]
+    \draw [->] (0,0) -- (7,0);
+    \draw [<->](0,-3) -- (0,3);
+    \draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
+    \draw (1,-0.3) node {$a$};
+    \draw (0.7, 2.4) node {$f(a)$};
+    \draw (6,0.3) node {$c$};
+    \draw (6.3, -2.4) node {$f(c)$};
+    \draw [dashed] (1.2,0) -- (1.2,2.35);
+    \draw [dashed] (6.3,0) -- (6.3,-1.98);\pause
+    \draw (1.2,2.35) -- (6.3,-1.98);
+    \draw  (3,3) node {1a. interpolación};
+    \draw [->] (3,2.6) -- (2,2);\pause
+    \draw  (5,1) node {1a. aproximación};
+    \draw [->] (5,0.6) -- (4.1,0.1);
+    \draw (4,0.3) node {$b_{1}$};
+    \draw (4, -1.3) node {$f(b_{1})$};
+    \draw [dashed] (4,0) -- (4,-0.9);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Método de la falsa posición}
+\begin{figure}
+\centering
+\begin{tikzpicture}[font=\small]
+    \draw [->] (0,0) -- (7,0);
+    \draw [<->] (0,-3) -- (0,3);
+    \draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
+    \draw (1,-0.3) node {$a$};
+    \draw (0.7, 2.4) node {$f(a)$};
+    \draw (4,0.3) node {$c$};
+    \draw (4, -1.3) node {$f(c)$};
+    \draw [dashed] (4,0) -- (4,-0.9);
+    \draw [dashed] (1.2,0) -- (1.2,2.35);\pause
+    \draw (1.2,2.35) -- (4,-0.9);
+    \draw  (4,2) node {2a. interpolación};
+    \draw [->] (4,1.6) -- (2.5,1);\pause
+    \draw [dashed] (3.25,0) -- (3.25,-0.43);
+    \draw (3.2, 0.3) node {$b_{2}$};
+    \draw (3, -0.75) node {$f(b_{2})$};
+    \draw  (6,1) node {2a. aproximación};
+    \draw [->] (5.5,0.8) -- (3.3,0.1);
+\end{tikzpicture}
+\caption{Se renombran los extremos y se realiza la segunda aproximación lineal.}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Desventaja en el  método}
+\textcolor{red}{La desventaja de este método es que aparecen extremos fijos}: \pause uno de los extremos de la sucesión de intervalos no se mueve del punto original, por lo que las aproximaciones a la raíz, denotadas por $b_{1}$, $b_{2}$, $b_{3}$, etc. convergen a la raíz exacta solamente por un lado.
+\end{frame}
+\begin{frame}
+\frametitle{Presencia de extremos fijos}
+Los extremos fijos no son deseables debido a que hacen más lenta la convergencia, en particular cuando el intervalo es grande o cuando la función se desvía de manera significativa de una línea recta en el intervalo.
+\\
+\bigskip
+\pause
+\textbf{¿Qué podemos hacer al respecto?}
+\end{frame}
+
+\section{Falsa posición modificado}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Construyendo el método}
+
+\begin{frame}
+\frametitle{Método de la falsa posición modificado}
+En este método, el valor de $f$ en un punto fijo se divide a la mitad si este punto se ha repetido más de dos veces.
+\\
+\bigskip
+\pause
+El extremo que se repite se llama extremo fijo. \pause La excepción para esta regla es que para $i = 2$, el valor de $f$ en un extremo se divide entre $2$ de inmediato si no se mueve.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Método de falsa posición modificado}
+\begin{figure}
+\centering
+\begin{tikzpicture}[font=\small]
+    \draw [->] (0,0) -- (7,0);
+    \draw [<->](0,-3) -- (0,3);
+    \draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
+    \draw (1,-0.3) node {$a$};
+    \draw (0.7, 2.4) node {$f (a)$};
+    \draw (6,0.3) node {$c$};
+    \draw (6.3, -2.4) node {$f (c)$};
+    \draw [dashed] (1.2,0) -- (1.2,2.35);
+    \draw [dashed] (6.3,0) -- (6.3,-1.98);\pause
+    
+    \draw (1.2,2.35) -- (6.3,-1.98);
+    \draw  (3,3) node {1a. interpolación};
+    \draw [->] (3,2.6) -- (2,2);\pause
+    \draw  (5,1) node {1a. aproximación};
+    \draw [->] (5,0.6) -- (4.1,0.1);
+    \draw (4,0.3) node {$b_{1}$};
+    \draw (4, -1.3) node {$f (b_{1})$};
+    \draw [dashed] (4,0) -- (4,-0.9);
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Método de la falsa posición modificado}
+\begin{figure}
+\centering
+\begin{tikzpicture}[font=\small]
+    \draw [->] (0,0) -- (7,0);
+    \draw [<->] (0,-3) -- (0,3);
+    \draw [red, thick] (1,3) .. controls (1.5,0.5) and (5,-2) .. (6.5,-2);
+    \draw (1,-0.3) node {$a$};
+    \draw (0.7, 2.4) node {$f(a)$};
+    \draw (4,0.3) node {$c$};
+    \draw (4, -1.3) node {$f(c)$};
+    \draw [dashed] (4,0) -- (4,-0.9);
+    \draw [dashed] (1.2,0) -- (1.2,2.35);\pause
+    \draw  (4,2) node {2a. interpolación};
+    \draw [->] (4,1.6) -- (1.8,1);
+    \draw (1.2,1.3) -- (4,-0.9);
+    \draw (0.8, 1.3) node {$\frac{f (a)}{2}$};
+    \pause
+    \draw [dashed] (3.25,0) -- (3.25,-0.43);
+    \draw (3.2, 0.3) node {$b_{2}$};
+    \draw (3, -0.75) node {$f (b_{2})$};
+    \draw  (6,1) node {2a. aproximación};
+    \draw [->] (5.5,0.8) -- (3.3,0.1);
+\end{tikzpicture}
+\caption{Se evitan los extremos fijos de tal manera que se acelera la convergencia.}
+\end{figure}
+\end{frame}
+
+\section{La secante}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Construcción del método}
+
+\begin{frame}
+\frametitle{Método de la secante}
+A diferencia del método de Newton, el valor de $\pderivada{f}$ se aproxima utilizando dos valores de iteraciones consecutivas de $f$.
+\\
+\bigskip
+\pause
+Con lo que se elimina la necesidad de evaluar tanto a $f$ como a $\pderivada{f}$ en cada iteración.
+\end{frame}
+\begin{frame}
+\frametitle{Aproximaciones sucesivas}
+Las aproximaciones sucesivas para la raíz en el método de la secante están dadas por:
+\pause
+\begin{align*}
+x_{n} = x_{n - 1} - y_{n - 1} \, \dfrac{x_{n - 1} - x_{n - 2}}{y_{n - 1}- y_{n - 2}}, \hspace{1cm} n = 2, 3, \ldots
+\end{align*}
+donde $x_{0}$ y $x_{1}$ son dos suposiciones iniciales para comenzar la iteración.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Método de la secante}
+\setbeamercovered{invisible}
+\begin{center}
+\begin{tikzpicture}[font=\small]
+    \draw [->] (0,0) -- (7.5,0);
+    \draw [->] (0,0) -- (0,4);
+    \draw [red, thick](7,3.5) .. controls (6.3,2) and (4.5,0.3) .. (1,0);
+    \draw [dashed] (6.8,3.1) -- (6.8,0);
+    \draw (6.6,-0.3) node {$x_{0}$};
+    \draw (6.6, 3.3) node {$f_{0}$};
+    \draw [dashed] (5.5,1.65) -- (5.5,0);
+    \draw (5.25,-0.3) node {$x_{1}$};
+    \draw (5.25, 1.8) node {$f_{1}$};
+    \draw (6.8,3.1) -- (4.1,0);\pause
+    \draw (4,-0.3) node {$x_{2}$};
+    \draw [dashed] (4.1,0) -- (4.1,0.8);
+    \draw (3.9, 1) node {$f_{2}$};\pause
+    \draw (5.5,1.65) -- (2.9,0);
+    \draw (2.8,-0.3) node {$x_{3}$};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Atento aviso}
+En las técnicas de falsa posición, falsa posición modificada y el método de la secante, no hemos presentado como tal un código en \python{} que nos devuelva las raíces, por lo que tendrás que proponer un código para cada una de las técnicas.
+\\
+\medskip
+Ese código lo vas a utilizar par resolver los problemas y ejercicios del examen.
+\end{frame}
+
+\subsection{Ejercicios a cuenta}
+
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+% Ref. Turner (2018) pág. 172
+La función:
+\begin{align*}
+3 \, x^{3} - 5 \, x^{2} -  4 \, x + 4 = 0
+\end{align*}
+tiene una raíz cerca de $x = 0.7$.
+\setbeamercolor{item projected}{bg=ao,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Implementa el método de la secante para obtener la solución
+\item Compara los resultados con el método de Newton-Raphson. 
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+Utiliza el método de la secante para obtener la raíz de:
+\begin{align*}
+e^{x} - 3 \, x -1 = 0
+\end{align*}
+en el intervalo $[1, 3]$, usando una tolerancia de $\num{d-10}$.
+\end{frame}
+
+\section{Resolviendo con \texttt{python}}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Bisección}
+
+\begin{frame}
+\frametitle{Obteniendo las raíces con funciones de \python}
+Como hemos revisando en temas anteriores, luego de la construcción de diferentes algoritmos para el cálculo de raíces, ahora veremos tres métodos distintos para realizar la misma tarea, pero con funciones de las librerías de \python.
+\end{frame}
+\begin{frame}
+\frametitle{Recomendación}
+El que tengamos disponibles funciones de \python, no quiere decir que las respuestas a los ejercicios de tarea o del examen, se entreguen usando estas funciones.
+\\
+\bigskip
+\pause
+Se podrán utilizar para verificar que su código inicial está devolviendo el resultado esperado.
+\end{frame}
+
+\subsection{Optimize.bisect}
+
+\begin{frame}
+\frametitle{De la librería \texttt{scipy}}
+Dentro de la librería \funcionazul{scipy} tenemos un módulo llamado \funcionazul{optimize}, que a su vez contiene la función \funcionazul{bisect}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La función \texttt{bisect}}
+La función \funcionazul{bisect} requiere de al menos tres argumentos:
+\pause
+\begin{verbatim}
+optimize.bisect(f, a, b)
+\end{verbatim}
+\pause
+\setbeamercolor{item projected}{bg=armygreen=,fg=beige}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item $f$ es la función en la que se desea obtener la raíz, se espera que sea una función continua.
+\item $a$ es el valor inicial del intervalo.
+\item $b$ es el valor final del intervalo.
+\item Debe de garantizarse que $f (a)$ y $f (b)$ tengan signos contrarios.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{La respuesta obtenida}
+Esta función devuelve la raíz de la función $f$ en el intervalo $(a, b)$ indicado.
+\\
+\bigskip
+\pause
+Veamos su uso en el siguiente ejemplo:
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Calcula las raíces de:
+\begin{align*}
+x^{2} - 1 = 0
+\end{align*}
+en el intervalo $[-2, 2]$. Ocupa la función \funcionazul{bisect}.
+\end{frame}
+\begin{frame}
+\frametitle{Preparando la respuesta}
+Como ya sabemos, el primer paso es obtener una gráfica de la función en el intervalo que se nos indica.
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de la función}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/raices_scipy_bisect_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código para resolver el ejercicio}
+\begin{lstlisting}[caption=Código para usar optimize.bisect]
+from moduloRaices import buscaraiz
+from scipy import optimize
+import numpy as np
+
+def f(x):
+    return (x**2 - 1)
+
+a, b, dx = -2., 2., 0.1
+
+intervalo1 = []
+intervalo2 = []
+raices = []
+
+inicio = a
+final = 0.
+
+a1, b1 = buscaraiz(f, inicio, final, dx)
+
+inicio = final
+final = b
+a2, b2 = buscaraiz(f, inicio, final, dx)
+
+raiz1 = optimize.bisect(f, a1, b1)
+raiz2 = optimize.bisect(f, a2, b2)
+
+print('La raíz está en x = {0:1.6f}'.format(raiz1))
+print('La raíz está en x = {0:1.6f}'.format(raiz2))
+
+# Completa la rutina de graficación
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Las raíces del ejercicio}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/raices_scipy_bisect_02.eps}
+\end{figure}
+\end{frame}
+
+\subsection{Newton-Raphson}
+
+\begin{frame}
+\frametitle{El \funcionazul{MNR}}
+Dentro del módulo \funcionazul{optimize} se tiene la función  \funcionazul{newton}, que implementa el método de Newton-Raphson que desarrollamos previamente.
+\end{frame}
+
+\subsection{\texttt{optimize.newton}}
+
+\begin{frame}[fragile]
+\frametitle{Parámetros de \funcionazul{newton}}
+Los parámetros mínimos que requiere la función son los siguientes:
+\pause
+\begin{verbatim}
+newton(f, x0, fprime=None)
+\end{verbatim}
+\pause
+Donde:
+\setbeamercolor{item projected}{bg=beige,fg=black}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item $f$ es la función en donde se desea obtener la raíz.
+\item $x0$ es el punto de estimación cercano a la raíz.
+\item \texttt{fprime} es la derivada de la función. Si no se indica, se utiliza el método de la secante.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{La respuesta que devuelve}
+Esta función \funcionazul{newton} devuelve el valor de la raíz cuando se indica la función \texttt{f} y el punto \texttt{x0} estimado cercano a la raíz.
+\\
+\bigskip
+\pause
+Hagamos un ejercicio para ver su implementación.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a resolver}
+Con la función \funcionazul{optimize.newton} calcula la raíz de:
+\begin{align*}
+y (x) = x + 2 * \cos x = 0
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Graficando la función}
+Como primer paso hay que graficar la función para tener una idea de su comportamiento, así podemos estimar un intervalo en donde se encuentre la raíz (o raíces).
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de $f(x)$}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/raices_scipy_newton_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Intervalo de trabajo}
+De la gráfica encontramos que la raíz está cerca de $x_{0} = 2$, por lo que podremos utilizar este valor en los parámetros de la función \funcionazul{optimize.newton}.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código para el ejercicio}
+\begin{lstlisting}[caption=Código para resolver con optimize.newton]
+import scipy.optimize
+import numpy as np
+
+def f(x):
+    y = x + 2 * np.cos(x)
+    return y
+
+raiz= scipy.optimize.newton(f,  2, fprime=lambda x: 1 - 2 * np.sin(x))
+
+print('La raíz de la función es = {0:1.5f}'.format(raiz))
+
+x = np.linspace(-5, 5)
+
+# Aqui va la rutina de graficacion
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica con la raíz obtenida}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/raices_scipy_newton_02.eps}
+\end{figure}
+\end{frame}
+
+\subsection{\texttt{numpy.roots}}
+
+\begin{frame}
+\frametitle{Ocupando el módulo \texttt{numpy}}
+Dentro de la librería \funcionazul{numpy} tenemos disponible la función \funcionazul{roots} para calcular la(s) raíz(ces) de \textcolor{armygreen}{un polinomio}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Parámetros a ocupar}
+La función \funcionazul{roots} requiere de:
+\begin{verbatim}
+np.roots(p)
+\end{verbatim}
+Donde $p$ es un arreglo con los coeficientes del polinomio. \pause Recuerda que ya vimos la manera de constuir un polinomio con \funcionazul{numpy}.
+\end{frame}
+\begin{frame}
+\frametitle{Lo que devuelve}
+Lo que devuelve la función \funcionazul{roots} es un arreglo con las raíces del polinomio.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Con la función \funcionazul{np.roots} calcula las raíces del polinomio:
+\pause
+\begin{align*}
+x^{3} - 10 \, x^{2} + 5 = 0
+\end{align*}
+Para facilitar el trabajo hay que ocupar las correspondientes funciones de \funcionazul{numpy} para crear el polninomio y evaluarlo.
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica inicial del polinomio}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/raices_numpy_roots_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código a utilizar}
+\begin{lstlisting}[caption=Código completo para resolver el ejercicio]
+import numpy as np
+
+# Creamos un polinomio a partir de los coeficientes
+# polinomio = x^3 - 10 x^2 + 5
+coeficientes = [1., -10, 0, 5]   
+
+# Creamos un array dimensional
+x = np.arange(-4, 11, .02)
+
+#  Evaluamos el polinomio en x mediante polyval.
+y = np.polyval(coeficientes, x)
+
+# Calculamos las raices del polinomio
+raices = np.roots(coeficientes)
+
+# Evaluamos el polinomio en las raices
+s = np.polyval(coeficientes, raices)
+# Los valores que se presentan,
+# para fines prácticos, son cero.
+print(s)
+
+print("Las tres raíces son: \n x0 = {0:1.3f},\n x1 = {1:1.3f},\n x2 = {2:1.3f}".format(raices[-1], raices[-2], raices[-3]))
+
+# Completa la rutina de graficación
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Sobre el arreglo de la raíces}
+Como observaste en el código anterior, se ha hecho un ordenamiento de las raíces de manera creciente, es decir, se presenta del valor más pequeño al más grande.
+\\
+\bigskip
+\pause
+No hay garantía de que \funcionazul{roots} nos devuelva un arreglo ordenado, por lo que hay que revisar con cuidado los valores.
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica con las raíces}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/raices_numpy_roots_02.eps}
+\end{figure}
+\end{frame}
 \end{document}
