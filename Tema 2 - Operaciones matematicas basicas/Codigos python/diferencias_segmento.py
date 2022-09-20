@@ -26,7 +26,7 @@ mpl.rcParams['text.usetex'] = True
 
 def etiquetas():
     plt.title('Velocidad angular del segmento AB')
-    plt.xlabel('Ángulo en grados')
+    plt.xlabel(r'Ángulo $\alpha$ en grados')
     plt.ylabel('Velocidad en rad/s')
     plt.legend(loc='best')
     plt.xlim([-0.5, 30.5])
@@ -36,10 +36,14 @@ alfa = [0., 5., 10., 15., 20., 25., 30.]
 beta = [1.6595, 1.5434, 1.4186, 1.2925, 1.1712, 1.0585, 0.9561]
 h = 0.087266
 
+xinterp =[2.5, 7.5, 12.5, 17.5, 22.5, 27.5]
+
 lista1 = []
 lista3 = []
 totales = []
 y = []
+
+# -------- Cálculo de las derivadas en los extremos y puntos centrales
 
 izquierda = 25 * dif_adelante_h2(beta[0], beta[1], beta[2], h)
 lista1.append(0)
@@ -68,6 +72,10 @@ print(tabulate(totales, headers = cabeceras, tablefmt="grid", stralign="center",
 for i in range(len(totales)):
     y.append(totales[i][1])
 
+# ------- Rutina para obtener puntos interpolados -----
+
+npuntos = np.interp(xinterp, alfa, y)
+
 # ------- Rutina para interpolación ----------
 
 x0 = np.linspace(0.1, 30, 100)
@@ -83,7 +91,13 @@ etiquetas()
 
 plot2 = plt.figure(2)
 plt.plot(alfa, y, '+r', label='Aproximación derivada')
-plt.plot(x0, y2, label='Curva de interpolación')
+plt.plot(xinterp, npuntos, '+b', label='Puntos interpolados')
+etiquetas()
+
+plot2 = plt.figure(3)
+plt.plot(alfa, y, '+r', label='Aproximación derivada')
+plt.plot(xinterp, npuntos, '+b', label='Puntos interpolados')
+plt.plot(x0, y2, '--k', lw=0.7, label='Curva de interpolación')
 etiquetas()
 
 plt.show()

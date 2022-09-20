@@ -514,8 +514,8 @@ $\beta$ & $\color{red}{1.6595}$ & $\color{red}{1.5434}$ & $\color{red}{1.4186}$ 
 \centering
 \fontsize{10}{10}\selectfont
 \begin{tabular}{c | c | c | c | c}
-$\alpha$ & \ldots & $\color{red}{20}$ & $\color{red}{25}$ & $\color{red}{30}$  \\ \hline
-$\beta$ & \ldots & $\color{red}{1.1712}$ & $\color{red}{1.0585}$ & $\color{red}{0.9561}$ 
+$\alpha$ & \ldots & $\color{blue}{20}$ & $\color{blue}{25}$ & $\color{blue}{30}$  \\ \hline
+$\beta$ & \ldots & $\color{blue}{1.1712}$ & $\color{blue}{1.0585}$ & $\color{blue}{0.9561}$ 
 \end{tabular}
 \end{table}
 \seti
@@ -697,10 +697,17 @@ Para practicar y repasar lo que hemos trabajado en este Tema 2, se te pide que e
 \end{enumerate}
 \end{frame}
 \begin{frame}
-\frametitle{Gráfica de interpolación de la velocidad angular}
+\frametitle{Gráfica con nuevos puntos interpolados}
 \begin{figure}
     \centering
     \includegraphics[scale=0.55]{Imagenes/diferenciacion_ejercicio_segmento_02.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica con la curva de interpolación}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/diferenciacion_ejercicio_segmento_03.eps}
 \end{figure}
 \end{frame}
 % \begin{frame}
@@ -726,18 +733,28 @@ Para practicar y repasar lo que hemos trabajado en este Tema 2, se te pide que e
 % %\textcolor{red}{Debe de entregarse la tabla y el código en python.}
 % %\end{frame}
 
-\section{Extrapolación de Richardson}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{Definición}
+% \section{Extrapolación de Richardson}
+% \frame{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Definición}
 
-\begin{frame}
-\frametitle{Extrapolación de Richardson}
-La Extrapolación de Richardson es un método sencillo para aumentar la precisión de ciertos procedimientos numéricos, incluyendo las aproximaciones por diferencias finitas.
-\\
-\bigskip
-\pause
-Supongamos que tenemos la forma de calcular una cantidad $G$. Por otra parte, si consideramos que el resultado depende de un parámetro $h$, hagamos la aproximación por $g (h)$, tenemos que $G = g (h) + E (h)$, donde $E (h)$ representa el error.
-\end{frame}
+% \begin{frame}
+% \frametitle{Extrapolación de Richardson}
+% La Extrapolación de Richardson es un método sencillo para aumentar la precisión de ciertos procedimientos numéricos, incluyendo las aproximaciones por diferencias finitas.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Extrapolación de Richardson}
+% \setbeamercolor{item projected}{bg=aliceblue,fg=black}
+% \setbeamertemplate{enumerate items}{%
+% \usebeamercolor[bg]{item projected}%
+% \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+% }
+% \begin{enumerate}[<+->]
+% \item Supongamos que tenemos la forma de calcular una cantidad $G$.
+% \item Por otra parte, si consideramos que el resultado depende de un parámetro $h$,
+% \item Hagamos la aproximación por $g (h)$
+% \item Tenemos que $G = g (h) + E (h)$, donde $E (h)$ representa el error.
+% \end{enumerate}
+% \end{frame}
 % \begin{frame}
 % La extrapolación de Richardson puede remover el error, siempre que tenga la forma $E(h) = ch^{p}$, donde $c$ y $p$ son constantes. Iniciamos el cálculo para varios valores de $h$, digamos $h=h_{1}$, así
 % \[ G = g(h_{1}) + c h_{1}^{p}\]

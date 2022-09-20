@@ -2,7 +2,7 @@
 """
 Created on Thu Sep 19 16:25:43 2013
 
-@author: IIFCES
+@author: Gustavo
 """
 
 from moduloDiferencias import ddif_central
