@@ -22,6 +22,7 @@ def etiquetas():
     plt.xlabel(r'$x$')
     plt.ylabel(r'$f (x)$')
 
+exacta = 11.7286
 paneles = [2, 4, 8, 16, 32, 64, 128]
 lista2 = []
 
@@ -35,7 +36,7 @@ for n in paneles:
     lista1.append(n)
     lista1.append(h)
     lista1.append(trapecios(f, 0, 2, n))
-    lista1.append(abs(11.7286 - trapecios(f, 0, 2, n))/11.7286)
+    lista1.append(abs(exacta - trapecios(f, 0, 2, n))/11.7286)
     lista2.append(lista1)
     
 cabeceras = ['n', 'h', 'Integral', 'Error rel']

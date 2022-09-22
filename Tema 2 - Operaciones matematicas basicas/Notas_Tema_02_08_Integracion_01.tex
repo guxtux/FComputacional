@@ -554,7 +554,7 @@ El \textcolor{burntumber}{primer valor es el valor de la integral}, mientras que
 
 \section{Reglas de Simpson}
 \frame{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{Regla de $1/3$ de Simpson}
+\subsection{Regla de \texorpdfstring{$1/3$}{1/3} de Simpson}
 
 \begin{frame}
 \frametitle{Regla de $1/3$ de Simpson}
@@ -665,9 +665,16 @@ a partir de los siguientes datos:
 \begin{tabular}{c | c | c | c | c | c | c}
 \hline
 $x$ & $0$ & $0.5$ & $1.0$ & $1.5$ & $2.0$ & $2.5$ \\ \hline
-$f (x)$ & $1.5000$ & $2.0000$ & $2.0000$ & $1.6364$ & $1.2500$0 & $0.9565$ \\ \hline
+$f (x)$ & $1.5000$ & $2.0000$ & $2.0000$ & $1.6364$ & $1.25000$ & $0.9565$ \\ \hline
 \end{tabular}
 \end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de los puntos tabulados}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.55]{Imagenes/integracion_ejercicio_puntos_01.eps}
+\end{figure}
 \end{frame}
 \begin{frame}
 \frametitle{Solución}
@@ -694,6 +701,108 @@ I &= [f (0) + 3 \, f (0.5) + 3 \, f(1.0) + f \, (1.5)]\dfrac{3 \, (0.5)}{8} \\ \
 &= 2.8381 + 1.2655 = 4.1036
 \end{aligned}
 \end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Código para resolver el ejercicio}
+Al igual que en el caso de diferenciación numérica, las reglas que hemos definido suponen que contamos con una expresión para la función que queremos integrar.
+\\
+\bigskip
+\pause
+Por lo que debemos de ajustar el código para manejar pares de puntos $(x_{i}, f (x_{i}))$.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Regla de Simpson $1/3$ para puntos}
+\begin{lstlisting}[caption=Regla de Simpson 1/8 para obtener la integral con pares de puntos]
+def simpson18puntos(f, x0, n, h):
+	# n debe ser par
+	n = n - n%2
+
+	if n<=0: n = 1
+
+	x = x0
+	suma = 0
+
+	for j in range(int(n/2)):
+		suma += f[0] + 4. * f[1] + f[2]
+		x += 2 * h
+
+	return (h/3.) * suma
+\end{lstlisting}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código para la regla de Simpson 3/8}
+\begin{lstlisting}[caption=Regla de Simpson de 3/8 para obtener la integral por pares de puntos]
+def simpson38puntos(f, n, h):
+	n = n - n%3
+
+	if n <=0: n = 1
+
+	suma = 0
+	for j in range(int(n/3)):
+		suma += f[0] + 3 * (f[1] + f[2]) + f[3]
+
+	return (3. * h/8) * suma
+\end{lstlisting}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código completo}
+\begin{lstlisting}[caption=Código completo  para el ejercicio]
+from moduloIntegracion import simpson38puntos, simpson18puntos
+
+x = [0, 0.5, 1.0, 1.5, 2.0, 2.5]
+fx = [1.5000, 2.0000, 2.0000, 1.6364, 1.25000, 0.9565]
+
+print(fx[:4])
+print(fx[3:])
+
+integral1 = simpson38puntos(fx[:4], 4, 0.5)
+integral2 = simpson18puntos(fx[3:], fx[-3], 3, 0.5)
+
+print('Valor de la integral por la  regla de 3/8 de Simpson = {0:1.6f}'.format(integral1))
+print('\nValor de la integral por la  regla de 1/8 de Simpson = {0:1.6f}'.format(integral2))
+
+print('\nValor de la integral = {0:1.6f}'.format(integral1 + integral2))
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado}
+Luego de ejecutar el código, se obtiene el valor de la integral para los puntos de la tabla. \pause $ I = 4.103558$
+\\
+\bigskip
+\pause
+Mostramos a continuación una gráfica esquemática del procedimiento que realizamos.
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica con las reglas de Simpson}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.55]{Imagenes/integracion_ejercicio_puntos_02.eps}
+\end{figure}
+\end{frame}
+
+\subsection{Ejercicio a cuenta}
+
+\begin{frame}
+\frametitle{\textbf{Ejercicio a cuenta}}
+Un automóvil recorre una pista de carreras en $84$ segundos. Su velocidad en cada intvalo de $4$ segundo se deterina mediante una pistola de radar y está dada en pies/segundo, desde el principio del recorrido por los datos de la siguiente tabla:
+\end{frame}
+\begin{frame}
+\frametitle{Tabla de datos de tiempo y velocidad}
+\begin{table}
+\centering
+\begin{tabular}{|*{8}{p{0.7cm}|}} \hline
+$t$ & $0$ & $6$ & $12$ & $18$ & $24$ & $30$ & $36$ \\ \hline
+$v$ & $124$ & $134$ & $148$ & $156$ & $147$ & $133$ & $121$ \\ \hline
+\end{tabular}
+\end{table}
+\begin{table}
+\centering
+\begin{tabular}{|*{9}{p{0.7cm}|}} \hline
+$t$ & $42$ & $48$ & $54$ & $60$ & $66$ & $72$ & $78$ & $84$ \\ \hline
+$v$ & $109$ & $99$ & $85$ & $78$ & $89$ & $104$ & $116$ & $123$ \\ \hline
+\end{tabular}
+\end{table}
+¿Cuál es la longitud de la pista (en metros)?
 \end{frame}
 % \begin{frame}
 % \frametitle{Ejercicio}

@@ -9,8 +9,9 @@
 \usepackage{lscape}
 \usepackage{makecell}
 \usepackage{longtable}
+\usepackage{float}
 %\numberwithin{equation}{list}
-\marginsize{1cm}{1cm}{-2cm}{0cm}
+\marginsize{1cm}{1cm}{1cm}{0cm}
 \vspace{1cm}  
 \title{Rúbrica de evaluación \\ Curso de Física Computacional}
 \author{M. en C. Gustavo Contreras Mayén}
@@ -49,27 +50,40 @@
 % \end{center}
 %\end{landscape}
 Cada uno de los problemas a resolver para la tarea y/o el examen de cada tema del curso, deberá de considerar los siguientes atributos, cada uno de ellos, tiene asignado un nivel de desempeño junto con una puntuación, la puntuación máxima obtenida es de 18 puntos, ésta puntuación se normalizará para obtener la calificación del ejercicio.
-\begin{table}[h!]
+\begin{table}[H]
 \fontsize{14}{14}\selectfont
 \centering
 \begin{tabular}{|m{3.5cm} | m{5.5cm} | m{5.5cm} | m{5.5cm} | m{5.5cm} |} \hline
 \makecell{Atributo} & \makecell{Excepcional \\ 3 puntos} & \makecell{Aceptable \\ 2 puntos} & \makecell{Novato \\ 1 punto} & \makecell{No satisfactorio \\ 0 puntos} \\ \hline
-Documentación & El programa contiene documentación extensa, incluyendo el nombre de quien programó; describe la operación del todo el programa, detalla la operación de cada función/módulo. & Cuenta con información sobre lo que realiza el programa, pero sin llegar a detallar cada uno de los componentes incluidos en el código. & Se incluye poca información sobre el programa y lo que realiza. & Carece completamente de documentación. \\ \hline
-\makecell{Modularidad \\ No aplica \\ para funciones \\ vistas en clase} &
-El programa es totalmente modular, separa las funciones en módulos externos y hace llamadas para su uso, incluyendo en los módulos a funciones con funciones contenidas una función contiene otra(s) función(ones) (funciones de nivel 2) &
-El programa separa las funciones en un módulo externo, manteniendo un nivel de llamada de orden 1 (sin funciones contenidas). &
-El programa contiene nuevas funciones dentro del código principal (funciones de nivel 1), las funciones son independientes entre sí. &
-El programa completo consiste en un solo archivo, las funciones están contenidas dentro del código principal. No contiene funciones nuevas. \\ \hline
-\makecell{Ejecución} &
+\textbf{Documentación} & El programa contiene documentación extensa, incluyendo el nombre de quien programó; describe la operación del todo el programa, detalla la operación de cada función/módulo. & Cuenta con información sobre lo que realiza el programa, pero sin llegar a detallar cada uno de los componentes incluidos en el código. & Se incluye poca información sobre el programa y lo que realiza. & Carece completamente de documentación. \\ \hline
+\makecell{\textbf{Modularidad}} &
+El programa es totalmente modular, separa las funciones en módulos externos y hace llamadas para su uso, incluyendo funciones con funciones contenidas (funciones de nivel 2) &
+El programa separa las funciones en un módulo externo, manteniendo un nivel de llamada de nivel 1. &
+El programa contiene funciones dentro del código principal (funciones de nivel 1), las funciones son independientes entre sí. &
+No se definen funciones, pero el código es operable. \\ \hline
+\makecell{\textbf{Ejecución}} &
 El programa se ejecuta debidamente sin interrupciones. &
 El programa se ejecuta pero indica alguna advertencia. &
 Al momento de ejecutar el programa presenta fallas: falta el archivo de un módulo, no están contenidas las librerías requeridas, nombres de variables sin declarar. &
 El programa no se ejecuta, contiene errores de sintaxis del lenguaje, errores de dedo, instrucciones incompletas. \\ \hline
-\makecell{Interpretación} &
+\makecell{\textbf{Interpretación}} &
 El problema se entrega con una interpretación extensa apoyándose en los elementos que el mismo código genera, discute la posibilidad de resultados, modificación de parámetros, contrasta contra el fenómeno físico o matemático. &
 El problema se entrega con una interpretación que se apoya con los elementos que genera el mismo código. &
-El problema se entrega con una interpretación de resultados vaga: se reporta un resultado sin explicación. La interpretación de la solución no es un detalle de las instrucciones del código. &
-El problema a resolver se entrega sin una interpretación de los resultados obtenidos, sólo se entrega el código. \\ \hline
+El problema se entrega con una interpretación de resultados vaga: se reporta un resultado sin explicación. La interpretación de la solución no es detallar de las instrucciones del código. &
+La solución se entrega sin una interpretación de los resultados obtenidos. \\ \hline
+\end{tabular}
+\end{table}
+\newpage
+\begin{table}[H]
+\fontsize{14}{14}\selectfont
+\centering
+\begin{tabular}{|m{3.5cm} | m{5.5cm} | m{5.5cm} | m{5.5cm} | m{5.5cm} |} \hline
+\makecell{Atributo} & \makecell{Excepcional \\ 3 puntos} & \makecell{Aceptable \\ 2 puntos} & \makecell{Novato \\ 1 punto} & \makecell{No satisfactorio \\ 0 puntos} \\ \hline
+\makecell{\textbf{Graficación} \\ (Aunque no \\ se solicite)} &
+Se incluyen rutinas de graficación con elementos distintivos en los resultados: colores, etiquetas, marcas, subplots, etc. que permiten comparar el estado inicial del ejercicio y el resultado. &
+Se incluyen rutinas de graficación básicas mostrando la información inicial del ejercicio. &
+Se incluye una gráfica en la solución pero no se reporta la rutina de graficación. &
+No se incluye rutina de graficación ni tampoco gráfica alguna. \\ \hline 
 \end{tabular}
 \end{table}
 \end{document}
