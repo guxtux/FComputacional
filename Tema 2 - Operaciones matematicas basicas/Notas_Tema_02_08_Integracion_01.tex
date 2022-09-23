@@ -5,7 +5,7 @@
 \input{../Preambulos/preambulo_Beamer_Dresden_seahorse}
 \usefonttheme{serif}
 
-\title{\large{Diferenciación numérica}}
+\title{\large{Integración numérica}}
 \subtitle{Tema 2 - Operaciones matemáticas básicas}
 \author{M. en C. Gustavo Contreras Mayén}
 \date{}
@@ -45,7 +45,7 @@ La cuadratura aproxima la integral definida:
 \end{align*}
 mediante la suma:
 \begin{align*}
-I = \nsum_{i=0}^{n} A_{i} \, f (_{i})
+I = \nsum_{i=0}^{n} A_{i} \, f (x_{i})
 \end{align*}
 \fontsize{12}{12}\selectfont
 donde las \textcolor{ao}{abscisas nodales} $x_{i}$ \pause y los \textcolor{amethyst}{pesos} $A_{i}$ dependen de una regla en particular usada para la cuadratura.
@@ -133,7 +133,7 @@ Las ecuaciones:
 \begin{eqnarray*}
 \begin{aligned}
 I &= \scaleint{6ex}_{\bs a}^{b} P_{n} (x) \dd{x} = \nsum_{i=0}^{n} \left[ f (x_{i}) \scaleint{6ex}_{\bs a}^{b} \mathcal{L}_{i}(x) \dd{x} \right] = \\[0.5em] \pause
-&= \sum_{i=0}^{n} A_{i} f (_{i})
+&= \sum_{i=0}^{n} A_{i} f (x_{i})
 \end{aligned}
 \end{eqnarray*}
 \pause
@@ -379,7 +379,7 @@ def trapecios(f, a, b, n):
 \begin{lstlisting}[caption=Código para la función f (x)]
 import numpy as np
 
-def funcion(x):
+def f(x):
     return np.pi * (1 + (x/2)**2)**2
 \end{lstlisting}
     \end{frame}
@@ -417,7 +417,6 @@ $16$ & $0.12500$ & $11.744971839$ & $1.39589033e-03$ \\ \hline
 $32$ & $0.06250$ & $11.732702989$ & $3.49827695e-04$ \\ \hline
 $64$ & $0.03125$ & $11.729635215$ & $8.82641387e-05$ \\ \hline
 $128$ & $0.01562$ & $11.728868236$ & $2.28702562e-05$ \\ \hline
-\hline
 \end{tabular}
 \end{table}
 \end{frame}
@@ -484,9 +483,9 @@ La librería \funcionazul{SciPy} está organizada en sub-paquetes que cubren dif
 \begin{tabular}{l | l}
 	Subpaquete	&	Descripción \\ \hline
 	linalg		&	Algebra lineal \\ \hline
-	ndimage		&	Procesamiento N-dimensional de imagenes \\ \hline
+	ndimage		&	Procesamiento N-dimensional de imágenes \\ \hline
 	odr			&	Regresión de distancias ortogonales \\ \hline
-	optimize	&	Optimizació y rutinas para encontrar raíces \\ \hline
+	optimize	&	Optimización y rutinas para encontrar raíces \\ \hline
 	signal		&	Procesamiento de señales \\ \hline
 \end{tabular}
 \end{table}
@@ -519,7 +518,7 @@ El subpaquete \funcionazul{scipy.integrate} proporciona varias técnicas de inte
 quad 		& Integración en general. \\ \hline
 dblquad 	& Integración doble en general. \\ \hline
 tplquad 	& Integración triple en general. \\ \hline
-fixed-quad 	& Integración de f (x) usando cuadraturas gaussianas de orden n. \\ \hline
+fixed-quad 	& Integración de f (x) usando cuadraturas gaussianas de orden $n$. \\ \hline
 quadrature 	& Integra con tolerancia dada usando cuadratura gaussiana. \\ \hline
 romberg 	& Integra una función mediante la integración de Romberg.
 \end{tabular}
@@ -574,7 +573,7 @@ Como se muestra en la siguiente figura:
 	\centering
 	\includestandalone[scale=0.9]{Figuras/integracion_05}
 \end{figure}
-El área debajo de la curva representa una aproximación a la integral $\scaleint{6ex}_{\bs a}^{b} f (x)$.
+El área debajo de la curva representa una aproximación a la integral $\scaleint{6ex}_{\bs a}^{b} f (x) \dd{x}$.
 \end{frame}
 \begin{frame}
 \frametitle{Regla de $1/3$ de Simpson}
@@ -602,12 +601,12 @@ Para obtener la regla compuesta de $1/3$ de Simpson, se divide el intervalo de i
 Aplicando la fórmula anterior a dos bloques adyacentes, tenemos:
 \pause
 \begin{align*}
-\scaleint{6ex}_{\bs x_{i}}^{x_{i + 2}} \: f (x) \: \dd{x} \simeq \left[ f (_{i}) + 4 \: f (_{i + 1}) + f (_{i + 2}) \right] \: \dfrac{h}{3} 
+\scaleint{6ex}_{\bs x_{i}}^{x_{i + 2}} \: f (x) \: \dd{x} \simeq \left[ f (x_{i}) + 4 \: f (x_{i + 1}) + f (x_{i + 2}) \right] \: \dfrac{h}{3} 
 \end{align*}
 sustituyendo la ecuación en todo el intervalo:
 \pause
 \begin{align*}
-\scaleint{6ex}_{\bs a}^{b} \: f (x) \: \dd{x} = \scaleint{6ex}_{\bs x_{0}}^{x_{m}} \: f (x) \: \dd{x} = \nsum_{i = 0, 2,\ldots}^{n} \left[ \scaleint{6ex}_{\bs x_{i}}^{x_{i + 2}} \: f (x) \: \dd{x} \right]
+\scaleint{6ex}_{\bs a}^{b} \: f (x) \: \dd{x} = \scaleint{6ex}_{\bs x_{0}}^{x_{m}} \: f (x) \: \dd{x} = \nsum_{i = 0, 2, \ldots}^{n} \left[ \scaleint{6ex}_{\bs x_{i}}^{x_{i + 2}} \: f (x) \: \dd{x} \right]
 \end{align*}
 \end{frame}
 \begin{frame}
@@ -616,8 +615,8 @@ Por lo que la aproximación a la integral resulta ser:
 \pause
 \begin{eqnarray*}
 \begin{aligned}
-\scaleint{6ex}_{\bs a}^{b} f (x) \dd{x} \simeq I = \left[ f (_{0}) + 4 \: f (_{1}) + 2 \: f (_{2}) + \ldots  \right. \\
-\left. \ldots + 2 \: f (_{n-2}) + 4 \: f (_{n - 1}) + f (_{n}) \right] \: \dfrac{h}{3}
+\scaleint{6ex}_{\bs a}^{b} f (x) \dd{x} \simeq I = \left[ f (x_{0}) + 4 \: f (x_{1}) + 2 \: f (x_{2}) + \ldots  \right. \\
+\left. \ldots + 2 \: f (x_{n-2}) + 4 \: f (x_{n - 1}) + f (x_{n}) \right] \: \dfrac{h}{3}
 \end{aligned}
 \end{eqnarray*}
 \pause
@@ -712,8 +711,8 @@ Por lo que debemos de ajustar el código para manejar pares de puntos $(x_{i}, f
 \end{frame}
 \begin{frame}[allowframebreaks, fragile]
 \frametitle{Regla de Simpson $1/3$ para puntos}
-\begin{lstlisting}[caption=Regla de Simpson 1/8 para obtener la integral con pares de puntos]
-def simpson18puntos(f, x0, n, h):
+\begin{lstlisting}[caption=Regla de Simpson 1/3 para obtener la integral con pares de puntos]
+def simpson13puntos(f, x0, n, h):
 	# n debe ser par
 	n = n - n%2
 
@@ -747,7 +746,7 @@ def simpson38puntos(f, n, h):
 \begin{frame}[allowframebreaks, fragile]
 \frametitle{Código completo}
 \begin{lstlisting}[caption=Código completo  para el ejercicio]
-from moduloIntegracion import simpson38puntos, simpson18puntos
+from moduloIntegracion import simpson38puntos, simpson13puntos
 
 x = [0, 0.5, 1.0, 1.5, 2.0, 2.5]
 fx = [1.5000, 2.0000, 2.0000, 1.6364, 1.25000, 0.9565]
@@ -756,10 +755,10 @@ print(fx[:4])
 print(fx[3:])
 
 integral1 = simpson38puntos(fx[:4], 4, 0.5)
-integral2 = simpson18puntos(fx[3:], fx[-3], 3, 0.5)
+integral2 = simpson13puntos(fx[3:], fx[-3], 3, 0.5)
 
 print('Valor de la integral por la  regla de 3/8 de Simpson = {0:1.6f}'.format(integral1))
-print('\nValor de la integral por la  regla de 1/8 de Simpson = {0:1.6f}'.format(integral2))
+print('\nValor de la integral por la  regla de 1/3 de Simpson = {0:1.6f}'.format(integral2))
 
 print('\nValor de la integral = {0:1.6f}'.format(integral1 + integral2))
 \end{lstlisting}
@@ -784,7 +783,7 @@ Mostramos a continuación una gráfica esquemática del procedimiento que realiz
 
 \begin{frame}
 \frametitle{\textbf{Ejercicio a cuenta}}
-Un automóvil recorre una pista de carreras en $84$ segundos. Su velocidad en cada intvalo de $4$ segundo se deterina mediante una pistola de radar y está dada en pies/segundo, desde el principio del recorrido por los datos de la siguiente tabla:
+Un automóvil recorre una pista de carreras en $84$ segundos. Su velocidad en cada intervalo de $4$ segundos se determina mediante una pistola de radar y está dada en pies/segundo, desde el principio del recorrido por los datos de la siguiente tabla:
 \end{frame}
 \begin{frame}
 \frametitle{Tabla de datos de tiempo y velocidad}
