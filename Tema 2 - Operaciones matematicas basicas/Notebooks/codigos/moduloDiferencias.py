@@ -11,6 +11,10 @@ def dif_central_puntos(fh1, fh2, h):
     valor = (fh2 - fh1) / (2 * h)
     return valor
 
+def ddif_central_puntos(f1, f2, f3, h):
+    valor = (f1 - 2 * f2 + f3)/h**2
+    return valor
+
 # ------- Aproximaciones para funciones dadas
 
 def dif_central(f, x, h):
@@ -41,4 +45,14 @@ def dif_adelante_h2(f0, f1, f2, h):
 
 def dif_atras_h2(f0, f1, f2, h):
     valor = (3 * f0 - 4 * f1 + f2)/(2 * h)
+    return valor
+
+def ddif_adelante_h2(f0, f1, f2, f3, h):
+    valor = (2*f0 - 5*f1 +4*f2 -f3)/h**2
+    return valor
+
+# ------- Extrapolación de Richardson -------
+
+def extra_Richardson(gh1, gh2, p):
+    valor = (2**p * gh2 - gh1) / (2**p - 1)
     return valor
