@@ -892,7 +892,7 @@ Hermite & $1$ & $2x$ & $1$ & $0$ & $2$ & $2$ \\ \hline
 Los polinomios ortogonales clásicos también se pueden obtener de las fórmulas:
 \pause
 \begin{align*}
-p_{n} (x) &= \dfrac{(-1)^{n}}{2^{n}n!} \dv[n]{x} \left[ \left( 1 - x^{2} \right)^{n} \right] \\[1em]
+P_{n} (x) &= \dfrac{(-1)^{n}}{2^{n}n!} \dv[n]{x} \left[ \left( 1 - x^{2} \right)^{n} \right] \\[1em]
 T_{n} (x) &= \cos(n \, \cos^{-1} x), \hspace{0.3cm} n > 0 \\[1em]
 L_{n} (x) &= \dfrac{e^{x}}{n!} \dv[n]{x} \left( x^{n} \, e^{-x} \right) \\[1em]
 H_{n} (x) &= (-1)^{n} e^{x^{2}} \dv[n]{x} \left(e^{x^{2}} \right)
@@ -903,7 +903,7 @@ H_{n} (x) &= (-1)^{n} e^{x^{2}} \dv[n]{x} \left(e^{x^{2}} \right)
 Las derivadas de los polinomios anteriores se pueden calcular de:
 \pause
 \begin{align*}
-(1 - x^{2}) \: \pderivada{p}_{n} (x) &= n \: [ -x \: p_{n} (x) + p_{n - 1} (x) ] \\[1em]
+(1 - x^{2}) \: \pderivada{P}_{n} (x) &= n \: [ -x \: P_{n} (x) + P_{n - 1} (x) ] \\[1em]
 (1 - x^{2}) \: \pderivada{T}_{n} (x) &= n \: [-x \: T_{n} (x) + n \: p \: T{n - 1} (x) ] \\[1em]
 x \: \pderivada{L}_{n} \: (x) &= n \: [ L_{n} (x) - L_{n - 1} (x) ] \\[1em]
 \pderivada{H}_{n} (x) &= 2 \: n \:  H_{n - 1} (x)
