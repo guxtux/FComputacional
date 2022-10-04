@@ -919,8 +919,8 @@ Algunas propiedades los polinomios ortogonales que son relevantes para la preces
 \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
 }
 \begin{enumerate}[<+->]
-\item $\varphi(x)$ tiene $n$ distintos ceros en el intervalo $(a,b)$.
-\item Los ceros de $\varphi_{n}(x)$ están entre los ceros de $\varphi_{n + 1}(x)$.
+\item $\varphi_{n} (x)$ tiene $n$ distintos ceros en el intervalo $(a,b)$.
+\item Los ceros de $\varphi_{n} (x)$ están entre los ceros de $\varphi_{n + 1} (x)$.
 \item Cualquier polinomio $P_{n} (x)$ de grado $n$ puede expresarse de la forma:
 \begin{align*}
 P_{n} (x) = \nsum_{i=0}^{n} c_{i} \: \varphi_{i} (x)
@@ -942,6 +942,7 @@ P_{n} (x) = \nsum_{i=0}^{n} c_{i} \: \varphi_{i} (x)
 \scaleint{6ex}_{\bs a}^{b} w (x) \, P_{n} (x) \, \varphi_{n+m} (x) \dd{x} = 0, \hspace{0.4cm} m \geq 0
 \end{align*}
 \end{enumerate}
+Nota: Si hablamos del polinomio $P_{n} (x)$ no hay que confundirlo con la función especial de Legendre $P_{n} (x)$, ya que se ocupa la misma letra. 
 \end{frame}
 
 \subsection{Abscisas nodales y los pesos}
@@ -987,10 +988,10 @@ Se puede demostrar que los pesos se pueden calcular a partir de:
 \end{align*}
 \end{frame}
 
-\subsection{Error en la cuadratura gaussiana}
+\subsection{Error en la cuadratura Gaussiana}
 
 \begin{frame}
-\frametitle{Error en la cuadratura gaussiana}
+\frametitle{Error en la cuadratura Gaussiana}
 El error debido al truncamiento en este tipo de cuadratura es:
 \pause
 \begin{align*}
@@ -1000,7 +1001,7 @@ E = \scaleint{6ex}_{\bs a}^{b} w (x) \: f (x) \: \dd{x}  - \nsum_{i = 0}^{n} A_{
 que es de la forma $E = K (n) \, f^{2 \: n + 2} (c) $, donde $a < c < b$, el valor de $c$ no se conoce, solamente los extremos.
 \end{frame}
 \begin{frame}
-\frametitle{Error en la cuadratura gaussiana}
+\frametitle{Error en la cuadratura Gaussiana}
 La expresión para $K (n)$ depende de la cuadratura en particular que se esté utilizando.
 \\
 \bigskip

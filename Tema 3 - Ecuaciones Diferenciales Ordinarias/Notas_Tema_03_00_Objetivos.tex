@@ -1,0 +1,168 @@
+\documentclass[12pt]{beamer}
+\usepackage{../Estilos/BeamerFC}
+\usepackage{../Estilos/ColoresLatex}
+\input{../Preambulos/preambulo_Beamer_Copenhagen_wolverine}
+\usefonttheme{serif}
+
+\title{Tema 3 - Ecs. Diferenciales Ordinarias}
+\subtitle{Objetivos}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{4 de octubre de 2022}
+
+\begin{document}
+\maketitle
+
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+
+\section{Ecuaciones Diferenciales}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Introducción}
+
+\begin{frame}
+\frametitle{Relevancia de las EDO}
+La particular importancia de los métodos numéricos para resolver ecuaciones diferenciales ordinarias (EDO) o sistemas de las mismas se debe al hecho de que muchas de las leyes de la naturaleza se expresan convenientemente en forma diferencial.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplos donde hay EDO}
+Las ecuaciones clásicas del movimiento de partículas, las ecuaciones de difusión de masa o transporte de calor, o la ecuación de onda de Schrödinger son solo algunos ejemplos que ilustran la extraordinaria diversidad de fenómenos físicos esencialmente diferentes, que se modelan mediante ecuaciones diferenciales.
+\end{frame}
+\begin{frame}
+\frametitle{Otro tipo de ecuaciones diferenciales}
+Una multitud de fenómenos se describen mediante ecuaciones diferenciales parciales (EDP), lo que implica derivadas de varios órdenes de la función desconocida con respecto a varias variables independientes. 
+\end{frame}
+\begin{frame}
+\frametitle{EDOs de orden mayor}
+Nuevamente, en muchas situaciones, uno tiene que lidiar con EDO dependiendo de las derivadas de varios órdenes de la función desconocida con respecto a una sola variable independiente.
+\end{frame}
+\begin{frame}
+\frametitle{Naturaleza de las EDO}
+Las ODEs pueden ser \emph{intrínsecamente ordinarias}, es decir, pueden resultar como tales del propio modelado del fenómeno en cuestión, o pueden resultar de un proceso previo de separación de variables de una EDP inicial, generalmente aprovechando ciertas propiedades de simetría presentadas por el sistema modelado.
+\end{frame}
+\begin{frame}
+\frametitle{Casos más elaborados}
+En una situación más compleja, la solución puede comprender varias funciones desconocidas, satisfaciendo un sistema de EDO acopladas.
+\end{frame}
+
+\section{Objetivos}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Metas a alcanzar}
+
+\begin{frame}
+\frametitle{Objetivos del Tema}
+Se espera que al terminar el Tema 3, el alumno reconozca y proceda a resolver con algoritmos computacionales:
+\setbeamercolor{item projected}{bg=almond,fg=americanrose}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Los problemas de valores iniciales.
+\item Los problemas con dos puntos de frontera.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Problemas de valores iniciales}
+\setbeamercolor{item projected}{bg=amethyst,fg=aliceblue}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Método de Euler.
+\item Métodos de Runge-Kutta.
+\item Estabilidad y rigidez de los métodos.
+\item Método predictor-corrector.
+\item Método adaptativo de Runge-Kutta.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Problemas de 2 puntos de frontera}
+\setbeamercolor{item projected}{bg=antiquefuchsia,fg=antiquewhite}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Método de disparo.
+\item Problemas de tipo Sturm-Liouville.
+\end{enumerate}
+\end{frame}
+
+\section{Metodología}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Discusión en clase}
+
+\begin{frame}
+\frametitle{Las sesiones}
+Como se ha venido desarrollando en el semestre, durante las clases se tendrá una exposición con la referencia del tema a revisar, para luego plantear un ejercicio y resolverlo con un algoritmo.
+\end{frame}
+\begin{frame}
+\frametitle{Ventaja en el Tema 3}
+Este tema nos ofrece la oportunidad de trabajar con una mayor cantidad de ejercicios de distintas áreas de la física.
+\\
+\bigskip
+\pause
+Se considerará que el planteamiento del problema no será inconveniente para su solución, es decir, se tomará un ejecicio y su expresión mediante una EDO, no propamiente su construcción.
+\end{frame}
+\begin{frame}
+\frametitle{Comprobación de los resultados}
+Con las técnicas que se revisarán, será posible corroborar los resultados de las soluciones exactas ya sea con un desarrollo manual o con apoyo de software.
+\end{frame}
+\begin{frame}
+\frametitle{Punto importante a considerar}
+Cada solución de ejercicios deberá de hacerse con el material que se elabore en clase.
+\\
+\bigskip
+\pause
+No se considerarán soluciones que no estén hechas con \python.
+\end{frame}
+\begin{frame}
+\frametitle{Otro punto importante}
+La naturaleza propia de este tema, exige en la parte de interpretación que se incluya necesariamente una gráfica, aunque algún enunciado no lo señale, será de gran ayuda que se tenga una gráfica de apoyo.
+\end{frame}
+
+\section{Evaluación}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Ejercicios a cuenta}
+
+\begin{frame}
+\frametitle{De los ejercicios a cuenta}
+En esta ocasión se tendrá una batería de ejercicios a cuenta que conforman el $20 \%$ de la calificación.
+\\
+\bigskip
+\pause
+Para brindar una retroalimentación más inmediata, la entrega de los ejercicios se modifica de la siguiente manera.
+\end{frame}
+\begin{frame}
+\frametitle{Entrega de ejercicios a cuenta}
+La solución de los ejercicios a cuenta se \textbf{\textcolor{auburn}{entregará de manera semanal}}, \pause es decir, \pause la colección de ejercicios en una semana, se entregará vía Moodle al siguiente sábado con horario límite 3 pm.
+\end{frame}
+\begin{frame}
+\frametitle{Ventaja en el cambio}
+De esta manera conocerán de manera más pronta las observaciones y comentarios respecto a las soluciones que envíen.
+\end{frame}
+\begin{frame}
+\frametitle{Del segundo examen parcial}
+El segundo examen parcial corresponde al Tema 3 y Tema 4, no hay cambio con este elemento de la evaluación.
+\end{frame}
+
+\section{Proyecto final}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Primera información}
+
+\begin{frame}
+\frametitle{Del proyecto final}
+Como se comentó en el syllabus inicial del curso, \pause un proyecto final a entregar, representa el $30 \%$ de la calificación final del curso.
+\end{frame}
+\begin{frame}
+\frametitle{Del proyecto final}
+Durante el Tema 3 se indicarán las características y temas propuestos para la realización del proyecto final.
+\\
+\bigskip
+\pause
+Se recomienda que estén al pendiente de la información, para que tengan los elementos necesarios y comiencen a trabajar su proyecto.
+\end{frame}
+
+
+\end{document}
