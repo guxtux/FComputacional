@@ -5,7 +5,6 @@
 @author: gustavo
 """
 
-from metodosDirectos import euler
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -32,7 +31,7 @@ plt.xlim([0, 100])
 plt.axhline(y=0, ls='dashed', lw=0.7, color='k')
 
 plot2 = plt.figure(2)
-plt.plot(Y[:,0], Y[:,1])
+plt.plot()
 plt.title('Espacio fase del problema')
 
 plt.show()

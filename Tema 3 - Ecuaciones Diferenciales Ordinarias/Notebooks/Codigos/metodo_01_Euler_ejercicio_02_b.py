@@ -5,7 +5,6 @@
 @author: gustavo
 """
 
-from metodosDirectos import euler
 import numpy as np
 
 def f(x, y):

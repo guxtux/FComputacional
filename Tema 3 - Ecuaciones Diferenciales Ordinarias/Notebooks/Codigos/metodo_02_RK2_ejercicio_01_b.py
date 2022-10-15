@@ -5,7 +5,7 @@
 @author: gustavo
 """
 
-from metodosDirectos import integraorden2
+
 from prettytable import PrettyTable
 import numpy as np
 
@@ -20,11 +20,10 @@ y = np.array([1.])
 h = 0.1
 
 tabla = PrettyTable()
-tabla.field_names = ['x', 'Aproximación']
+
 
 X, Y = integraorden2(f, x, y, xAlto, h)
 
 for i in range(len(X)):
     tabla.add_row(['%1.1f' % X[i],'%1.8f' % Y[i]])
 
-print(tabla)

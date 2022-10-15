@@ -21,6 +21,31 @@ def euler(F, x, y, xAlto, h):
 
     return np.array(X), np.array(Y)
 
+def euler2(t, ht, y, n, Func):
+
+   f = [0]*(n+1)
+
+   Func(t, y, f)
+   
+   for i in range(1, n+1): y[i] += ht * f[i]
+   
+   return y
+
+def eulerPC(t, ht, y, n, Func):
+
+   f1 = [0]*(n+1); f2 = [0]*(n+1)
+   yt = [0]*(n+1)
+
+   Func(t, y, f1)
+   for i in range(1, n+1): yt[i] = y[i] + ht * f1[i]
+   
+   Func(t+ht, yt, f2)
+
+   ht2 = ht/2e0
+   for i in range(1, n+1): y[i] += ht2 * (f1[i] + f2[i])
+   
+   return y
+
 def integraorden2(F, x, y, xAlto, h):
 
     def run_kut2(F, x, y, h):
@@ -41,6 +66,7 @@ def integraorden2(F, x, y, xAlto, h):
         Y.append(y)
     
     return np.array(X), np.array(Y)
+
 
 def integraorden4(F, x, y, xAlto, h):
 

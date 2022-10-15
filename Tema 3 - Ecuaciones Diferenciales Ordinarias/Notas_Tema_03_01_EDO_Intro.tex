@@ -5,7 +5,7 @@
 \input{../Preambulos/preambulo_Beamer_Copenhagen_wolverine}
 \usefonttheme{serif}
 
-\title{\large{Integración numérica}}
+\title{\large{Ecuaciones Diferenciales Ordinarias}}
 \subtitle{Tema 3 - Ecuaciones Diferenciales Ordinarias}
 \author{M. en C. Gustavo Contreras Mayén}
 \date{}
@@ -55,7 +55,7 @@ Si en una ecuación diferencial hay una sola variable independiente, las derivad
 \pause
 Si en la ecuación hay dos o más variables independientes, las derivadas serán parciales y se le llama \textit{ecuación parcial}.
 \begin{align*}
-\pdv[2]{V}{x} + \dv[2]{V}{y} = 0
+\pdv[2]{V}{x} + \pdv[2]{V}{y} = 0
 \end{align*}
 \end{frame}
 \begin{frame}
@@ -128,7 +128,7 @@ Si la ecuación diferencial que define el problema es del tipo de la EDO con la 
 \begin{aligned}
 y(a) & = y_{0} \\ \pause
 \pderivada{y} (a) & = \pderivada{y}_{0} \\ \pause
-\pderivada{y} (a) & = \pderivada{y}_{0} \\ \pause
+\sderivada{y} (a) & = \pderivada{y}_{0} \\ \pause
 \vdots \\
 y^{(n)} (a) & = y^{(n)}_{0} 
 \end{aligned}
@@ -217,7 +217,7 @@ x_{1} & = x_{0} + h \\ \pause
 x_{2} & = x_{0} + 2 \, h \\ \pause
 x_{3} & = x_{0} + 3 \, h \\ \pause
 \ldots \\
-x_{n} & = & x_{0} + n \, h = b
+x_{n} & = x_{0} + n \, h = b
 \end{aligned}
 \end{eqnarray*}
 \end{frame}
@@ -509,7 +509,7 @@ De $x_{0} = 0$ a $x_{1} = 0.01$:
 \pause
 \begin{eqnarray*}
 \begin{aligned}
-y_{0} &= 0 \\ \pause
+y_{0} &= 1 \\ \pause
 \pderivada{y}_{0} &= x_{0}^{2} - 4 \, y_{0} = 0^{2} - 4 (1) = \pause - 4 \\ \pause
 y_{1} &= y_{0} + \pderivada{y} \, h = \pause 1 + (-4)(0.01) = \pause = 0.96 \\ \pause
 (y_{1})_{\text{exacta}} &= \dfrac{31}{32} \exp(-4 (0.01)) + \dfrac{1}{4} (0.01)^{2} - \dfrac{1}{8} (0.01) +  \\
@@ -552,7 +552,7 @@ Notamos que la magnitud del error por paso es aproximadamente constante en $0.00
 \\
 \bigskip
 \pause
-Por lo tanto, después de $10$ pasos de integración, el error acumulado sería de aproximadamente $0.08$, lo que reduciría la precisión de la solución a una cifra significativa. \pause Después de $100$ pasos, se perderían todas las cifras significativas.
+Por lo tanto, después de $10$ pasos de integración, el error acumulado sería de aproximadamente $0.008$, lo que reduciría la precisión de la solución a una cifra significativa. \pause Después de $100$ pasos, se perderían todas las cifras significativas.
 \end{frame}
 
 
@@ -604,7 +604,7 @@ La función devuelve los arreglos \texttt{X} y \texttt{Y} que contienen los valo
 \begin{lstlisting}[caption=Método de Euler]
 import numpy as np
 
-def integracion(F, x, y, xAlto, h):
+def euler(F, x, y, xAlto, h):
     X = []
     Y = []
     X.append(x)
@@ -664,7 +664,7 @@ print(tabla)
 \frametitle{Ejercicio 2}
 Integra el problema de valores iniciales:
 \begin{align*}
-\sderivada{y} = -0.1 \, \pderivada{y} - x \hspace{0.5cm} y (0) = 0 \hspace{0.5cm} \pderivada{y} (0) = 1
+\sderivada{y} = -0.1 \, \pderivada{y} - x \hspace{0.75cm} y (0) = 0 \hspace{0.5cm} \pderivada{y} (0) = 1
 \end{align*}
 de $x = 0$ hasta $x = 2$ con el método de Euler, usando $h = 0.05$. Genera una gráfica de las soluciones aproximada y la analítica.
 \pause
@@ -675,7 +675,24 @@ y (x) = 100 \, x - 5 \, x^{2} + 990 \big( e^{-0.1 x} - 1 \big)
 \begin{frame}
 \frametitle{Solución al ejercicio 2}
 Usemos la notación $y_{0} = y$ y $y_{1} = \pderivada{y}$ para un conjunto de EDO1, con las condiciones iniciales:
-7
+\pause
+\begin{align*}
+\mathbf{F} (x, \mathbf{y}) = \begin{bmatrix}
+\pderivada{y}_{0} \\
+\pderivada{y}_{1}
+\end{bmatrix}
+=
+\begin{bmatrix}
+y[1] \\
+-0.1 \, y[1] - x
+\end{bmatrix}
+\hspace{1.5cm}
+\mathbf{y} (0) =
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+\end{align*}
 \end{frame}
 \begin{frame}
 \frametitle{Archivo nuevo para la solución}
@@ -690,7 +707,6 @@ Ya conoces las rutinas necesarias para presentar una gráfica, por lo que deber�
 \begin{lstlisting}[caption=Código para resolver el ejercicio con el método de Euler]
 from metodosDirectos import euler
 import numpy as np
-import matplotlib.pyplot as plt
 
 def f(x, y):
 	f = np.zeros(2)
@@ -706,14 +722,6 @@ h = 0.05
 X, Y = euler(f, x, y, xAlto, h)
 
 s_Exacta = 100. * X - 5. * X**2 + 990. *(np.exp(-0.1 * X) - 1.)
-
-plt.plot(X, Y[:,0], '+r', X, s_Exacta, '-b')
-plt.title('Comparación entre la solución aproximada y la exacta')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.xlim([0, 2])
-plt.legend(('Numérica', 'Exacta'), loc=0)
-plt.show()
 \end{lstlisting}
 \end{frame}
 \begin{frame}
@@ -746,7 +754,38 @@ Si lo hacemos, \pause \textcolor{carmine}{¿se debería reducir a la mitad el er
 	\includegraphics[scale=0.55]{Imagenes/plot_euler_ejercicio_03.eps}
 \end{figure}
 \end{frame}
-
+\begin{frame}
+\frametitle{Ejercicios a cuenta}
+Presenta el sistema de EDO1 de la forma  de la siguientes ED:
+\setbeamercolor{item projected}{bg=black,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}
+\item $\ln \pderivada{y} + y = \sin x$
+\item $\sderivada{y} \, y - x \, \pderivada{y} - 2 \, y^{2} = 0$
+\item $\nderivada{y}{4} - 4 \, \sderivada{y} \, \sqrt{1 - y^{2}} = 0$
+\item $\big( \sderivada{y} \big)^{2} = \abs{ 32 \, \pderivada{y} \, x - y^{2}}$
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+\setbeamercolor{item projected}{bg=black,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}
+\conti
+\item Resuelve con el método de Euler la siguiente EDO1:
+\begin{align*}
+\pderivada{y} = \sin y \hspace{1cm} y (0) = 1
+\end{align*}
+de $x = 0$ a $0.5$, usando $h = 0.1$. Compara el resultado con lo que obtuvimos en el ejemplo dentro de esta presentación.
+\end{enumerate}
+\end{frame}
 \subsection{Precisión y estabilidad}
 
 \begin{frame}
@@ -910,7 +949,7 @@ Tomemos en cuenta que:
 \pause
 \begin{eqnarray*}
 \begin{aligned}
-\mathbf{\sderivada{F}} (x, \mathbf{y}) &= \pdv{\mathbf{F}}{x} + \nsum_{i=0}^{n-1} \pdv{\mathbf{F}}{y_{i}} \, \pderivada{y}_{i} = \\
+\mathbf{\sderivada{F}} (x, \mathbf{y}) &= \pdv{\mathbf{F}}{x} + \nsum_{i=0}^{n-1} \pdv{\mathbf{F}}{y_{i}} \, \pderivada{y}_{i} = \\ \pause
 &= \pdv{\mathbf{F}}{x} + \nsum_{i=0}^{n-1} \pdv{\mathbf{F}}{y_{i}} \, F_{i} (x, \mathbf{y})
 \end{aligned}
 \end{eqnarray*}
@@ -1101,6 +1140,33 @@ Con el método RK2 resuelve el siguiente problema:
 \end{align*}
 de $x = 0$ a $x = 0.5$ en pasos de $h = 0.1$.
 \end{frame}
+\begin{frame}
+\frametitle{Notación para el ejercicio}
+Ocupamos nuevamente la notación que hemos ocupado:
+\begin{align*}
+\mathbf{F} (x, \mathbf{y}) = 
+\begin{bmatrix}
+\pderivada{y}_{1}
+\end{bmatrix} =
+\begin{bmatrix}
+\sin \, y[0]
+\end{bmatrix}
+\hspace{1.5cm}
+\mathbf{y} (0) = 
+\begin{bmatrix}
+1
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Función para estimar el error}
+Considera la solución exacta de la EDO para estimar el error:
+\pause
+\begin{align*}
+y (x) = \ln \big[ \csc y \cot y \big] + 0.604582
+\end{align*}
+que hay que evaluar en los $x_{i}$ para obtener el valor exacto y entonces estimar el error.
+\end{frame}
 \begin{frame}[allowframebreaks, fragile]
 \frametitle{Solución con RK2}
 \begin{lstlisting}[caption=Código para resolver con RK2 el ejercicio]
@@ -1152,294 +1218,6 @@ $0.4$ & $1.36766006$ & $3.383559e-05$ \\ \hline
 $0.5$ & $1.46647408$ & $7.007514e-05$ \\ \hline
 \end{tabular}
 \end{table}
-\end{frame}
-
-\section{Runge-Kutta de cuarto orden}
-\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{El método}
-
-\begin{frame}
-\frametitle{Obteniendo el método}
-El \textcolor{cadmiumgreen}{método de Runge-Kutta de cuarto orden} (RK4) se obtiene de la serie de Taylor de la misma manera que el método de segundo orden.
-\\
-\bigskip
-\pause
-Debido a que la derivación es bastante larga y no muy instructiva, la omitiremos.
-\end{frame}
-\begin{frame}
-\frametitle{Operaciones para el RK4}
-La forma final de la fórmula de integración nuevamente depende de la elección de los parámetros; \pause es decir, no existe una fórmula única para el RK4.
-\end{frame}
-\begin{frame}
-\frametitle{Versión para el RK4}
-La versión más popular, que se conoce simplemente como \textcolor{cornellred}{método de Runge-Kutta}, implica la siguiente secuencia de operaciones:
-\end{frame}
-\begin{frame}
-\frametitle{Versión para el RK4}
-\begin{align}
-\begin{aligned}
-\mathbf{K_{0}} &= h \, \mathbf{F} (x, \mathbf{y}) \\
-\mathbf{K_{1}} &= h \, \mathbf{F} \bigg[x + \dfrac{h}{2}, \mathbf{y} + \dfrac{\mathbf{K}_{0}}{2} \bigg] \\
-\mathbf{K_{2}} &= h \, \mathbf{F} \bigg[x + \dfrac{h}{2}, \mathbf{y} + \dfrac{\mathbf{K}_{1}}{2} \bigg] \\
-\mathbf{K_{3}} &= h \, \mathbf{F} \big[x + h, \mathbf{y} + \mathbf{K}_{2} \big] \\
-\mathbf{y} (x + h) &= \mathbf{y} (x) + \dfrac{1}{6} \bigg[ \mathbf{K}_{0} + 2 \, \mathbf{K_{1}} + 2 \, \mathbf{K_{2}} + \mathbf{K_{3}} \bigg]
-\end{aligned}
-\label{eq:ecuacion_07_10}
-\end{align}
-\end{frame}
-\begin{frame}
-\frametitle{Desventaja del RK4}
-El principal inconveniente de este método es que no se presta a una estimación del error de truncamiento.
-\\
-\bigskip
-\pause
-Por lo tanto, debemos adivinar el tamaño del paso de integración $h$ o determinarlo por prueba y error.
-\end{frame}
-\begin{frame}
-\frametitle{Otro tipo de métodos}
-Por el contrario, los llamados \textcolor{darkcerulean}{métodos adaptativos} pueden evaluar el error de truncamiento en cada paso de integración y ajustar el valor de $h$ en consecuencia (pero a un mayor costo de cálculo).
-\end{frame}
-\begin{frame}
-\frametitle{Propuesta de código}
-La función \funcionazul{integraorden4} implementa el método RK4.
-\\
-\bigskip
-\pause
-El usuario debe de proporcionar la función \texttt{F (x, y)} que define la EDO1.
-\end{frame}
-\begin{frame}[allowframebreaks, fragile]
-\frametitle{Código}
-\begin{lstlisting}[caption=Código para el método RK4]
-def integraorden4(F, x, y, xAlto, h):
-
-    def run_kut4(F, x, y, h):
-        K0 = h * F(x, y)
-        K1 = h * F(x + h/2., y + K0/2.)
-        K2 = h * F(x + h/2., y + K1/2.)
-        K3 = h * F(x + h, y + K2)
-        
-        return (K0 + 2. * K1 + 2. * K2 + K3) / 6.
-    
-    X = []
-    Y = []
-    X.append(x)
-    Y.append(y)
-    
-    while x < xAlto:
-        h = min(h, xAlto - x)
-        y += run_kut4(F, x, y, h)
-        x += h
-        X.append(x)
-        Y.append(y)
-    
-    return np.array(X), np.array(Y)
-\end{lstlisting}
-\end{frame}
-
-\subsection{Ejercicio 1 con RK4}
-
-\begin{frame}
-\frametitle{Ejercicio a resolver}
-Resuelve el siguiente problema de valores iniciales:
-\pause
-\begin{align*}
-\sderivada{y} = -0.1 \, \pderivada{y} - x \hspace{1cm} y (0) = 0 \hspace{0.7cm} \pderivada{y} (0) = 1
-\end{align*}
-con RK4, de $x = 0$ a $x = 2$ en incrementos de $h = 0.2$. \pause Grafica la solución numérica $y$ y compara con la solución analítica:
-\pause
-\begin{align*}
-y = 100 \, x - 5 \, x^{2} + 990 \, \big( e^{-0.1 x} - 1 \big)
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Ejercicio resuelto con RK2}
-Este ejercicio se trabajó con RK2:
-\pause
-\begin{align*}
-\mathbf{F} (x, \mathbf{y}) = 
-\begin{bmatrix}
-\pderivada{y}_{0} \\
-\pderivada{y}_{1}
-\end{bmatrix} =
-\begin{bmatrix}
-y_{1} \\
--0.1 \, y_{1} - x
-\end{bmatrix}
-\hspace{1.5cm}
-\mathbf{y} (0) = 
-\begin{bmatrix}
-0 \\
-1
-\end{bmatrix}
-\end{align*}
-\end{frame}
-\begin{frame}[allowframebreaks, fragile]
-\frametitle{Código para el ejercicio RK4}
-\begin{lstlisting}[caption=Código para resolver el ejercicio con el método RK4]
-from metodosDirectos import integraorden4
-import numpy as np
-import matplotlib.pyplot as plt
-
-def f(x, y):
-	f = np.zeros(2)
-	f[0] = y[1]
-	f[1] = -0.1 * y[1] - x
-	return f
-
-x = 0.0
-xAlto = 2.0
-y = np.array([0., 1.])
-h = 0.2
-
-X, Y = integraorden4(f, x, y, xAlto, h)
-s_Exacta = 100. * X - 5. * X**2 + 990. *(np.exp(-0.1 * X) - 1.)
-
-plt.plot(X, Y[:,0], '+r')
-plt.plot(X, s_Exacta, '-b')
-plt.title('Comparación entre la solución aproximada y la exacta')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.xlim([0, 2])
-plt.legend(('Numérica', 'Exacta'), loc=0)
-plt.show()
-\end{lstlisting}
-\end{frame}
-\begin{frame}
-\frametitle{Gráfica de la solución}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.55]{Imagenes/plot_rk4_ejercicio_01.eps}
-\end{figure}
-\end{frame}
-
-\subsection{Ejercicio 2 RK4}
-
-\begin{frame}
-\frametitle{Enunciado del Ejercicio 2}
-Con el método RK4 resuelve el siguiente problema:
-\pause
-\begin{align*}
-\pderivada{y} = 3 \, y - 4 \, e^{-x} \hspace{1cm} y (0) = 1
-\end{align*}
-de $x = 0$ a $10$ en pasos de $h = 0.1$. \pause Compara el resultado con la solución analítica:
-\pause
-\begin{align*}
-y = e^{-x}
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Notación}
-Usamos la notación:
-\pause
-\begin{align*}
-\mathbf{F} (x, \mathbf{y}) = 
-\begin{bmatrix}
-\pderivada{y}_{0} 
-\end{bmatrix} =
-\begin{bmatrix}
-3 * y[0] - 4 * exp(-x)
-\end{bmatrix}
-\hspace{1cm}
-\mathbf{y} (0) = 
-\begin{bmatrix}
-1
-\end{bmatrix}
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Gráfica de la solución exacta}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.55]{Imagenes/plot_rk4_ejercicio_02_02.eps}
-\end{figure}
-\end{frame}
-\begin{frame}
-\frametitle{Código para resolver el ejercicio}
-En el código utilizamos la función \funcionazul{integraorden4}.
-\\
-\bigskip
-\pause
-\textbf{Ejercicio a cuenta: } incluye una rutina de graficación para obtener la solución numérica y la exacta. Envía las dos gráficas por correo.
-\end{frame}
-\begin{frame}[allowframebreaks, fragile]
-\frametitle{Código para resolver el ejercicio 2}
-\begin{lstlisting}[caption=Código con el método RK4 que resuelve el ejercicio]
-from metodosDirectos import integraorden4
-import numpy as np
-
-def f(x, y):
-	f = np.zeros(1)
-	f[0] = 3 * y[0] - 4 * np.exp(-x)
-	return f
-
-x = 0.0
-xAlto = 10.0
-y = np.array([1.])
-h = 0.1
-
-X, Y = integraorden4(f, x, y, xAlto, h)
-s_Exacta = np.exp(-X)
-\end{lstlisting}
-\end{frame}
-\begin{frame}
-\frametitle{Gráfica de la solución numérica}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.545]{Imagenes/plot_rk4_ejercicio_02_01.eps}
-\end{figure}
-\end{frame}
-\begin{frame}
-\frametitle{¿Qué ha pasado?}
-Está claro que algo salió mal!!.
-\\
-\bigskip
-\pause
-De acuerdo con la solución analítica, $y$ debería aproximarse a cero al aumentar $x$, \pause pero el resultado muestra la tendencia opuesta: después de una disminución inicial, la magnitud de $y$ aumenta drásticamente.
-\end{frame}
-\begin{frame}
-\frametitle{¿Qué salió mal?}
-La explicación se encuentra observando más de cerca la solución analítica.
-\\
-\bigskip
-\pause
-La solución general de la ecuación diferencial dada es:
-\pause
-\begin{align*}
-y = C \, e^{3 x} + e^{-x}
-\end{align*}
-que se puede verificar por sustitución.
-\end{frame}
-\begin{frame}
-\frametitle{Revisando la solución analítica}
-Con la condición inicial $y (0) = 1$, \pause se tiene que: $C = 0$, \pause por lo que la solución al problema, es la esperada: $y = e^{-x}$
-\end{frame}
-\begin{frame}
-\frametitle{Causa del problema}
-La causa del problema en la solución numérica es el término latente $C \, e^{3 x}$.
-\\
-\bigskip
-\pause
-Supongamos que la condición inicial contiene un pequeño error $\varepsilon$, por lo que tenemos $y (0) = 1 + \varepsilon$. \pause Esto cambia la solución analítica a:
-\pause
-\begin{align*}
-y = \varepsilon \, e^{3 x} + e^{-x}
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Término dominante}
-Ahora vemos que el término que contiene el error $\varepsilon$ se vuelve dominante a medida que $x$ aumenta.
-\\
-\bigskip
-\pause
-Debido a que los errores inherentes a la solución numérica tienen el mismo efecto que pequeños cambios en las condiciones iniciales.
-\end{frame}
-\begin{frame}
-\frametitle{Hecho muy importante}
-Concluimos que nuestra solución numérica es víctima de \textcolor{red}{inestabilidad numérica} debido a la sensibilidad de la solución a las condiciones iniciales.
-\\
-\bigskip
-\pause
-\textbf{\textcolor{airforceblue}{Moraleja: }} No hay que confiar ciegamente en los resultados de la integración numérica.
 \end{frame}
 
 \end{document}

@@ -1,0 +1,14 @@
+\documentclass[margin=5mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\begin{document}
+\begin{tikzpicture}[scale=2, spring/.style = {decorate,decoration={zigzag, pre length=.3cm,post length=.3cm,segment length=#1}},]
+    \draw (0, 0) -- (6, 0);
+    \draw (0, 0) -- (0, 2);
+    \draw [spring=8pt] (0, 0.8) -- (2, 0.8) node [above, midway] {$k$};
+    \draw (2.3, 0.1) circle (3pt);
+    \draw (4.3, 0.1) circle (3pt);
+    \draw (2, 0.2) rectangle (4.5, 1.5) node [pos=0.5] {$m$};
+    \draw [->, thick](4.5, 0.8) -- (5.5, 0.8) node [above, near end] {$P(t)$};
+\end{tikzpicture}
+\end{document}

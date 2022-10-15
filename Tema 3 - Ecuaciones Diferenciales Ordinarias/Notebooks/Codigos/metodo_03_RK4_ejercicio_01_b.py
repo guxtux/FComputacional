@@ -6,7 +6,7 @@ Created on Sun Oct  2 20:05:14 2022
 @author: gustavo
 """
 
-from metodosDirectos import integraorden4
+
 import numpy as np
 
 def f(x, y):
