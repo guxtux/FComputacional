@@ -92,7 +92,7 @@ Dado que no existe una fórmula establecida para determinar estos valores inicia
 
 \begin{frame}
 \frametitle{Problema más sencillo}
-El problema de CDF de dos puntos más simple es una EDO2 con una condición definida en $x = a$ y otra $en x = b$.
+El problema de CDF de dos puntos más simple es una EDO2 con una condición definida en $x = a$ y otra en $x = b$.
 \\
 \bigskip
 \pause
@@ -132,7 +132,7 @@ Si la solución está de acuerdo con la CDF prescrita $y (b) = \beta$, hemos ter
 Disponemos de métodos más sistemáticos si nos damos cuenta de que para determinar el valor de $u$, \pause se tiene un problema de búsqueda de raíces.
 \end{frame}
 \begin{frame}
-\frametitle{titulo}
+\frametitle{Como función de $u$}
 Como la solución del problema de valor inicial depende de $u$, el valor calculado de $y (b)$ es una función de $u$.
 \\
 \bigskip
@@ -254,7 +254,7 @@ donde:
 \begin{itemize}
 \item \funcionazul{f}: Es una función continua y se requiere que $f (a)$ y $f (b)$ tengan signos contrarios.
 \item \funcionazul{a}: Intervalo inicial para calcular la raíz.
-\item \funcionazul{a}: Intervalo final para calcular la raíz.
+\item \funcionazul{b}: Intervalo final para calcular la raíz.
 \end{itemize}
 \end{frame}
 \begin{frame}
@@ -276,7 +276,7 @@ Resuelve el siguiente problema de CDF:
 \end{frame}
 \begin{frame}
 \frametitle{Sistema de EDO1}
-Como hemos resuelto previamente los ejercicos, se requiere escribir el vector columna $\mathbf{y}$ con las EDO1.
+Como hemos resuelto previamente los ejercicios, se requiere escribir el vector columna $\mathbf{y}$ con las EDO1.
 \\
 \bigskip
 \pause
@@ -343,7 +343,7 @@ En el programa listado a continuación, elegimos el método de RK4 para la integ
 Tomemos en cuenta que se necesitan tres funciones proporcionadas por el usuario para describir el problema en cuestión.
 \end{frame}
 \begin{frame}
-\frametitle{Dunciones necesarias}
+\frametitle{Funciones necesarias}
 \setbeamercolor{item projected}{bg=coral,fg=white}
 \setbeamertemplate{enumerate items}{%
 \usebeamercolor[bg]{item projected}%
@@ -396,7 +396,7 @@ def F(x, y):
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Información para el problema}
-\begin{lstlisting}[caption=Declaración del intervalo y paso de integración  ]
+\begin{lstlisting}[caption=Declaración del intervalo y paso de integración]
 xInicio = 0.0
 xAlto = 2.0
 h = 0.1
@@ -641,9 +641,58 @@ En el \textbf{\textcolor{burgundy}{método de diferencias finitas}}, se divide e
 \begin{frame}
 \frametitle{Identificando los puntos}
 Los valores de la solución numérica en los puntos de la \textbf{\textcolor{cadmiumgreen}{malla}} se indican mediante $y_{i}$, donde $i = 0, 1, \ldots, m$.
-\\
-\bigskip
-\pause
+\end{frame}
+\begin{frame}
+\frametitle{Identificando los puntos}
+\begin{figure}
+\centering
+\begin{tikzpicture}[font=\scriptsize]
+    \draw (0, 0) -- (8, 0) node [above, near end, pos=1] {$x$};
+    \draw (0, 0) -- (0, 4) node [left, near end, pos=1.1] {$y$};
+    \draw (1, 1) .. controls (2, 2.5) and (5.5, 3.5) .. (6.5, 3.5);
+    \draw [dashed] (0.5, 0.4) -- (1, 1);
+    \draw [dashed] (6.5, 3.5) -- (7, 3.3);
+
+    \node at (0.5, -0.3) {$x_{-1}$};
+    \node at (1, -0.3) {$x_{0}$};
+    \node at (1, -0.8) {$a$};
+
+    \node at (1.5, -0.3) {$x_{1}$};
+    \node at (2, -0.3) {$x_{2}$};
+    \node at (2.5, -0.3) {$x_{3}$};
+
+    \draw [dashed] (0.5, 0) -- (0.5, 0.4) node [midway, right] {$y_{-1}$};
+    \draw [dashed] (1, 0) -- (1, 1) node [midway, right] {$y_{0}$};
+    \draw [dashed] (1.5, 0) -- (1.5, 1.5) node [midway, right] {$y_{1}$};
+    \draw [dashed] (2, 0) -- (2, 1.95) node [midway, right] {$y_{2}$};
+    \draw [dashed] (2.5, 0) -- (2.5, 2.3) node [midway, right] {$y_{3}$};
+
+    \draw [<->] (2, 0.3) -- (2.5, 0.3) node[above, midway] {$h$};
+
+    \draw (1, 1) circle (1pt);
+    \draw (1.5, 1.55) circle (1pt);
+    \draw (2, 1.92) circle (1pt);
+    \draw (2.5, 2.24) circle (1pt);
+
+    
+    \node at (6, -0.6) {$x_{m\!-1}$};
+    \node at (6.5, -0.3) {$x_{m}$};
+    \node at (6.5, -0.8) {$b$};
+
+    \node at (7, -0.6) {$x_{m\!+1}$};
+
+    \draw (6, 3.45) circle (1pt);
+    \draw (6.5, 3.46) circle (1pt);
+
+    \draw [dashed] (6, 0) -- (6, 3.4);
+    \draw [dashed] (6.5, 0) -- (6.5, 3.45);
+    \draw [dashed] (7, 0) -- (7, 3.3);
+
+    \node at (5.8, 2) [rotate=90] {$y_{m-1}$};
+    \node at (6.3, 2) [rotate=90] {$y_{m}$};
+    \node at (6.8, 2) [rotate=90] {$y_{m+1}$};
+\end{tikzpicture}
+\end{figure}
 El propósito de $y_{-1} $ e $y_{m+1}$ se explicará en breve.
 \end{frame}
 \begin{frame}
@@ -719,7 +768,7 @@ Aproximando las derivadas en los puntos de malla por diferencias finitas, el pro
 \pause
 \begin{eqnarray}
 \dfrac{y_{i-1} - 2 \, y_{i} +  y_{i+1}}{h^{2}} &=& f \bigg( x_{i}, y_{i}, \dfrac{y_{i+1} - y_{i-1}}{2 \, h} \bigg) \label{eq:ecuacion_08_09} \\ \pause
-y_{0} &=& \alpha \hspace{0.5cm} \text{o} \hspace{0.5cm} \dfrac{y_{1} - y_{1}}{2 \, h} = \alpha \label{eq:ecuacion_08_10a} \\ \pause
+y_{0} &=& \alpha \hspace{0.5cm} \text{o} \hspace{0.5cm} \dfrac{y_{1} - y_{-1}}{2 \, h} = \alpha \label{eq:ecuacion_08_10a} \\ \pause
 y_{m} &=& \beta \hspace{0.5cm} \text{o} \hspace{0.5cm} \dfrac{y_{m+1} - y_{m-1}}{2 \, h} = \beta \label{eq:ecuacion_08_10b}
 \end{eqnarray}
 \end{frame}
@@ -737,8 +786,8 @@ Pero antes de hacer eso, reescribamos las ecs. (\ref{eq:ecuacion_08_09}) como:
 \pause
 \begin{eqnarray}
 &{}& y_{-1} - 2 \, y_{0} + y_{1} - h^{2}  f \bigg( x_{0}, y_{0}, \dfrac{y_{1} - y_{-1}}{2 \, h} \bigg) = 0 \label{eq:ecuacion_a} \\ \pause
-&{}&y_{i-1} - 2 \, y_{i} + y_{i+1} - h^{2}  f \bigg( x_{i}, y_{i}, \dfrac{y_{i+1} - y_{i-1}}{2 \, h} \bigg) = 0 \\
-&i& = 1, 2, \ldots, m-1 \label{eq:ecuacion_b} \\ \pause
+&{}&y_{i-1} - 2 \, y_{i} + y_{i+1} - h^{2}  f \bigg( x_{i}, y_{i}, \dfrac{y_{i+1} - y_{i-1}}{2 \, h} \bigg) = 0 \label{eq:ecuacion_b}\\
+&i& = 1, 2, \ldots, m-1 \nonumber \\ \pause
 &{}& y_{m-1} - 2 \, y_{m} + y_{m+1} + \nonumber \\
 &{}& - h^{2} \, f \bigg( x_{m}, y_{m}, \dfrac{y_{m+1} - y_{m-1}}{2 \, h} \bigg) = 0 \label{eq:ecuacion_c}
 \end{eqnarray}
@@ -763,7 +812,7 @@ Si se indica $\pderivada{y}$, obtenemos de las ecs. (\ref{eq:ecuacion_08_10a} - 
 \pause
 \begin{align*}
 y_{-1} = y_{1} - 2 \, h \, \alpha \\
-y_{m+1} = y_{m+1} + 2 \, h \, \beta
+y_{m+1} = y_{m-1} + 2 \, h \, \beta
 \end{align*}
 \pause
 que luego se sustituyen en las ecs. (\ref{eq:ecuacion_a}) y (\ref{eq:ecuacion_c}), respectivamente.
