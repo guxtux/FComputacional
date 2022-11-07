@@ -1,0 +1,897 @@
+\documentclass[12pt]{beamer}
+\usepackage{../Estilos/BeamerFC}
+\usepackage{../Estilos/ColoresLatex}
+\input{../Preambulos/pre_codigo}
+\usepackage[siunitx]{circuitikz}
+\usetikzlibrary{arrows,patterns,shapes}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{arrows}
+\usepackage{blkarray}
+\input{../Preambulos/preambulo_Beamer_Madrid_whale}
+\usefonttheme{serif}
+
+\title{\large{Problemas de eigenvalores con matrices simétricas}}
+\subtitle{Tema 4 - Álgebra matricial}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+
+
+\section{Problemas de eigenvalores}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Introducción}
+
+\begin{frame}
+\frametitle{Introducción}
+Nuestro punto de partida es el siguiente:
+\\
+\bigskip
+\pause
+Encontrar $\lambda$ para el cual existe una solución no trivial de:
+\begin{align*}
+\mathbf{A \; x} = \lambda \; \mathbf{x}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Definiendo la forma estándar}
+La \textbf{\textcolor{lava}{forma estándar}} de un problema matricial de eigenvalores es:
+\pause
+\begin{align}
+\mathbf{A \; x} = \lambda \mathbf{x}
+\label{eq:ecuacion_09_01}
+\end{align}
+donde $\mathbf{A}$ es una matriz dada de tamaño $n \times n$. \pause El problema que debemos resolver, es calcular un escalar $\lambda$ y un vector $\mathbf{x}$.
+\end{frame}
+\begin{frame}
+\frametitle{Escribiendo el problema como un sistema de ecs.}
+Reescribimos la ecuación (\ref{eq:ecuacion_09_01}) de la forma:
+\pause
+\begin{align}
+\big( \mathbf{A} - \lambda \; \mathbf{I} \big) \mathbf{x} = \mathbf{0}
+\label{eq:ecuacion_09_02}
+\end{align}
+Se hace evidente que se trata de un sistema de $n$ ecuaciones homogéneas.
+\end{frame}
+\begin{frame}
+\frametitle{Las soluciones del sistema de ecs.}
+Una solución obvia es la trivial $x = 0$. \pause Una solución no trivial sólo puede existir si el determinante de la matriz de coeficientes es nulo, es decir:
+\pause
+\begin{align}
+\abs{ \mathbf{A} - \lambda \; \mathbf{I} } = \mathbf{0}
+\label{eq:ecuacion_09_03}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Ecuación característica}
+La expansión del determinante nos lleva a la ecuación polinomial, también conocida como la \textbf{\textcolor{ao}{ecuación característica}}:
+\pause
+\begin{align*}
+a_{0} + a_{1} \; \lambda + a_{2} \; \lambda^{2} + \ldots + a_{n} \; \lambda^{n} = 0
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Eigenvalores y eigenvectores}
+Que tiene las raíces $\lambda_{i} \; i = 1, 2, \ldots,  n$, llamados \textbf{\textcolor{armygreen}{eigenvalores}} de la matriz $\mathbf{A}$.
+\\
+\medskip
+\pause
+Las soluciones $x_{i}$ de $(\mathbf{A}- \lambda_{i} \; \mathbf{I}) \mathbf{x} = \mathbf{0}$ son conocidas como \textbf{\textcolor{brickred}{eigenvectores}}.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Considermos la matriz:
+\pause
+\begin{align}
+\mathbf{A} = \begin{bmatrix}
+1 & -1 & 0 \\
+-1 & 2 & -1 \\
+0 & -1 & 1
+\end{bmatrix}
+\label{eq:ecuacion_09_a}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Ecuación característica}
+La ecuación característica es:
+\pause
+\begin{align}
+\abs{ \mathbf{A} - \lambda \; \mathbf{I} }=  \begin{vmatrix}
+1 - \lambda & -1 & 0 \\
+-1 & 2 - \lambda & -1 \\
+0 & -1 & 1 - \lambda
+\end{vmatrix} 
+= -3 \lambda +  4 \lambda^{2} - \lambda^{3} = 0
+\label{eq:ecuacion_09_b}
+\end{align}
+\pause
+Las raíces de esta ecuación son $\lambda_{1} = 0$, $\lambda_{2} = 1$, $\lambda_{3} = 3$.
+\end{frame}
+\begin{frame}
+\frametitle{Recuperando los eigenvectores}
+Para calcular el eigenvector correspondiente a $\lambda_{3}$, \pause sustituimos $\lambda = \lambda_{3}$ en la ecuación (\ref{eq:ecuacion_09_02}), para obtener:
+\pause
+\begin{align}
+\begin{bmatrix}
+-2 & -1 & 0 \\
+-1 & -1 & -1 \\
+0 & -1 & -2
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} 
+\end{bmatrix} = 
+\begin{bmatrix}
+0 \\
+0 \\
+0
+\end{bmatrix}
+\label{eq:ecuacion_09_c}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{El determinante de la matriz}
+Sabemos que el determinante de la matriz de coeficientes es cero, de modo que las ecuaciones no son linealmente independientes. 
+\\
+\bigskip
+\pause
+Por lo tanto, podemos asignar un valor arbitrario a cualquier componente de $x$ y usar dos de las ecuaciones para calcular los otros dos componentes.
+\end{frame}
+\begin{frame}
+\frametitle{Ocupando un valor arbitrario}
+Escogiendo $x_{1} = 1$, la primera ecuación de la ecuación (\ref{eq:ecuacion_09_c}) nos devuelve $x_{2} = -2$, y de la tercera ecuación se obtiene $x_{3} = 1$. 
+\\
+\bigskip
+\pause
+Así, el vector propio asociado con $\lambda_{3}$ es:
+\pause
+\begin{align*}
+\mathbf{x}_{3}  = \begin{bmatrix}
+1 \\
+-2 \\
+1
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Recuperando los otros dos eigenvectores}
+Obtenemos los otros dos eigenvectores de la misma forma:
+\pause
+\begin{align*}
+\mathbf{x}_{2} = \begin{bmatrix}
+1 \\
+0 \\
+-1
+\end{bmatrix} \hspace{1cm}
+\mathbf{x}_{1} =  \begin{bmatrix}
+1 \\
+1 \\
+1
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Notación de utilidad}
+A veces es conveniente mostrar los eigenvectores como columnas de una matriz $\mathbf{X}$. \pause Para nuestro primer ejemplo, esta matriz es:
+\pause
+\begin{align*}
+\mathbf{X} = \left[ \mathbf{x}_{1} \hspace{0.3cm} \mathbf{x}_{2} \hspace{0.3cm} \mathbf{x}_{3} \right] = 
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 0 & -2 \\
+1 & -1 & 1
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Magnitud del eigenvector}
+De este ejemplo se desprende claramente que la magnitud de un eigenvector es indeterminada; sólo su dirección se puede calcular a partir de la ecuación (\ref{eq:ecuacion_09_02}).
+\\
+\bigskip
+\pause
+Es costumbre \textbf{\textcolor{cadetblue}{normalizar}} los eigenvectores asignando una magnitud unitaria a cada vector. 
+\end{frame}
+\begin{frame}
+\frametitle{Eigenvectores normalizados}
+Así, los eigenvectores normalizados en nuestro ejemplo son:
+\pause
+\begin{align*}
+\mathbf{X} = \begin{bmatrix}
+1 / \sqrt{3} & 1 / \sqrt{2} & 1 / \sqrt{6} \\
+1 / \sqrt{3} & 0 & -2 / \sqrt{6} \\
+1 / \sqrt{3} & -1 / \sqrt{2} & 1 / \sqrt{6}
+\end{bmatrix}
+\end{align*}
+\pause
+\textbf{Nota:} A lo largo del tema supondremos que los eigenvectores están normalizados.
+\end{frame}
+\begin{frame}
+\frametitle{Propiedades de los eigevalores y eigenvectores}
+Mencionaremos algunas propiedades útiles de los eigenvalores y de los eigenvectores (dados sin prueba):
+\setbeamercolor{item projected}{bg=champagne,fg=chestnut}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Todos los eigenvalores de una matriz simétrica son reales.
+\item Todos los eigenvalores de una matriz simétrica definida positiva son reales y positivos.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Propiedades de los eigevalores y eigenvectores}
+\setbeamercolor{item projected}{bg=champagne,fg=chestnut}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti
+\item Los eigenvectores de una matriz simétrica son ortonormales; Es decir, $\mathbf{X}^{T} \; \mathbf{X} = \mathbf{I}$.
+\item Si los eigenvalores de $\mathbf{A}$ son $\lambda_{i}$, entonces los eigenvalores de $\mathbf{A}^{-1}$ son $\lambda_{i}^{-1}$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Naturaleza de los problema de eigenvalores}
+Los problemas de eigenvalores que se originan a partir de problemas físicos a menudo terminan con una matriz $\mathbf{A}$ simétrica.
+\\
+\bigskip
+\pause
+Esto es afortunado de cierta manera, porque los problemas simétricos de los eigenvalores son más fáciles de resolver que sus homólogos no simétricos (que pueden tener eigenvalores complejos).
+\end{frame}
+\begin{frame}
+\frametitle{Naturaleza de los problema de eigenvalores}
+A lo largo del Tema 4, consideraremos a los eigenvalores y eigenvectores de matrices simétricas.
+\\
+\bigskip
+\pause
+Es común encontrar problemas de eigenvalores en el análisis de las vibraciones y la estabilidad.
+\end{frame}
+\begin{frame}
+\frametitle{Naturaleza de los problema de eigenvalores}
+Estos problemas a menudo tienen las siguientes características:
+\setbeamercolor{item projected}{bg=crimson,fg=cream}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Las matrices son grandes y escasas - \emph{sparse} -(por ejemplo, tienen una estructura en bandas).
+\item Necesitamos conocer sólo los eigenvalores; si se requieren eigenvectores, sólo unos cuantos de ellos son de interés.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Procedimiento para calcular los eigevalores}
+Un algortimo útil de eigenvalores, debe ser capaz de utilizar estas características para minimizar los cálculos.
+\\
+\bigskip
+\pause
+En particular, debe ser lo suficientemente flexible como para calcular sólo lo que necesitamos y no más.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo}
+Considera el siguiente sistema:
+\\
+\bigskip
+\pause
+\begin{figure}
+\begin{tikzpicture}[font=\footnotesize]
+    \draw(0, 0) -- (1, 0) node [near end, pos=1.2] {$x_{1}$};
+    \draw(0, 0) -- (0, 1) node [near end, pos=1.1] {$x_{2}$};
+    \draw(0, 0) -- (-0.75, -0.75) node [near end, pos=1.1] {$x_{3}$};
+
+    \draw (2, -1) rectangle (4, 1);
+    \draw (2, 1) -- (2.8, 1.8) -- (4.8, 1.8) -- (4, 1);
+    \draw (4, -1) -- (4.8, -0.2) -- (4.8, 1.8);
+
+    
+    \draw [-stealth, thick] (3, 0) -- (2.25, -0.75) node [midway, right] {$\SI{60}{\mega\pascal}$};
+    \draw [-stealth, thick] (4.4, 0.4) -- (5.4, 0.4);
+    \node at (6, 0.4) {$\SI{80}{\mega\pascal}$};
+    \draw [-stealth, thick] (4.4, 0.4) -- (4.4, 1.1);
+    \node at (5.2, 0.9) {$\SI{30}{\mega\pascal}$};
+    \draw [-stealth, thick] (3.3, 1.4) -- (3.9, 1.4);
+    \node at (3, 1.2) {$\SI{30}{\mega\pascal}$};
+    \draw [-stealth, thick] (3.3, 1.4) -- (3.3, 2.1);
+    \node at (2.5, 2.1) {$\SI{40}{\mega\pascal}$};
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Matriz de esfuerzo}
+La matriz de esfuerzo (tensor) que corresponde al estado que se mostró en la figura anterior es:
+\pause
+\begin{align*}
+\mathbf{S} = 
+\begin{bmatrix}
+80 & 30 & 0 \\
+30 & 40 & 0 \\
+0 & 0 & 60
+\end{bmatrix}
+\, \text{MPa}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Componentes de la matriz}
+Ccada fila de la matriz consta de los tres componentes de tensión que actúan en un plano de coordenadas.
+\\
+\bigskip
+\pause
+Se puede demostrar que los eigenvalores de $\mathbf{S}$ son las tensiones principales y que los eigenvectores son normales a los planos principales. \pause \textbf{Determina las tensiones principales y los vectores propios}.
+\end{frame}
+\begin{frame}
+\frametitle{Solución al problema}
+La ecuación caracerística $\abs{\mathbf{S} - \lambda \, \mathbf{I} = \mathbf{0}}$ es:
+\pause
+\begin{align*}
+\mdet{
+80 - \lambda & 30 & 0 \\
+30 & 40 - \lambda & 0 \\
+0 & 0 & 60 - \lambda
+} = 0
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Desarrollando el determinante}
+Expandiendo el determinante, se obtiene:
+\pause
+\begin{align*}
+(60 - \lambda) \big[ (80 - \lambda) (40 - \lambda) - 900 \big] &= 0 \\[0.5em]
+(60 - \lambda) (\lambda^{2} - 120 \, \lambda + 2300) &= 0
+\end{align*}
+\pause
+que nos devuelve las tensiones principales:
+\pause
+\begin{align*}
+\lambda_{1} = \SI{23.944}{\mega\pascal} \hspace{1.2cm} \lambda_{2} = \SI{60}{\mega\pascal} \hspace{1.2cm} \lambda_{3} = \SI{96.056}{\mega\pascal}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución con $\lambda_{1}$}
+El primer eigenvector es solución de $(\mathbf{S} - \lambda_{1} \mathbf{I}) \mathbf{x} = 0$, de manera equivalente:
+\pause
+\begin{align*}
+\begin{bmatrix}
+56.056 & 30.0 & 0 \\
+30.0 & 16.056 & 0 \\
+0 & 0 & 36.056
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{bmatrix}
+= \begin{bmatrix}
+0 \\
+0 \\
+0
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Eligiendo $x_{1}$}
+Eligiendo $x_{1} = 1$, \pause se obtiene:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+x_{2} &= - \dfrac{56.056}{30} = - 1.8685 \\ \pause
+x_{3} &= 0
+\end{aligned}
+\end{eqnarray*}
+\pause
+Por lo que el vector normalizado es:
+\pause
+\begin{align*}
+\mathbf{x}_{1} = \big[ 0.4719 \quad -0.8817 \quad 0 \big]^{T}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución con $\lambda_{2}$}
+El segundo eigenvector se obtiene de $(\mathbf{S} - \lambda_{2} \mathbf{I}) \mathbf{x} = 0$:
+\pause
+\begin{align*}
+\begin{bmatrix}
+20 & 30 & 0 \\
+30 & -20 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{bmatrix}
+= \begin{bmatrix}
+0 \\
+0 \\
+0
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Eligiendo $x_{2}$}
+Esta ecuacion se satisface con $x_{1} = x_{2}$ y para cualquier valor de $x_{3}$.
+\\
+\bigskip
+\pause
+Escogiendo $x_{3} = 1$, el eigenvector es:
+\pause
+\begin{align*}
+\mathbf{x}_{2} = \big[ 0 \quad 0 \quad 1 \big]^{T}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución con $\lambda_{3}$}
+El tercer eigenvector se obtiene de $(\mathbf{S} - \lambda_{3} \mathbf{I}) \mathbf{x} = 0$:
+\pause
+\begin{align*}
+\begin{bmatrix}
+-16.056 & 30 & 0 \\
+30 & -56.056 & 0 \\
+0 & 0 & -36.056
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{bmatrix}
+= \begin{bmatrix}
+0 \\
+0 \\
+0
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Eligiendo $x_{1}$}
+Eligiendo $x_{1} = 1$, \pause se obtiene:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+x_{2} &= - \dfrac{16.056}{30} = 0.5352 \\ \pause
+x_{3} &= 0
+\end{aligned}
+\end{eqnarray*}
+\pause
+Por lo que el vector normalizado es:
+\pause
+\begin{align*}
+\mathbf{x}_{3} = \big[ 0.8817 \quad 0.4719 \quad 0 \big]^{T}
+\end{align*}
+\end{frame}
+
+\section{Métodos iterativos}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{El método de Jacobi}
+
+\begin{frame}
+\frametitle{El método de Jacobi}
+El \textbf{\textcolor{darkcoral}{método de Jacobi}} es un procedimiento iterativo relativamente simple que extrae todos los eigenvalores y vectores propios de una matriz simétrica.
+\\
+\bigskip
+Es útil cuando se tienen matrices pequeñas (digamos, menos de $50 \times 50$), porque el esfuerzo computacional se incrementa muy rápidamente con el tamaño de la matriz. \pause La fuerza principal del método es su \textbf{\textcolor{darkred}{robustez.}}
+\end{frame}
+
+\subsection{Transformación y Diagonalización}
+
+\begin{frame}
+\frametitle{Transformación y Diagonalización}
+Consideremos el problema estándar de eigenvalores de la matriz:
+\begin{align}
+\mathbf{A \; x} = \lambda \; \mathbf{x}
+\label{eq:ecuacion_09_04}
+\end{align}
+donde la matriz $\mathbf{A}$ es simétrica. \pause Apliquemos la transformación:
+\begin{align}
+\mathbf{x} = \mathbf{P \; x^{*}}
+\label{eq:ecuacion_09_05}
+\end{align}
+donde $\mathbf{P}$ es una matriz no singular.
+\end{frame}
+\begin{frame}
+\frametitle{Transformando la matriz}
+Sustituyendo la ec. (\ref{eq:ecuacion_09_05}) en la ec. (\ref{eq:ecuacion_09_04}) y multiplicando por la izquierda de cada lado de la igualdad por $\mathbf{P}^{-1}$, se obtiene:
+\begin{align*}
+\mathbf{P}^{-1} \; \mathbf{A \; P \; x^{*}} = \lambda \; \mathbf{P}^{-1} \; \mathbf{P \; x}^{*}
+\end{align*}
+\pause
+o equivalentemente:
+\pause
+\begin{align}
+\mathbf{A}^{*} \; \mathbf{x}^{*} = \lambda \; \mathbf{x}^{*}
+\label{eq:ecuacion_09_06}
+\end{align}
+donde $\mathbf{A}^{*} = \mathbf{P}^{-1} \; \mathbf{A \; P}$
+\end{frame}
+\begin{frame}
+\frametitle{Transformando la matriz}
+Dado que $\lambda$ no se modifica/altera durante la transformación, los eigenvalores de $\mathbf{A}$ son los mismos eigenvalores de $\mathbf{A}^{*}$.
+\\
+\bigskip
+\pause 
+Las matrices que tienen los mismos eigenvalores se consideran \textbf{\textcolor{darkviolet}{similares}}, \pause y la transformación entre ellas se llama \textbf{\textcolor{darkslateblue}{transformación de similitud}}.
+\end{frame}
+\begin{frame}
+\frametitle{Transformación de similitud}
+Las transformaciones de similitud se utilizan con frecuencia para cambiar un problema de eigenvalores a una forma que es más fácil de resolver.
+\end{frame}
+\begin{frame}
+\frametitle{Transformación de similitud}
+Supongamos que estamos manejado algo para encontrar una matriz $\mathbf{P}$ que diagonaliza $\mathbf{A}^{*}$.
+\\
+\bigskip
+\pause
+Las ecs. (\ref{eq:ecuacion_09_06}) son entonces:
+\pause
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\begin{bmatrix}
+A_{11}^{*} - \lambda & 0 & \ldots & 0 \\
+0  & A_{22}^{*} - \lambda & \ldots & 0 \\
+\vdots  & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & A_{nn}^{*} - \lambda
+\end{bmatrix} = 
+\begin{bmatrix}
+x_{1}^{*} \\
+x_{2}^{*} \\
+\vdots \\
+x_{n}^{*} 
+\end{bmatrix} = 
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+0
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Soluciones}
+Que tiene por soluciones:
+\pause
+\begin{align}
+\lambda_{1} = A_{11}^{*} \hspace{1cm} \lambda_{2} = A_{22}^{*} \hspace{1cm} \lambda_{n} = A_{nn}^{*}
+\label{eq:ecuacion_09_07}
+\end{align}
+\renewcommand{\arraystretch}{0.85}
+\begin{align}
+\mathbf{x}_{1}^{*} =
+\begin{bmatrix}
+1 \\
+0 \\
+\vdots \\
+0
+\end{bmatrix} \hspace{1.5cm}
+\mathbf{x}_{2}^{*} =
+\begin{bmatrix}
+0 \\
+1 \\
+\vdots \\
+0
+\end{bmatrix} \ldots \hspace{1.5cm}
+\mathbf{x}_{n}^{*} =
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+1
+\end{bmatrix}
+\end{align}
+\pause
+de manera equivalente:
+\pause
+\begin{align*}
+\mathbf{X^{*}} = \left[ \mathbf{x}_{1}^{*} \hspace{0.4cm} \mathbf{x}_{2}^{*} \hspace{0.4cm} \ldots \hspace{0.4cm} \mathbf{x}_{n}^{*} \right] = \mathbf{I}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Los eigenvectores}
+De acuerdo a la ec. (\ref{eq:ecuacion_09_05}), los eigenvectores de $\mathbf{A}$ son:
+\pause
+\begin{align}
+\mathbf{X} = \mathbf{P \; X}^{*} = \mathbf{P \; I} = \mathbf{P}
+\label{eq:ecuacion_09_08}
+\end{align}
+\pause
+Por lo tanto la matriz de transformación $\mathbf{P}$ contiene los eigenvectores de $\mathbf{A}$, y los eigenvalores de $\mathbf{A}$ son los elementos de la diagonal de $\mathbf{A}^{*}$.
+\end{frame}
+
+\subsection{Rotación de Jacobi}
+
+\begin{frame}
+\frametitle{Rotación de Jacobi}
+Una transformación especial de similitud es la rotación plana:
+\pause
+\begin{align}
+\mathbf{x} = \mathbf{R \; x}^{*}
+\label{eq:ecuacion_09_09}
+\end{align}
+donde:
+\end{frame}
+\begin{frame}
+\renewcommand{\arraystretch}{1}
+\begin{align}
+\mathbf{R} = 
+\begin{blockarray}{ccccccccc}
+ &  & k &  &  & \ell & & \\
+\begin{block}{(cccccccc)c}
+  1 & 0 & 0  & 0 & 0 & 0 & 0 & 0 &   \\
+  0 & 1 & 0  & 0 & 0 & 0 & 0 & 0 &   \\
+  0 & 0 & c  & 0 & 0 & s & 0 & 0 & k \\
+  0 & 0 & 0  & 1 & 0 & 0 & 0 & 0 &   \\
+  0 & 0 & 0  & 0 & 1 & 0 & 0 & 0 &   \\
+  0 & 0 & -s & 0 & 0 & c & 0 & 0 & \ell   \\
+  0 & 0 & 0  & 0 & 0 & 0 & 1 & 0 &   \\
+  0 & 0 & 0  & 0 & 0 & 0 & 0 & 1 &   \\
+\end{block}
+\end{blockarray}
+\label{eq:ecuacion_09_10}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Matriz de rotación}
+La matriz $\mathbf{R}$ se llama \textbf{\textcolor{electricindigo}{matriz de rotación de Jacobi}}.
+\\
+\bigskip
+\pause
+Nótese que $\mathbf{R}$ es una matriz identidad modificada por los términos $c = \cos \theta$ y $s = \sin \theta$ que aparecen en las intersecciones de columnas/filas $k$ y $\ell$, donde $\theta$ es el ángulo de rotación.
+\end{frame}
+\begin{frame}
+\frametitle{Matriz de rotación}
+La matriz de rotación tiene la útil propiedad de ser ortogonal, lo que significa que:
+\pause
+\begin{align}
+\mathbf{R}^{-1} = \mathbf{R}^{T}
+\label{eq:ecuacion_09_11}
+\end{align}
+\pause
+Una consecuencia de la ortogonalidad es que la transformación en la ecuación (\ref{eq:ecuacion_09_05}) tiene la característica esencial de una rotación: \pause \emph{conserva la magnitud del vector}, es decir $\abs{ \mathbf{x} } = \abs{ \mathbf{x}^{*} }$
+\end{frame}
+\begin{frame}
+\frametitle{La transformación}
+La transformación de similitud correspondiente al plano de rotación en la ec. (\ref{eq:ecuacion_09_09}) es:
+\pause
+\begin{align}
+\mathbf{A}^{*} = \mathbf{R}^{-1} \; \mathbf{A \; R} = \mathbf{R}^{T} \; \mathbf{A \; R}
+\label{eq:ecuacion_09_12}
+\end{align}
+\pause
+La matriz $\mathbf{A}^{*}$ no solo tiene los mismos eigenvalores de la matriz original $\mathbf{A}$, sino que también por la ortogonalidad de $\mathbf{R}$, es simétrica.
+\end{frame}
+\begin{frame}
+\frametitle{La transformación}
+La transformación en la ec. (\ref{eq:ecuacion_09_12}) cambia solo los renglones/columna $k$ y $\ell$ de $\mathbf{A}$.
+\end{frame}
+\begin{frame}
+\frametitle{La transformación}
+Las fórmulas para esos cambios son:
+\begin{align}
+\begin{aligned}
+A_{k k}^{*} &= c^{2} \; A_{k k} + s^{2} \; A_{\ell \ell} - 2 \; c \; s \; A_{k \ell} \\
+A_{\ell \ell}^{*} &= c^{2} \; A_{\ell \ell} + s^{2} \; A_{k k} + 2 \; c \; s \; A_{k \ell} \\
+A_{k \ell}^{*} &= A_{\ell k}^{*} = (c^{2} - s^{2}) \; A_{k \ell} + c \; s \; (A_{k k} - A_{\ell \ell}) \\
+A_{k i}^{*} &= A_{i k}^{*} = c \; A_{k i } - s \; A_{k i} \hspace{1cm} i \neq k, i \neq \ell \\
+A_{\ell i}^{*} &= A_{i \ell}^{*} = c \; A_{\ell i } + s \; A_{k i} \hspace{1cm} i \neq k, i \neq \ell
+\end{aligned}
+\label{eq:ecuacion_09_13}
+\end{align}
+\end{frame}
+
+% \subsubsection{Diagonalización de Jacobi}
+
+% \begin{frame}
+% \frametitle{Diagonalización de Jacobi}
+% El ángulo $\theta$ en la matriz de rotación de Jacobi se puede elegir de modo que $A_{k \ell}^{*} = A_{\ell k}^{*} = 0$.
+% \\
+% \bigskip
+% Esto sugiere la siguiente idea: ¿Por qué no diagonalizar $\mathbf{A}$ haciendo un bucle a través de todos los términos por fuera de la diagonal y cero uno por uno?
+% \end{frame}
+% \begin{frame}
+% Esto es exactamente lo que hace el método de Jacobi.
+% \\
+% \bigskip
+% Sin embargo, hay un inconveniente importante: la transformación que aniquila un término fuera de la diagonal deshace algunos de los ceros previamente creados.
+% \end{frame}
+% \begin{frame}
+% Afortunadamente, resulta que los términos fuera de la diagonal que reaparecen serán menores que antes.
+% \\
+% \bigskip
+% Así, el método de Jacobi es un procedimiento iterativo que aplica repetidamente las rotaciones de Jacobi hasta que los términos fuera de la diagonal se anulan.
+% \end{frame}
+% \begin{frame}
+% La matriz final de transformación $\mathbf{P}$ es la acumulación de rotaciones individuales $\mathbf{R}_{i}$
+% \begin{equation}
+% \mathbf{P} = \mathbf{R}_{1} \cdot \mathbf{R}_{2} \cdot \mathbf{R}_{2} \ldots
+% \label{eq:ecuacion_09_14}
+% \end{equation}
+% Las columnas de $\mathbf{P}$ terminan siendo los vectores propios de $\mathbf{A}$, y los elementos diagonales de $\mathbf{A}^{*} = \mathbf{P}^{T} \; \mathbf{A \; P}$ se convierten en los vectores propios.
+% \end{frame}
+% \begin{frame}
+% Veamos un poco más a detalle la rotación de Jacobi.
+% \\
+% \bigskip
+% De la ec. (\ref{eq:ecuacion_09_13}) vemos que $A_{k \ell}^{*} = 0$ si
+% \begin{equation}
+% (c^{2} - s^{2}) \; A_{k \ell} + c \; s \; (A_{k k} - A_{\ell \ell}) = 0
+% \label{eq:ecuacion_a}
+% \end{equation}
+% Usando las identidades trigonométricas
+% \begin{align*}
+% c^{2} - s^{2} &= \cos^{2} \theta - \sin^{2} \theta = \cos 2 \theta \\
+% c \: s &= \cos \theta \; \sin \theta = \dfrac{1}{2} \sin 2 \: \theta
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% La ec. (\ref{eq:ecuacion_a}) queda como
+% \begin{equation}
+% \tan 2 \theta = - \dfrac{2 A_{k \ell}}{A_{k k} - A_{\ell \ell}}
+% \label{eq:ecuacion_b}
+% \end{equation}
+% la cual podría ser resuelta para $\theta$, seguida por el cálculo de $c = \cos \theta$ y $s = \sin \theta$.
+% \end{frame}
+% \begin{frame}
+% Sin embargo, el procedimiento descrito a continuación conduce a un mejor algoritmo.
+% \\
+% \bigskip
+% Introducimos la notación
+% \begin{equation}
+% \phi = \cot 2 \theta = - \dfrac{A_{k k} - A_{\ell \ell}}{2 \; A_{k \ell}}
+% \label{eq:ecuacion_09_15}
+% \end{equation}
+% y usando la identidad trigonométrica
+% \[ \tan 2 \theta = \dfrac{2}{(1 - t^{2})} \]
+% donde $t = \tan \theta$
+% \end{frame}
+% \begin{frame}
+% La ec. (\ref{eq:ecuacion_b}) puede escribirse como
+% \[ t^{2} +  2 \phi \; t - 1 = 0 \]
+% la cual tiene raíces
+% \[ t =  - \phi \pm \sqrt{\phi^{2} + 1} \]
+% \end{frame}
+% \begin{frame}
+% Se ha encontrado que la raíz $\vert t \vert \leq 1$, que corresponde a $\vert \theta \vert \leq 45\si{\degree}$, conduce a la transformación más estable.
+% \\
+% \bigskip
+% Por lo tanto, elegimos el signo más si $\phi > 0$  y el signo menos si $\phi \leq 0$.
+% \end{frame}
+% \begin{frame}
+% Lo que equivale a usar
+% \[ t = sgn(\phi) \left( - \vert \phi \vert + \sqrt{\phi^{2} + 1} \right) \]
+% \pause
+% Para evitar un error excesivo por el redondeo si $\phi$ es grande, multiplicamos ambos lados de la ecuación por $\vert \phi \vert + \sqrt{\phi^{2} + 1}$, lo que nos lleva a
+% \begin{equation}
+% t = \dfrac{sgn(\phi)}{\vert \phi \vert + \sqrt{\phi^{2} + 1}}
+% \label{eq:ecuacion_09_16a}
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% En el caso de que $\phi$ sea muy grande, debemos de sustituir la ec. (\ref{eq:ecuacion_09_16a}) por la aproximación
+% \begin{equation}
+% t = \dfrac{1}{2 \; \phi}
+% \label{eq:ecuacion_09_16b}
+% \end{equation}
+% \pause
+% para prevenir un desborde en el cálculo de $\phi^{2}$.
+% \\
+% \bigskip
+% Una vez calculado $t$, podemos usar la relación trigonométrica $\tan \theta = \sin \theta / \cos \theta = \sqrt{1 - \cos^{2}} / \cos \theta$
+% \end{frame}
+% \begin{frame}
+% Para obtener
+% \begin{equation}
+% c = \dfrac{1}{\sqrt{1 + t^{2}}},\hspace{1cm} s = t \: c
+% \label{eq:ecuacion_09_17}
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% Ahora podemos mejorar las fórmulas de transformación en las ecs. (\ref{eq:ecuacion_09_13}).
+% \\
+% \bigskip
+% Resolviendo de la ec. (\ref{eq:ecuacion_a}) para $A_{\ell \ell}$, se obtiene
+% \begin{equation}
+% A_{\ell \ell} = A_{k k} + A_{k \ell} \: \dfrac{c^{2} - s^{2}}{c \: s}
+% \label{eq:ecuacion_c}
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% Re-emplazando todas las veces que aparece $A_{\ell \ell}$ de la ec. (\ref{eq:ecuacion_c}) y simplificando, las fórmulas de transformación de la ec. (\ref{eq:ecuacion_09_13}) se pueden escribir como
+% \fontsize{12}{12}\selectfont
+% \begin{align}
+% \begin{aligned}
+% A_{k k}^{*} &= A_{k k} - t \; A_{k \ell} \\
+% A_{\ell \ell}^{*} &= A_{\ell \ell} - t \; A_{k \ell} \\
+% A_{k \ell}^{*} &= A_{\ell k}^{*} = 0 \\
+% A_{k i}^{*} &= A_{i k}^{*} = A_{k i} - s \; A_{\ell i} + \tau A_{k i} \hspace{0.5cm} i \neq k, i \neq \ell \\
+% A_{\ell i}^{*} &= A_{i \ell}^{*} = A_{\ell i} - s \; A_{k i} + \tau A_{\ell i} \hspace{0.5cm} i \neq k, i \neq \ell \\
+% \end{aligned}
+% \label{eq:ecuacion_09_18}
+% \end{align}
+% \fontsize{14}{14}\selectfont
+% donde
+% \fontsize{12}{12}\selectfont
+% \begin{equation}
+% \tau = \dfrac{s}{1 + c}
+% \label{eq:ecuacion_09_19}
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% La introducción de $\tau$ nos permitió expresar cada fórmula en la forma, (valor original) $+$ (cambio), que es útil para reducir el error por redondeo.
+% \\
+% \bigskip
+% Al inicio del proceso de diagonalización de Jacobi, la matriz de transformación $\mathbf{P}$ se inicializa a la matriz de identidad.
+% \end{frame}
+% \begin{frame}
+% Cada rotación de Jacobi cambia esta matriz de $\mathbf{P}$ a $\mathbf{P}^{*} = \mathbf{P \: R}$.
+% \\
+% \bigskip
+% Los cambios correspondientes en los elementos de $\mathbf{P}$ puede demostrarse que son (sólo las columnas $k$ y $\ell$ son afectadas) 
+% \begin{equation}
+% \begin{aligned}
+% P_{i k}^{*} &= P_{i k} - s (P_{i \ell} + \tau P_{i k}) \\
+% P_{i \ell}^{*} &= P_{i \ell} - s (P_{i k} + \tau P_{i \ell})
+% \end{aligned}
+% \label{eq:ecuacion_09_20}
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% Todavía tenemos que decidir el orden en que los elementos fuera de la diagonal de $\mathbf{A}$ deben ser eliminados.
+% \\
+% \bigskip
+% La idea original de Jacobi era atacar el elemento más grande porque hacerlo resulta en el menor número de rotaciones.
+% \end{frame}
+% \begin{frame}
+% El problema aquí es que $\mathbf{A}$ se tiene que buscar para el elemento más grande antes de cada rotación, que es un proceso que consume mucho tiempo.
+% \\
+% \bigskip
+% Si la matriz es grande, es más rápido recorrerla por filas o columnas y anular todos los elementos por encima de un valor \textcolor{blue}{umbral}. En el siguiente barrido, de disminuye el umbral y el proceso se repite.
+% \end{frame}
+% \begin{frame}
+% Hay varias maneras de elegir el \textcolor{blue}{umbral}.
+% \\
+% \bigskip
+% Calculamos la suma $S$ de los elementos por encima de la diagonal principal de $\mathbf{A}$:
+% \begin{equation}
+% S = \sum_{i = 1}^{n - 1} \sum_{j = i + 1}^{n} \vert A_{i j} \vert
+% \label{eq:ecuacion_(a)}
+% \end{equation}
+% \pause
+% Dado que hay $n(n - 1)/2$ de tales elementos, la magnitud promedio de los elementos fuera de la diagonal es
+% \[ \dfrac{2 \: S}{n(n - 1)} \]
+% \end{frame}
+% \begin{frame}
+% El \textcolor{blue}{umbral} que usaremos es
+% \begin{equation}
+% \mu = \dfrac{0.5 \: S}{n(n - 1)}
+% \label{eq:ecuacion_(b)}
+% \end{equation}
+% que representa la cuarta parte de la magnitud promedio de los elementos que están por fuera de la diagonal.
+% \end{frame}
+% \begin{frame}
+% En resumen, el procedimiento de barrido de Jacobi (usa solamente la parte superior de la matriz), es el siguiente:
+% \\
+% \fontsize{11}{11}\selectfont
+% Calcular el \textcolor{blue}{umbral} $\mu$ usando las ecs. (\ref{eq:ecuacion_(a)}) y (\ref{eq:ecuacion_(b)})
+% \\
+% Hacer un barrido de los elementos por fuera de la diagonal de $\mathbf{A}$:
+% \\
+% \hspace{0.5cm} Si $\vert A_{ij} \vert \geq \mu$:
+% \\
+% \hspace{1cm} Calcular $\phi$, $t$, $c$ y $s$ de las ecs. (\ref{eq:ecuacion_09_15})-(\ref{eq:ecuacion_09_17})
+% \\
+% \hspace{1cm} Calcular $\tau$ de la ec. (\ref{eq:ecuacion_09_19})
+% \\
+% \hspace{1cm} Modificar los elementos de $\mathbf{A}$ de acuerdo a las ecs. (\ref{eq:ecuacion_09_18})
+% \\
+% \hspace{1cm} Actualizar la matriz de transformación $\mathbf{P}$ usando las ecs. (\ref{eq:ecuacion_09_20})
+% \\
+% \\
+% El barrido se realiza hasta que $\mu \leq \varepsilon$, donde $\varepsilon$ es la tolerancia. Normalmente se requieren de 6-10 barridos para alcanzar la convergencia.
+% \end{frame}
+
+
+\end{document}

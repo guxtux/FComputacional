@@ -27,6 +27,7 @@ ab2 = array([[0, -1, -1, -1, -1],
 b2 = array([5., -5, 4, -5, 5])
 
 x2 = solve_banded((1, 1), ab2, b2)
+
 print('\nLa solución al problema con la matriz tridiagonal es:')
 print(x2)
 
