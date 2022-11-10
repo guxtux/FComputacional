@@ -3,6 +3,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \usepackage[siunitx]{circuitikz}
+\usepackage{parskip}
 \usetikzlibrary{arrows,patterns,shapes}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{arrows}
@@ -466,7 +467,7 @@ Por lo que el vector normalizado es:
 \end{frame}
 
 \section{Métodos iterativos}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{El método de Jacobi}
 
 \begin{frame}
@@ -682,216 +683,930 @@ A_{\ell i}^{*} &= A_{i \ell}^{*} = c \; A_{\ell i } + s \; A_{k i} \hspace{1cm} 
 \end{align}
 \end{frame}
 
-% \subsubsection{Diagonalización de Jacobi}
+\subsection{Diagonalización de Jacobi}
 
-% \begin{frame}
-% \frametitle{Diagonalización de Jacobi}
-% El ángulo $\theta$ en la matriz de rotación de Jacobi se puede elegir de modo que $A_{k \ell}^{*} = A_{\ell k}^{*} = 0$.
-% \\
-% \bigskip
-% Esto sugiere la siguiente idea: ¿Por qué no diagonalizar $\mathbf{A}$ haciendo un bucle a través de todos los términos por fuera de la diagonal y cero uno por uno?
-% \end{frame}
-% \begin{frame}
-% Esto es exactamente lo que hace el método de Jacobi.
-% \\
-% \bigskip
-% Sin embargo, hay un inconveniente importante: la transformación que aniquila un término fuera de la diagonal deshace algunos de los ceros previamente creados.
-% \end{frame}
-% \begin{frame}
-% Afortunadamente, resulta que los términos fuera de la diagonal que reaparecen serán menores que antes.
-% \\
-% \bigskip
-% Así, el método de Jacobi es un procedimiento iterativo que aplica repetidamente las rotaciones de Jacobi hasta que los términos fuera de la diagonal se anulan.
-% \end{frame}
-% \begin{frame}
-% La matriz final de transformación $\mathbf{P}$ es la acumulación de rotaciones individuales $\mathbf{R}_{i}$
-% \begin{equation}
-% \mathbf{P} = \mathbf{R}_{1} \cdot \mathbf{R}_{2} \cdot \mathbf{R}_{2} \ldots
-% \label{eq:ecuacion_09_14}
-% \end{equation}
-% Las columnas de $\mathbf{P}$ terminan siendo los vectores propios de $\mathbf{A}$, y los elementos diagonales de $\mathbf{A}^{*} = \mathbf{P}^{T} \; \mathbf{A \; P}$ se convierten en los vectores propios.
-% \end{frame}
-% \begin{frame}
-% Veamos un poco más a detalle la rotación de Jacobi.
-% \\
-% \bigskip
-% De la ec. (\ref{eq:ecuacion_09_13}) vemos que $A_{k \ell}^{*} = 0$ si
-% \begin{equation}
-% (c^{2} - s^{2}) \; A_{k \ell} + c \; s \; (A_{k k} - A_{\ell \ell}) = 0
-% \label{eq:ecuacion_a}
-% \end{equation}
-% Usando las identidades trigonométricas
-% \begin{align*}
-% c^{2} - s^{2} &= \cos^{2} \theta - \sin^{2} \theta = \cos 2 \theta \\
-% c \: s &= \cos \theta \; \sin \theta = \dfrac{1}{2} \sin 2 \: \theta
-% \end{align*}
-% \end{frame}
-% \begin{frame}
-% La ec. (\ref{eq:ecuacion_a}) queda como
-% \begin{equation}
-% \tan 2 \theta = - \dfrac{2 A_{k \ell}}{A_{k k} - A_{\ell \ell}}
-% \label{eq:ecuacion_b}
-% \end{equation}
-% la cual podría ser resuelta para $\theta$, seguida por el cálculo de $c = \cos \theta$ y $s = \sin \theta$.
-% \end{frame}
-% \begin{frame}
-% Sin embargo, el procedimiento descrito a continuación conduce a un mejor algoritmo.
-% \\
-% \bigskip
-% Introducimos la notación
-% \begin{equation}
-% \phi = \cot 2 \theta = - \dfrac{A_{k k} - A_{\ell \ell}}{2 \; A_{k \ell}}
-% \label{eq:ecuacion_09_15}
-% \end{equation}
-% y usando la identidad trigonométrica
-% \[ \tan 2 \theta = \dfrac{2}{(1 - t^{2})} \]
-% donde $t = \tan \theta$
-% \end{frame}
-% \begin{frame}
-% La ec. (\ref{eq:ecuacion_b}) puede escribirse como
-% \[ t^{2} +  2 \phi \; t - 1 = 0 \]
-% la cual tiene raíces
-% \[ t =  - \phi \pm \sqrt{\phi^{2} + 1} \]
-% \end{frame}
-% \begin{frame}
-% Se ha encontrado que la raíz $\vert t \vert \leq 1$, que corresponde a $\vert \theta \vert \leq 45\si{\degree}$, conduce a la transformación más estable.
-% \\
-% \bigskip
-% Por lo tanto, elegimos el signo más si $\phi > 0$  y el signo menos si $\phi \leq 0$.
-% \end{frame}
-% \begin{frame}
-% Lo que equivale a usar
-% \[ t = sgn(\phi) \left( - \vert \phi \vert + \sqrt{\phi^{2} + 1} \right) \]
-% \pause
-% Para evitar un error excesivo por el redondeo si $\phi$ es grande, multiplicamos ambos lados de la ecuación por $\vert \phi \vert + \sqrt{\phi^{2} + 1}$, lo que nos lleva a
-% \begin{equation}
-% t = \dfrac{sgn(\phi)}{\vert \phi \vert + \sqrt{\phi^{2} + 1}}
-% \label{eq:ecuacion_09_16a}
-% \end{equation}
-% \end{frame}
-% \begin{frame}
-% En el caso de que $\phi$ sea muy grande, debemos de sustituir la ec. (\ref{eq:ecuacion_09_16a}) por la aproximación
-% \begin{equation}
-% t = \dfrac{1}{2 \; \phi}
-% \label{eq:ecuacion_09_16b}
-% \end{equation}
-% \pause
-% para prevenir un desborde en el cálculo de $\phi^{2}$.
-% \\
-% \bigskip
-% Una vez calculado $t$, podemos usar la relación trigonométrica $\tan \theta = \sin \theta / \cos \theta = \sqrt{1 - \cos^{2}} / \cos \theta$
-% \end{frame}
-% \begin{frame}
-% Para obtener
-% \begin{equation}
-% c = \dfrac{1}{\sqrt{1 + t^{2}}},\hspace{1cm} s = t \: c
-% \label{eq:ecuacion_09_17}
-% \end{equation}
-% \end{frame}
-% \begin{frame}
-% Ahora podemos mejorar las fórmulas de transformación en las ecs. (\ref{eq:ecuacion_09_13}).
-% \\
-% \bigskip
-% Resolviendo de la ec. (\ref{eq:ecuacion_a}) para $A_{\ell \ell}$, se obtiene
-% \begin{equation}
-% A_{\ell \ell} = A_{k k} + A_{k \ell} \: \dfrac{c^{2} - s^{2}}{c \: s}
-% \label{eq:ecuacion_c}
-% \end{equation}
-% \end{frame}
-% \begin{frame}
-% Re-emplazando todas las veces que aparece $A_{\ell \ell}$ de la ec. (\ref{eq:ecuacion_c}) y simplificando, las fórmulas de transformación de la ec. (\ref{eq:ecuacion_09_13}) se pueden escribir como
-% \fontsize{12}{12}\selectfont
-% \begin{align}
-% \begin{aligned}
-% A_{k k}^{*} &= A_{k k} - t \; A_{k \ell} \\
-% A_{\ell \ell}^{*} &= A_{\ell \ell} - t \; A_{k \ell} \\
-% A_{k \ell}^{*} &= A_{\ell k}^{*} = 0 \\
-% A_{k i}^{*} &= A_{i k}^{*} = A_{k i} - s \; A_{\ell i} + \tau A_{k i} \hspace{0.5cm} i \neq k, i \neq \ell \\
-% A_{\ell i}^{*} &= A_{i \ell}^{*} = A_{\ell i} - s \; A_{k i} + \tau A_{\ell i} \hspace{0.5cm} i \neq k, i \neq \ell \\
-% \end{aligned}
-% \label{eq:ecuacion_09_18}
-% \end{align}
-% \fontsize{14}{14}\selectfont
-% donde
-% \fontsize{12}{12}\selectfont
-% \begin{equation}
-% \tau = \dfrac{s}{1 + c}
-% \label{eq:ecuacion_09_19}
-% \end{equation}
-% \end{frame}
-% \begin{frame}
-% La introducción de $\tau$ nos permitió expresar cada fórmula en la forma, (valor original) $+$ (cambio), que es útil para reducir el error por redondeo.
-% \\
-% \bigskip
-% Al inicio del proceso de diagonalización de Jacobi, la matriz de transformación $\mathbf{P}$ se inicializa a la matriz de identidad.
-% \end{frame}
-% \begin{frame}
-% Cada rotación de Jacobi cambia esta matriz de $\mathbf{P}$ a $\mathbf{P}^{*} = \mathbf{P \: R}$.
-% \\
-% \bigskip
-% Los cambios correspondientes en los elementos de $\mathbf{P}$ puede demostrarse que son (sólo las columnas $k$ y $\ell$ son afectadas) 
-% \begin{equation}
-% \begin{aligned}
-% P_{i k}^{*} &= P_{i k} - s (P_{i \ell} + \tau P_{i k}) \\
-% P_{i \ell}^{*} &= P_{i \ell} - s (P_{i k} + \tau P_{i \ell})
-% \end{aligned}
-% \label{eq:ecuacion_09_20}
-% \end{equation}
-% \end{frame}
-% \begin{frame}
-% Todavía tenemos que decidir el orden en que los elementos fuera de la diagonal de $\mathbf{A}$ deben ser eliminados.
-% \\
-% \bigskip
-% La idea original de Jacobi era atacar el elemento más grande porque hacerlo resulta en el menor número de rotaciones.
-% \end{frame}
-% \begin{frame}
-% El problema aquí es que $\mathbf{A}$ se tiene que buscar para el elemento más grande antes de cada rotación, que es un proceso que consume mucho tiempo.
-% \\
-% \bigskip
-% Si la matriz es grande, es más rápido recorrerla por filas o columnas y anular todos los elementos por encima de un valor \textcolor{blue}{umbral}. En el siguiente barrido, de disminuye el umbral y el proceso se repite.
-% \end{frame}
-% \begin{frame}
-% Hay varias maneras de elegir el \textcolor{blue}{umbral}.
-% \\
-% \bigskip
-% Calculamos la suma $S$ de los elementos por encima de la diagonal principal de $\mathbf{A}$:
-% \begin{equation}
-% S = \sum_{i = 1}^{n - 1} \sum_{j = i + 1}^{n} \vert A_{i j} \vert
-% \label{eq:ecuacion_(a)}
-% \end{equation}
-% \pause
-% Dado que hay $n(n - 1)/2$ de tales elementos, la magnitud promedio de los elementos fuera de la diagonal es
-% \[ \dfrac{2 \: S}{n(n - 1)} \]
-% \end{frame}
-% \begin{frame}
-% El \textcolor{blue}{umbral} que usaremos es
-% \begin{equation}
-% \mu = \dfrac{0.5 \: S}{n(n - 1)}
-% \label{eq:ecuacion_(b)}
-% \end{equation}
-% que representa la cuarta parte de la magnitud promedio de los elementos que están por fuera de la diagonal.
-% \end{frame}
-% \begin{frame}
-% En resumen, el procedimiento de barrido de Jacobi (usa solamente la parte superior de la matriz), es el siguiente:
-% \\
-% \fontsize{11}{11}\selectfont
-% Calcular el \textcolor{blue}{umbral} $\mu$ usando las ecs. (\ref{eq:ecuacion_(a)}) y (\ref{eq:ecuacion_(b)})
-% \\
-% Hacer un barrido de los elementos por fuera de la diagonal de $\mathbf{A}$:
-% \\
-% \hspace{0.5cm} Si $\vert A_{ij} \vert \geq \mu$:
-% \\
-% \hspace{1cm} Calcular $\phi$, $t$, $c$ y $s$ de las ecs. (\ref{eq:ecuacion_09_15})-(\ref{eq:ecuacion_09_17})
-% \\
-% \hspace{1cm} Calcular $\tau$ de la ec. (\ref{eq:ecuacion_09_19})
-% \\
-% \hspace{1cm} Modificar los elementos de $\mathbf{A}$ de acuerdo a las ecs. (\ref{eq:ecuacion_09_18})
-% \\
-% \hspace{1cm} Actualizar la matriz de transformación $\mathbf{P}$ usando las ecs. (\ref{eq:ecuacion_09_20})
-% \\
-% \\
-% El barrido se realiza hasta que $\mu \leq \varepsilon$, donde $\varepsilon$ es la tolerancia. Normalmente se requieren de 6-10 barridos para alcanzar la convergencia.
-% \end{frame}
+\begin{frame}
+\frametitle{Diagonalización de Jacobi}
+El ángulo $\theta$ en la matriz de rotación de Jacobi se puede elegir de modo que $A_{k \ell}^{*} = A_{\ell k}^{*} = 0$.
+\\
+\bigskip
+\pause
+Esto sugiere la siguiente idea: \pause ¿Por qué no diagonalizar $\mathbf{A}$ haciendo un bucle a través de todos los términos por fuera de la diagonal y cero, uno por uno?
+\end{frame}
+\begin{frame}
+\frametitle{El método de Jacobi}
+Esto es exactamente lo que hace el método de Jacobi.
+\\
+\bigskip
+\pause
+Sin embargo, hay un inconveniente importante: \pause la transformación que aniquila un término fuera de la diagonal deshace algunos de los ceros previamente creados.
+\end{frame}
+\begin{frame}
+\frametitle{Conveniente en el procedimiento}
+Afortunadamente, resulta que los términos fuera de la diagonal que reaparecen serán menores que antes.
+\\
+\bigskip
+\pause
+Así, el método de Jacobi es un procedimiento iterativo que aplica repetidamente las rotaciones de Jacobi hasta que los términos fuera de la diagonal se anulan.
+\end{frame}
+\begin{frame}
+\frametitle{Matriz que se obtiene}
+La matriz final de transformación $\mathbf{P}$ es la acumulación de rotaciones individuales $\mathbf{R}_{i}$:
+\pause
+\begin{align}
+\mathbf{P} = \mathbf{R}_{1} \cdot \mathbf{R}_{2} \cdot \mathbf{R}_{2} \ldots
+\label{eq:ecuacion_09_14}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Matriz que se obtiene}
+Las columnas de $\mathbf{P}$ terminan siendo los eigenvectores de $\mathbf{A}$, y los elementos diagonales de $\mathbf{A}^{*} = \mathbf{P}^{T} \; \mathbf{A \; P}$ se convierten en los eigenvectores.
+\end{frame}
+\begin{frame}
+\frametitle{La rotación de Jacobi}
+Veamos un poco más a detalle la rotación de Jacobi.
+\\
+\bigskip
+\pause
+De la ec. (\ref{eq:ecuacion_09_13}) vemos que $A_{k \ell}^{*} = 0$ si:
+\pause
+\begin{align}
+(c^{2} - s^{2}) \; A_{k \ell} + c \; s \; (A_{k k} - A_{\ell \ell}) = 0
+\label{eq:ecuacion_a}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{La rotación de Jacobi}
+Usando las identidades trigonométricas:
+\pause
+\begin{align*}
+c^{2} - s^{2} &= \cos^{2} \theta - \sin^{2} \theta = \cos 2 \theta \\
+c \: s &= \cos \theta \; \sin \theta = \dfrac{1}{2} \sin 2 \: \theta
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{La rotación de Jacobi}
+La ec. (\ref{eq:ecuacion_a}) queda como:
+\pause
+\begin{align}
+\tan 2 \theta = - \dfrac{2 \, A_{k \ell}}{A_{k k} - A_{\ell \ell}}
+\label{eq:ecuacion_b}
+\end{align}
+la cual podría ser resuelta para $\theta$, seguida por el cálculo de $c = \cos \theta$ y $s = \sin \theta$.
+\end{frame}
+\begin{frame}
+\frametitle{Mejorando el algoritmo}
+Sin embargo, el procedimiento descrito a continuación conduce a un mejor algoritmo.
+\\
+\bigskip
+\pause
+Introducimos la notación:
+\pause
+\begin{align}
+\phi = \cot 2 \theta = - \dfrac{A_{k k} - A_{\ell \ell}}{2 \; A_{k \ell}}
+\label{eq:ecuacion_09_15}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Mejorando el algoritmo}
+Y usando la identidad trigonométrica:
+\pause
+\begin{align*}
+\tan 2 \theta = \dfrac{2}{(1 - t^{2})}
+\end{align*}
+donde $t = \tan \theta$
+\end{frame}
+\begin{frame}
+\frametitle{Reescribiendo la ecuación}
+La ec. (\ref{eq:ecuacion_b}) puede escribirse como:
+\pause
+\begin{align*}
+t^{2} +  2 \phi \; t - 1 = 0
+\end{align*}
+\pause
+la cual tiene raíces:
+\pause
+\begin{align*}
+t =  - \phi \pm \sqrt{\phi^{2} + 1}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Transformación más estable}
+Se ha encontrado que la raíz $\abs{t} \leq 1$, que corresponde a $\abs{\theta} \leq \ang{45}$, conduce a la transformación más estable.
+\\
+\bigskip
+\pause
+Por lo tanto, elegimos el signo más si $\phi > 0$  y el signo menos si $\phi \leq 0$.
+\end{frame}
+\begin{frame}
+\frametitle{Expresión equivalente}
+Lo que equivale a usar:
+\pause
+\begin{align*}
+t = sgn(\phi) \left( - \abs{\phi} + \sqrt{\phi^{2} + 1} \right)
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Evitando un error mayor}
+Para evitar un error excesivo por el redondeo si $\phi$ es grande, multiplicamos ambos lados de la ecuación por $\abs{\phi} + \sqrt{\phi^{2} + 1}$, lo que nos lleva a:
+\pause
+\begin{align}
+t = \dfrac{sgn(\phi)}{\abs{\phi} + \sqrt{\phi^{2} + 1}}
+\label{eq:ecuacion_09_16a}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Anticipándose a valores grandes}
+En el caso de que $\phi$ sea muy grande, debemos de sustituir la ec. (\ref{eq:ecuacion_09_16a}) por la aproximación:
+\pause
+\begin{align}
+t = \dfrac{1}{2 \; \phi}
+\label{eq:ecuacion_09_16b}
+\end{align}
+para prevenir un desborde en el cálculo de $\phi^{2}$.
+\end{frame}
+\begin{frame}
+\frametitle{Anticipándose a valores grandes}
+Una vez calculado $t$, podemos usar la relación trigonométrica:
+\pause
+\begin{align*}
+\tan \theta = \sin \theta / \cos \theta = \sqrt{1 - \cos^{2}} / \cos \theta
+\end{align*}
+Para obtener:
+\pause
+\begin{align}
+c = \dfrac{1}{\sqrt{1 + t^{2}}},\hspace{1cm} s = t \: c
+\label{eq:ecuacion_09_17}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Mejorando las expresiones}
+Ahora podemos mejorar las fórmulas de transformación en las ecs. (\ref{eq:ecuacion_09_13}).
+\\
+\bigskip
+\pause
+Resolviendo de la ec. (\ref{eq:ecuacion_a}) para $A_{\ell \ell}$, se obtiene:
+\pause
+\begin{align}
+A_{\ell \ell} = A_{k k} + A_{k \ell} \: \dfrac{c^{2} - s^{2}}{c \: s}
+\label{eq:ecuacion_c}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Reescribiendo las expresiones}
+Reemplazando todas las veces que aparece $A_{\ell \ell}$ de la ec. (\ref{eq:ecuacion_c}) y simplificando, las fórmulas de transformación de la ec. (\ref{eq:ecuacion_09_13}) se pueden escribir como:
+\end{frame}
+\begin{frame}
+\frametitle{Reescribiendo las expresiones}
+\begin{align}
+\begin{aligned}
+A_{k k}^{*} &= A_{k k} - t \; A_{k \ell} \\
+A_{\ell \ell}^{*} &= A_{\ell \ell} - t \; A_{k \ell} \\
+A_{k \ell}^{*} &= A_{\ell k}^{*} = 0 \\
+A_{k i}^{*} &= A_{i k}^{*} = A_{k i} - s \; A_{\ell i} + \tau A_{k i} \hspace{0.5cm} i \neq k, i \neq \ell \\
+A_{\ell i}^{*} &= A_{i \ell}^{*} = A_{\ell i} - s \; A_{k i} + \tau A_{\ell i} \hspace{0.5cm} i \neq k, i \neq \ell \\
+\end{aligned}
+\label{eq:ecuacion_09_18}
+\end{align}
+\fontsize{14}{14}\selectfont
+donde
+\fontsize{12}{12}\selectfont
+\begin{equation}
+\tau = \dfrac{s}{1 + c}
+\label{eq:ecuacion_09_19}
+\end{equation}
+\end{frame}
+\begin{frame}
+\frametitle{Reduciendo el error}
+La introducción de $\tau$ nos permitió expresar cada fórmula en la forma, (valor original) $+$ (cambio), que es útil para reducir el error por redondeo.
+\\
+\bigskip
+\pause
+Al inicio del proceso de diagonalización de Jacobi, la matriz de transformación $\mathbf{P}$ se inicializa a la matriz de identidad.
+\end{frame}
+\begin{frame}
+\frametitle{Lo que la rotación de Jacobi modifica}
+Cada rotación de Jacobi cambia esta matriz de $\mathbf{P}$ a $\mathbf{P}^{*} = \mathbf{P \: R}$.
+\\
+\bigskip
+\pause
+Los cambios correspondientes en los elementos de $\mathbf{P}$ puede demostrarse que son (sólo las columnas $k$ y $\ell$ son afectadas):
+\begin{align}
+\begin{aligned}
+P_{i k}^{*} &= P_{i k} - s (P_{i \ell} + \tau P_{i k}) \\
+P_{i \ell}^{*} &= P_{i \ell} - s (P_{i k} + \tau P_{i \ell})
+\end{aligned}
+\label{eq:ecuacion_09_20}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Orden de eliminación}
+Todavía tenemos que decidir el orden en que los elementos fuera de la diagonal de $\mathbf{A}$ deben ser eliminados.
+\\
+\bigskip
+\pause
+La idea original de Jacobi era atacar el elemento más grande porque al hacerlo, resulta en el menor número de rotaciones.
+\end{frame}
+\begin{frame}
+\frametitle{Buscando al valor más grande}
+El problema aquí es que $\mathbf{A}$ se tiene que buscar para el elemento más grande antes de cada rotación, que es un proceso que consume mucho tiempo.
+\\
+\bigskip
+\pause
+Si la matriz es grande, es más rápido recorrerla por filas o columnas y anular todos los elementos por encima de un valor \textbf{\textcolor{blue}{umbral}}. \pause En el siguiente barrido, de disminuye el umbral y el proceso se repite.
+\end{frame}
+\begin{frame}
+\frametitle{Eligiendo el umbral}
+Hay varias maneras de elegir el \textbf{\textcolor{blue}{umbral}}.
+\\
+\bigskip
+\pause
+Calculamos la suma $S$ de los elementos por encima de la diagonal principal de $\mathbf{A}$:
+\pause
+\begin{align}
+S = \nsum_{i = 1}^{n - 1} \nsum_{j = i + 1}^{n} \abs{ A_{i j} }
+\label{eq:ecuacion_(a)}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Eligiendo el umbral}
+Dado que hay $n(n - 1)/2$ de tales elementos, la magnitud promedio de los elementos fuera de la diagonal es:
+\pause
+\begin{align*}
+\dfrac{2 \: S}{n(n - 1)}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Valor del umbral}
+El \textbf{\textcolor{blue}{umbral}} que usaremos es:
+\pause
+\begin{align}
+\mu = \dfrac{0.5 \: S}{n(n - 1)}
+\label{eq:ecuacion_(b)}
+\end{align}
+que representa la cuarta parte de la magnitud promedio de los elementos que están por fuera de la diagonal.
+\end{frame}
+\begin{frame}
+\frametitle{Resumen del procedimiento}
+En resumen, el procedimiento de barrido de Jacobi (usa solamente la parte superior de la matriz), es el siguiente:
+\end{frame}
+\begin{frame}
+\begin{tcolorbox}[colback=bisque, title=Resumen del procedimiento]
+Calcular el \textbf{\textcolor{blue}{umbral}} $\mu$ usando las ecs. (\ref{eq:ecuacion_(a)}) y (\ref{eq:ecuacion_(b)})
+\\ \pause
+Hacer un barrido de los elementos por fuera de la diagonal de $\mathbf{A}$:
+\\ \pause
+\hspace{0.5cm} Si $\abs{ A_{ij} } \geq \mu$:
+\\ \pause
+\hspace{1cm} Calcular $\phi$, $t$, $c$ y $s$ de las ecs. (\ref{eq:ecuacion_09_15})-(\ref{eq:ecuacion_09_17})
+\\ \pause
+\hspace{1cm} Calcular $\tau$ de la ec. (\ref{eq:ecuacion_09_19})
+\\ \pause
+\hspace{1cm} Modificar los elementos de $\mathbf{A}$ de acuerdo a las ecs. (\ref{eq:ecuacion_09_18})
+\\ \pause
+\hspace{1cm} Actualizar la matriz de transformación $\mathbf{P}$ usando las ecs. (\ref{eq:ecuacion_09_20})
+\end{tcolorbox}
+\end{frame}
+\begin{frame}
+\frametitle{Resumen del procedimiento}
+El barrido se realiza hasta que $\mu \leq \varepsilon$, donde $\varepsilon$ es la tolerancia.
+\\
+\bigskip
+\pause
+Normalmente se requieren de 6-10 barridos para alcanzar la convergencia.
+\end{frame}
+
+\section{Funciones en python}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{\texttt{jacobi}}
+
+\begin{frame}
+\frametitle{La función en \python}
+La función \funcionazul{jacobi} calcula todos los eigenvalores $\lambda_{i}$ y los eigenvectores $\mathbf{x}_{i}$ de una matriz $\mathbf{A}$ simétrica de $n \times n$ mediante el método de Jacobi.
+\end{frame}
+\begin{frame}
+\frametitle{La función en \python}
+El algoritmo trabaja exclusivamente con la parte triangular superior de $\mathbf{A}$, que se destruye en el proceso.
+\\
+\bigskip
+\pause
+La diagonal principal de $\mathbf{A}$ se reemplaza por los eigenvalores, y las columnas de la matriz de transformación $\mathbf{P}$ se convierten en los eigenvectores normalizados.
+\end{frame}
+\begin{frame}
+\frametitle{El código en el módulo}
+El código para esta función \funcionazul{jacobi} se encuentra en el módulo \funcionazul{moduloMatrices}.
+\\
+\bigskip
+\pause
+Dada su extensión, no aporta elementos distintos para su revisión en clase. \pause No está demás que posteriormente, identifiques los elementos que se presentaron en la clase.
+\end{frame}
+
+\subsection{\texttt{ordenaJacobi}}
+
+\begin{frame}
+\frametitle{Ordenando los eigenvectores}
+Los eigenvalores/eigenvectores devueltos por la función \funcionazul{jacobi} no están ordenados.
+\\
+\bigskip
+\pause
+La función \funcionazul{ordenaJacobi} se utiliza para ordenar los eigenvalores y los eigenvectores en orden ascendente de eigenvalores.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{La función \texttt{ordenaJacobi}}
+\begin{lstlisting}[caption=La función para ordenar los eigenvalores y eigenvectores]
+def ordenaJacobi(lam, x):
+    n = len(lam)
+    
+    for i in range(n-1):
+        index = i
+        val = lam[i]
+        for j in range(i+1, n):
+            if lam[j] < val:
+                index = j
+                val = lam[j]
+        if index != i:
+            swap.swapRenglon(lam, i, index)
+            swap.swapColumna(x, i, index)
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Funciones de intercambio}
+Donde la funciones \funcionazul{swap.swapRenglon} y \funcionazul{swap.swapColumna} son las siguientes:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Funciones de intercambio}
+\begin{lstlisting}[caption=Funciones de intercambio de renglones y columnas]
+def swapRenglon(v, i, j):
+    v.setflags(write=True)
+    if len(v.shape) == 1:
+        v[i], v[j] = v[j], v[i]
+    else:
+        v[[i,j],:] = v[[j,i],:]
+        
+def swapColuma(v, i, j):
+    v[:,[i,j]] = v[:,[j,i]]
+\end{lstlisting}
+\end{frame}
+
+\section{Forma estándar}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Transformación}
+
+\begin{frame}
+\frametitle{Problemas comunes en la física}
+Los problemas físicos a menudo dan lugar a problemas de valores propios de la forma:
+\pause
+\begin{align}
+\mathbf{A \, x} = \lambda \, \mathbf{B \, x}
+\label{eq:ecuacion_09_21}
+\end{align}
+donde $\mathbf{A}$ y $\mathbf{B}$ son matrices simétricas de $n \times n$. \pause Suponemos que $\mathbf{B}$ también es definida positiva.
+\end{frame}
+\begin{frame}
+\frametitle{Transformación necesaria}
+Dichos problemas deben transformarse a la \textbf{\textcolor{cerulean}{forma estándar}} antes de que puedan resolverse mediante la diagonalización de Jacobi.
+\end{frame}
+\begin{frame}
+\frametitle{Ventaja por el tipo de matriz}
+Debido a que $\mathbf{B}$ es simétrica y definida positiva, podemos aplicar la descomposición de Choleski $\mathbf{B} = \mathbf{L L}^{T}$, \pause donde $\mathbf{L}$ es la matriz triangular inferior.
+\end{frame}
+\begin{frame}
+\frametitle{La transformación}
+Entonces introducimos la transformación:
+\pause
+\begin{align}
+\mathbf{x} = \big( \mathbf{L}^{-1} \big)^{T} \, \mathbf{z}
+\label{eq:ecuacion_09_22}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Operando las expresiones}
+Que al sustituir en la ec. (\ref{eq:ecuacion_09_21}), obtenemos:
+\pause
+\begin{align*}
+\mathbf{A} \, \big( \mathbf{L}^{-1} \big)^{T} \, \mathbf{z} = \lambda \, \mathbf{L L}^{T} \big( \mathbf{L}^{-1} \big)^{T} \, \mathbf{z}
+\end{align*}
+\pause
+multiplicando ambos lados por la izquierda con $\mathbf{L}^{-1}$:
+\pause
+\begin{align*}
+\mathbf{L}^{-1} \, \mathbf{A} \, \big( \mathbf{L}^{-1} \big)^{T} \, \mathbf{z} = \lambda \, \mathbf{L}^{-1} \, \mathbf{L L}^{T} \big( \mathbf{L}^{-1} \big)^{T} \, \mathbf{z}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Aprovechando un resultado}
+Vemos que \pause $\mathbf{L}^{-1} \mathbf{L} = \mathbf{L}^{T} (\mathbf{L}^{-1})^{T} = \mathbf{I}$ , \pause la última ecuación se reduce a la \textbf{\textcolor{darkterracotta}{forma estándar}}:
+\pause
+\begin{align}
+\mathbf{H \, z} = \lambda \, \mathbf{z}
+\label{eq:ecuacion:09_23}
+\end{align}
+donde:
+\begin{align}
+\mathbf{H} = \mathbf{L}^{-1} \, \mathbf{A} \, ()\mathbf{L}^{-1})^{T}
+\label{eq:ecuacion_09_24}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Propiedad de la transformación}
+Una propiedad importante de esta transformación es que no destruye la simetría de la matriz (es decir, $\mathbf{A}$ simétrica da como resultado $\mathbf{H}$ simétrica).
+\end{frame}
+\begin{frame}
+\frametitle{Procedimiento para la solución}
+El procedimiento general para resolver problemas de valores propios de la forma $\mathbf{A \, x} = \lambda \, \mathbf{B \, x}$ se muestra a continuación:
+\end{frame}
+\begin{frame}
+\begin{tcolorbox}[colback=electriccyan!20!white, title=Procedimiento de solución]
+Usar la descomposición de Choleski $\mathbf{B} = \mathbf{L L}^{T}$ \\ para calcular $\mathbf{L}$.
+\pause
+
+Calcular $\mathbf{L}^{-1}$: una matriz triangular es fácil de invertir.
+\pause
+
+Calcular $\mathbf{H} = \mathbf{L}^{-1} \, \mathbf{A} \, (\mathbf{L}^{-1})^{T}$.
+\pause
+
+Resolver el problema estándar de eigenvalores $\mathbf{H \, z} = \lambda \, \mathbf{z}$.
+\pause 
+
+Recuperar los eigenvectores del problema original de \\ $\mathbf{X} = (\mathbf{L}^{-1})^{T} \, \mathbf{Z}$.
+\end{tcolorbox}
+\pause
+Nótese que los eigenvalores no se tocan durante la transformación.
+\end{frame}
+\begin{frame}
+\frametitle{Caso especial}
+Un caso especial que es importante mencionar es cuando la matriz $\mathbf{B}$ es una matriz diagonal:
+\pause
+\begin{align}
+\mathbf{B} =
+\begin{bmatrix}
+\beta_{1} & 0 & \ldots & 0 \\
+0 & \beta_{2} & \ldots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & \beta_{n}
+\end{bmatrix}
+\label{eq:ecuacion_09_25}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Las otras matrices}
+Donde:
+\pause
+\renewcommand{\arraystretch}{1}
+\begin{align}
+\mathbf{L} =
+\begin{bmatrix}
+\beta_{1}^{\frac{1}{2}} & 0 & \ldots & 0 \\
+0 & \beta_{2}^{\frac{1}{2}} & \ldots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & \beta_{n}^{\frac{1}{2}}
+\end{bmatrix}
+\hspace{1cm}
+\mathbf{L}^{-1} =
+\begin{bmatrix}
+\beta_{1}^{-\frac{1}{2}} & 0 & \ldots & 0 \\
+0 & \beta_{2}^{-\frac{1}{2}} & \ldots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & \beta_{n}^{-\frac{1}{2}}
+\end{bmatrix}
+\label{eq:ecuacion_09_26a}
+\end{align}
+y
+\begin{align}
+H_{ij} = \dfrac{A_{ij}}{\sqrt{\beta_{i} \, \beta_{j}}}
+\end{align}
+\end{frame}
+
+\subsection{\texttt{formaEstd}}
+
+\begin{frame}
+\frametitle{La función \texttt{formaEstd}}
+Dadas las matrices $\mathbf{A}$ y $\mathbf{B}$, la función \funcionazul{formaEstd} devuelve $\mathbf{H}$ y la matriz de transformación $\mathbf{T} = (\mathbf{L}^{-1})^{T}$.
+\end{frame}
+\begin{frame}
+\frametitle{La función \texttt{formaEstd}}
+La inversión de $\mathbf{L}$ se realiza por inversión (la forma triangular de $\mathbf{L}$ permite que esto se haga por sustitución hacia atrás).
+\\
+\bigskip
+\pause
+Tengamos en cuenta que las matrices originales $\mathbf{A}$, $\mathbf{B}$ y $\mathbf{L}$ se destruyen.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código para la transformación}
+\begin{lstlisting}[caption=Código para la forma estándar]
+def stdForm(a,b):
+
+    def invert(L):
+        n = len(L)
+        
+        for j in range(n-1):
+            L[j,j] = 1.0/L[j,j]
+                for i in range(j+1,n):
+                    L[i,j] = -np.dot(L[i,j:i],L[j:i,j])/L[i,i]
+
+        L[n-1,n-1] = 1.0/L[n-1,n-1]
+    
+    n = len(a)
+    L = choleski(b)
+    invert(L)
+    h = np.dot(b, np.inner(a,L))
+    return h, np.transpose(L)
+\end{lstlisting}
+\end{frame}
+
+\section{Ejercicios}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Ejercicio 1}
+
+\begin{frame}
+\frametitle{Del ejemplo inicial}
+La matriz de esfuerzos (tensor) en el ejemplo de inicio es:
+\pause
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\mathbf{S} =
+\begin{bmatrix}
+80 & 30 & 0 \\
+30 & 40 & 0 \\
+0 & 0 & 60
+\end{bmatrix} \, \SI{}{\mega\pascal}
+\end{align*}
+\pause
+\setbeamercolor{item projected}{bg=magicmint,fg=liver}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Calcula los esfuerzos principales mediante la diagnolización de $\mathbf{S}$ con la rotación de Jacobi.
+\item Calcula los eigenvectores.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Resolviendo el ejercicio}
+Para resolver el ejercicio, tenemos dos caminos:
+\pause
+\setbeamercolor{item projected}{bg=navyblue,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Repasar cada expresión y resolver a mano.
+\item Implementar un código en \python.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Primera opción}
+Para eliminar $S_{12}$ debemos aplicar la rotación en el plano $1-2$, \pause con $k = 1$ y $\ell = 1$, \pause de la ec. (\ref{eq:ecuacion_09_15}):
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+\phi &= - \dfrac{S_{11} - S_{22}}{2 \, S_{12}} = \\ \pause
+&= - \dfrac{80 - 40}{2 (30)} = \\ \pause
+&= - \dfrac{2}{3}
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Avanzando en la solución}
+La ec. (\ref{eq:ecuacion_09_16a}) nos lleva a:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+t &= \dfrac{sgn (\phi)}{\abs{\phi} + \sqrt{\phi^{2} + 1}} = \\ \pause
+&= \dfrac{-1}{2/3 + \sqrt{(2/3)^{2} + 1}} = \\ \pause
+&= -0.53518
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Haciendo cambios en $\mathbf{S}$}
+De las ecs. (\ref{eq:ecuacion_09_18}), los cambios en $\mathbf{S}$ son:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+S_{11}^{*} &= S_{11} - t \, S_{12} = \pause 80 - (-0.5351)(30) = \SI{96.055}{\mega\pascal} \\ \pause 
+S_{22}^{*} &= S_{22} - t \, S_{12} = \pause 40 - (-0.5351)(30) = \SI{23.945}{\mega\pascal} \\ \pause 
+S_{12}^{*} &= S_{21}^{*} = 0
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Matriz diagonalizada}
+Tenemos que la matriz diagnonalizada es:
+\pause
+\begin{align*}
+\mathbf{S}^{*} =
+\begin{bmatrix}
+96.055 & 0 & 0 \\
+0 & 23.945 & 0 \\
+0 & 0 & 60
+\end{bmatrix}
+\end{align*}
+donde los elementos de la diagonal son los esfuerzos principales.
+\end{frame}
+\begin{frame}
+\frametitle{Calculando los eigenvectores}
+Para el cálculo de los eigenvectores, hay que utilizar las ecs. (\ref{eq:ecuacion_09_17}) y (\ref{eq:ecuacion_09_19}), de tal manera que hay que calcular:
+\pause
+\begin{align*}
+c &= \dfrac{1}{\sqrt{1 + t^{2}}} \\[0.5em]
+s &= t \, c \\[0.5em]
+\tau &= \dfrac{s}{1+ c}
+\end{align*}
+Sería conveniente que realices los cálculos a mano, al menos una vez!
+\end{frame}
+\begin{frame}
+\frametitle{Implementación en python}
+Usaremos la función \funcionazul{jacobi} para resolver el ejercicio completo.
+\pause
+El código se muestra a continuación.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código para el ejercicio}
+\begin{lstlisting}[caption=Código para resolver el problema de los esfuerzos principales]
+from moduloMatrices import jacobi
+import numpy as np
+
+S = np.array([[ 80, 30, 0],
+                [30, 40, 0],
+                [0, 0, 60]])
+
+lam, H = jacobi(S)
+
+eje = len(lam)
+eigenvalores = lam*np.eye(eje)
+
+print('Esfuerzos principales')
+print(eigenvalores)
+print()
+print('Eigenvectores')
+print(H)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Esfuerzos principales}
+\begin{verbatim}
+[[96.  0.  0.]
+[ 0. 23.  0.]
+[ 0.  0. 60.]]
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Eigenvectores}
+\fontsize{12}{12}\selectfont
+\begin{verbatim}
+[[ 0.8816746  -0.47185793  0.        ]
+[ 0.47185793  0.8816746   0.        ]
+[ 0.          0.          1.        ]]   
+\end{verbatim}
+\end{frame}
+
+\subsection{Ejercicio 2}
+
+\begin{frame}
+\frametitle{Enunciado del Ejercicio 2}
+Considera el siguiente circuito $LC$:
+\pause
+\begin{figure}
+    \begin{circuitikz}
+        \draw (0, 0)
+        to[L, l=$L$] ++(2,0)
+        to[L, l=$L$] ++(2,0)
+        to[L, l=$2L$] ++(2,0)
+        to[cC, l=$\text{\small C}$] ++ (0, -2)
+        (0, -2) node {} {} -- (6, -2)
+        (0, -2) node {} {} -- (0, 0)
+        (2, 0) to[cC, l=$\text{\small 3C}$] (2, -2)
+        (4, 0) to[cC, l=$\text{\small C}$] (4, -2)
+        ;
+        \draw [->, color=red] (0.75, -0.3) -- (0.25, -0.3) -- node [right, midway] {$i_{1}$} (0.25, -1.4);
+        \draw [->, color=red] (0.7, -1.8) -- (1.3, -1.8) -- node [left, midway] {$i_{1}$} (1.3, -1);
+
+        \draw [->, color=red] (2.75, -0.3) -- (2.25, -0.3) -- node [right, midway] {$i_{2}$} (2.25, -0.75);
+        \draw [->, color=red] (2.8, -1.8) -- (3.4, -1.8) -- node [left, midway] {$i_{2}$} (3.4, -1);
+
+        \draw [->, color=red] (4.75, -0.3) -- (4.25, -0.3) -- node [right, midway] {$i_{3}$} (4.25, -0.75);
+        \draw [->, color=red] (4.8, -1.8) -- (5.4, -1.8) -- node [left, midway] {$i_{3}$} (5.4, -1);
+    \end{circuitikz}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Puntos a realizar}
+\setbeamercolor{item projected}{bg=gainsboro,fg=ginger}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Demuestra que el análisis del circuito eléctrico mostrado conduce a un problema de eigenvalores
+\item Calcula las frecuencias angulares y las amplitudes relativas de las corrientes.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Solución del inciso 1}
+De la ley de Kirchoff para la corriente, en las tres mallas se tiene que:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+L \, \dv{i_{1}}{t} + \dfrac{q_{1} - q_{2}}{3 \, C} &= 0 \\[0.5em] \pause
+L \, \dv{i_{2}}{t} + \dfrac{q_{2} - q_{1}}{3 \, C} + \dfrac{q_{2} - q_{3}}{C} &= 0 \\[0.5em] \pause
+2 \, L \, \dv{i_{3}}{t} + \dfrac{q_{3} - q_{2}}{3 \, C} + \dfrac{q_{3}}{C} &= 0
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{De la definición de corriente}
+Al diferenciar $\dv*{q_{k}}{t}$ para luego sustituir, se obtiene:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+\dfrac{1}{3} \, i_{1} - \dfrac{1}{3} \, i_{2} &= L \, C \, \dv[2]{i_{1}}{t} \\[0.5em] \pause 
+-\dfrac{1}{3} \, i_{1} + \dfrac{4}{3} \, i_{2} - i_{3} &= L \, C \, \dv[2]{i_{1}}{t} \\[0.5em] \pause 
+- i_{2} + 2 \, i_{3} &= - 2 \, L \, C \, \dv[2]{i_{1}}{t}
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+Las ecuaciones anteriores admiten una solución:
+\pause
+\begin{align*}
+i_{k} (t) = u_{k} \, \sin \omega t
+\end{align*}
+\pause
+donde:
+\pause
+\setbeamercolor{item projected}{bg=halayaube,fg=harlequin}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item $\omega$ es la frecuencia angular de oscilación (en $\SI{}{\radian\per\second}$).
+\item $u_{k}$ son las amplitudes relativas de las corrientes.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Sustituyendo}
+Al sustituir en las ecuaciones de Kirchoff, nos lleva a un sistema:
+\pause
+\begin{align*}
+\mathbf{A u} = \lambda \mathbf{B u}
+\end{align*}
+el término $\sin \omega t$ se cancela, además:
+\end{frame}
+\begin{frame}
+\frametitle{Las matrices}
+\begin{align*}
+\mathbf{A} = 
+\begin{bmatrix}
+1/3 & -1/3 & 0 \\
+-1/3 & 4/3 & -1 \\
+0 & -1 & 2
+\end{bmatrix}
+\hspace{1cm}
+\mathbf{B} = 
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 2
+\end{bmatrix}
+\hspace{1cm}
+\lambda = L \, C \, \omega
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución al inciso 2}
+Como la matriz $\mathbf{B}$ es una matriz diagonal, podemos transformar fácilmente el problema en la forma estándar $\mathbf{H z} = \lambda \mathbf{z}$ usando las ecs. (\ref{eq:ecuacion_09_26a}).
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código}
+\begin{lstlisting}[caption=Código completo para resolver el ejercicio]
+from moduloMatrices import formaEstd, jacobi, ordenaJacobi
+import numpy as np
+
+A = np.array([[ 1/3, -1/3,  0.0],
+              [-1/3,  4/3, -1.0],
+              [ 0.0, -1.0,  2.0]])
+
+B = np.array([[1.0, 0.0, 0.0],
+              [0.0, 1.0, 0.0],
+              [0.0, 0.0, 2.0]])
+
+H, T = formaEstd(A, B)
+lam, Z = jacobi(H)
+X = np.dot(T, Z)
+ordenaJacobi(lam, X)
+
+for i in range(3):
+    X[:,i] = X[:,i]/np.sqrt(np.dot(X[:,i],X[:,i]))
+    
+print('Eigenvalores: {0:}'.format(lam))
+print('Eigenvectores: {0:}'.format(X))
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Eigenvalores}
+\fontsize{12}{12}\selectfont
+\begin{verbatim}
+[0.1477883  0.58235144 1.93652692]
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Eigenvectores}
+\fontsize{12}{12}\selectfont
+\begin{verbatim}
+[[ 0.84021782 -0.65122529 -0.18040571]
+[ 0.46769473  0.48650067  0.86767582]
+[ 0.27440056  0.58242829 -0.46324126]]
+\end{verbatim}
+\end{frame}
+\begin{frame}
+\frametitle{Frecuencias angulares}
+Se tiene entonces que las frecuencias angulares son $\omega_{i} = \sqrt{\lambda_{i}/LC}$, por lo que:
+\pause
+\begin{align*}
+\omega_{1} = \dfrac{0.3844}{\sqrt{LC}} \hspace{1cm} \omega_{2} = \dfrac{0.7631}{\sqrt{LC}} \hspace{1cm} \omega_{3} = \dfrac{1.3916}{\sqrt{LC}}
+\end{align*}
+\end{frame}
+
+\section{Ejercicios a cuenta}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Ejercicios a resolver}
+
+\begin{frame}
+\frametitle{Indicaciones}
+Se considerará el ejercicio completo y bien resuelto:
+\setbeamercolor{item projected}{bg=red,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Al realizar las operaciones necesarias ocupando las expresiones que se presentaron.
+\item Al corroborar los resultados con las funciones de \python.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio 1}
+Dadas las matrices:
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\mathbf{A} = 
+\begin{bmatrix}
+7 & 3 & 1 \\
+3 & 9 & 6 \\
+1 & 6 & 8 \\
+\end{bmatrix}
+\hspace{1.5cm}
+\mathbf{B} = 
+\begin{bmatrix}
+4 & 0 & 0 \\
+0 & 9 & 0 \\
+0 & 0 & 4 \\
+\end{bmatrix}
+\end{align*}
+convierte el problema de eigenvalores $\mathbf{A x} = \lambda \mathbf{B x}$ a la forma estándar $\mathbf{H z} = \lambda \mathbf{z}$. ¿Cuál es la relación entre $\mathbf{x}$ y $\mathbf{z}$?
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio 2}
+Convierte el problema de eigenvalores $\mathbf{A x} = \lambda \mathbf{B x}$ donde:
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\mathbf{A} = 
+\begin{bmatrix}
+4 & -1 & 0 \\
+-1 & 4 & -1 \\
+0 & -1 & 4 \\
+\end{bmatrix}
+\hspace{1.5cm}
+\mathbf{B} = 
+\begin{bmatrix}
+2 & -1 & 0 \\
+-1 & 2 & -1 \\
+0 & -1 & 1 \\
+\end{bmatrix}
+\end{align*}
+a la forma estándar.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio 3}
+La matriz de esfuerzos en un punto es:
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\mathbf{S} = 
+\begin{bmatrix}
+150 & -60 & 0 \\
+-60 & 120 & 0 \\
+0 & 0 & 80 \\
+\end{bmatrix} \, \SI{}{\mega\pascal}
+\end{align*}
+Calcula los esfuerzos principales (los eigenvalores de $\mathbf{S}$).
+\end{frame}
+
 
 
 \end{document}

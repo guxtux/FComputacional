@@ -1,0 +1,124 @@
+\documentclass[12pt]{beamer}
+\usepackage{../Estilos/BeamerFC}
+\usepackage{../Estilos/ColoresLatex}
+
+\input{../Preambulos/preambulo_Beamer_Madrid_whale}
+\usefonttheme{serif}
+
+\title{\large{ObjetivosTema 4 - Álgebra matricial }}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{8 de noviembre de 2022}
+
+\begin{document}
+\maketitle
+
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+
+\section{Las matrices}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Introducción}
+
+\begin{frame}
+\frametitle{Las matrices en física}
+Las matrices se encuentran entre los objetos matemáticos más importantes de la física.
+\\
+\bigskip
+\pause
+Dos problemas computacionales principales están asociados con las matrices: \pause \textbf{\textcolor{ao}{sistemas de ecuaciones lineales}} y \textbf{\textcolor{red}{problemas de valores propios}}.
+\end{frame}
+\begin{frame}
+\frametitle{Sistemas de ecuaciones lineales}
+Un sistema de ecuaciones lineales se puede escribir de la forma:
+\pause
+\begin{align*}
+\mathbf{A \, x} = \mathbf{b}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución de sistemas de ecuaciones lineales}
+Los sistemas de ecuaciones lineales con los coeficientes $b_{i}$ del lado derecho distintos de cero tienen una solución única cuando el determinante de la matriz $\mathbf{A}$ es distinto de cero.
+\end{frame}
+\begin{frame}
+\frametitle{Solución de sistemas de ecuaciones lineales}
+Si todos los coeficientes $b_{i}$ son iguales a cero, entonces la solución existe si, y solo si, el determinante de la matriz $\mathbf{A}$ es cero.
+\end{frame}
+\begin{frame}
+\frametitle{Problemas de eigevalores}
+El problema de eigenvalores es la clave para los cálculos de estructura de sistemas cuánticos en física atómica, molecular, nuclear y del estado sólido.
+\end{frame}
+\begin{frame}
+\frametitle{Tipos de problemas}
+Matemáticamente, el problema de eigenvalores se puede escribir como:
+\pause
+\begin{align*}
+\mathbf{A \, x} = \lambda \, \mathbf{x}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Los sistemas lineales en fisica}
+La linealización es una suposición o aproximación común en la descripción de procesos físicos y, por lo tanto, los sistemas lineales de ecuaciones son omnipresentes en la física computacional.
+\end{frame}
+\begin{frame}
+\frametitle{Cálculo de eigenvalores}
+De hecho, las manipulaciones de matrices asociadas con la búsqueda de eigenvalores es a menudo la mayor parte del trabajo involucrado en la resolución de muchos problemas físicos.
+\end{frame}
+\begin{frame}
+\frametitle{Tipo de matrices}
+En este Tema 4, discutiremos brevemente operaciones de matrices más no triviales.
+\\
+\bigskip
+\pause
+Nuestro tratamiento aquí se limitará en gran parte a los métodos directos apropiados para matrices \enquote{densas} (donde la mayoría de los elementos son distintos de cero) de dimensión inferior a varios cientos.
+\end{frame}
+
+\section{Objetivos}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Metas esperadas}
+
+\begin{frame}
+\frametitle{Objetivos}
+Al concluir el Tema 4, se espera que el alumno:
+\pause
+\setbeamercolor{item projected}{bg=armygreen,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->] 
+\item Identificará los problemas de eigenvalores con matrices simétricas.
+\item Utilizará el método de Jacobi como método iterativo para diagonalizar una matriz y obtener los eigenvalores y eigenvectores.
+\item Empleará los métodos de la potencia y potencia inversa para resolver problemas de eigenvalores.
+\end{enumerate}
+\end{frame}
+
+\section{Evaluación}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Ejercicios a cuenta}
+
+\begin{frame}
+\frametitle{De los ejercicios a cuenta}
+Se seguirá manejando una serie de ejercicios a cuenta para entregar.
+\\
+\bigskip
+\pause
+A menos de que se indique lo contrario, la entrega de los mismos se hará al siguiente sábado vía Moodle a más tardar a las 3 pm.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicios en clase}
+También se continuará con ejercicios en clase, por lo que se recomienda asistir a las sesiones presenciales.
+\end{frame}
+
+\subsection{Examen-Tarea}
+
+\begin{frame}
+\frametitle{Del Examen Tarea}
+La segunda parte del Examen Parcial 2 del curso, corresponde a la parte del Tema 4.
+\\
+\bigskip
+\pause
+En la clase del jueves 10 de noviembre se entregará la lista de ejercicios a resolver.\pause La fecha de entrega del segundo parcial completo se precisará oportunamente.
+\end{frame}
+
+
+\end{document}
