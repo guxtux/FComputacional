@@ -1,0 +1,733 @@
+\documentclass[12pt]{beamer}
+\usepackage{../Estilos/BeamerFC}
+\usepackage{../Estilos/ColoresLatex}
+\input{../Preambulos/pre_codigo}
+\usepackage[siunitx]{circuitikz}
+\usepackage{parskip}
+\usetikzlibrary{arrows,patterns,shapes}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{arrows}
+\usepackage{blkarray}
+\input{../Preambulos/preambulo_Beamer_Madrid_whale}
+\usefonttheme{serif}
+\DeclareSIUnit\megapascal{\mega\pascal}
+
+\title{\large{Obteniendo eigenvalores}}
+\subtitle{Tema 4 - Álgebra matricial}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Contenido}
+\frame{\frametitle{Contenido} \tableofcontents[currentsection, hideallsubsections]}
+
+\section{Sucesión Sturm}
+\frame[allowframebreaks]{\frametitle{Temas} \tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definiendo la sucesión}
+
+\begin{frame}
+\frametitle{Calculando los eigenvalores}
+En principio, los eigenvalores de una matriz $\vb{A}$ pueden determinarse encontrando las raíces de la ecuación característica $\abs{\vb{A} - \lambda \vb{I}} = 0$.
+\\
+\bigskip
+\pause
+Este método no es práctico para matrices grandes, \pause porque la evaluación del determinante involucra $n^{3}/3$ multiplicaciones.
+\end{frame}
+\begin{frame}
+\frametitle{Para el caso de una matriz tridiagonal}
+Sin embargo, si la matriz es tridiagonal (también suponemos que es simétrica), su polinomio característico es:
+\pause
+\renewcommand{\arraystretch}{0.9}
+\begin{align*}
+P_{n} (\lambda) = \abs{\vb{A} - \lambda \vb{I}} = 
+\mdet{
+d_{1} {-} \lambda & c_{1} & 0 & 0 & \ldots & 0 \\
+c_{1} & d_{2} {-} \lambda & c_{2} & 0 & \ldots & 0 \\
+0 & c_{2} & d_{3} {-} \lambda & c_{3} & \ldots & 0 \\
+0 & 0 & c_{3} & d_{4} {-} \lambda & \ldots & 0 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & 0 & c_{n-1} & d_{n} {-} \lambda
+}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Obteniendo el polinomio}
+Se puede calcular con solo $3 (n - 1)$ multiplicaciones usando la siguiente secuencia de operaciones:
+\pause
+\begin{eqnarray}
+\begin{aligned}
+P_{0} (\lambda) &= 1 \\[0.5em] \pause
+P_{1} (\lambda) &= d_{1} - \lambda \\[0.5em] \pause
+P_{i} (\lambda) &= d_{i} - \lambda - c_{i-1}^{2} \, P_{i-2} (\lambda) \hspace{1cm} i = 2, 3, \ldots, n
+\end{aligned}
+\label{eq:ecuacion_09_49}
+\end{eqnarray}
+\end{frame}
+\begin{frame}
+\frametitle{Definiendo la sucesión}
+Los polinomios:
+\begin{align*}
+P_{0} (\lambda), \, P_{1} (\lambda), \,  \ldots, \, P_{n} (\lambda)
+\end{align*}
+\pause 
+forman la \textbf{\textcolor{ao}{sucesión de Sturm}}.
+\end{frame}
+\begin{frame}
+\frametitle{Propiedad de la sucesión}
+Que tiene la siguiente propiedad: \pause El número de cambios de signo en la sucesión
+\begin{align*}
+P_{0} (a), P_{1} (a), \ldots, P_{n} (a)
+\end{align*}
+es igual al número de raíces de $P_{n} (\lambda)$ que son menores que $a$.
+\end{frame}
+\begin{frame}
+\frametitle{Propiedad de la sucesión}
+Si un miembro $P_{i} (a)$ de la sucesión es cero, su signo debe tomarse opuesto al de $P_{i-1} (a)$.
+\\
+\bigskip
+\pause
+Como veremos más adelante, la propiedad de sucesión de Sturm hace posible poner entre paréntesis los valores propios de una matriz tridiagonal.
+\end{frame}
+
+\subsection{Función \texttt{sturmSuc}}
+
+\begin{frame}
+\frametitle{La función \texttt{sturmSuc}}
+Dados \funcionazul{d}, \funcionazul{c} y $\lambda$, la función \funcionazul{sturmSuc} devuelve la sucesión de Sturm:
+\pause
+\begin{align*}
+P_{0} (\lambda), P_{1} (\lambda) , \ldots, P_{n} (\lambda)
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{La función \texttt{numLambdas}}
+La función \funcionazul{numLambdas} devuelve el número de cambios de signo en la sucesión: \pause como se mencionó anteriormente, esto es igual al número de valores propios que son menores que $\lambda$.
+\end{frame}
+
+\subsection{Ejercicio 1}
+
+\begin{frame}
+\frametitle{Enunciado del ejercicio 1}
+Usando la propiedad de sucesión Sturm demuestra que el eigenvalor más pequeño de $\vb{A}$ está en el intervalo $(0.25, 0.5)$, donde:
+\pause
+\begin{align*}
+\vb{A} = 
+\begin{bmatrix}
+2 & -1 & 0 & 0 \\
+-1 & 2 & -1 & 0 \\
+0 & -1 & 2 & -1 \\
+0 & 0 & -1 & 2
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+Tomando $\lambda = 0.5$, \pause tenemos que:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+d_{i} - \lambda &= 1.5 \\[0.5em] \pause
+c_{i-1}^{2} &= 1
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{La secuencia Sturm}
+Por lo que la secuencia Sturm es:
+\begin{eqnarray*}
+\begin{aligned}
+P_{0} (0.5) &= 1 \\ \pause 
+P_{1} (0.5) &= \pause 1.5 \\ \pause 
+P_{2} (0.5) &= \pause 1.5 (1.5) - 1 =  \pause 1.25 \\ \pause 
+P_{3} (0.5) &= \pause 1.5 (1.25) - 1.5 = \pause 0.375 \\ \pause 
+P_{4} (0.5) &= \pause 1.5 (0.375) - 1.25 = \pause -0.6875
+\end{aligned}
+\end{eqnarray*}
+\pause
+Dado que la secuencia tiene un cambio de signo, entonces existe un eigenvalor más pequeño que $0.5$
+\end{frame}
+\begin{frame}
+\frametitle{Repetimos el procedimiento}
+Ahora con $\lambda = 0.25$, se repite el procedimiento, encontramos que:
+\pause
+\begin{align*}
+d_{i} - \lambda &= 1.75 \\
+c_{i}^{2} &= 1
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{La secuencia Sturm}
+Por lo que la secuencia Sturm ahora es:
+\begin{eqnarray*}
+\begin{aligned}
+P_{0} (0.25) &= 1 \\ \pause 
+P_{1} (0.25) &= \pause 1.7 \\ \pause 
+P_{2} (0.25) &= \pause 1.75 (1.75) - 1 =  \pause 2.0625 \\ \pause 
+P_{3} (0.25) &= \pause 1.75 (2.0625) - 1.5 = \pause 1.8594 \\ \pause 
+P_{4} (0.25) &= \pause 1.75 (1.8594) - 2.0625 = \pause 1.1915
+\end{aligned}
+\end{eqnarray*}
+\pause
+\end{frame}    
+\begin{frame}
+\frametitle{Resultado}
+No tenemos cambio de signo en la sucesión, por lo que todos los eigenvalores son mayores que $0.25$
+\\
+\bigskip
+\pause
+Concluimos que:
+\begin{align*}
+0.25 < \lambda < 0.5
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ahora con el código}
+Genera un archivo nuevo con el siguiente nombre:
+\medskip
+\texttt{Tema-04-Eigenvalores-Ejercicio-01.py}
+\\
+\medskip
+\pause
+Los archivos de la clase, será el ejercicio a cuenta de la sesión.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Parte del código}
+\begin{lstlisting}[caption=Parte del código para la sucesión de Sturm]
+from moduloMatrices import sturmSuc, numLambdas
+import numpy as np
+
+d = #
+c = #
+
+lambda1 = 0.25
+lambda2 = 0.5
+
+p1 = #
+p2 = #
+
+print('Sucesion Sturm con {0:}'.format(lambda1))
+print(p1)
+print('\nNumero de cambios de signo = {0:}'.format(numLambdas(p1)))
+print()
+print('Sucesion Sturm con {0:}'.format(lambda2))
+print(p2)
+print('\nNumero de cambios de signo = {0:}'.format(numLambdas(p2)))
+\end{lstlisting}
+\end{frame}
+
+\section{Teorema de Gerschgorin}
+\frame[allowframebreaks]{\frametitle{Temas} \tableofcontents[currentsection, hideothersubsections]}
+\subsection{Descripción}
+
+\begin{frame}
+\frametitle{Utilidad del teorema}
+El \textbf{\textcolor{armygreen}{teorema de Gerschgorin}} es útil para determinar los \emph{límites globales} de los eigenvalores de una matriz $\vb{A}$ de $n \times n$.
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué es lo global?}
+El término \enquote{global} se refiere a los límites que acotan todos los eigenvalores.
+\\
+\bigskip
+\pause
+Veremos aquí una versión simplificada para una matriz simétrica.
+\end{frame}
+\begin{frame}
+\frametitle{Comentando el teorema}
+Si $\lambda$ es un valor propio de $\vb{A}$, entonces:
+\pause
+\begin{align*}
+a_{i} - r_{i} \leq \lambda \leq a_{i} + r_{i}, \hspace{1.3cm} i = 1, 2, \ldots, n
+\end{align*}
+\pause
+donde:
+\pause
+\begin{align}
+a_{i} = A_{ii} \hspace{1.3cm} r_{i} = \nsum_{\substack{j=1 \\ j \neq i}}^{n} \abs{A_{ij}}
+\label{eq:ecuacion_09_50}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Cota para los eigenvalores}
+Se sigue entonces que los límites para los eigenvalores más pequeños y más grandes están dados por:
+\pause
+\begin{align}
+\lambda_{\min} \geq \min_{i} (a_{i} - r_{i}) \hspace{1.2cm} \lambda_{\max} \leq \max_{i} (a_{i} + r_{i})
+\end{align}
+\end{frame}
+
+\subsection{Ejercicio 2}
+
+\begin{frame}
+\frametitle{Ejercicio 2}
+Con el teorema de Gerschgorin determina la cota para los eigenvalores de la matriz:
+\pause
+\begin{align*}
+\vb{A} = 
+\begin{bmatrix}
+4 & 2 & 0 \\
+-2 & 4 & -2 \\
+0 & -2 & 5
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución}
+De acuerdo con la ec. (\ref{eq:ecuacion_09_50}), se tiene que:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+a_{1} &= \pause 4 \hspace{1.2cm} \pause a_{2} = \pause 4 \hspace{1.2cm} \pause a_{3} = \pause 5 \\
+r_{1} &= \pause 2 \hspace{1.2cm} \pause r_{2} = \pause 4 \hspace{1.2cm} \pause r_{3} = \pause 2
+\end{aligned}
+\end{eqnarray*}
+\pause
+Por lo que:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+\lambda_{\min} &\geq \min (a_{i} - r_{i}) = \pause 4 - 4 = 0 \\ \pause
+\lambda_{\max} &\geq \max (a_{i} + r_{i}) = \pause 4 + 4 = 8
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{El código de la función}
+\begin{lstlisting}[caption=Función para establecer los paréntesis de los eigenvalores]
+def gerschgorin(d, c):
+    n = len(d)
+    
+    lamMin = d[0] - abs(c[0])
+    lamMax = d[0] + abs(c[0])
+    
+    for i in range(1, n-1):
+        lam = d[i] - abs(c[i]) - abs(c[i-1])
+        if lam < lamMin: lamMin = lam
+        lam = d[i] + abs(c[i]) + abs(c[i-1])
+        if lam > lamMax: lamMax = lam
+        
+    lam = d[n-1] - abs(c[n-2])
+    if lam < lamMin: lamMin = lam
+    lam = d[n-1] + abs(c[n-2])
+    if lam > lamMax: lamMax = lam
+    
+    return lamMin, lamMax
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Ahora con el código}
+Usaremos la función para resolver el ejercicio, habrá que completar las instrucciones para obtener la solución.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Parte del código}
+\begin{lstlisting}[caption=Parte del código para poner paréntesis a los eigenvalores]
+from moduloMatrices import gerschgorin
+import numpy as np
+
+d = #
+c = #
+d[-1] = #
+a, b = #
+
+print('El intevalo para los eigenvalores es: ({0:}, {1:})'.format(a, b))
+\end{lstlisting}
+\end{frame}
+
+\section{Eigenvalores entre paréntesis}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Combinando funciones}
+
+\begin{frame}
+\frametitle{Usando lo anterior}
+La propiedad de la sucesión de Sturm utilizada junto con el teorema de Gerschgorin nos brindan una herramienta conveniente \textbf{\textcolor{lava}{para poner entre paréntesis}} cada eigenvalor de una matriz tridiagonal simétrica.
+\end{frame}
+
+\subsection{Ejercicio}
+
+\begin{frame}
+\frametitle{Enunciado del ejercicio}
+Establece los paréntesis de los eigenvalores de la matrix $\vb{A}$:
+\begin{align*}
+\vb{A} = 
+\begin{bmatrix}
+4 & 2 & 0 \\
+-2 & 4 & -2 \\
+0 & -2 & 5
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{El procedimiento para resolver}
+En el ejercicio anterior encontramos que todos los eigenvalores se encuentran en $(0, 8)$.
+\\
+\bigskip
+\pause
+Ahora dividimos este intervalo en dos y usamos la sucesión de Sturm para determinar el número de valores propios en $(0, 4)$.
+\end{frame}
+\begin{frame}
+\frametitle{Bisectando el intervalo}
+Con $\lambda = 4$, la secuencia es — ver las ecs. (\ref{eq:ecuacion_09_49})—:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+P_{0} (4) &= 1 \\[0.5em] \pause
+P_{1} (4) &= 4 - 4 = 0 \\[0.5em] \pause
+P_{2} (4) &= (4 - 4)(0) - 2^{2} (1) = -4 \\[0.5em] \pause
+P_{3} (4) &= (5 - 4)(-4) - 2^{2} (0) = -4
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Cambios en el signo}
+Debido a que se asigna un valor cero al signo opuesto al del miembro anterior, \pause los signos en esta secuencia son (+, -, -, -).
+\\
+\bigskip
+\pause
+El cambio de signo demuestra la presencia de un eigenvalor en $(0, 4)$.
+\end{frame}
+\begin{frame}
+\frametitle{Siguiente bisección}
+Ahora hacemos la bisección en el intervalo $(4, 8)$ y calculamos la sucesión de Sturm con $\lambda = 6$:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+P_{0} (6) &= 1 \\[0.5em] \pause
+P_{1} (6) &= 4 - 6 = -2 \\[0.5em] \pause
+P_{2} (6) &= (4 - 6)(-2) - 2^{2} (1) = 0 \\[0.5em] \pause
+P_{3} (6) &= (5 - 6)(0) - 2^{2} (-2) = 8
+\end{aligned}
+\end{eqnarray*}    
+\end{frame}
+\begin{frame}
+\frametitle{Cambios de signo}
+En la secuencia los signos son $(+, -, +, +)$, \pause lo que nos dice que hay dos eigenvalores en $(0, 6)$
+\end{frame}
+\begin{frame}
+\frametitle{Conclusión}
+Por lo tanto:
+\begin{eqnarray*}
+\begin{aligned}
+0 \leq \lambda_{1} \leq 4 \\[0.5em] \pause
+4 \leq \lambda_{2} \leq 6 \\[0.5em] \pause
+6 \leq \lambda_{3} \leq 8
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+
+\subsection{\texttt{lambdaRango}}
+
+\begin{frame}
+\frametitle{Una función más}
+La función \textoazul{lambdaRango} pone entre paréntesis los $N$ valores propios más pequeños de una matriz tridiagonal simétrica $\vb{A} = [ \vb{c} \backslash \vb{d} \backslash \vb{c}]$.
+\\
+\bigskip
+\pause
+Devuelve la secuencia $r_{0}, r_{1}, \ldots, r_{N}$, donde cada intervalo $(r_{i-1}, r_{1})$ contiene exactamente un eigenvalor.
+\end{frame}
+\begin{frame}
+\frametitle{El algoritmo}
+El algoritmo primero encuentra los límites de todos los eigenvalores por el teorema de Gerschgorin
+\\
+\bigskip
+\pause
+Entonces se usa el método de bisección junto con la propiedad de la sucesión de Sturm para determinar $r_{N}, r_{N-1}, \ldots, r_{0}$ en ese orden.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{El código}
+\begin{lstlisting}[caption=Código para poner en paréntesis los eigenvalores]
+def lamRango(d, c, N):
+    
+    lamMin, lamMax = gerschgorin(d, c)
+    r = np.ones(N+1)
+    r[0] = lamMin
+    
+    for k in range(N, 0, -1):
+        lam = (lamMax + lamMin)/2.0
+        h = (lamMax - lamMin)/2.0
+        
+        for i in range(1000):
+            p = sturmSuc(d, c, lam)
+            numLam = numLambdas(p)
+            h = h/2.0
+            
+            if numLam < k: lam = lam + h
+            elif numLam > k: lam = lam - h
+            else: break
+        
+        lamMax = lam
+        r[k] = lam
+    
+    return r
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejercicio con el código}
+\begin{lstlisting}[caption=Parte del código para resolver el ejercicio]
+from moduloMatrices import lamRango
+import numpy as np
+
+d = #
+c = #
+d[-1] = #
+#
+print(x)
+\end{lstlisting}
+\end{frame}
+
+
+\section{Cálculo de eigenvalores}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Juntando las funciones}
+
+\begin{frame}
+\frametitle{Procedimiento en conjunto}
+Una vez que los eigenvalores deseados están entre paréntesis, \pause se pueden encontrar calculando las raíces de $P_{n} (\lambda) = 0$ con la bisección o con el método de Ridder.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{La función para obtener los eigenvalores}
+\begin{lstlisting}[caption=La función para calcular los eigenvalores de una matriz en banda 3]
+def eigenvalores3(d, c, N):
+    
+    def f(x):
+        p = sturmSuc(d, c, x)
+        return p[len(p)-1]
+    
+    lam = np.zeros(N)
+    r = lamRango(d, c, N)
+    
+    for i in range(N):
+        lam[i] = ridder(f,r[i],r[i+1])
+    
+    return lam
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Con la función \funcionazul{eigenvalores3} calcula los tres eigenvalores más pequeños de la matriz de $100 \times 100$:
+\pause
+\begin{align*}
+\vb{A} =
+\begin{bmatrix}
+2 & -1 & 0 & \ldots & 0 \\
+-1 & 2 & -1 & \ldots & 0 \\
+\vdots & \vdots & \ddots & \ddots & \vdots \\
+0 & 0 & \ldots & -1 & 2
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Código para el ejercicio}
+\begin{lstlisting}[caption=Código para el ejercicio]
+
+# Aqui va el codigo ;-)
+
+\end{lstlisting}
+Agrega al inicio de \funcionazul{Ludescomp3} la línea:
+\begin{verbatim}
+c.setflags(write=True)
+\end{verbatim}
+\end{frame}
+
+\subsection{Cálculo de eigenvectores}
+
+\begin{frame}
+\frametitle{Cuando se conoce una aproximación}
+Si se conocen los eigenvalores (los valores aproximados serán lo suficientemente buenos), \pause la mejor manera de calcular los eigenvectores correspondientes es el método de potencia inversa con desplazamiento de valores propios.
+\end{frame}
+\begin{frame}
+\frametitle{El método que ya revisamos}
+Este método lo presentamos previamente, pero el algoritmo discutido no aprovechó las bandas.
+\\
+\bigskip
+\pause
+Presentamos una versión del método escrito para matrices tridiagonales simétricas.
+\end{frame}
+
+\subsection{\texttt{potenciaInversa3}}
+
+\begin{frame}
+\frametitle{La función para casos en banda 3}
+Esta función \funcionazul{potenciaInversa3} es muy similar a \funcionazul{potenciaInversa} que trabajamos anterioemente, pero se ejecuta mucho más rápido porque aprovecha la estructura tridiagonal de la matriz.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{La función}
+\begin{lstlisting}[caption=Código para el cálculo de eigenvectores en 3 banda]
+def potenciaInversa3(d, c, s, tol=1.0e-6):
+    n = len(d)
+    
+    e = c.copy()
+    dAst = d - s
+    
+    LUdescomp3(c, dAst, e)
+    x = np.random.rand(n)
+    xMag = np.sqrt(np.dot(x,x))
+    x =x/xMag
+    bandera = 0
+    
+    for i in range(30):
+        xAnterior = x.copy()
+        LUsoluc3(c, dAst, e, x)
+        xMag = np.sqrt(np.dot(x,x))
+        x = x/xMag
+        
+        if np.dot(xAnterior,x) < 0.0:
+            sign = -1.0
+            x = -x
+        else: sign = 1.0
+        
+        if np.sqrt(np.dot(xAnterior - x,xAnterior - x)) < tol:
+            return s + sign/xMag, x
+    
+    print('El método de la potencia inversa no converge')
+\end{lstlisting}
+\end{frame}
+
+\subsection{Ejercicios}
+
+\begin{frame}
+\frametitle{Enunciado del ejercicio}
+Calcula el décimo eigenvalor más pequeño de la matriz del ejercicio anterior:
+\begin{align*}
+\vb{A} =
+\begin{bmatrix}
+2 & -1 & 0 & \ldots & 0 \\
+-1 & 2 & -1 & \ldots & 0 \\
+\vdots & \vdots & \ddots & \ddots & \vdots \\
+0 & 0 & \ldots & -1 & 2
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución del ejercicio}
+El código que mostramos calcula el n-ésimo eigenvalor de $\vb{A}$ con el método de la potencia inversa con desplazamiento de eigenvalor.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Parte de la solución}
+\begin{lstlisting}[caption=Parte del código que resuelve el ejercicio]
+from moduloMatrices import lamRango, potenciaInversa3
+import numpy as np
+
+N = 10
+n = 100
+d = #
+c = #
+r = #
+s = (r[N-1] + r[N])/2.0
+#  = potenciaInversa3(#)
+
+print('Eigenvalor No. {0:} = {1:}'.format(N, lam))
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio}
+Calcula los tres eigenvalores más pequeños y los correspondientes eigenvectores de la matriz:
+\renewcommand{\arraystretch}{0.9}\begin{align*}
+\vb{A} = 
+\begin{bmatrix}
+11.0 & 2.0 & 3.0 & 1.0 & 4.0 \\
+2.0 & 9.0 & 3.0 & 5.0 & 2.0 \\
+3.0 & 3.0 & 15.0 & 4.0 & 3.0 \\
+1.0 & 5.0 & 4.0 & 12.0 & 4.0 \\
+4.0 & 2.0 & 3.0 & 4.0 & 17.0
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Parte del código}
+\begin{lstlisting}[caption=Parte del código que resuelve el ejercicio]
+from moduloMatrices import householder, calculaP, eigenvalores3, potenciaInversa3
+import numpy as np
+
+N = 3
+a = np.array
+
+xx = np.zeros((len(a), N))
+
+d, c = 
+p = 
+lambdas = 
+
+for i in range(N):
+    s = lambdas[i] * 1.0000001
+    lam, x = potenciaInversa3(d, c, s)
+    xx[:,i] = x
+
+xx = np.dot(p,xx)
+
+print('Eigenvalores {0:}'.format(lambdas))
+print('Eigenvectores: {0:}'.format(xx))
+\end{lstlisting}
+\end{frame}
+
+\section{Ejercicios a cuenta}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Lista de ejercicios}
+
+\begin{frame}
+\frametitle{Ejercicios a cuenta - $0.5$ puntos}
+Con el teorema de Gerschgorin determina los límites de los eigenvalores de:
+\begin{align*}
+\vb{A} = 
+\begin{bmatrix}
+10 & 4 & -1 \\
+4 & 2 & 3 \\
+-1 & 3 & 6
+\end{bmatrix}
+\hspace{1.5cm}
+\vb{B} = 
+\begin{bmatrix}
+4 & 2 & -2 \\
+2 & 5 & 3 \\
+-2 & 3 & 4
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio - $0.5$ puntos}
+Con la sucesión de Sturm demuestra que:
+\begin{align*}
+\vb{A} = 
+\begin{bmatrix}
+5 & -2 & 0 & 0 \\
+-2 & 4 & -1 & 0 \\
+0 & -1 & 4 & -2 \\
+0 & 0 & -2 & 5
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio - $0.5$ puntos}
+Indica el intervalo de los eigenvalores de:
+\begin{align*}
+\vb{A} = 
+\begin{bmatrix}
+2 & -1 & 0 & 0 \\
+-1 & -2 & -1 & 0 \\
+0 & -1 & 2 & -1 \\
+0 & 0 & -1 & 1
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio - $1.5$ puntos}
+Reescribe la función \funcionazul{lamRango(d, c, N)} de modo que ponga entre paréntesis los $N$ eigenvalores más grandes de una matriz tridiagonal.
+\\
+\bigskip
+Use esta función para calcular los dos eigenvalores más grandes de la matriz de Hilbert de $6 \times 6$.
+\end{frame}
+\begin{frame}
+\frametitle{Matriz para el ejercicio anterior}
+\renewcommand{\arraystretch}{1.5}
+\begin{align*}
+\vb{A} =
+\begin{bmatrix}
+1 & \dfrac{1}{2} & \dfrac{1}{3} & \ldots & \dfrac{1}{6} \\
+\dfrac{1}{2} & \dfrac{1}{3} & \dfrac{1}{4} & \ldots & \dfrac{1}{7} \\
+\dfrac{1}{3} & \dfrac{1}{4} & \dfrac{1}{5} & \ldots & \dfrac{1}{8} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+\dfrac{1}{6} & \dfrac{1}{7} & \dfrac{1}{8} & \ldots & \dfrac{1}{11}
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\end{document}

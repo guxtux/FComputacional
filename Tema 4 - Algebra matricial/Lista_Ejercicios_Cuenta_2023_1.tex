@@ -1,0 +1,79 @@
+\input{../Preambulos/preambulo_materiales}
+\usetikzlibrary{patterns, arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{matrix}
+
+\title{Ejericicios a cuenta Tema 4 \\ {\large Curso Física Computacional}}
+\author{M. en C. Gustavo Contreras Mayén. \texttt{gux7avo@ciencias.unam.mx}}
+\usepackage{tabularray}
+\UseTblrLibrary{amsmath}
+\date{ }
+\begin{document}
+
+\maketitle
+\fontsize{14}{14}\selectfont
+\noindent
+Utilizando el método de Householder, reduce a su forma tridiagonal simétrica las siguientes matrices:
+\begin{enumerate}
+\item
+\begin{align*}
+\vb{A} =
+\begin{+bmatrix}
+2 & 5 & 6 & 8 & 1 & 9 & 5 & 4 & 7 & 6 \\
+5 & 2 & 8 & 3 & 7 & 9 & 1 & 6 & 5 & 4 \\
+6 & 8 & 1 & 7 & 6 & 4 & 9 & 3 & 2 & 8 \\
+8 & 3 & 7 & 6 & 2 & 9 & 4 & 2 & 8 & 6 \\
+1 & 7 & 6 & 2 & 9 & 6 & 1 & 3 & 8 & 4 \\
+9 & 9 & 4 & 9 & 6 & 7 & 4 & 6 & 3 & 2 \\
+5 & 1 & 9 & 4 & 1 & 4 & 6 & 8 & 7 & 2 \\
+4 & 6 & 3 & 2 & 3 & 6 & 8 & 4 & 5 & 2 \\
+7 & 5 & 2 & 8 & 8 & 3 & 7 & 5 & 1 & 6 \\
+6 & 4 & 8 & 6 & 4 & 2 & 2 & 2 & 6 & 7
+\end{+bmatrix}
+\end{align*}
+\item
+\begin{align*}
+\vb{A} = 
+\begin{+bmatrix}
+2 & 5 & 7 & 6 & 1 & 3 & 5 & 4 & 6 & 9 & 5 \\
+5 & 1 & 8 & 4 & 9 & 7 & 6 & 2 & 3 & 4 & 8 \\
+7 & 8 & 4 & 8 & 6 & 3 & 2 & 1 & 7 & 8 & 4 \\ 
+6 & 4 & 8 & 1 & 3 & 8 & 6 & 5 & 4 & 7 & 7 \\
+1 & 9 & 6 & 3 & 7 & 5 & 1 & 2 & 8 & 4 & 6 \\
+3 & 7 & 3 & 8 & 5 & 2 & 9 & 7 & 6 & 2 & 5 \\
+5 & 6 & 2 & 6 & 1 & 9 & 4 & 6 & 2 & 8 & 7 \\
+4 & 2 & 1 & 5 & 2 & 7 & 6 & 2 & 8 & 4 & 3 \\
+6 & 3 & 7 & 4 & 8 & 6 & 2 & 8 & 1 & 6 & 8 \\
+9 & 4 & 8 & 7 & 4 & 2 & 8 & 4 & 6 & 7 & 1 \\
+5 & 8 & 4 & 7 & 6 & 5 & 7 & 3 & 8 & 1 & 4    
+\end{+bmatrix}    
+\end{align*}
+\item
+\begin{align*}
+\vb{A} =
+\begin{+bmatrix}
+5 & 8 & 3 & 9 & 4 & 6 & 2 & 8 & 9 & 4 & 1 & 6 & 7 \\
+8 & 2 & 4 & 3 & 9 & 8 & 4 & 5 & 3 & 2 & 2 & 8 & 7 \\
+3 & 4 & 1 & 5 & 9 & 6 & 3 & 8 & 6 & 5 & 2 & 6 & 5 \\
+9 & 3 & 5 & 1 & 2 & 5 & 8 & 9 & 4 & 6 & 7 & 1 & 3 \\
+4 & 9 & 9 & 2 & 3 & 5 & 6 & 9 & 8 & 4 & 1 & 5 & 7 \\
+6 & 8 & 6 & 5 & 5 & 2 & 4 & 1 & 8 & 6 & 5 & 9 & 7 \\
+2 & 4 & 3 & 8 & 6 & 4 & 1 & 5 & 4 & 9 & 7 & 5 & 2 \\
+8 & 5 & 8 & 9 & 9 & 1 & 5 & 2 & 7 & 6 & 5 & 3 & 1 \\
+9 & 3 & 6 & 4 & 8 & 8 & 4 & 7 & 1 & 4 & 6 & 8 & 2 \\
+4 & 2 & 5 & 6 & 4 & 6 & 9 & 6 & 4 & 3 & 7 & 5 & 4 \\
+1 & 2 & 2 & 7 & 1 & 5 & 7 & 5 & 6 & 7 & 2 & 8 & 6 \\
+6 & 8 & 6 & 1 & 5 & 9 & 5 & 3 & 8 & 5 & 8 & 1 & 2 \\
+7 & 7 & 5 & 3 & 7 & 7 & 2 & 1 & 2 & 4 & 6 & 2 & 8
+\end{+bmatrix}
+\end{align*}
+\end{enumerate}
+\newpage
+\textbf{Notas importantes}:
+\begin{enumerate}[label=\roman*.]
+\item Resolver con código los tres incisos otorga $1$ punto.
+\item Realizar a mano todo el cálculo de la reducción tridiagonal del inciso $1$, otorgará $2$ puntos.
+\item Realizar a mano todo el cálculo de la reducción tridiagonal del inciso $3$, otorgará $4$ puntos.
+\end{enumerate}
+El puntaje mínimo para estos ejercicios es de $1$ (entregando el inciso $1$) y el puntaje máximo es $7$ puntos (entregando los incisos $1$, $2$ y $3$).
+\end{document}

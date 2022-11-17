@@ -1,0 +1,1292 @@
+\documentclass[12pt]{beamer}
+\usepackage{../Estilos/BeamerFC}
+\usepackage{../Estilos/ColoresLatex}
+\input{../Preambulos/pre_codigo}
+\usepackage[siunitx]{circuitikz}
+\usepackage{parskip}
+\usetikzlibrary{arrows,patterns,shapes}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{arrows}
+\usepackage{blkarray}
+\input{../Preambulos/preambulo_Beamer_Madrid_whale}
+\usefonttheme{serif}
+\DeclareSIUnit\megapascal{\mega\pascal}
+
+\title{\large{Método de la potencia y potencia inversa}}
+\subtitle{Tema 4 - Álgebra matricial}
+\author{M. en C. Gustavo Contreras Mayén}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Contenido}
+\frame{\tableofcontents[currentsection, hideallsubsections]}
+
+\section{Potencia y potencia inversa}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Introducción}
+
+\begin{frame}
+\frametitle{Utilidad de los métodos de potencias}
+Los métodos de potencias son importantes ya que son un medio sencillo para calcular los eigenvalores.
+\\
+\bigskip
+\pause
+Hay tres versiones de los métodos:
+\end{frame}
+\begin{frame}
+\frametitle{Versiones de los métodos}
+\setbeamercolor{item projected}{bg=blue-green,fg=blue(pigment)}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item El método de la potencia: es una técnica iterativa que determina el eigenvalor dominante de una matriz (el eigenvalor con la mayor magnitud).
+
+Adicionalmente, no solo se obtiene el eigenvalor, sino también un eigenvector asociado.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Versiones de los métodos}
+\setbeamercolor{item projected}{bg=blue-green,fg=blue(pigment)}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\seti
+\item El método de la potencia inversa: ocupa la potencia inversa de la matriz y encuentra el mínimo eigenvalor.
+\item El método de la potencia inversa con desplazamiento.
+\end{enumerate}
+\end{frame}
+
+
+\subsection{Método de potencia inversa}
+
+\begin{frame}
+\frametitle{Definición del método}
+El método de potencia inversa es un algoritmo simple y eficiente que encuentra el eigenvalor más pequeño $\lambda_{1}$ y el eigenvector correspondiente $\vb{x}_{1}$ del problema de eigenvalores estándar:
+\pause
+\begin{align}
+\vb{A \, x} = \lambda \, \vb{x}
+\label{eq:ecuacion_09_27}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Operación del método}
+El método funciona así:
+\pause
+\begin{tcolorbox}[colback=bisque, title=Resumen del procedimiento]
+Sea $\vb{v}$ un vector unitario (un vector aleatorio servirá). \\ \pause
+Hagamos lo siguiente hasta que el cambio en $\vb{v}$ sea insignificante: \\ \pause
+Resuelve $\vb{A \, z} = \vb{v}$ para el vector $\vb{z}$. \\ \pause
+Calcula $\abs{\vb{z}}$. \\ \pause 
+Calcula $\vb{v} = \vb{z} / \abs{\vb{z}}$.
+\end{tcolorbox}
+\end{frame}
+\begin{frame}
+\frametitle{Operación del método}
+Al final del procedimiento tenemos:
+\pause
+\begin{align*}
+\abs{z} = \pm \dfrac{1}{\lambda_{1}} \hspace{0.7cm} \text{y} \hspace{0.7cm} \vb{v} = \vb{x}_{1}
+\end{align*}
+\pause
+El signo de $\lambda_{1}$ se determina de la siguiente manera:
+\pause
+\setbeamercolor{item projected}{bg=armygreen,fg=aquamarine}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Si $\vb{z}$ cambia de signo entre iteraciones sucesivas, $\lambda_{1}$ es negativo.
+\item De lo contrario, utiliza el signo más.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{¿Por qué funciona el método?}
+Veamos ahora por qué funciona el método.
+\\
+\bigskip
+\pause
+Dado que los eigenvectores $\vb{x}_{i}$ de $\vb{A}$ son ortonormales (linealmente independientes), pueden usarse como base para cualquier vector n-dimensional.
+\end{frame}
+\begin{frame}
+\frametitle{¿Por qué funciona el método?}
+ Así, $\vb{v}$ y $\vb{z}$ admiten las representaciones únicas:
+ \pause
+\begin{align}
+\vb{v} = \nsum_{i=1}^{n} v_{i} \, \vb{x}_{i} \hspace{1cm} \vb{z} = \nsum_{i=1}^{n} z_{i} \, \vb{x}_{i}
+\label{eq:ecuacion_09_28}
+\end{align}
+donde $v_{i}$ y $z_{i}$ son las componentes de $\vb{v}$ y $\vb{z}$ con respecto a los eigenvectores $\vb{x}_{i}$.
+\end{frame}
+\begin{frame}
+\frametitle{Sustituyendo las expresiones}
+Sustituyendo en $\vb{A \, z} = \vb{v}$, se obtiene:
+\pause
+\begin{align*}
+\vb{A} \, \nsum_{i=i}^{n} z_{i} \, \vb{x}_{i} - \nsum_{i=i}^{n} v_{i} \, \vb{x}_{i} = \vb{0}
+\end{align*}
+\pause
+Pero $\vb{A} \,\vb{x}_{i} = \lambda \, \vb{x}_{i}$, por lo que:
+\pause
+\begin{align*}
+\nsum_{i=1}^{n} \big(z_{i} \, \lambda_{i} - v_{i} \big) \, \vb{x}_{i} = \vb{0}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado importante}
+Entonces se tiene:
+\pause
+\begin{align*}
+z_{i} = \dfrac{v_{i}}{\lambda_{i}}
+\end{align*}
+\pause
+Se sigue de la ec. (\ref{eq:ecuacion_09_28}) que:
+\pause
+\begin{eqnarray}
+\begin{aligned}[b]
+\vb{z} &= \nsum_{i=1}^{n} \dfrac{v_{i}}{\lambda_{i}} \, \vb{x}_{i} = \pause \dfrac{1}{\lambda_{1}} \, \nsum_{i=1}^{n} v_{i} \, \dfrac{\lambda_{1}}{\lambda_{i}} \, \vb{x}_{i} = \\ \pause
+&= \dfrac{1}{\lambda_{1}} \bigg( v_{1} \vb{x}_{1} + v_{2} \dfrac{\lambda_{1}}{\lambda_{2}} \vb{x}_{2} + v_{3} \dfrac{\lambda_{1}}{\lambda_{3}} \vb{x}_{3} + \ldots \bigg)
+\end{aligned}
+\label{eq:ecuacion_09_29}
+\end{eqnarray}
+\end{frame}
+\begin{frame}
+\frametitle{Sobre el coeficiente}
+Como $\lambda_{1} / \lambda_{i} < 1 \, (i \neq 1)$, observamos que el coeficiente de $\vb{x}_{1}$ se ha vuelto más prominente en $\vb{z}$ que en $\vb{v}$, \pause por tanto, $\vb{z}$ \textbf{\textcolor{ao}{es una mejor aproximación}} a $\vb{x}_{1}$. \pause Esto completa el primer ciclo iterativo.
+\end{frame}
+\begin{frame}
+\frametitle{Avanzando en las siguientes iteraciones}
+En ciclos posteriores establecemos $\vb{v} = \vb{z}/ \abs{\vb{z}}$ y se repite el proceso.
+\\
+\bigskip
+\pause
+Cada iteración aumenta la dominancia del primer término en la ec. (\ref{eq:ecuacion_09_29}) para que el proceso converja a:
+\pause
+\begin{align*}
+\vb{z} = \dfrac{1}{\lambda_{1}} v_{1} \vb{x}_{1} = \dfrac{1}{\lambda_{1}} \vb{x}_{1}
+\end{align*}
+(en este paso $v_{1} = 1$ ya que $\vb{v} =  \vb{x}_{1}$, por lo que $v_{1} = 1, v_{2} = v_{3} = \ldots = 0$)
+\end{frame}
+\begin{frame}
+\frametitle{Forma no estándar}
+El método de la potencia inversa también funciona con problemas no estándar de eigenvalores:
+\pause
+\begin{align}
+\vb{A \, x} = \lambda \, \vb{B \, x}
+\label{eq:ecuacion_09_30}
+\end{align}
+siempre que $\vb{A \, z} = \vb{v}$ en el algoritmo se reemplace por:
+\pause
+\begin{align}
+\vb{A \, z} = \vb{B \, v}
+\label{eq:ecuacion_09_31}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Alternativa a problemas no estándar}
+La alternativa es, por supuesto, transformar el problema a la forma estándar antes de utilizar el método de la potencia.
+\end{frame}
+
+\subsection{Potencia con desplazamiento}
+
+\begin{frame}
+\frametitle{Desplazamiento de eigenvalores}
+Por inspección de la ec. (\ref{eq:ecuacion_09_29}) vemos que la velocidad de convergencia está determinada por la fuerza de la desigualdad $\abs{\lambda_{1}/\lambda_{2}} < 1$ (el segundo término de la ecuación).
+\end{frame}
+\begin{frame}
+\frametitle{Condición de la convergencia}
+Si $\abs{\lambda_{2}}$ está bien separado de $\abs{\lambda_{1}}$, la desigualdad es fuerte y la convergencia es rápida.
+\\
+\bigskip
+\pause
+Por el contrario, la proximidad de estos dos valores propios da como resultado una convergencia muy lenta.
+\end{frame}
+\begin{frame}
+\frametitle{Mejorando la convergencia}
+La razón de convergencia se puede mejorar mediante una técnica llamada \textbf{\textcolor{cinnamon}{desplazamiento de eigenvalores}}.
+\\
+\bigskip
+\pause
+Haciendo:
+\pause
+\begin{align}
+\lambda = \lambda^{*} + s
+\label{eq:ecuacion_09_32}
+\end{align}
+donde $s$ es el \enquote{desplazamiento}.
+\end{frame}
+\begin{frame}
+\frametitle{Cambiando el problema}
+El problema de eigenvalores ec. (\ref{eq:ecuacion_09_27}) se transforma a:
+\pause
+\begin{align*}
+\vb{ A \, x} = (\lambda^{*} + s) \, \vb{x}
+\end{align*}
+\pause
+de manera equivalente:
+\begin{align}
+\vb{A^{*} \, x} = \lambda^{*} \, \vb{x}
+\label{eq:ecuacion_09_33}
+\end{align}
+donde
+\begin{align}
+\vb{A}^{*} = \vb{A} - s \, \vb{I}
+\label{eq:ecuacion_09_34}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Resolviendo el problema}
+Resolviendo el problema transformado en la ec. (\ref{eq:ecuacion_09_33}) por el método de la potencia inversa, se obtiene $\lambda^{*}_{1}$ y $\vb{x}_{1}$, \pause donde $\lambda^{*}_{1}$ es el valor propio más pequeño de $\vb{A}^{*}$.
+\\
+\bigskip
+\pause
+El valor propio correspondiente del problema original, $\lambda = \lambda_{1}^{*} + s$, es por lo tanto, el \textbf{\textcolor{darkred}{eigenvalor más cercano a}} $s$.
+\end{frame}
+\begin{frame}
+\frametitle{Utilidad del desplazamiento}
+El cambio de eigenvalores tiene dos aplicaciones.
+\pause
+\setbeamercolor{item projected}{bg=electricblue,fg=eggplant}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}
+\item Una obvia es la determinación del valor propio más cercano a un cierto valor $s$.
+\pause
+Por ejemplo, si la velocidad de trabajo de un eje es de $s$ rpm, es imperativo asegurarse de que no existan frecuencias naturales (que están relacionadas con los eigenvalores) cercanas a esa velocidad.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Utilidad del desplazamiento}
+\setbeamercolor{item projected}{bg=electricblue,fg=eggplant}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}
+\conti 
+\item El cambio de eigenvalores también se utiliza para acelerar la convergencia.
+
+Supongamos que estamos calculando el eigenvalor más pequeño $\lambda_{1}$ de la matriz $\vb{A}$. \pause La idea es introducir un desplazamiento $s$ que haga que $\lambda_{1}^{*}/\lambda_{2}^{*}$ sea lo más pequeño posible.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Revisando el segundo punto}
+Como $\lambda_{1}^{*} = \lambda_{1} - s$, debemos elegir $s \approx \lambda_{1}$ (debe evitarse $s = \lambda_{1}$ para no tener una división por cero). 
+\\
+\bigskip
+\pause
+Por supuesto, este método solo funciona si tenemos una estimación previa de $\lambda_{1}$.
+\end{frame}
+\begin{frame}
+\frametitle{Utilidad del método}
+El método de potencia inversa con desplazamiento de eigenvalores es una herramienta particularmente poderosa para encontrar eigenvectores si se conocen los eigenvalores.
+\\
+\bigskip
+\pause
+Al desplazarse muy cerca de un eigenvalor, el eigenvector correspondiente se puede calcular en una o dos iteraciones.
+\end{frame}
+
+\subsection{Método de la potencia}
+
+\begin{frame}
+\frametitle{Definiendo el método}
+El método de potencia converge al eigenvalor más alejado de cero y al eigenvector asociado.
+\\
+\bigskip
+\pause
+Es muy similar al método de potencia inversa, la única diferencia entre los dos métodos es el intercambio de $\mathbf{v}$ y $\mathbf{z}$ en la ec. (\ref{eq:ecuacion_09_28}).
+\end{frame}
+\begin{frame}
+\frametitle{Esquema del procedimiento}
+\begin{tcolorbox}[colback=lavendermist, title=Método de la potencia]
+Sea $\vb{v}$ un vector unitario (un vector aleatorio servirá). \\ \pause
+Hagamos lo siguiente hasta que el cambio en $\vb{v}$ sea insignificante: \\ \pause
+\hspace{1cm} Calcula el vector $\vb{z} = \vb{A v}$. \\ \pause
+\hspace{1cm} Calcula $\abs{\vb{z}}$. \\ \pause
+\hspace{1cm} Calcula $\vb{v} = \vb{z}/\abs{\vb{z}}$.
+\end{tcolorbox}
+\end{frame}
+\begin{frame}
+\frametitle{Una vez completado el procedimiento}
+Al final del procedimiento obtenemos:
+\pause
+\begin{align*}
+\abs{z} = \pm \lambda_{n} \hspace{0.6cm} \vb{v} = \vb{x}_{n}
+\end{align*}
+el signo de $\lambda_{n}$ se determina de la misma forma que en el método de potencia inversa.
+\end{frame}
+
+\section{Funciones \texttt{python}}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{\texttt{potenciaInversa}}
+
+\begin{frame}
+\frametitle{Lo que hace el código}
+Dada la matriz $\vb{A}$ y el desplazamiento $s$, la función \funcionazul{potenciaInversa} devuelve el eigenvalor de $\vb{A}$ más cercano a $s$ y el eigenvector correspondiente.
+\\
+\bigskip
+\pause
+La matriz $\vb{A}^{*} = \vb{A} - s \, \vb{I}$ se descompone tan pronto como se forma, de modo que solo se necesita la fase de solución (sustitución hacia adelante y hacia atrás) en el ciclo iterativo.
+\end{frame}
+\begin{frame}
+\frametitle{Para cierto tipo de matrices}
+Si $\vb{A}$ tiene bandas, la eficiencia del programa podría mejorarse reemplazando \funcionazul{LUdescomp} y \funcionazul{LUsoluc} por funciones para matrices con bandas (\funcionazul{LUdescomp5} y \funcionazul{LUsoluc5}).
+\end{frame}
+\begin{frame}
+\frametitle{Modificación en una línea}
+La línea de programa que forma $\vb{A}^{*}$ también debe modificarse para que sea compatible con el esquema de almacenamiento utilizado para $\vb{A}$.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código de la función de la potencia inversa}
+\begin{lstlisting}[caption=Código completo para la potencia inversa]
+def potenciaInversa(a, s, tol=1.0e-6):
+    n = len(a)
+    aAst = a - np.identity(n) * s
+    aAst = LUdescomp(aAst)
+    x = np.zeros(n)
+    
+    for i in range(n):
+        x[i] = random()
+        
+    xMag = np.sqrt(np.dot(x,x))
+    x =x/xMag
+    
+    for i in range(50):
+        xAnterior = x.copy()
+        x = LUsoluc(aAst, x)
+        xMag = np.sqrt(np.dot(x,x))
+        x = x/xMag
+        
+        if np.dot(xAnterior,x) < 0.0:
+            sign = -1.0
+            x = -x
+        else: sign = 1.0
+        
+        if np.sqrt(np.dot(xAnterior - x, xAnterior - x)) < tol:
+            return s + sign/xMag, x
+    
+    print('El método de la potencia inversa no converge')  
+\end{lstlisting}
+\end{frame}
+
+\section{Ejercicios}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Ejercicio 1}
+
+\begin{frame}
+\frametitle{Enunciado del problema}
+La matriz de esfuerzo que describe el estado de esfuerzo en un punto es:
+\pause
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\vb{S} =
+\begin{bmatrix}
+- 30 & 10 & 20 \\
+10 & 40 & -50 \\
+20 & - 50 & -10
+\end{bmatrix} \, \si{\megapascal}
+\end{align*}
+Utiliza $\vb{v} = [1 \quad 0 \quad 0]^{T}$ como suposición inicial para el eigenvector.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Resolviendo el ejercicio}
+\begin{lstlisting}[caption=Ejercicio para el método de la potencia]
+import numpy as np
+
+s = # aqui va la matriz
+
+v = # aqui va el vector
+
+for i in range(100):
+    vAnterior = v.copy()
+    z = np.dot(s,v)
+    zMag = np.sqrt(np.dot(z,z))
+    v = z/zMag
+    
+    if np.dot(vAnterior,v) < 0.0:
+        sign = -1.0
+        v = -v
+    else: sign = 1.0
+    
+    if np.sqrt(np.dot(vAnterior - v, vAnterior - v)) < 1.0e-6: break
+
+lam = sign*zMag
+
+print('Total de iteraciones es: {0:}'.format(i))
+
+print('El eigenvalor es: {0:}'.format(lam))
+\end{lstlisting}
+\end{frame}
+
+\subsection{Ejercicio 2}
+
+\begin{frame}
+\frametitle{Enunciado del ejercicio 2}
+Calcula el eigenvalor más pequeño $\lambda_{1}$ y el correspondiente eigenvector de la matriz:
+\pause
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\vb{A} = 
+\begin{bmatrix}
+11 & 2 & 3 & 1 & 4 \\
+2 & 9 & 3 & 5 & 2 \\
+3 & 3 & 15 & 4 & 3 \\
+1 & 5 & 4 & 12 & 4 \\
+4 & 2 & 3 & 4 & 17 \\
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Revisando las iteraciones}
+Utiliza el método de la potencia inversa:
+\pause
+\setbeamercolor{item projected}{bg=mahogany,fg=maize}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Determina cuántas iteraciones se ocuparon.
+\item Con el método de la potencia inversa con desplazamiento, usando $\lambda_{1} \approx 5$, ¿cuántas iteraciones se realizaron? 
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Código para el ejercicio 2}
+\begin{lstlisting}[caption=Ejercicio para el método de la potencia inversa con desplazamiento]
+a = # aqui va la matriz
+s = # aqui va el desplazamiento
+
+lam, x = potenciaInversa(a, s)
+
+print('\nEl eigenvalor es: {0:}'.format(lam))
+print('\nEl eigenvector es: \n {0:}'.format(x))
+\end{lstlisting}
+\end{frame}
+
+\subsection{Ejercicio 3}
+
+\begin{frame}
+\frametitle{Enunciado del ejercicio}
+Una viga apuntalada en voladizo soporta una carga axial de compresión $P$.
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \draw (0, 0) rectangle (6, 0.25) node [below, midway] {$L$};
+        \draw (6.25, 0.125) -- (7.5, 0.125) node [near end, pos=1.2] {$x$};
+        \draw [fill, color=beaublue] (6, -0.25) rectangle (6.25, 0.5);
+        \draw (6, -0.25) -- (6, 0.5);
+        \draw (0, -0.1) circle (3pt);
+        \draw [fill, color=beaublue] (-0.2, -0.2) rectangle (0.2, -0.4);
+        \draw (-0.2, -0.2) -- (0.2, -0.2);
+        \draw [-stealth, thick] (-1, 0.125) -- (0, 0.125);
+        \node at (-1.4, 0.125) {$P$};
+    \end{tikzpicture}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Enunciado del ejercicio}
+Puede demostrarse que el desplazamiento lateral $u (x)$ de la viga satisface la ecuación diferencial:
+\pause
+\begin{align}
+\nderivada{u}{4} + \dfrac{P}{E I} \, \sderivada{u} &= 0 \label{eq:ecuacion_09_06_a} \\[0.5em]
+u (0) = \sderivada{u} &= 0 \hspace{0.7cm} u (L) = \pderivada{L} = 0 \label{eq:ecuacion_09_06_b}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Por resolver}
+\setbeamercolor{item projected}{bg=awesome,fg=aureolin}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}
+\item Demuestra que el análisis de pandeo de la viga da como resultado un problema de eigenvalores de la matriz si las derivadas se aproximan por diferencias finitas.
+\conti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Por resolver}
+\setbeamercolor{item projected}{bg=awesome,fg=aureolin}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}
+\seti
+\item Calcula la carga de pandeo más pequeña de la viga, haciendo pleno uso de las matrices en bandas. Ejecuta el programa con $100$ nodos interiores ($n = 100)$.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Solución inciso 1}
+Dividimos la viga en $n + 1$ segmentos de longitud $L/(n + 1)$ cada uno como se muestra.
+\\
+\bigskip
+\pause
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \draw (0, 0) rectangle (6, 0.25) node [below, midway] {$L$};
+        \draw (6.25, 0.125) -- (7.5, 0.125) node [near end, pos=1.2] {$x$};
+        \draw [fill, color=beaublue] (6, -0.25) rectangle (6.25, 0.5);
+        \draw (6, -0.25) -- (6, 0.5);
+        \draw (0, -0.1) circle (3pt);
+        \draw [fill, color=beaublue] (-0.2, -0.2) rectangle (0.2, -0.4);
+        \draw (-0.2, -0.2) -- (0.2, -0.2);
+        \draw [-stealth, thick] (-1.4, 0.125) -- (0, 0.125);
+        \node at (-1.7, 0.125) {$P$};
+
+        \foreach \x in {-1, 0, 1, 2}
+            \node at (\x, 0.6) {\footnotesize $\x$};
+        
+        \node at (4, 0.6) {\footnotesize $n-1$};
+        \node at (5, 0.6) {\footnotesize $n$};
+        \node at (6, 0.8) {\footnotesize $n+1$};
+        \node at (7, 0.6) {\footnotesize $n+2$};
+
+        
+        \draw [dashed] (0, 0) rectangle (-1, 0.25);
+        \draw [dashed] (6, 0) rectangle (7, 0.25);
+
+        \foreach \x in {1, 2, 4, 5}
+            \draw (\x, 0) -- (\x, 0.25);
+    \end{tikzpicture}
+\end{figure}
+
+\end{frame}
+\begin{frame}
+\frametitle{Solución inciso 1}
+Reemplazando las derivadas de $u$ en la ec. (\ref{eq:ecuacion_09_06_a}) por diferencias finitas centrales de $\order{h^{2}}$ en los nodos interiores (nodos $1$ a $n$), obtenemos:
+\pause
+\begin{align*}
+\dfrac{u_{i-2} - 4 u_{i-1} + 6 u_{i} - 4 u_{i+1} + u_{i+2}}{h^{4}} = \dfrac{P}{E I} \dfrac{-u_{i-1} + 2 u_{i} - u_{i-1}}{h^{2}} \\
+i = 1, 2, \ldots, n
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Avanzando en la solución}
+Luego de multiplicar por $h^{4}$, las ecuaciones son:
+\pause
+\begin{eqnarray}
+\begin{aligned}
+u_{-1} - 4 u_{0} + 6 u_{1} - 4 u_{2} + u_{3} &= \lambda (-u_{0} + 2 u_{1} - u_{2}) \\ \pause
+u_{0} - 4 u_{1} + 6 u_{2} - 4 u_{3} + u_{4} &= \lambda (-u_{1} + 2 u_{2} - u_{3}) \\ \pause 
+\vdots \hspace{3cm} &{} \\ \pause
+u_{n-3} - 4 u_{n-2} + 6 u_{n-1} - 4 u_{n} + u_{n+1} &= \lambda (-u_{n-2} + 2 u_{n-1} - u_{n}) \\ \pause 
+u_{n-2} - 4 u_{n-1} + 6 u_{n} - 4 u_{n+1} + u_{n+2} &= \lambda (-u_{n-1} + 2 u_{n} - u_{n+1})
+\end{aligned}
+\label{eq:ecuacion_09_06_c}
+\end{eqnarray}
+\pause
+con
+\begin{align*}
+\lambda = \dfrac{P h^{2}}{E I} = \dfrac{P L^{2}}{(n + 1)^{2} E I}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ocupando las condiciones iniciales}
+Los desplazamientos $u_{-1}, u_{0}, u_{n+1}$ y $u_{n+2}$ se cancelan utilizando las CI del enunciado.
+\\
+\bigskip\
+\pause
+Con la tabla que trabajamos en el Tema 3, las aproximaciones por diferencias finitas para las CI, se tiene:
+\begin{align*}
+u_{0} = 0\hspace{0.5cm} u_{1} = - u_{1} \hspace{0.5cm} u_{n+1} = 0 \hspace{0.5cm} u_{n+2} = u_{n}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Obteniendo una expresión}
+Al sustituir las ecs. (\ref{eq:ecuacion_09_06_c}), nos lleva a un problema de eigenvalores de la forma $\vb{A x} = \lambda \vb{B x}$, donde:
+\end{frame}
+\begin{frame}
+\frametitle{Matriz de coeficientes $\vb{A}$}
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\vb{A} =
+\begin{bmatrix}
+5 & -4 & 1 & 0 & 0 & \ldots & 0 \\
+-4 & 6 & -4 & 1 & 0 & \ldots & 0 \\
+1 & -4 & 6 & -4 & 1 & \ldots & 0 \\
+\vdots & \ddots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+0 & \ldots & 1 & -4 & 6 & -4 & 1 \\    
+0 & \ldots & 0 & 0 & 1 & -4 & 7    
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Matriz de coeficientes $\vb{B}$}
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\vb{B} =
+\begin{bmatrix}
+2 & -1 & 0 & 0 & 0 & \ldots & 0 \\
+-1 & 2 & -1 & 0 & 0 & \ldots & 0 \\
+0 & -1 & 2 & -1 & 0 & \ldots & 0 \\
+\vdots & \ddots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+0 & \ldots & 0 & -1 & 2 & -1 & 0 \\
+0 & \ldots & 0 & 0 & 0 & -1 & 2    
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Solución inciso 2}
+La función \funcionazul{potenciaInversa5} que mostraremos a continuación devuelve el eigenvalor más pequeño y el eigenvector correspondiente de $\vb{A x} = \lambda \vb{B x}$, \pause donde $\vb{A}$ es una matriz pentadiagonal y $\vb{B}$ es una matriz dispersa (en este problema es tridiagonal).
+\end{frame}
+\begin{frame}
+\frametitle{Solución inciso 2}
+La matriz $\vb{A}$ se ingresa por sus diagonales $\vb{d}$, $\vb{e}$ y $\vb{f}$ como se hizo en el Tema 3 junto con la descomposición $\vb{LU}$.
+\\
+\bigskip
+\pause
+El algoritmo no usa $\vb{B}$ directamente, sino que llama a la función \funcionazul{Bv(v)} que proporciona el producto $\vb{B v}$. \pause No se utiliza el desplazamiento de eigenvalores.
+\end{frame}
+\begin{frame}
+\frametitle{La función \texttt{potenciaInversa5}}
+El código para la función \funcionazul{potenciaInversa} se encuentra dentro del módulo \funcionazul{moduloMatrices}.
+\\
+\bigskip
+Mientras que la función \funcionazul{Bv(v)} está en el código principal .
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código función para matriz pentadiagonal}
+\begin{lstlisting}[caption=Código para el método de la potencia inversa con matriz en banda 
+n=5]
+def potenciaInversa5(Bv, d, e, f, tol=1.0e-6):
+    
+    n = len(d)
+    d, e, f = LUdescomp5(d, e, f)
+    x = np.random.rand(n)
+    xMag = np.sqrt(np.dot(x,x))
+    x = x/xMag
+    
+    for i in range(30):
+        xAnterior = x.copy()
+        x = Bv(xAnterior)
+        x = LUsoluc5(d, e, f, x)
+        xMag = np.sqrt(np.dot(x,x))
+        x = x/xMag
+        
+        if np.dot(xAnterior,x) < 0.0:
+            sign = -1.0
+            x = -x
+        else: sign = 1.0
+        
+        if np.sqrt(np.dot(xAnterior - x,xAnterior - x)) < tol:
+            return sign/xMag, x
+    
+    print('El metodo de la potencia inversa no converge')
+\end{lstlisting}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código principal}
+\begin{lstlisting}[caption=Código para resolver el ejercicio]
+from moduloMatrices import potenciaInversa5
+import numpy as np
+
+def Bv(v):
+    n = len(v)
+    z = np.zeros(n)
+    z[0] = 2.0 * v[0] - v[1]
+    
+    for i in range(1, n-1):
+        z[i] = -v[i-1] + 2.0 * v[i] - v[i+1]
+        z[n-1] = -v[n-2] + 2.0 * v[n-1]
+    
+    return z
+
+n = 100
+d = np.ones(n) * 6.0
+d[0] = 5.0
+d[n-1] = 7.0
+e = np.ones(n-1) * (-4.0)
+f = np.ones(n-2) * 1.0
+
+lam, x = potenciaInversa5(Bv, d, e, f)
+
+print('PL**2/EI = {0:}'.format(lam*(n+1)**2))
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado consistente}
+El resultado que nos devuelve el código, concuerda con la solución analítica:
+\pause
+\begin{align*}
+\dfrac{P L^{2}}{E I} = 20.186734173260856
+\end{align*}
+\end{frame}
+
+\section{Reducción de Householder}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Definición}
+
+\begin{frame}
+\frametitle{Transformación más conveniente}
+Hemos mencionado que las transformaciones de similitud se pueden usar para transformar un problema de eigenvalores a una forma que sea más fácil de resolver.
+\\
+\bigskip
+\pause
+La más deseable de las formas \enquote{fáciles} es, por supuesto, la forma diagonal que resulta del método de Jacobi.
+\end{frame}
+\begin{frame}
+\frametitle{Detalle con el método}
+Sin embargo, el método de Jacobi requiere alrededor de $10 n^{3}$ a $20 n^{3}$ multiplicaciones, por lo que la cantidad de cálculo aumenta muy rápidamente con $n$.
+\end{frame}
+\begin{frame}
+\frametitle{Transformación más conveniente}
+Por lo general, estaremos mejor si reducimos la matriz a la forma tridiagonal, \pause lo que se puede hacer precisamente en $n - 2$ transformaciones mediante el \textbf{\textcolor{darkmagenta}{método de Householder}}.
+\end{frame}
+\begin{frame}
+\frametitle{Transformación más conveniente}
+Una vez que se logra la forma tridiagonal, todavía tenemos que obtener los eigenvalores y los eigenvectores, pero existen medios efectivos para lidiar con eso, que veremos a continuación.
+\end{frame}
+
+\subsection{Matriz de Householder}
+
+\begin{frame}
+\frametitle{El procedimiento}
+Caqda transformación de Householder utiliza la \textbf{\textcolor{drab}{matriz de Houlseholder}}:
+\pause
+\begin{align}
+\vb{Q} = \vb{I} - \dfrac{\vb{u} \, \vb{U}^{T}}{H}
+\label{eq:ecuacion_09_36}
+\end{align}
+\pause
+donde 
+$\vb{u}$ es un vector y 
+\begin{align}
+H = \dfrac{1}{2} \vb{u}^{T} \, \vb{u} = \dfrac{1}{2} \abs{\vb{u}}
+\label{eq:ecuacion_09_37}
+\end{align}
+\pause
+Nótese que $\vb{u} \, \vb{U}^{T}$ en la ec. (\ref{eq:ecuacion_09_36}) es el producto exterior, es decir, una matriz con los elementos $(\vb{u} \vb{u}^{T})_{ij} = u_{i} u_{j}$.
+\end{frame}
+\begin{frame}
+\frametitle{De la matriz $\vb{Q}$}
+Dado que la matriz $\vb{Q}$ es claramente simétrica $(\vb{Q}^{T} = \vb{Q})$, se puede escribir:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+\vb{Q}^{T} \vb{Q} &= \pause \vb{Q Q} = \pause \left( \vb{I} - \dfrac{\vb{u} \vb{u}^{T}}{H} \right) \left( \vb{I} - \dfrac{\vb{u} \vb{u}^{T}}{H} \right) = \\ \pause
+&= \vb{I} - 2 \, \dfrac{\vb{u} \vb{u}^{T}}{H} + \dfrac{\vb{u} (\vb{u}^{T} \vb{u}) \vb{u}^{T}}{H} = \\ \pause
+&= \vb{I} - 2 \, \dfrac{\vb{u} \vb{u}^{T}}{H} + \dfrac{\vb{u} (2 H) \vb{u}^{T}}{H^{2}} = \\ \pause
+&= \vb{I}
+\end{aligned}
+\end{eqnarray*}
+Lo que nos muestra que $\vb{Q}$ es también ortogonal.
+\end{frame}
+\begin{frame}
+\frametitle{Eligiendo un vector}
+Sea $\vb{x}$ un vector arbitrario y consideremos la transformación $\vb{Q x}$.
+\\
+\bigskip
+\pause
+Eligiendo:
+\pause
+\begin{align}
+\vb{u} = x + k \, \vb{e}_{1}
+\label{eq:ecuacion_09_38}
+\end{align}
+\pause
+donde:
+\begin{align*}
+k = \pm \, \abs{x} \hspace{1.5cm} \vb{e}_{1} = \big[ 1 \quad 0 \quad 0 \quad \ldots \quad 0 \big]^{T}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado obtenido}
+Se obtiene entonces:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+\vb{Q x} &= \left( \vb{I} - \dfrac{\vb{u} \vb{u}^{T}}{H} \right) \, \vb{x} = \pause \left[ \vb{I} - \dfrac{\vb{x} (\vb{x} + k \vb{e}_{1})^{T}}{H} \right] \, \vb{x} = \\[0.5em] \pause
+&= \vb{x} - \dfrac{\vb{u} (\vb{x}^{T} \vb{x} + k \, \vb{e}_{1}^{T} \, \vb{x})}{H} = \\[0.5em] \pause
+&= \vb{x} - \dfrac{\vb{u} (k^{2} + k \,x_{1})}{H}
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Usando un valor}
+Pero:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+2 \, H &= \pause (\vb{x} + k \, \vb{e}_{1})^{T} \, (\vb{x} + k \, \vb{e}_{1}) = \\[0.5em] \pause
+&= \abs{\vb{x}}^{2} + k (\vb{x}^{T} \, \vb{e}_{1} + \vb{e}_{1}^{T} \, \vb{x}) + k^{2} \, \vb{e}_{1}^{2} \, \vb{e}_{1} = \\[0.5em] \pause
+&= k^{2} + 2 \, k \, x_{1} + k^{2} = \\[0.5em] \pause
+&= 2 (k^{2} + k \, x_{1})
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado de la transformación}
+Por lo que:
+\pause
+\begin{eqnarray}
+\begin{aligned}
+\vb{Q x} = \pause \vb{x} - \vb{u} = \pause -k \, \vb{e}_{1} = [ -k \quad 0 \quad 0 \quad \ldots \quad 0]^{T}
+\label{eq:ecuacion_09_39}
+\end{aligned}
+\end{eqnarray}
+\pause
+La transformación elimina todos los elementos de $\vb{x}$ excepto el primero.
+\end{frame}
+
+\subsection{Reducción de Householder}
+
+\begin{frame}
+\frametitle{Transformando una matriz simétrica}
+Apliquemos ahora la transformación a una matriz simétrica $\vb{A}$ de $n \times n$:
+\pause
+\begin{eqnarray}
+\begin{aligned}
+\vb{P}_{1} \, \vb{A} = 
+\begin{bmatrix}
+1 & \vb{0}^{T} \\
+\vb{0} & \vb{Q}
+\end{bmatrix}
+\begin{bmatrix}
+A_{11} & \vb{x}^{T} \\
+\vb{x} & \pderivada{\vb{A}}
+\end{bmatrix}
+= \pause
+\begin{bmatrix}
+A_{11} & \vb{x}^{T} \\
+\vb{Q x} & \vb{Q} \, \pderivada{\vb{A}}
+\end{bmatrix}
+\end{aligned}
+\label{eq:ecuacion_09_40}
+\end{eqnarray}
+\end{frame}
+\begin{frame}
+\frametitle{Elementos de la transformación}
+Aquí $\vb{x}$ representa la primera columna de $\vb{A}$ con el primer elemento omitido, \pause y $\pderivada{\vb{A}}$ es simplemente $\vb{A}$ con su primera fila y columna eliminadas.
+\end{frame}
+\begin{frame}
+\frametitle{Elementos de la transformación}
+La matriz $\vb{Q}$ de dimensiones $(n - 1) \times (n - 1)$ se construye utilizando las ecs. (\ref{eq:ecuacion_09_36}) - (\ref{eq:ecuacion_09_38}). 
+\end{frame}
+\begin{frame}
+\frametitle{Reducción de elementos}
+Haciendo referencia a la ec. (\ref{eq:ecuacion_09_39}), vemos que la transformación reduce la primera columna de $\vb{A}$ a:
+\pause
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\begin{bmatrix}
+A_{11} \\
+\vb{Q x}
+\end{bmatrix}
+=
+\begin{bmatrix}
+A_{11} \\
+-k \\
+0 \\
+\vdots \\
+0
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado de la transformación}
+La transformación:
+\pause
+\begin{align}
+\vb{A} \leftarrow \vb{P}_{1} \, \vb{A} \, \vb{P}_{1} =
+\begin{bmatrix}
+A_{11} & (\vb{Q x})^{T} \\
+\vb{Q x} & \vb{Q \pderivada{A} Q}
+\end{bmatrix}
+\label{eq:ecuacion_09_41}
+\end{align}
+por lo tanto, tridiagonaliza la primera fila y la primera columna de $\vb{A}$.
+\end{frame}
+\begin{frame}
+\frametitle{Transformación para otra matriz}
+Aquí hay un diagrama de la transformación para una matriz de $4 \times 4$:
+\pause
+\scalebox{0.9}{
+\begin{tabular}{c c c c c}
+\renewcommand{\arraystretch}{1}
+\begin{tabular}{| c | c c c |} \hline
+$1$ & $0$ & $0$ & $0$ \\ \hline
+$0$ & & & \\
+$0$ & & $Q$ & \\
+$0$ & & & \\ \hline
+\end{tabular}
+& $\cdot$ &
+\begin{tabular}{| c | c c c |} \hline
+$A_{11}$ & $A_{12}$ & $A_{13}$ & $A_{14}$ \\ \hline
+$A_{21}$ & & & \\
+$A_{31}$ & & $\pderivada{\vb{A}}$ & \\
+$A_{41}$ & & & \\ \hline
+\end{tabular}
+& $\cdot$ &
+\begin{tabular}{| c | c c c |} \hline
+$1$ & $0$ & $0$ & $0$ \\ \hline
+$0$ & & & \\
+$0$ & & $Q$ & \\
+$0$ & & & \\ \hline
+\end{tabular} = 
+\end{tabular} }
+\end{frame}
+\begin{frame}
+\frametitle{Transformación para otra matriz}
+\scalebox{0.9}{
+= \begin{tabular}{| c | c c c |} \hline
+$A_{11}$ & $-k$ & $0$ & $0$ \\ \hline
+$-k$ & & & \\
+$0$ & & $\vb{Q} \pderivada{\vb{A}} \vb{Q}$ & \\
+$0$ & & & \\ \hline
+\end{tabular}}
+\\
+La segunda fila y columna de $\vb{A}$ se reducen a continuación aplicando la transformación a la parte inferior derecha de $3 \times 3$ de la matriz.
+\end{frame}
+\begin{frame}
+\frametitle{Denotando la transformación}
+Esta transformación puede expresarse como $\vb{A} \leftarrow \vb{P}_{2} \, \vb{A} \, \vb{P}_{2}$, donde ahora:
+\pause
+\begin{align}
+\vb{P}_{2} =
+\begin{bmatrix}
+\vb{I}_{2} & \vb{0}^{T} \\
+\vb{0} & \vb{Q}
+\end{bmatrix}
+\label{eq:ecuacion_09_42}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Identificando un componente}
+En la ec. (\ref{eq:ecuacion_09_42}) $\vb{I}_{2}$ es una matriz identidad de $2 \times 2$ y $\vb{Q}$ es una matriz de $(n - 2) \times (n - 2)$ construida eligiendo para $\vb{x}$ los $n - 2$ elementos inferiores de la segunda columna de $\vb{A}$.
+\end{frame}
+\begin{frame}
+\frametitle{Número de transformaciones}
+Se necesita un total de $n - 2$ transformaciones con:
+\pause
+\begin{align*}
+\vb{P}_{i} =
+\begin{bmatrix}
+\vb{I}_{i} & \vb{0}^{T} \\
+\vb{0} & \vb{Q}
+\end{bmatrix} \hspace{1cm} i = 1, 2, \ldots, n - 2
+\end{align*}
+para alcanzar la forma tridiagonal.
+\end{frame}
+\begin{frame}
+\frametitle{Desventaja en el procedimiento}
+Es un desperdicio formar $\vb{P}_{i}$ y luego realizar la multiplicación de matrices $\vb{P}_{i} \vb{A} \vb{P}_{i}$.
+\end{frame}
+\begin{frame}
+\frametitle{titulo}
+Notamos que:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+\pderivada{\vb{A}} \, \vb{Q} &= \pderivada{\vb{A}} \left( \vb{I} - \dfrac{\vb{u} \vb{u}^{T}}{H} \right) = \\ \pause
+&= \pderivada{\vb{A}} - \dfrac{\pderivada{\vb{A}} \vb{u}}{H} \, \vb{u}^{T} = \\ \pause
+&= \pderivada{\vb{A}} - \vb{v} \vb{u}^{T}
+\end{aligned}
+\end{eqnarray*}
+\pause
+donde:
+\begin{align}
+\vb{v} = \dfrac{\pderivada{\vb{A}} \vb{u}}{H}
+\label{eq:ecuacion_09_43}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado importante}
+Por lo que:
+\begin{eqnarray*}
+\begin{aligned}
+\vb{Q} \pderivada{\vb{A}} \vb{Q} &= \left( \vb{I} - \dfrac{\vb{u} \vb{u}^{T}}{H} \right) \big( \pderivada{\vb{A}} - \vb{v} \vb{u}^{T} \big) = \\[0.3em] \pause
+&= \pderivada{\vb{A}} - \vb{v} \vb{u}^{T} - \dfrac{\vb{u} \vb{u}^{T}}{H} \left( \pderivada{\vb{A}} - \vb{v} \vb{u}^{T} \right) = \\[0.3em] \pause
+&= \pderivada{\vb{A}} - \vb{v} \vb{u}^{T} - \dfrac{\vb{u} ( \vb{u}^{T} \pderivada{\vb{A}})}{H} + \dfrac{\vb{u} ( \vb{u}^{T} \vb{v}) \vb{u}^{T}}{H} = \\[0.35em] \pause
+&= \pderivada{\vb{A}} - \vb{v} \vb{u}^{T} - \vb{u} \vb{v}^{T} + 2 \, g \vb{u} \vb{u}^{T}
+\end{aligned}
+\end{eqnarray*}
+\pause
+Donde:
+\pause
+\begin{align}
+g = \dfrac{\vb{u}^{T} \vb{v}}{2 \, H}
+\label{eq:ecuacion_09_44}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Nuevos términos}
+Haciendo que:
+\pause
+\begin{align}
+\vb{w} =  \vb{v} - g \, \vb{u}
+\label{eq:ecuacion_09_45}
+\end{align}
+\pause
+se verifica fácilmente que la transformación se puede escribir como:
+\pause
+\begin{align}
+\vb{Q} \, \pderivada{\vb{A}} \, \vb{Q} = \pderivada{\vb{A}} - \vb{W} \vb{u}^{T} - \vb{u} \vb{w}^{T}
+\label{eq:ecuacion_09_46}
+\end{align}
+lo que nos da el siguiente procedimiento computacional que se llevará a cabo con $i = 1, 2, \ldots, n - 2$:
+\end{frame}
+\begin{frame}
+\frametitle{Pseudocódigo para la transformación}
+\begin{tcolorbox}[colback=melon, title=Procedimiento para la reducción]
+Hacer con $i = 1, 2, \ldots, n - 2$: \\ \pause
+\hspace{1cm} Sea $\pderivada{\vb{A}}$ la $(n - i) \times (n - i)$ parte inferior derecha de $\vb{A}$. \\ \pause
+\hspace{1cm} Sea 
+\[ \vb{x} = \big[ A_{i+1, i} \quad A_{i+2, i} \quad \ldots A_{n, i} \big]^{T} \]
+la columna de longitud $n-1$ a la izquierda de $\pderivada{\vb{A}}$. \\ \pause
+\hspace{1cm} Calcular $\abs{\vb{x}}$. Sea $k = \abs{\vb{x}}$ si $x_{1} > 0$ y $k = - \abs{\vb{x}}$ si $x_{1} < 0$.
+
+Esta elección de signo minimiza el error por redondeo.
+\end{tcolorbox}
+\end{frame}
+\begin{frame}
+\frametitle{Pseudocódigo para la transformación}
+\begin{tcolorbox}[colback=melon]
+\hspace{1cm} Sea 
+\[ \vb{u} = \big[ k + x_{1} \quad x_{2} \quad x_{3} \ldots x_{n-i} \big]^{T} \] \pause
+\hspace{1cm} Calcular $H = \abs{x}/2$. \\ \pause
+\hspace{1cm} Calcular $\vb{v} = \pderivada{\vb{A}} \, \vb{u} / H$. \\ \pause
+\hspace{1cm} Calcular $g = \vb{u}^{T} \, \vb{v} / (2 \, H)$ 
+\end{tcolorbox}
+\end{frame}
+\begin{frame}
+\frametitle{Pseudocódigo para la transformación}
+\begin{tcolorbox}[colback=melon]
+\hspace{1cm} Calcular $\vb{w} = \vb{v} - g \, \vb{u}$ \\ \pause
+\hspace{1cm} Calcular la transformación:
+\[ \pderivada{\vb{A}} \leftarrow \pderivada{\vb{A}} - \vb{w}^{T} \, \vb{u} - \vb{u}^{T} \, \vb{w} \] \pause
+\hspace{1cm} Se deja que:
+\[ A_{i, i+1} = A_{i+1, i} = - k \]
+\end{tcolorbox}
+\end{frame}
+
+\subsection{Transformación acumulada}
+
+\begin{frame}
+\frametitle{De los eigenvalores}
+Debido a que usamos transformaciones de similitud, los eigenvalores de la matriz tridiagonal son los mismos que los de la matriz original.
+\end{frame}
+\begin{frame}
+\frametitle{De los eigenvectores}
+Sin embargo, para determinar los eigenvectores $\vb{X}$ de la matriz original $\vb{A}$ debemos usar la transformación:
+\pause
+\begin{align*}
+\vb{X} = \vb{P} \, \vb{X}_{\text{tridiag}}
+\end{align*}
+\pause
+donde $\vb{P}$ es la acumulación de las transformaciones individuales:
+\pause
+\begin{align*}
+\vb{P} = \vb{P}_{1} \, \vb{P}_{2} \, \ldots , \vb{P}_{n-2}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{La matriz acumulada}
+Construimos la matriz de transformación acumulada inicializando $\vb{P}$ a una matriz identidad de $n \times n$ y luego aplicando la transformación:
+\pause
+\renewcommand{\arraystretch}{1}
+\begin{align}
+\vb{P} \leftarrow \vb{P} \, \vb{P}_{i} =
+\begin{bmatrix}
+P_{11} & P_{12} \\
+P_{21} & P_{22}
+\end{bmatrix}
+\begin{bmatrix}
+\vb{I}_{i} & \vb{0}^{T} \\
+\vb{0} & \vb{Q}
+\end{bmatrix} =
+\begin{bmatrix}
+P_{11} & P_{12} \vb{Q} \\
+P_{21} & P_{22} \vb{Q}
+\end{bmatrix}
+\label{eq:ecuacion_b}
+\end{align}
+con $i = 1, 2, \ldots, n - 2$
+\end{frame}
+\begin{frame}
+\frametitle{Multiplicando las columnas}
+Se puede ver que cada multiplicación afecta solo a las $n - i$ columnas más a la derecha de $\vb{P}$ (dado que la primera fila de $\vb{P}_{12}$ contiene solo ceros, también se puede omitir en la multiplicación).
+\end{frame}
+\begin{frame}
+\frametitle{Usando notación}
+Usando la notación:
+\pause
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\pderivada{\vb{P}} =
+\begin{bmatrix}
+\vb{P}_{12} \\
+\vb{P}_{22}
+\end{bmatrix}
+\end{align*}
+\pause
+Se tiene que:
+\pause
+\begin{eqnarray}
+\begin{aligned}[b]
+\begin{bmatrix}
+\vb{P}_{12} \vb{Q}\\
+\vb{P}_{22} \vb{Q}
+\end{bmatrix}
+&= \pderivada{\vb{P}} \vb{Q} = \pderivada{\vb{P}} \left( \vb{I} - \dfrac{\vb{u} \vb{u}^{T}}{H} \right) = \\[0.5em] \pause
+&= \pderivada{\vb{P}} - \dfrac{\pderivada{\vb{P}} \vb{u}}{H} \, \vb{u}^{T} = \\[0.5em] \pause
+&= \pderivada{\vb{P}} - \vb{y} \, \vb{u}^{T}
+\end{aligned}
+\label{eq:ecuacion_09_47}
+\end{eqnarray}
+\end{frame}
+\begin{frame}
+\frametitle{Usando notación}
+Donde:
+\pause
+\begin{align}
+\vb{y} = \dfrac{\pderivada{\vb{P}} \vb{u}}{H}
+\label{eq:ecuacion_09_48}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Pseudocódigo para multiplicar las matrices}
+El procedimiento para realizar la multiplicación de matrices en la ec. (\ref{eq:ecuacion_b}) es como sigue:
+\pause
+\begin{tcolorbox}[colback=platinum, title=Procedimiento para la multiplicación de matrices]
+Recupera $\vb{u}$ (las $\vb{u}$ se almacenan en columnas debajo de la diagonal principal de $\vb{A}$). \\ \pause
+Calcula $H = \abs{\vb{u}} / 2$. \\ \pause
+Calcula $\vb{y} = \pderivada{\vb{P}} \, \vb{u} / H$. \\ \pause
+Calcula la tranformación: $\pderivada{\vb{P}} \leftarrow \pderivada{\vb{P}} - \vb{y} \, \vb{u}^{T}$
+\end{tcolorbox}
+\end{frame}
+
+\subsection{Función \texttt{householder}}
+
+\begin{frame}
+\frametitle{Función en \python}
+La función \funcionazul{householder} reduce una matriz a la forma tridiagonal.
+\\
+\bigskip
+\pause
+Devuelve (\funcionazul{d}, \funcionazul{c}), donde \funcionazul{d} y \funcionazul{c} son vectores que contienen los elementos de la diagonal principal y la subdiagonal, respectivamente.
+\end{frame}
+\begin{frame}
+\frametitle{Cómo opera el código}
+Solo la parte triangular superior se reduce a la forma triangular.
+\\
+\bigskip
+\pause
+La parte debajo de la diagonal principal se usa para almacenar los vectores $\vb{u}$.
+\end{frame}
+\begin{frame}
+\frametitle{Cómo opera el código}
+Esto se hace automáticamente mediante la instrucción \funcionazul{u = a[k+1:n,k]}, que no crea un nuevo objeto \funcionazul{u}, sino que simplemente establece una referencia a \funcionazul{a[k+1:n,k]} (hace una copia).
+\\
+\bigskip
+\pause
+Por lo tanto, cualquier cambio realizado en \funcionazul{u} se refleja en \funcionazul{a[k+1:n,k]}.
+\end{frame}
+\begin{frame}
+\frametitle{Otra función necesaria}
+La función \funcionazul{calculaP} devuelve la matriz de transformación acumulada $\vb{P}$.
+\\
+\bigskip
+\pause
+No es necesario llamarla si solo se van a calcular los eigenvalores.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Función para tridiagonalizar}
+\begin{lstlisting}[caption=Función householder]
+def householder(a):
+    n = len(a)
+    
+    for k in range(n-2):
+        u = a[k+1:n,k]
+        uMag = np.sqrt(np.dot(u,u))
+        
+        if u[0] < 0.0: uMag = -uMag
+        
+        u[0] = u[0] + uMag
+        h = np.dot(u,u)/2.0
+        v = np.dot(a[k+1:n,k+1:n],u)/h
+        g = np.dot(u,v)/(2.0*h)
+        v = v - g * u
+        a[k+1:n,k+1:n] = a[k+1:n,k+1:n] - np.outer(v,u)- np.outer(u,v)
+        a[k,k+1] = -uMag
+        
+    return np.diagonal(a), np.diagonal(a,1)
+\end{lstlisting}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Función para calcular la matriz acumulada}
+\begin{lstlisting}[caption=Función calculaP]
+def calculaP(a):
+        
+    n = len(a)
+    p = np.identity(n) * 1.0
+    
+    for k in range(n-2):
+        u = a[k+1:n,k]
+        h = np.dot(u,u)/2.0
+        v = np.dot(p[1:n,k+1:n],u)/h
+        p[1:n,k+1:n] = p[1:n,k+1:n] - np.outer(v,u)
+    
+    return p
+\end{lstlisting}
+\end{frame}
+
+\subsection{Ejercicios}
+
+\begin{frame}
+\frametitle{Ejercicio 1}
+Transforma la matriz:
+\renewcommand{\arraystretch}{1}
+\begin{align*}
+\vb{A} =
+\begin{bmatrix}
+7 & 2 & 3 & -1 \\
+2 & 8 & 5 & 1 \\
+3 & 5 & 12 & 9 \\
+-1 & 1 & 9 & 7 \\
+\end{bmatrix}
+\end{align*}
+a una forma tridiagonal.
+\end{frame}
+\begin{frame}
+\frametitle{Incisos}
+\setbeamercolor{item projected}{bg=pumpkin,fg=black}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item \textbf{Ejercicio a cuenta:} Realiza las cuentas a mano.
+\item Usa las funciones \funcionazul{householder} y \funcionazul{calculaP}.
+\end{enumerate}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Inciso 2}
+\begin{lstlisting}[caption=Código para resolver el ejercicio]
+from moduloMatrices import householder, calculaP
+import numpy as np
+
+a = # Aqui va el arreglo
+
+d, c = householder(a)
+
+print('Diagonal principal d: \n {0:}'.format(d))
+print('\nSubdiagonal c: \n {0:}'.format(c))
+print('\nMatriz de Transformacion [P]: {0:}')
+print(calculaP(a))
+\end{lstlisting}
+\end{frame}
+
+\end{document}
+

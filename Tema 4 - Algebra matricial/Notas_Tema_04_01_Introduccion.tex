@@ -9,6 +9,8 @@
 \usetikzlibrary{arrows}
 \usepackage{blkarray}
 \input{../Preambulos/preambulo_Beamer_Madrid_whale}
+
+\DeclareSIUnit\megapascal{\mega\pascal}
 \usefonttheme{serif}
 
 \title{\large{Problemas de eigenvalores con matrices simétricas}}
@@ -85,7 +87,7 @@ Las soluciones $x_{i}$ de $(\mathbf{A}- \lambda_{i} \; \mathbf{I}) \mathbf{x} = 
 \end{frame}
 \begin{frame}
 \frametitle{Ejemplo}
-Considermos la matriz:
+Consideremos la matriz:
 \pause
 \begin{align}
 \mathbf{A} = \begin{bmatrix}
@@ -328,7 +330,7 @@ Se puede demostrar que los eigenvalores de $\mathbf{S}$ son las tensiones princi
 \end{frame}
 \begin{frame}
 \frametitle{Solución al problema}
-La ecuación caracerística $\abs{\mathbf{S} - \lambda \, \mathbf{I} = \mathbf{0}}$ es:
+La ecuación característica $\abs{\mathbf{S} - \lambda \, \mathbf{I}} = \mathbf{0}$ es:
 \pause
 \begin{align*}
 \mdet{
@@ -556,7 +558,7 @@ x_{n}^{*}
 Que tiene por soluciones:
 \pause
 \begin{align}
-\lambda_{1} = A_{11}^{*} \hspace{1cm} \lambda_{2} = A_{22}^{*} \hspace{1cm} \lambda_{n} = A_{nn}^{*}
+\lambda_{1} = A_{11}^{*} \hspace{1cm} \lambda_{2} = A_{22}^{*} \hspace{1cm} \ldots \hspace{1cm} \lambda_{n} = A_{nn}^{*}
 \label{eq:ecuacion_09_07}
 \end{align}
 \renewcommand{\arraystretch}{0.85}
@@ -567,14 +569,14 @@ Que tiene por soluciones:
 0 \\
 \vdots \\
 0
-\end{bmatrix} \hspace{1.5cm}
+\end{bmatrix} \hspace{1.25cm}
 \mathbf{x}_{2}^{*} =
 \begin{bmatrix}
 0 \\
 1 \\
 \vdots \\
 0
-\end{bmatrix} \ldots \hspace{1.5cm}
+\end{bmatrix} \hspace{1.25cm} \ldots \hspace{1.25cm}
 \mathbf{x}_{n}^{*} =
 \begin{bmatrix}
 0 \\
@@ -1025,8 +1027,8 @@ def ordenaJacobi(lam, x):
                 index = j
                 val = lam[j]
         if index != i:
-            swap.swapRenglon(lam, i, index)
-            swap.swapColumna(x, i, index)
+            swapRenglon(lam, i, index)
+            swapColumna(x, i, index)
 \end{lstlisting}
 \end{frame}
 \begin{frame}
@@ -1195,7 +1197,7 @@ Tengamos en cuenta que las matrices originales $\mathbf{A}$, $\mathbf{B}$ y $\ma
 \begin{frame}[allowframebreaks, fragile]
 \frametitle{Código para la transformación}
 \begin{lstlisting}[caption=Código para la forma estándar]
-def stdForm(a,b):
+def formaEst(a,b):
 
     def invert(L):
         n = len(L)
@@ -1597,14 +1599,14 @@ a la forma estándar.
 La matriz de esfuerzos en un punto es:
 \renewcommand{\arraystretch}{1}
 \begin{align*}
-\mathbf{S} = 
+\vb{S} = 
 \begin{bmatrix}
 150 & -60 & 0 \\
 -60 & 120 & 0 \\
-0 & 0 & 80 \\
-\end{bmatrix} \, \SI{}{\mega\pascal}
+0 & 0 & 80
+\end{bmatrix} \, \si{\megapascal}
 \end{align*}
-Calcula los esfuerzos principales (los eigenvalores de $\mathbf{S}$).
+Calcula los esfuerzos principales (los eigenvalores de $\vb{S}$).
 \end{frame}
 
 
