@@ -57,7 +57,7 @@ Adicionalmente, no solo se obtiene el eigenvalor, sino también un eigenvector a
 \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
 }
 \begin{enumerate}[<+->]
-\seti
+\conti
 \item El método de la potencia inversa: ocupa la potencia inversa de la matriz y encuentra el mínimo eigenvalor.
 \item El método de la potencia inversa con desplazamiento.
 \end{enumerate}
@@ -206,7 +206,7 @@ Si $\abs{\lambda_{2}}$ está bien separado de $\abs{\lambda_{1}}$, la desigualda
 \\
 \bigskip
 \pause
-Por el contrario, la proximidad de estos dos valores propios da como resultado una convergencia muy lenta.
+Por el contrario, la proximidad de estos dos eigenvalores da como resultado una convergencia muy lenta.
 \end{frame}
 \begin{frame}
 \frametitle{Mejorando la convergencia}
@@ -725,7 +725,7 @@ El resultado que nos devuelve el código, concuerda con la solución analítica:
 \end{frame}
 
 \section{Reducción de Householder}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{Definición}
 
 \begin{frame}
@@ -756,7 +756,7 @@ Una vez que se logra la forma tridiagonal, todavía tenemos que obtener los eige
 Caqda transformación de Householder utiliza la \textbf{\textcolor{drab}{matriz de Houlseholder}}:
 \pause
 \begin{align}
-\vb{Q} = \vb{I} - \dfrac{\vb{u} \, \vb{U}^{T}}{H}
+\vb{Q} = \vb{I} - \dfrac{\vb{u} \, \vb{u}^{T}}{H}
 \label{eq:ecuacion_09_36}
 \end{align}
 \pause
@@ -767,7 +767,7 @@ H = \dfrac{1}{2} \vb{u}^{T} \, \vb{u} = \dfrac{1}{2} \abs{\vb{u}}
 \label{eq:ecuacion_09_37}
 \end{align}
 \pause
-Nótese que $\vb{u} \, \vb{U}^{T}$ en la ec. (\ref{eq:ecuacion_09_36}) es el producto exterior, es decir, una matriz con los elementos $(\vb{u} \vb{u}^{T})_{ij} = u_{i} u_{j}$.
+Nótese que $\vb{u} \, \vb{u}^{T}$ en la ec. (\ref{eq:ecuacion_09_36}) es el producto exterior, es decir, una matriz con los elementos $(\vb{u} \vb{u}^{T})_{ij} = u_{i} u_{j}$.
 \end{frame}
 \begin{frame}
 \frametitle{De la matriz $\vb{Q}$}
@@ -984,7 +984,7 @@ para alcanzar la forma tridiagonal.
 Es un desperdicio formar $\vb{P}_{i}$ y luego realizar la multiplicación de matrices $\vb{P}_{i} \vb{A} \vb{P}_{i}$.
 \end{frame}
 \begin{frame}
-\frametitle{titulo}
+\frametitle{Uso de la matriz $\vb{Q}$}
 Notamos que:
 \pause
 \begin{eqnarray*}

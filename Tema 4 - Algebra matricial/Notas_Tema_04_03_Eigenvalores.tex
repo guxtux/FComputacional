@@ -88,7 +88,7 @@ Si un miembro $P_{i} (a)$ de la sucesión es cero, su signo debe tomarse opuesto
 \\
 \bigskip
 \pause
-Como veremos más adelante, la propiedad de sucesión de Sturm hace posible poner entre paréntesis los valores propios de una matriz tridiagonal.
+Como veremos más adelante, la propiedad de sucesión de Sturm hace posible poner entre paréntesis los eigenvalores de una matriz tridiagonal.
 \end{frame}
 
 \subsection{Función \texttt{sturmSuc}}
@@ -101,9 +101,42 @@ Dados \funcionazul{d}, \funcionazul{c} y $\lambda$, la función \funcionazul{stu
 P_{0} (\lambda), P_{1} (\lambda) , \ldots, P_{n} (\lambda)
 \end{align*}
 \end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código para la función}
+\begin{lstlisting}[caption=La función sturmSuc]
+def sturmSuc(d, c, lam):
+    n = len(d) + 1
+    p = np.ones(n)
+    p[1] = d[0] - lam
+    
+    for i in range(2, n):
+        p[i] = (d[i-1] - lam) * p[i-1] - (c[i-2]**2) * p[i-2]
+    
+    return p
+\end{lstlisting}
+\end{frame}
 \begin{frame}
 \frametitle{La función \texttt{numLambdas}}
-La función \funcionazul{numLambdas} devuelve el número de cambios de signo en la sucesión: \pause como se mencionó anteriormente, esto es igual al número de valores propios que son menores que $\lambda$.
+La función \funcionazul{numLambdas} devuelve el número de cambios de signo en la sucesión: \pause como se mencionó anteriormente, esto es igual al número de eigenvalores que son menores que $\lambda$.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código para la función}
+\begin{lstlisting}[caption=La función numLambdas]
+def numLambdas(p):
+    n = len(p)
+    signAnterior = 1
+    numLam = 0
+    
+    for i in range(1, n):
+        if p[i] > 0.0: sign = 1
+        elif p[i] < 0.0: sign = -1
+        else: sign = -signAnterior
+        
+        if sign * signAnterior < 0: numLam = numLam + 1
+        signAnterior = sign
+    
+    return numLam
+\end{lstlisting}
 \end{frame}
 
 \subsection{Ejercicio 1}
@@ -266,7 +299,7 @@ Con el teorema de Gerschgorin determina la cota para los eigenvalores de la matr
 \begin{align*}
 \vb{A} = 
 \begin{bmatrix}
-4 & 2 & 0 \\
+4 & -2 & 0 \\
 -2 & 4 & -2 \\
 0 & -2 & 5
 \end{bmatrix}
@@ -351,7 +384,7 @@ Establece los paréntesis de los eigenvalores de la matrix $\vb{A}$:
 \begin{align*}
 \vb{A} = 
 \begin{bmatrix}
-4 & 2 & 0 \\
+4 & -2 & 0 \\
 -2 & 4 & -2 \\
 0 & -2 & 5
 \end{bmatrix}
@@ -419,7 +452,7 @@ Por lo tanto:
 
 \begin{frame}
 \frametitle{Una función más}
-La función \textoazul{lambdaRango} pone entre paréntesis los $N$ valores propios más pequeños de una matriz tridiagonal simétrica $\vb{A} = [ \vb{c} \backslash \vb{d} \backslash \vb{c}]$.
+La función \textoazul{lambdaRango} pone entre paréntesis los $N$ eigenvalores más pequeños de una matriz tridiagonal simétrica $\vb{A} = [ \vb{c} \backslash \vb{d} \backslash \vb{c}]$.
 \\
 \bigskip
 \pause
@@ -427,7 +460,7 @@ Devuelve la secuencia $r_{0}, r_{1}, \ldots, r_{N}$, donde cada intervalo $(r_{i
 \end{frame}
 \begin{frame}
 \frametitle{El algoritmo}
-El algoritmo primero encuentra los límites de todos los eigenvalores por el teorema de Gerschgorin
+El algoritmo primero encuentra los límites de todos los eigenvalores por el teorema de Gerschgorin.
 \\
 \bigskip
 \pause
@@ -474,7 +507,6 @@ d[-1] = #
 print(x)
 \end{lstlisting}
 \end{frame}
-
 
 \section{Cálculo de eigenvalores}
 \frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
@@ -523,7 +555,7 @@ Con la función \funcionazul{eigenvalores3} calcula los tres eigenvalores más p
 # Aqui va el codigo ;-)
 
 \end{lstlisting}
-Agrega al inicio de \funcionazul{Ludescomp3} la línea:
+Agrega al inicio de \funcionazul{LUdescomp3} la línea:
 \begin{verbatim}
 c.setflags(write=True)
 \end{verbatim}
@@ -533,7 +565,7 @@ c.setflags(write=True)
 
 \begin{frame}
 \frametitle{Cuando se conoce una aproximación}
-Si se conocen los eigenvalores (los valores aproximados serán lo suficientemente buenos), \pause la mejor manera de calcular los eigenvectores correspondientes es el método de potencia inversa con desplazamiento de valores propios.
+Si se conocen los eigenvalores (los valores aproximados serán lo suficientemente buenos), \pause la mejor manera de calcular los eigenvectores correspondientes es el método de potencia inversa con desplazamiento de eigenvalores.
 \end{frame}
 \begin{frame}
 \frametitle{El método que ya revisamos}
