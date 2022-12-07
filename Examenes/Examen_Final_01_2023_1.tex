@@ -1,0 +1,109 @@
+\input{../Preambulos/preambulo_materiales}
+\usepackage{minted}
+
+\author{M. en C. Gustavo Contreras Mayén. \texttt{gux7avo@ciencias.unam.mx}}
+\title{Examen Final 1 \\ {\large Curso Física Computacional}}
+\date{ }
+\begin{document}
+
+\maketitle
+\fontsize{14}{14}\selectfont
+
+\textbf{Instrucciones: } Resuelve cada ejercicio apoyándote con un código en python. Debes de incluir los correspondientes módulos que ocupes. Dentro de cada archivo con la solución NO deben de incluirse las funciones de módulos. Se recomienda el uso de archivos .py más que notebook de Jupyter.
+\\
+\noindent
+Se ocupará la rúbrica de evaluación que ya conoces.
+
+\begin{enumerate}
+\item Considera la suma finita:
+\begin{align*}
+S^{(1)}_{N}= \nsum^{2N}_{n=1} (-1)^{n} \dfrac{n}{n + 1}
+\end{align*}
+Si sumamos de manera separada los valores impares y los pares de $x$, tendremos dos sumas:
+\begin{align*}
+S^{(2)}_{N}= - \sum^{N}_{n=1} \dfrac{2n-1}{2n} + \sum^{N}_{n=1} \dfrac{2n}{2n+1}
+\end{align*}
+Podemos eliminar la diferencia mediante una combinación entre las dos sumas, quedando de la siguiente manera
+\begin{align*}
+S^{(3)}_{N}=  \sum^{N}_{n=1} \dfrac{1}{2n(2n+1)}
+\end{align*}
+Sabemos que aunque el valor de las tres sumas $S^{(1)}_{N}$, $S^{(2)}_{N}$, $S^{(3)}_{N}$, es el mismo, el resultado númerico puede ser diferente.
+\begin{enumerate}
+\item Escribe un programa que calcule $S^{(1)}_{N}$, $S^{(2)}_{N}$, $S^{(3)}_{N}$.
+\item Supongamos que $S^{(3)}_{N}$ es el valor exacto de la suma. Grafica el error relativo contra el número de términos en la suma (tip: usa una escala log-log). Comienza con $N=1$ hasta $N=1000000$. Describe la gráfica.
+\item Identifica en tu gráfica una región en donde la tendencia es casi lineal, ¿qué representa ésta sección con respecto al error?
+\end{enumerate}
+\item Determina las raíces de las siguientes ecuaciones mediante el método de la falsa posición modificada:
+\begin{enumerate}
+\renewcommand{\arraystretch}{1.5}
+\item $f (x) = 0.5 \, \exp\left(\dfrac{x}{3}\right) - \sin (x); \hspace{1cm} x > 0$
+\item $g (x) = \log(1 + x) - x^{2}$
+\item $f (x) = \exp(x) - 5 \, x^{2}$
+% \item $h (x) = x^{3} + 2 \, x - 1 = 0$
+% \item $f (x) = \sqrt{x + 2}$
+\end{enumerate}
+\item La fórmula de Debye para la capacidad calorífica $C_{V}$ como sólido es $C_{V} = 9 \, N \, k \, g (u)$, donde:
+\begin{align*}
+g (u) = u^{3} \scaleint{6ex}_{\bs 0}^{\frac{1}{u}} \dfrac{x^{4} \exp{x}}{(e^{2} - 1)^{2}} \dd{x}
+\end{align*}
+donde: \\
+$N$ = número de partículas en el sólido. \\
+$k$ = constante de Boltzmann. \\[0.5em]
+$u = \dfrac{T}{\Theta_{D}}$ \\
+$T$ = temperatura absoluta. \\
+$\Theta_{D}$ = temperatura de Debye. \\
+Calcula $g (u)$ de $u = 0$ a $1.0$ en intervalos de $0.05$, grafica los resultados.
+\item Un pico de potencia en un circuito eléctrico da como resultado la corriente:
+\begin{align*}
+i (t) = i_{0} \, \exp\left( - \dfrac{t}{t_{0}} \right) \, \sin \left( \dfrac{2 t}{t_{0}} \right)
+\end{align*}
+que pasa por una resistencia. La energía disipada $E$ por la resistencia es:
+\begin{align*}
+E = \scaleint{6ex}_{\bs 0}^{\infty} R [i (t)]^{2} \dd{t}
+\end{align*}
+Calcula $E$ con $i_{0} = \SI{100}{\ampere}$, $R = \SI{0.5}{\ohm}$ y $t_{0} = \SI{0.01}{\second}$.
+\item Integra los siguientes problemas de $x = 0$ a $20$, grafica $y$ vs. $x$:
+\begin{enumerate}
+\item $\sderivada{y} + 0.5 (y^{2} - 1) + y = 0 \hspace{1cm} y (0) = 1 \hspace{0.5cm} \pderivada{y} (0) = 0$
+\item $\sderivada{y} = y \, \cos 2 x \hspace{1cm} y (0) = 0 \hspace{0.5cm} \pderivada{y} (0) = 1$
+\end{enumerate}
+Estas ecuaciones diferenciales surgen en el análisis de vibraciones no lineales.
+\item En la teoría de propagación de enfermedades contagiosas, se puede utilizar una ED relativamente elemental para predecir el número de individuos infectados de la población en cualquier tiempo, siempre y cuando se hagan las suposiciones de simplificación adecuada. En particular, supongamos que todos los individuos de una población fija tienen la misma probabilidad de infectarese y que una vez infectados permanecen en ese estado. Si con $ x(t)$ denotamos el número de individuos vulnerables en el tiempo $t$ y con $y (t)$ denotamos al número de infectados, podemos suponer razonablemente, que la rapidez con que el número de los infectados cambia es proporcional al producto de $x (t)$ y $y (t)$, por que la rapidez depende del número de individuos infectados y del número de individuos vulnerables que existen en ese tiempo. Si la población es lo suficientemente numerosa para suponer que $x (t)$ y $y (t)$ son variables continuas, podemos expresar el problema como:
+\begin{align*}
+\pderivada{y} (t) = k \, x (t) \, y (t)
+\end{align*}
+donde $k$ es una constante y $x (t) + y (t) = m$ es la población total. Se puede reescribir esta ecuación para que contenga sólo $y (t)$ como:
+\begin{align*}
+\pderivada{y} (t) = k \, \big[ m - y (t) \big] \, y(t)
+\end{align*}
+\begin{enumerate}
+\item Suponiendo que $m = 100000$, $y (0) = 1000$, $k = \num{2d-6}$, y que el tiempo se mide en días, encuentra una aproximación al número de individuos infectados al cabo de $30$ días.
+\item La ED del inciso anterior, se denomina \emph{ecuación de Bernoulli} y puede transformarse en una ED lineal en $u (t) = [ y (t) ]^{-1}$. Usa ese método para encontrar una solución exacta de la ecuación, con los mismos supuestos del inciso anterior; compara el valor verdadero de $y (t)$ con la aproximación dada. ¿Qué es $\displaystyle\lim_{t \rightarrow \infty} y(t)$?
+\item En el ejercicio anterior todos los individuos infectados permanecieron en la población y propagaron la enfermedad. Una respuesta más realista consiste en introducir una tercera variable $z (t)$ que representa el número de personas a quienes en un tiempo dado $t$ se les separa de la población infectada por aislamiento, recuperación y la subsecuente inmunidad o fallecimiento. Esto viene a complicar más el problema, pero se puede demostrar que una solución aproximada está dada por:
+\begin{align*}
+x (t) = x (0) \exp\left[- \dfrac{k_{1}}{k_{2}} \, z(t) \right] \hspace{1cm} y (t) = m - x (t) - z (t)
+\end{align*}
+donde $k_{1}$ es la rapidez de la infección, $k_{2}$ es la rapidez de aislamiento y $z (t)$ se obtiene de la ED:
+\begin{align*}
+\pderivada{z} (t) = k_{2} \left[ m - z (t) - x(0) \, \exp \left( - \dfrac{k_{1}}{k_{2}} \, z (t) \right) \right]
+\end{align*}
+No se conoce un método para resolver directamente este problema, po lo cual es necesario apoyarse con un procedimiento numérico.
+\\
+Obtén una aproximación a $z (30)$, $y (30)$, $x (30)$ suponiendo que \break \hfill $m = 100000$, $x (0) = 99000$, $k_{1} = \num{2d-6}$ y $k_{2} = \num{d-4}$. Para cada uno de los incisos, discute tus resultados.
+\end{enumerate}
+\item Utiliza la primera aproximación por diferencias centrales para transformar el problema de condciones en la frontera en un sistema de ecuaciones simultáneas $\vb{A y} = \vb{b}$, debes de incluir todo el desarrollo. Luego resuelve el problema con el método de diferencias finitas  usando $m = 20$.
+\begin{enumerate}
+% \item $\sderivada{y} = (2 + x) y \hspace{1cm} y (0) = 0 \hspace{0.5cm} \pderivada{y} (1) = 5$
+\item $\sderivada{y} = y + x^{2} \hspace{1cm} y (0) = 0 \hspace{0.5cm} y (1) = 1$
+\item $\sderivada{y} = e^{-x} \, \pderivada{y} \hspace{1cm} y (0) = 1 \hspace{0.5cm} y (1) = 0$
+\end{enumerate}
+\item Considera las siguientes integrales:
+\begin{align*}
+\dfrac{1}{\sqrt{2 \pi}} \scaleint{6ex}_{\bs 0}^{\infty} \exp\left( -\dfrac{x^{2}}{2}\right) \dd{x} &= \dfrac{1}{2} \\[0.5em]
+\dfrac{1}{\sqrt{2 \pi}} \scaleint{6ex}_{\bs 0}^{\infty} x^{4} \, \exp\left( -\dfrac{x^{2}}{2}\right) \dd{x} &= \dfrac{3}{2}
+\end{align*}
+Evalúa las integrales con la técnica de Monte Carlo, aplicando un muestreo uniforme. Considera que  los números de puntos de muestreo van desde $n = 250$ a $\num{d5}$. Grafica las estimaciones de las integrales y el error relativo asociado.
+\item Utilizando el método de Monte Carlo, calcula el volumen de un hemisferio de radio $1$.
+\end{enumerate}
+
+\end{document}

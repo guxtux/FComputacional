@@ -1,0 +1,26 @@
+\input{../Preambulos/preambulo_materiales}
+\usepackage{minted}
+
+\author{M. en C. Gustavo Contreras Mayén. \texttt{gux7avo@ciencias.unam.mx}}
+\title{Examen Tema 5 - Métodos Monte Carlo \\ {\large Curso Física Computacional}}
+\date{ }
+\begin{document}
+
+\maketitle
+\fontsize{14}{14}\selectfont
+
+\textbf{Instrucciones: } Resuelve cada ejercicio apoyándote con un código en python. Debes de incluir los correspondientes módulos que ocupes. Dentro de cada archivo con la solución NO deben de incluirse las funciones de módulos. Se recomienda el uso de archivos .py más que notebook de Jupyter.
+\\
+\noindent
+Se ocupará la rúbrica de evaluación que ya conoces.
+
+\begin{enumerate}
+\item Considera las siguientes integrales:
+\begin{align*}
+\dfrac{1}{\sqrt{2 \pi}} \scaleint{6ex}_{\bs 0}^{\infty} \exp\left( -\dfrac{x^{2}}{2}\right) \dd{x} &= \dfrac{1}{2} \\[0.5em]
+\dfrac{1}{\sqrt{2 \pi}} \scaleint{6ex}_{\bs 0}^{\infty} x^{4} \, \exp\left( -\dfrac{x^{2}}{2}\right) \dd{x} &= \dfrac{3}{2}
+\end{align*}
+Evalúa las integrales con la técnica de Monte Carlo, aplicando un muestreo uniforme. Considera que  los números de puntos de muestreo van desde $n = 250$ a $\num{d5}$. Grafica las estimaciones de las integrales y el error relativo asociado.
+\item Utilizando el método de Monte Carlo, calcula el volumen de un hemisferio de radio $1$.
+\end{enumerate}
+\end{document}
