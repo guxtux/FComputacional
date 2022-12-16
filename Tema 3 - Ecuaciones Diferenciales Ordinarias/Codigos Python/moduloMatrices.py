@@ -5,7 +5,6 @@
 @author: gustavo
 """
 
-from 
 import numpy as np
 from random import random
 
@@ -241,3 +240,14 @@ def potenciaInversa(a, s, tol=1.0e-6):
             return s + sign/xMag, x
     print('El método de la potencia inversa no converge')  
         
+def eigenvals3(d,c,N):
+
+    def f(x):             # f(x) = |[A] - x[I]|
+        p = sturmSeq(d,c,x)
+        return p[len(p)-1]
+
+    lam = zeros(N)
+    r = lamRange(d,c,N)   # Bracket eigenvalues
+    for i in range(N):    # Solve by Brent's method
+        lam[i] = ridder(f,r[i],r[i+1])
+    return lam   
