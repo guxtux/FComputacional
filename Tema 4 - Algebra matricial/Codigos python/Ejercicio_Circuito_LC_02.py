@@ -15,7 +15,7 @@ a = array([[ 2, -1, 0, 0], \
            [-1, 2, -1, 0], \
            [ 0, -1, 2, -1], \
            [ 0, 0, -1, 2]])*1.0
-    
+
 for i in range(4): # Form matrix [H} of std. problem
     for j in range(4):
         a[i,j] = a[i,j]/(beta[i]*beta[j])
