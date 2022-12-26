@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿Apellido,Apellido 2,Nombre,Cuenta,P_Exámenes,Aporta_Examenes,Entrega_Ejercicios,Aporta_Ejercicios,Promedio,Campana,Calificación
 Anaya,Ramos,Joao Alejandro,310024244,0.00,0.00,0,0.00,0.00,0.00,NP
 Becerril,Hernández,Gustavo,419002880,0.98,0.06,14.6,0.12,1.80,2.48,Final
@@ -15,4 +16,23 @@ Muabi,Lara,Alide,315321971,8.34,0.54,29.5,0.23,7.77,8.45,8.00
 Pérez,Benítez,Daniel,317662317,9.01,0.59,35.5,0.28,8.68,9.36,9.00
 Sánchez,Almaguer,Uriel Yafté,317086285,6.89,0.45,35.5,0.28,7.30,7.99,Monte Carlo
 Sotelo,Hérnandez,Emily Ariadna,313640195,0.00,0.00,0,0.00,0.00,0.00,NP
+=======
+﻿Apellido,Apellido 2,Nombre,Cuenta,P_Exámenes,Aporta_Examenes,Entrega_Ejercicios,Aporta_Ejercicios,Promedio,Campana,Calificación
+Anaya,Ramos,Joao Alejandro,310024244,0.00,0.00,0,0.00,0.00,0.00,NP
+Becerril,Hernández,Gustavo,419002880,0.98,0.06,14.6,0.12,1.80,2.48,Final
+Candelas,Juárez,Diego,418002296,0.00,0.00,1,0.01,0.08,0.76,NP
+Castillo,Martínez,Víctor Enrique,312159083,0.00,0.00,9,0.07,0.72,1.40,NP
+de los Santos,Moreno,Sergio Alejandro,315512890,9.64,0.63,38.4,0.31,9.32,10.00,10.00
+Díaz,Félix,Héctor Gabriel,314286417,9.14,0.59,33,0.26,8.56,9.25,9.00
+Dufoo,Barrios,Julio Alejandro,316318451,4.82,0.31,36.5,0.29,6.04,6.72,Final
+Floriano,Figueroa,Edson,314148728,6.29,0.41,27,0.21,6.23,6.92,Monte Carlo
+Hernández,Romero,Alan Alejandro,315041787,8.17,0.53,34.3,0.27,8.04,8.72,9.00
+Juárez,Villegas,José Angel,316180287,0.79,0.05,0,0.00,0.51,1.19,5.00
+Mayorquin,Galicia,Antonio,420004509,2.22,0.14,25,0.20,3.43,4.12,Final
+Medel,Garduño,Diego,317144248,7.22,0.47,37.8,0.30,7.70,8.38,8.00
+Muabi,Lara,Alide,315321971,8.34,0.54,29.5,0.23,7.77,8.45,8.00
+Pérez,Benítez,Daniel,317662317,9.01,0.59,35.5,0.28,8.68,9.36,9.00
+Sánchez,Almaguer,Uriel Yafté,317086285,6.89,0.45,35.5,0.28,7.30,7.99,Monte Carlo
+Sotelo,Hérnandez,Emily Ariadna,313640195,0.00,0.00,0,0.00,0.00,0.00,NP
+>>>>>>> Stashed changes
 Uribe,Jiménez,Bruno Iakov,317073030,8.67,0.56,36.4,0.29,8.53,9.21,9.00
