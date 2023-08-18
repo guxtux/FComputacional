@@ -7,16 +7,106 @@
 
 \title{Tema 0 - Introducción a python 1}
 \author{M. en C. Gustavo Contreras Mayén}
-\date{16 de agosto de 2022}
+\date{16 de agosto de 2023}
+
+\fontsize{14}{14}\selectfont
+\spanishdecimal{.}
 
 \begin{document}
 \maketitle
 
 \section*{Contenido}
 \frame[allowframebreaks]{\tableofcontents[currentsection, hideallsubsections]}
-\fontsize{14}{14}\selectfont
-\spanishdecimal{.}
 
+\section{Uso del equipo en aula}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Claves de acceso}
+
+\begin{frame}
+\frametitle{Al encender el equipo}
+Se usará la distrubución de Fedora (linux), una vez cargado el inicio, hay que seleccionar el siguiente usuario:
+\end{frame}
+\begin{frame}
+\frametitle{Usuario de trabajo}
+Usuario: \textbf{est5}
+\\
+\bigskip
+\pause
+Contraseña: \textbf{est536WMM}
+\end{frame}
+\begin{frame}
+\frametitle{El equipo en sesión}
+Una vez que ya tengamos la sesión abierta, manejaremos algunos comandos básicos de linux para nuestro próposito.
+\end{frame}
+\begin{frame}
+\frametitle{Abriendo Anaconda}
+Para lanzar Anaconda, hay dos opciones:
+\pause
+\setbeamercolor{item projected}{bg=bananayellow,fg=ao}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Mover el ratón a la esquina superior izquierda de la pantalla.
+\item Presionar la tecla Super (Windows)
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ventana de búsqueda}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.3]{Imagenes/Fedora_01.png}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Ventana de búsqueda}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.3]{Imagenes/Fedora_02.png}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Escribir el nombre}
+En ambos casos se abrirá una ventana de búsqueda en donde anotaremos el nombre de nuestra aplicación: \textocolor{cadmiumgreen}{Anaconda}, para luego presionar Enter.
+\end{frame}
+\begin{frame}
+\frametitle{Anaconda Navigator}
+Tendremos disponible la suite \textocolor{cobalt}{Anaconda Navigator}.
+\end{frame}
+\begin{frame}
+\frametitle{Anaconda Navigator}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{Imagenes/Anaconda_01.png}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Programas disponibles}
+En Anaconda Navigator tendremos disponibles:
+\pause
+\setbeamercolor{item projected}{bg=lava,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item \textocolor{ao}{jupyter}.
+\item \textocolor{red}{Qt Console}.
+\item \textocolor{byzantine}{Spyder}.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Qt Console}
+Seleccionamos \textocolor{red}{Qt Console} para iniciar esta parte de repaso con python.
+\end{frame}
+\begin{frame}
+\frametitle{Qt Console}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.65]{Imagenes/Anaconda_02.png}
+\end{figure}
+\end{frame}
 
 \section{python como una calculadora}
 \frame{\tableofcontents[currentsection, hideothersubsections]}
@@ -551,6 +641,8 @@ Pero conforme avancemos en el contenido del curso, los recursos de memoria será
 \begin{frame}[fragile]
 \frametitle{Manejando números de punto flotante}
 \begin{lstlisting}[caption=Ejemplo con datos de punto flotante]
+velocidad = 10.37
+
 print(velocidad**2)
 \end{lstlisting}
 \end{frame}
