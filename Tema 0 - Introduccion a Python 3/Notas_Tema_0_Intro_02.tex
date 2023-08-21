@@ -7,17 +7,17 @@
 
 \title{Tema 0 - Introducción a python 2}
 \author{M. en C. Gustavo Contreras Mayén}
-\date{16 de agosto de 2022}
+\date{21 de agosto de 2023}
 
 \begin{document}
 
 \maketitle
 
 \section*{Contenido}
-\frame[allowframebreaks]{\tableofcontents[currentsection, hideallsubsections]}
+\frame[allowframebreaks]{\frametitle{Contenido}\tableofcontents[currentsection, hideallsubsections]}
 
 \section{Colecciones}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\frametitle{Contenido}\tableofcontents[currentsection, hideothersubsections]}
 \subsection{Definición}
 
 \begin{frame}
@@ -44,7 +44,7 @@ Ahora presentaremos los tipos de colecciones que se manejan en este lenguaje:
 
 \begin{frame}
 \frametitle{Las listas en \python}
-Las listas son el tipo de dato más versátil de los datos compuestos de \python.
+Las \textocolor{cadmiumgreen}{listas} son el tipo de dato más versátil de los datos compuestos de \python.
 \\
 \bigskip
 Una lista contiene elementos separados por comas y entre corchetes $[ \quad ]$.
@@ -54,7 +54,7 @@ Una lista contiene elementos separados por comas y entre corchetes $[ \quad ]$.
 En cierta medida, las listas son similares a los arreglos (arrays) o vectores.
 \\
 \bigskip
-Un punto importante de las listas: \pause es que \textbf{todos los elementos pertenecientes a una lista pueden ser de tipo de datos diferente}.
+Un punto importante de las listas: \pause es que \textocolor{ao}{todos los elementos pertenecientes a una lista pueden ser de tipo de datos diferente}.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Ejemplos con listas}
@@ -72,7 +72,7 @@ print(lista2)
 
 \begin{frame}
 \frametitle{Las listas en \python}
-Los valores almacenados en una lista se recuperan usando la misma técnica de \emph{slicing} que vimos con las cadenas: \pause $[ \: ]$ y $[:]$, \pause donde los índices van desde  $0$ hasta el   $n - 1$.
+Los valores almacenados en una lista se recuperan usando la misma técnica de \textocolor{red}{slicing} que vimos con las cadenas: \pause $[ \: ]$ y $[:]$, \pause donde los índices van desde  $0$ hasta el   $n - 1$.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Manejando las listas}
@@ -86,19 +86,21 @@ print(lista1[2:4])
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Operaciones con las listas 2}
-También se ocupan las operaciones de \emph{concatenación} ($+$) \pause y repetición en las listas ($*$):
+También se ocupan las operaciones de \textocolor{byzantine}{concatenación} ($+$) \pause y repetición en las listas ($*$):
 \pause
 \begin{lstlisting}[caption=Concatenación y repetición de listas]
 print(lista1 + lista2)
 print()
 print(lista2*2)
 \end{lstlisting}
-\pause
+\end{frame}
+\begin{frame}
+\frametitle{Operaciones con las listas 2}
 Toma en cuenta que el resultado permanece en la memoria de la computadora hasta que se cierre el programa, no se está asignando a una variable.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Agregar elementos a una lista}
-Las listas en \python{} son los únicos objetos en los que podemos agregar nuevos elementos (son \textbf{mutables}), para ello hay que utilizar la función \textoazul{append}:
+Las listas en \python{} son los únicos objetos en los que podemos agregar nuevos elementos (son \textocolor{carmine}{mutables}), para ello hay que utilizar la función \textocolor{blue}{append}:
 \pause
 \begin{lstlisting}[caption=Agregando un elemento a la lista]
 lista1.append(654.321)
@@ -134,7 +136,7 @@ print(lista1)
 
 \begin{frame}
 \frametitle{Las tuplas en \python}
-Una tupla es otro tipo de datos de secuencia que es similar a la lista.
+Una \textocolor{cobalt}{tupla} es otro tipo de datos de secuencia que es similar a la lista.
 \\
 \bigskip
 \pause
@@ -244,19 +246,19 @@ AttributeError: 'tuple' object has no
 
 \begin{frame}
 \frametitle{Diccionarios}
-Los diccionarios de \python{} son de tipo tabla-hash.
+Los \textocolor{blue-violet}{diccionarios} de \python{} son de tipo tabla-hash.
 \\
 \bigskip
 \pause
-Funcionan como matrices asociativas y consisten en pares \emph{\textcolor{cadmiumred}{llave} - \textcolor{cadmiumgreen}{valor}}.
+Funcionan como matrices asociativas y consisten en pares \textocolor{cadmiumred}{llave} - \textocolor{cadmiumgreen}{valor}.
 \end{frame}
 \begin{frame}
 \frametitle{Elementos del diccinario}
-La \emph{\textcolor{cadmiumred}{llave}} del diccionario puede ser casi de cualquier tipo de dato, pero suelen ser comúnmente números o cadenas.
+La \textocolor{cadmiumred}{llave} del diccionario puede ser casi de cualquier tipo de dato, pero suelen ser comúnmente números o cadenas.
 \\
 \bigskip
 \pause
-El \textcolor{cadmiumgreen}{valor}, por otra parte, puede ser cualquier tipo de objeto arbitrario de \python.
+El \textocolor{cadmiumgreen}{valor}, por otra parte, puede ser cualquier tipo de objeto arbitrario de \python.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Escribir un diccionario}
@@ -306,12 +308,12 @@ Recordemos que este cambio solo queda en memoria, ya que no se ha asignado a una
 \end{frame}
 
 \section{Identificadores en python}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{Reglas para los identificadores}
 
 \begin{frame}
 \frametitle{Reglas para los identificadores}
-Los identificadores son nombres que hacen referencia a los objetos que componen un programa: \textbf{constantes}, \textbf{variables}, \textbf{funciones}, \textbf{módulos}, \textbf{clases} etc.
+Los identificadores son nombres que hacen referencia a los objetos que componen un programa: \textocolor{burgundy}{constantes}, \textocolor{bulgarianrose}{variables}, \textocolor{burntorange}{funciones}, \textocolor{cadmiumred}{módulos}, \textocolor{cardinal}{clases} etc.
 \end{frame}
 \begin{frame}
 \frametitle{Reglas para los identificadores}
@@ -354,7 +356,7 @@ def & finally & in & print & del \\ \hline
 \end{frame}
 
 \section{Estructuras de control}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{¿Qué son las estructuras de control?}
 
 \begin{frame}
@@ -384,7 +386,7 @@ Revisaremos las siguientes estructuras:
 
 \begin{frame}
 \frametitle{Los condicionales}
-Una estructura condicional inicialmente evalúa si una o más condiciones cumplen con un valor \textoazul{\texttt{True}}.
+Una estructura condicional inicialmente evalúa si una o más condiciones cumplen con un valor \textocolor{blue}{True}.
 \\
 \bigskip
 \pause
@@ -392,7 +394,7 @@ Si la condición (o condiciones) se cumplen, entonces pasa a un bloque de instru
 \end{frame}
 \begin{frame}
 \frametitle{Los condicionales}    
-En caso de que el valor de la condición (o condiciones) no se cumpla, \pause es decir, tienen un valor \textcolor{red}{\texttt{False}}, \pause no se pasa al bloque con las instrucciones contenidas.
+En caso de que el valor de la condición (o condiciones) no se cumpla, \pause es decir, tienen un valor \textocolor{red}{False}, \pause no se pasa al bloque con las instrucciones contenidas.
 \\
 \bigskip
 \pause
@@ -403,7 +405,7 @@ Se ejecuta la siguiente línea de código fuera del condicional.
 
 \begin{frame}[fragile]
 \frametitle{El condicional if}
-El condicional \funcionazul{if} requiere de una expresión inicial que va a evaluar, como ya se mencionó, en caso de que no se cumpla el valor \textoazul{\texttt{True}}, no se ejecutan las instrucciones contenidas.
+El condicional \funcionazul{if} requiere de una expresión inicial que va a evaluar, como ya se mencionó, en caso de que no se cumpla el valor \textocolor{blue}{True}, no se ejecutan las instrucciones contenidas.
 \begin{verbatim}
 if expresion:
     instruccion1
@@ -431,11 +433,11 @@ print(distancia/tiempo)
 
 \begin{frame}
 \frametitle{El condicional if-else:}
-Cuando tenemos un condicional con \funcionazul{if} y la expresión que se evalúa tiene un valor \textcolor{red}{False}, sabemos que saldrá del bloque condicional.
+Cuando tenemos un condicional con \funcionazul{if} y la expresión que se evalúa tiene un valor \textocolor{red}{False}, sabemos que saldrá del bloque condicional.
 \\
 \bigskip
 \pause
-Pero si queremos que se ejecute otro bloque de instrucciones a pesar de que al inicio la expresión evaluada sea \textcolor{red}{False}, \pause recurrimos a la instrucción \funcionazul{else:}, por lo que se ejecutan las instrucciones contenidas dentro de este bloque.
+Pero si queremos que se ejecute otro bloque de instrucciones a pesar de que al inicio la expresión evaluada sea \textocolor{red}{False}, \pause recurrimos a la instrucción \funcionazul{else:}, por lo que se ejecutan las instrucciones contenidas dentro de este bloque.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{El condicional \texttt{if-else:}}
@@ -490,7 +492,7 @@ La \texttt{expresion1} no se cumple, por lo que se pasa a la siguiente línea.
 \\
 \bigskip
 \pause
-Si \texttt{expresion2} devuelve un valor \textoazul{\texttt{True}}, entonces se ejecutan las instrucciones contenidas en ese bloque.
+Si \texttt{expresion2} devuelve un valor \textocolor{blue}{True}, entonces se ejecutan las instrucciones contenidas en ese bloque.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Ejemplo de condicional if-elif}
@@ -546,7 +548,7 @@ En el ejemplo anterior la función \funcionazul{input}, permite el ingreso de da
 \\
 \bigskip
 \pause
-Todo aquel valor que se introduce, se toma como una \emph{cadena}, por ello se utiliza la función \funcionazul{int ()} para convertirla a un tipo de dato entero.
+Todo aquel valor que se introduce, se toma como una \textocolor{carnelian}{cadena}, por ello se utiliza la función \funcionazul{int ()} para convertirla a un tipo de dato entero.
 \end{frame}
 
 \subsection{Bucles o Loops}
@@ -841,13 +843,14 @@ SyntaxError: invalid syntax
 \end{frame}
 \begin{frame}
 \frametitle{Información del error}
-\fontsize{13}{13}\selectfont
 El intérprete de \python{} indica la línea \emph{culpable} y muestra una pequeña \enquote{marca} que apunta al lugar donde se detectó el error.
-\\
-\bigskip
+\end{frame}
+\begin{frame}
+\frametitle{Información del error}
 Este es causado por (o al menos detectado en) el símbolo que precede a la flecha: en el ejemplo, el error se detecta en la función \azulfuerte{print()}, ya que faltan dos puntos \azulfuerte{(:)} antes del mismo.
-\\
-\bigskip
+\end{frame}
+\begin{frame}
+\frametitle{Información del error}
 Se muestran el nombre del archivo y el número de línea para que sepas dónde mirar en caso de que la entrada venga de un programa.    
 \end{frame}
 \begin{frame}
@@ -983,147 +986,147 @@ if not type(x) is int:
 \item \textoazul{IOError}: Error en una operación de entrada/salida.
 \end{enumerate}
 \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Manejando excepciones}
-% Es posible escribir programas que manejen determinadas excepciones. 
-% \\
-% \bigskip
-% En el siguiente ejemplo, se le pide al usuario una entrada hasta que ingrese un entero válido, pero permite al usuario interrumpir el programa (usando \keys{\ctrl} + \keys{C}) o lo que sea que el sistema operativo soporte)
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Manejando excepciones}
-% \begin{lstlisting}
-% while True:
-%     try:
-%         x = int(input("Por favor ingrese un numero: "))
-%         break
-%     except ValueError:
-%         print("Oops! No era valido. Intente nuevamente...")
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}
-% \frametitle{La declaración \texttt{try}}
-% La declaración try funciona de la siguiente manera:
-% \begin{itemize}[<+->]
-% \item Primero, se ejecuta el bloque \azulfuerte{try} (el código entre las declaración \azulfuerte{try} y \azulfuerte{except}).
-% \item  Si no ocurre ninguna excepción, el bloque \azulfuerte{except} se salta y termina la ejecución de la declaración \azulfuerte{try}.
-% \end{itemize}
-% \end{frame}
-% \begin{frame}
-% \frametitle{La declaración \texttt{try}}
-% \begin{itemize}[<+->]
-% \item  Si ocurre una excepción durante la ejecución del bloque \azulfuerte{try}, el resto del bloque se salta. Luego, si su tipo coincide con la excepción nombrada luego de la palabra reservada \azulfuerte{except}, se ejecuta el bloque \azulfuerte{except}, y la ejecución continúa luego de la declaración \azulfuerte{try}.
-% \end{itemize}
-% \end{frame}
-% \begin{frame}
-% \frametitle{La declaración \texttt{try}}
-% \begin{itemize}[<+->]
-% \item Si ocurre una excepción que no coincide con la excepción nombrada en el \azulfuerte{except}, esta se pasa a declaraciones \azulfuerte{try} de más afuera; si no se encuentra nada que la maneje, es una \emph{excepción no manejada}, y la ejecución se frena con un mensaje como los mostrados arriba.
-% \end{itemize}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Manejo de excepciones más elaborado}
-% El siguiente código considera un manejo de excepciones por su tipo:
-% \fontsize{12}{11}\selectfont
-% \begin{verbatim}
-% try:
-%     <código suceptible de errores>
-% except <ErrorTipo1>:
-%     <bloque inscrito a ErrorTipo1>
-% except< ErrorTipo2>:
-%     <bloque inscrito a ErrorTipo2>
-% except (<ErrorTipo3>, <ErrorTipo4>):
-%     <bloque inscrito a ErrorTipo3 y ErrorTipo4>
-% except:
-%     <bloque inscrito a except general>
-% \end{verbatim}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Consideraciones sobre la gestión de excepciones}
-% Con la inclusión de las excepciones hemos visto que el programa no se interrumpe cuando existe un error.
-% \\
-% \bigskip
-% Es posible mostrar más información al usuario sobre el tipo de error, recordemos que habrá alguien que ocupe nuestro programa y al contar con más información, podrá resolver la situación.
-% \end{frame}
-% \begin{frame}[allowframebreaks, fragile]
-% \frametitle{Ejemplo}
-% Veamos el siguiente ejemplo (las dos diapositivas contienen el código:
-% \fontsize{11}{10}\selectfont
-% \begin{lstlisting}
-% ocurre_error = False
+\begin{frame}[fragile]
+\frametitle{Manejando excepciones}
+Es posible escribir programas que manejen determinadas excepciones. 
+\\
+\bigskip
+En el siguiente ejemplo, se le pide al usuario una entrada hasta que ingrese un entero válido, pero permite al usuario interrumpir el programa (usando \keys{\ctrl} + \keys{C}) o lo que sea que el sistema operativo soporte)
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejando excepciones}
+\begin{lstlisting}
+while True:
+    try:
+        x = int(input("Por favor ingrese un numero: "))
+        break
+    except ValueError:
+        print("Oops! No era valido. Intente nuevamente...")
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{La declaración \texttt{try}}
+La declaración try funciona de la siguiente manera:
+\begin{itemize}[<+->]
+\item Primero, se ejecuta el bloque \azulfuerte{try} (el código entre las declaración \azulfuerte{try} y \azulfuerte{except}).
+\item  Si no ocurre ninguna excepción, el bloque \azulfuerte{except} se salta y termina la ejecución de la declaración \azulfuerte{try}.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{La declaración \texttt{try}}
+\begin{itemize}[<+->]
+\item  Si ocurre una excepción durante la ejecución del bloque \azulfuerte{try}, el resto del bloque se salta. Luego, si su tipo coincide con la excepción nombrada luego de la palabra reservada \azulfuerte{except}, se ejecuta el bloque \azulfuerte{except}, y la ejecución continúa luego de la declaración \azulfuerte{try}.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{La declaración \texttt{try}}
+\begin{itemize}[<+->]
+\item Si ocurre una excepción que no coincide con la excepción nombrada en el \azulfuerte{except}, esta se pasa a declaraciones \azulfuerte{try} de más afuera; si no se encuentra nada que la maneje, es una \emph{excepción no manejada}, y la ejecución se frena con un mensaje como los mostrados arriba.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Manejo de excepciones más elaborado}
+El siguiente código considera un manejo de excepciones por su tipo:
+\fontsize{12}{11}\selectfont
+\begin{verbatim}
+try:
+    <código suceptible de errores>
+except <ErrorTipo1>:
+    <bloque inscrito a ErrorTipo1>
+except< ErrorTipo2>:
+    <bloque inscrito a ErrorTipo2>
+except (<ErrorTipo3>, <ErrorTipo4>):
+    <bloque inscrito a ErrorTipo3 y ErrorTipo4>
+except:
+    <bloque inscrito a except general>
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Consideraciones sobre la gestión de excepciones}
+Con la inclusión de las excepciones hemos visto que el programa no se interrumpe cuando existe un error.
+\\
+\bigskip
+Es posible mostrar más información al usuario sobre el tipo de error, recordemos que habrá alguien que ocupe nuestro programa y al contar con más información, podrá resolver la situación.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Ejemplo}
+Veamos el siguiente ejemplo (las dos diapositivas contienen el código:
+\fontsize{11}{10}\selectfont
+\begin{lstlisting}
+ocurre_error = False
 
-% try:
-%     numero = float(input('Introduce un numero: '))
-%     print("La raiz cuadrada de numero %f es %f" % (numero, numero ** 0.5))
+try:
+    numero = float(input('Introduce un numero: '))
+    print("La raiz cuadrada de numero %f es %f" % (numero, numero ** 0.5))
 
-% except TypeError as descripcion:
-%     ocurre_error = True
-%     print("Ocurrio un error previsto:", descripcion)
+except TypeError as descripcion:
+    ocurre_error = True
+    print("Ocurrio un error previsto:", descripcion)
 
-% except:
-%     ocurre_error = True
-%     print("!No se que paso!")
+except:
+    ocurre_error = True
+    print("!No se que paso!")
 
-% if ocurre_error:
-%     print("Lastima.")
-% else:
-%     print("Buen dia.")
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejecutando el código}
-% Ahora introducimos algunos valores para revisar la operación del código:
-% \\
-% \bigskip
-% \pause
-% \verb|Introduce un numero: 12|
-% \\
-% \pause
-% \begin{lstlisting}
-% La raiz cuadrada del numero 12.000000 es 3.464102
-% Buen dia.
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejecutando el código}
-% Ahora introducimos un valor que provocará un error:
-% \\
-% \bigskip
-% \pause
-% \verb|Introduce un numero: -6|
-% \\
-% \pause
-% \begin{lstlisting}
-% Ocurrio un error previsto: can't convert complex to float
-% Lastima.
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Ejecutando el código}
-% Ejecutamos nuevamente el código e introducimos un valor que provocará un error:
-% \\
-% \bigskip
-% \pause
-% \verb|Introduce un numero: q|
-% \\
-% \pause
-% \begin{verbatim}
-% No se que paso
-% Lastima.
-% \end{verbatim}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Explicación del resultado}
-% Cuando se introdujo un número negativo $(-1)$, sabíamos que se presentaría un \textcolor{red}{TypeError} ya que no se puede evaluar la raíz cuadrada de un número negativo.
-% \\
-% \bigskip
-% \pause
-% Este tipo de error coincide con el señalado en la sentencia \funcionazul{except}, por lo que se muestra la descripción del error a modo de mensaje.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Explicación del resultado}
-% Mientras que al introducir un caracter (q), el tipo de error no corresponde con \textcolor{red}{TypeError}, por lo que no \enquote{entra} en la primera sentencia \funcionazul{except} y pasa a la siguiente sentencia \funcionazul{except} de tipo general.
-% \end{frame}
+if ocurre_error:
+    print("Lastima.")
+else:
+    print("Buen dia.")
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecutando el código}
+Ahora introducimos algunos valores para revisar la operación del código:
+\\
+\bigskip
+\pause
+\verb|Introduce un numero: 12|
+\\
+\pause
+\begin{lstlisting}
+La raiz cuadrada del numero 12.000000 es 3.464102
+Buen dia.
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecutando el código}
+Ahora introducimos un valor que provocará un error:
+\\
+\bigskip
+\pause
+\verb|Introduce un numero: -6|
+\\
+\pause
+\begin{lstlisting}
+Ocurrio un error previsto: can't convert complex to float
+Lastima.
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ejecutando el código}
+Ejecutamos nuevamente el código e introducimos un valor que provocará un error:
+\\
+\bigskip
+\pause
+\verb|Introduce un numero: q|
+\\
+\pause
+\begin{verbatim}
+No se que paso
+Lastima.
+\end{verbatim}
+\end{frame}
+\begin{frame}
+\frametitle{Explicación del resultado}
+Cuando se introdujo un número negativo $(-1)$, sabíamos que se presentaría un \textcolor{red}{TypeError} ya que no se puede evaluar la raíz cuadrada de un número negativo.
+\\
+\bigskip
+\pause
+Este tipo de error coincide con el señalado en la sentencia \funcionazul{except}, por lo que se muestra la descripción del error a modo de mensaje.
+\end{frame}
+\begin{frame}
+\frametitle{Explicación del resultado}
+Mientras que al introducir un caracter (q), el tipo de error no corresponde con \textcolor{red}{TypeError}, por lo que no \enquote{entra} en la primera sentencia \funcionazul{except} y pasa a la siguiente sentencia \funcionazul{except} de tipo general.
+\end{frame}
 
 
 \end{document}
