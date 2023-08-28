@@ -3,7 +3,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Warsaw_seahorse}
-\usefonttheme{serif}
+%\usefonttheme{serif}
 
 \title{\large{Tema 1 - Errores y artimética de punto flotante}}
 \author{M. en C. Gustavo Contreras Mayén}
@@ -28,8 +28,8 @@ Al concluir el Tema 1, el alumno:
 \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
 }
 \begin{enumerate}[<+->]
-\item Reconocerá el la diferencia entre \textit{error absoluto} y \textit{error relativo}.
-\item Diferenciará los conceptos de: \textit{precisión}, \textit{exactitud}, \textit{condición}, \textit{estabilidad} y \textit{eficiencia}.
+\item Reconocerá la diferencia entre \textocolor{ao}{error absoluto} y \textocolor{carmine}{error relativo}.
+\item Diferenciará los conceptos de: \textocolor{byzantine}{precisión}, \pause \textocolor{cadmiumgreen}{exactitud}, \pause \textocolor{cadmiumred}{condición}, \pause \textocolor{cobalt}{estabilidad} \pause y \textocolor{bole}{eficiencia}.
 \seti
 \end{enumerate}
 \end{frame}
@@ -163,9 +163,9 @@ El desarrollo de las habilidades de programación, están en función del tiempo
 \end{center}
 \end{frame}
 
-\section{Conceptos básicos}
+\section{Computadoras y números}
 \frame[allowframebreaks]{\frametitle{Contenido} \tableofcontents[currentsection, hideothersubsections]}
-\subsection{Computadoras y números}
+\subsection{Conceptos básicos}
 
 \begin{frame}
 \frametitle{Nuestra experiencias usando una computadora}
@@ -289,7 +289,7 @@ En el cálculo numérico con el uso de expresiones artiméticas encontraremos qu
 La pregunta que debemos de responder con un sustento científico y no por apreciación es:
 \pause
 \begin{center}
-    \textoazul{¿Que tan pequeña debe de ser una diferencia mínima?}
+    \textocolor{blue}{¿Que tan pequeña debe de ser una diferencia mínima?}
 \end{center}
 \end{frame}
 \begin{frame}
@@ -309,7 +309,7 @@ Para dar ese sustento a la respuesta, debemos de considerar dos tipos de error:
 \subsection{Error absoluto}
 
 \begin{frame}
-\frametitle{Definición}
+\frametitle{Definición de valor absoluto}
 Hagamos que $x^{*}$ sea la aproximación que tenemos, mientras que $x$ es el valor exacto.
 \\
 \bigskip
@@ -332,7 +332,7 @@ Revisemos el siguiente ejemplo:
 \item Si se aproxima $x = 1000$ con $x^{*} = 999$ \pause $\to E_{\text{abs}} = 1$
 \end{enumerate}
 \pause
-El error absoluto \emph{\textcolor{red}{no nos indica la magnitud}} del problema que tenemos que aproximar. \pause Debemos de ser cuidadosos reportando este tipo de error.
+El error absoluto \textocolor{awesome}{no nos indica la magnitud} del problema que tenemos que aproximar. \pause Debemos de ser cuidadosos reportando este tipo de error.
 \end{frame}
 
 \subsection{Error relativo}
@@ -344,7 +344,7 @@ Para calcular la magnitud del error, ocupemos la siguiente expresión:
 \begin{align*}
 E_{\text{rel}} = \abs{\dfrac{x - x^{*}}{x}}
 \end{align*}
-que nos define el \emph{error relativo}. \pause Cuando se multiplica por 100, tendremos ahora un porcentaje del error.
+que nos define el \textocolor{blue-violet}{error relativo}. \pause Cuando se multiplica por 100, tendremos ahora un porcentaje del error.
 \end{frame}
 \begin{frame}
 \frametitle{Del ejemplo anterior}
@@ -384,8 +384,18 @@ x1 = 3.14
 
 print('El error absoluto de abs(x - x1) es: {0:.5f}'.format(abs(x - x1)))
 print()
-print('El error relativo de abs(x - x1)/x es: {0:.1%}'.format(abs((x - x1)/x)))
+print('El error relativo de abs(x - x1)/x es: {0:1.7e}'.format(abs((x - x1)/x)))
 \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Agrega el siguiente código}
+\begin{lstlisting}[caption=Obteniendo errores absoluto y relativo]
+x2 = 3.1415
+
+print('El error absoluto de abs(x - x2) es: {0:.1.5f}'.format(abs(x - x2)))
+print()
+print('El error relativo de abs(x - x2)/x es: {0:1.7e}'.format(abs((x - x2)/x)))
+\end{lstlisting}	
 \end{frame}
 
 \subsection{Los errores dentro del código}
@@ -424,11 +434,11 @@ Tendremos disponibles otras maneras de revisar si la aproximación que hacemos e
 \end{frame}
 \begin{frame}
 \frametitle{La precisión}
-La \emph{precisión} nos indica que obtendremos los mismos resultados a partir de que las condiciones sean similares.
+La \textocolor{byzantine}{precisión} nos indica que obtendremos los mismos resultados a partir de que las condiciones sean similares.
 \end{frame}
 \begin{frame}
 \frametitle{La exactitud}
-Llamaremos \emph{exactitud} cuando nuestros resultados sean una buena aproximación (o exacta) al valor esperado.
+Llamaremos \textocolor{cadmiumgreen}{exactitud} cuando nuestros resultados sean una buena aproximación (o exacta) al valor esperado.
 \end{frame}
 \begin{frame}
 \frametitle{La precisión y exactitud}
@@ -480,7 +490,7 @@ Se puede representar como una cadena de algoritmos $A_{i}$ con $(i = 1, 2, 3, \l
 \end{frame}
 \begin{frame}
 \frametitle{La solución que se obtiene}
-La solución obtenida por un método numérico es \textcolor{blue}{aproximada}, es decir, hay cierta diferencia entre la solución exacta y la solución numérica.
+La solución obtenida por un método numérico es \textocolor{brown(web)}{aproximada}, es decir, hay cierta diferencia entre la solución exacta y la solución numérica.
 \\
 \bigskip
 \pause
@@ -537,8 +547,8 @@ El grado de aproximación $n$ se estima mediante un factor que tiene el error en
 \item[\ding{221}] Caracteriza la manera de propagación de los errores iniciales dentro del algoritmo en el
 proceso del cálculo.
 \item[\ding{221}] Si el incremento de errores iniciales es considerable y sin ningún control, entonces el
-método numérico se llama \textcolor{red}{inestable}.
-\item[\ding{221}] Si los errores de cálculos dependen continuamente de los errores iniciales, entonces el método se llama \textcolor{blue}{estable}.
+método numérico se llama \textocolor{burgundy}{inestable}.
+\item[\ding{221}] Si los errores de cálculos dependen continuamente de los errores iniciales, entonces el método se llama \textocolor{cinnabar}{estable}.
 \end{itemize}
 \end{frame}
 \begin{frame}
@@ -592,6 +602,16 @@ for i in range(1, 7): |\pause|
 	print(i, x[-1], sep='\t\t') 
 \end{lstlisting}
 \end{frame}
+\begin{frame}
+\frametitle{¿Qué es lo que pasa?}
+Encontramos que los valores obtenidos no son los esperados.
+\\
+\bigskip
+\pause
+¿Por qué?
+\end{frame}
+
+
 % \begin{frame}
 % \frametitle{El arreglo luego de los cálculos}
 % Tendremos entonces que el arreglo con los valores de la sucesión luego de las operaciones es:
@@ -705,7 +725,7 @@ En cada paso el error $h_{n}$ se multiplica por un número cada vez más grande 
 \end{frame}
 \begin{frame}
 \frametitle{Del segundo ejemplo}
-Los cálculos efectuados en el segundo ejercicios son \textoazul{inestables}, \pause ya que los errores producidos en una iteración, se incrementan en iteraciones posteriores.
+Los cálculos efectuados en el segundo ejercicios son \textocolor{red}{inestables}, \pause ya que los errores producidos en una iteración, se incrementan en iteraciones posteriores.
 \end{frame}
 
 
@@ -789,341 +809,518 @@ Los cálculos efectuados en el segundo ejercicios son \textoazul{inestables}, \p
 % Donde $x_{i}$ es la aproximación actual a $x$ y 
 % $x_{i-1}$ es la aproximación anterior a $x$.
 % \end{frame}
-% \begin{frame}
-% \frametitle{Tolerancia}
-% En métodos numéricos suele establecerse una tolerancia porcentual como criterio de paro, tal
-% que el error relativo aproximado de un método, no exceda dicha tolerancia.
-% \[ e_{a} < t \]
-% donde $t$, es tolerancia fijada de antemano.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Tolerancia}
-% A menor tolerancia se tiene mayor precisión en la aproximación al valor verdadero, sin embargo esto implica un aumento en el número de iteraciones requeridas para detener el método.
-% \end{frame}
-% \section{Contaminación en los cálculos}
-% \begin{frame}
-% \frametitle{Contaminación en los cálculos.}
-% Un error en un cálculo numérico \enquote{contamina} las sucesivas evaluaciones.
-% \\
-% \bigskip
-% Esta propagación puede describirse en términos de dos conceptos relacionados: los de estabilidad y condición.
-% \end{frame}
-% \subsection{Estabilidad}
-% \begin{frame}
-% \frametitle{Estabilidad}
-% La estabilidad de un algoritmo describe la sensibilidad de un método numérico específico
-% respecto a los inevitables errores de redondeo cometidos durante su ejecución en aritmética de precisión finita.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Estabilidad}
-% Consideremos la siguiente función:
-% \[ f(x) = \sqrt{x+1} - \sqrt{x} \]
-% Su número de condición es:
-% \[ C(x) = \left | x \dfrac{f'(x)}{f(x)} \right | = \dfrac{x}{2 \sqrt{x} \sqrt{x+1}}\]
-% Vemos que $C(x)< \frac{1}{2}$ para $x>0$, por lo que la función está bien condicionada pero ...
-% \end{frame}
-% \begin{frame}
-% \frametitle{Estabilidad}
-% El pseudo-código para calcular $x$ de tal forma que se vayan realizando las operaciones, es:
-% \setbeamercolor{item projected}{bg=red!70!black,fg=white}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item obtener $x$
-% \item $y = x + 1$
-% \item $f = sqrt(y)$
-% \item $g = sqrt(x)$
-% \item $h = f-g$
-% \end{enumerate}
-% \pause
-% es inestable para $x$ grandes, dado el paso 5, por lo que debemos de re-estructurar la función.
-% \end{frame}
-% \subsection{Eficiencia}
-% \begin{frame}
-% \frametitle{Eficiencia}
-% \emph{Debemos evitar que todo algoritmo sea inestable}. 
-% \\
-% \bigskip
-% Si existieran varios métodos para evaluar una misma función, entonces conviene utilizar aquel que sea más eficiente, es decir, más rápido.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Eficiencia}
-% \textcolor{blue}{Hay que aprovechar al máximo los recursos: hardware, software, algoritmos, para resolver problemas más complejos y no para resolver peor problemas simples.}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Ejemplo de eficiencia}
-% Por ejemplo, para calcular $x**4$ para un $x$ dado, no es buena idea calcular $x**4.0$ (exponente en punto flotante).
-% \\
-% \bigskip
-% \pause
-% La mejor idea consiste en economizar el cálculo en dos pasos:
-% \begin{eqnarray*}
-% x2 &=& x*x \\
-% x4 &=& x2*x2
-% \end{eqnarray*}
-% y no un producto 
-% \[ x4=x*x*x*x \]
-% \end{frame}
-% \begin{frame}
-% \frametitle{Ejemplo: Evaluación de polinomios}
-% Supongamos que queremos evaluar el polinomio:
-% \[ P(x) = 2 + 4x - 5 x^{2} + 2 x^{3} - 6 x^{4} + 8 x^{5} + 10 x^{6}\]
-% \pause
-% Contando con que cada potencia de exponente $k$ entero como $k-1$ productos, tendríamos que el total de productos para evaluar en forma directa es:
-% \[ 1+2+3+4+5+6=21\]
-% Además de seis sumas.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Ejemplo: Evaluación de polinomios}
-% Una mejora en el algoritmo , es calcular primero las potencias de forma sucesiva:
-% \begin{eqnarray*}
-% x^{2} & = & x*x \\
-% x^{3} & = & x*x^{2} \\
-% x^{4} & = & x*x^{3} \\
-% x^{5} & = & x*x^{4} \\
-% x^{6} & = & x*x^{5}
-% \end{eqnarray*}
-% De tal forma que se añade un producto por cada potencia, para un total de productos:
-% \[1+2+2+2+2+2=11\]
-% \end{frame}
-% \begin{frame}
-% \frametitle{Ejemplo: Evaluación de polinomios}
-% Con el polinomio
-% \[ P(x)=2 + 4 x - 5 x^{2} + 2 x^{3} - 6 x^{4} + 8 x^{5} + 10 x^{6}\]
-% podemos mejorar el algoritmo de la siguiente manera
-% \fontsize{12}{12}\selectfont
-% \[ P(x) = 2 + x \left\lbrace 4 + x \left( -5 + x \left[ 2 + x \left(-6 +x \left\lbrace 8+x*10 \right\rbrace \right) \right] \right) \right\rbrace  \]
-% \end{frame}
-% \begin{frame}
-% \frametitle{Ejemplo: Evaluación de polinomios}
-% Para evaluar un polinomio de grado $n$ en el que ninguno de los coeficientes es cero, se necesitan
-% \\
-% \medskip
-% \pause
-% \begin{tabular}{l l}
-% $\dfrac{n(n+1)}{2}$ & Productos para el primer método \\
-% $2n-1$ & para el segundo métodos \\
-% $n$ & para el tercero
-% \end{tabular}
-% \\
-% \medskip
-% \pause
-% Antes de escribir una línea de código, hay que revisar la manera en que podemos optimizar la solución del problema.
-% \end{frame}
-% \section{Algoritmo de Horner}
-% \begin{frame}
-% \frametitle{Algoritmo de Horner}
-% Dado el polinomio
-% \[ P(x) = a_{0} + a_{1} x + \ldots + a_{n} x^{n} \hspace{1cm} a_{n} \neq 0 \]
-% \pause
-% La evaluación de $P(x)$ para cierto valor de $x=z$ se puede realizar en $n$ pasos mediante:
-% \begin{eqnarray*}
-% b_{n} &=& a_{n} \\
-% b_{n-1} &=& a_{n-1} + z*b_{n} \\
-% b_{n-2} &=& a_{n-2} + z*b_{n-1} \\
-% \vdots \\
-% b_{0} &=& a_{0}+z*b_{1}
-% \end{eqnarray*}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Pseudocódigo}
-% \setbeamercolor{item projected}{bg=red!70!black,fg=white}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item $b_{n} = a_{n}$
-% \item repetir mientras $n>0$
-% \item $n = n-1$
-% \item $b=a_{n}+z*b$
-% \item volver al paso 2
-% \item $p(z)=b$
-% \end{enumerate}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Evalúa el polinomio $P(x)$}
-% \[ P(x)=2 + 4 x - 5 x^{2} + 2 x^{3} - 6 x^{4} + 8 x^{5} + 10 x^{6}\]
-% \\
-% \medskip
-% \begin{center}
-% \begin{tabular}{S | c}
-% $x$ & $P(x)$ \\
-% \hline -1.5 & \\
-% \hline -0.65 & \\
-% \hline 0.1 & \\
-% \hline 1.4 & \\
-% \hline 2.87 & 
-% \end{tabular}
-% \end{center}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Resultado}
-% El polinomio $P(x)$ evaluado con el método de Horner:
-% \\
-% \medskip
-% \begin{center}
-% \begin{tabular}{S | c }
-% x & P(x) \\
-% \hline -1.5 & 0.78125 \\
-% \hline -0.65 & -4.50683 \\
-% \hline 0.1 & 2.35149 \\
-% \hline 1.4 & 98.55968 \\
-% \hline 2.87 & 6758.70245
-% \end{tabular}
-% \end{center}
-% \end{frame}
-% \begin{frame}
-% \frametitle{Extendiendo la respuesta al problema}
-% ¿Cómo resolver el problema usando una función? ¿mostrando una tabla con formato de salida? usando una gráfica que muestre $P(x)$ y un conjunto de datos evaluados? ¿Evaluar el error relativo?
-% \end{frame}
-% \begin{frame}
-% \frametitle{Extendiendo la respuesta al problema}
-% Ya contamos con las herramientas necesarias para extender la respuesta al problema, en nuestro código podemos agregar funciones, ajustar formatos de salida en los resultados, graficar el polinomio y los puntos (o un conjunto diferente de puntos), y obtener el error relativo.
-% \end{frame}
-% \begin{frame}
-% \frametitle{Pasos a resolver}
-% \setbeamercolor{item projected}{bg=red!70!black,fg=white}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}[<+->]
-% \item Conviene definir una función que resuelva la evaluación del método de Horner.
-% \item Para obtener el error relativo, se debe de evaluar el polinomio y considerar que los valores obtenidos, son los valores exactos.
-% \item Comparamos los resultados mediante una gráfica que represente los dos resultados de la evaluación.
-% \end{enumerate}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Estructuramos el código en \python.}
-% Definimos mediante dos listas:
-% \setbeamercolor{item projected}{bg=red!70!black,fg=white}
-% \setbeamertemplate{enumerate items}[circle]
-% \begin{enumerate}
-% \item Los valores donde queremos evaluar el polinomio $P(x)$.
-% \item Los coeficientes de $P(x)$.
-% \end{enumerate}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Función de Horner.}
-% \fontsize{14}{14}\selectfont
-% \begin{lstlisting}[caption=Código para la función de Horner, style=codigopython]
-% # Metodo de Horner
 
-% def P_Horner(x):
-%     P_Hor=0
-%     for n in range(len(a)-1, -1, -1):     
-%         P_Hor=a[n] + P_Hor * x
-%     return P_Hor
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Función que evalúa directamente $P(x)$.}
-% \fontsize{14}{14}\selectfont
-% \begin{lstlisting}[caption=Evaluación directa de la función, style=codigopython]
-% # Evaluacion directa
+\subsection{Tolerancia}
 
-% def P_Directo(x):
-%     return 2 + 4*x - 5 * x**2 + 2 * x**3 -6 * x**4 + 8 * x**5 + 10 * x**6
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Calculamos el error relativo.}
-% \begin{lstlisting}[caption=Evaluación del error relativo, style=codigopython]
-% # Calculo de error relativo
+\begin{frame}
+\frametitle{Tolerancia}
+En métodos numéricos suele establecerse una \textocolor{cobalt}{tolerancia} como criterio de paro, \pause tal
+que el error relativo aproximado de un método, no exceda dicha tolerancia.
+\begin{align*}
+e_{r} < t
+\end{align*}
+donde $t$, es tolerancia fijada de antemano.
+\end{frame}
+\begin{frame}
+\frametitle{Tolerancia}
+A \textocolor{coquelicot}{menor tolerancia} se tiene \textocolor{cordovan}{mayor precisión} en la aproximación al valor verdadero, \pause sin embargo esto implica un \textocolor{crimsonglory}{aumento en el número de iteraciones} requeridas para detener el método.
+\end{frame}
 
-% def Err_Rel(pdirecto, pHorner): return (pdirecto - pHorner)/pdirecto * 100
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Uso de valores para evaluar}
-% \begin{lstlisting}[caption=Valores para evaluar, style=codigopython]
-% # Valores de x0 para evaluar P(x0)
-% xA_0_B = [-1.5, -0.65, 0.1, 1.4, 2.87]
+\section{Contaminación en los cálculos}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Contaminación en las cuentas}
 
-% # Coeficientes a de P(x)
-% a = [2,4, -5, 2, -6, 8, 10]
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Mostramos el error relativo de los puntos a evaluar.}
-% \fontsize{14}{14}\selectfont
-% \begin{lstlisting}[caption=Error relativo calculado, style=codigopython]
-% # Evaluacion de valores de P(x0)
+\begin{frame}
+\frametitle{Contaminación en los cálculos.}
+Un error en un cálculo numérico \enquote{contamina} las sucesivas evaluaciones.
+\\
+\bigskip
+\pause
+Esta propagación puede describirse en términos de dos conceptos relacionados: los de \textocolor{darkbrown}{estabilidad} y \textocolor{darkcerulean}{condición}.
+\end{frame}
 
-% for i in range(len(xA_0_B)):
-% 	error_rel = Err_Rel(P_Directo(xA_0_B[i]),P_Horner(xA_0_B[i]))
-%     print ("P({0:.2f}) = {1:.5f} , Error relativo = {2:}".format(xA_0_B[i],P_Horner(xA_0_B[i]), error_rel)) 
-% \end{lstlisting}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Completando el código}
-% Con el código que se ha presentado, podemos obtener en la terminal los valores obtenidos al usar el método de Horner, el valor con la evaluación directa y el error relativo.
-% \\
-% \bigskip
-% \pause
-% Te pedimos que incorpores una rutina de graficación para mostrar los puntos de la lista $x0$ y el polinomio $P(x)$.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Mostrando los resultados}
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[scale=0.55]{Imagenes/MetodoHorner_01.eps}
-% \end{figure}
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Extendiendo la evaluación de puntos}
-% El siguiente paso será incluir un mayor número de puntos a evaluar con el método de Horner.
-% \\
-% \bigskip
-% \pause
-% Para no incluir una lista con $50$ puntos distribuidos en el intervalo $(-2, 3)$, usaremos la función $\mbox{linspace}(-2, 3, 50)$ para crear ese conjunto.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Resultado gráfico más completo}
-% En la gráfica se muestra el conjunto de datos que se evalúan con el método de Horner (puntos rojos), así como la función evaluada directamente (en línea continua) se compara, podemos ver que los resultados son prácticamente los mismos.
-% \end{frame}
-% \begin{frame}[fragile]
-% \frametitle{Resultado gráfico más completo}
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[scale=0.5]{Imagenes/MetodoHorner.eps} 
-% \end{figure}
-% \end{frame}
-% \begin{frame}[allowframebreaks, fragile]
-% \frametitle{Los resultados en una gráfica.}
-% \begin{lstlisting}[caption=Elaboración de la gráfica, style=codigopython]
-% import matplotlib.pyplot as plt
-% import numpy as np
+\subsection{Condición}
 
-% x = np.linspace(-2., 3., 50)
+\begin{frame}
+\frametitle{Condición}
+La condición de una función $f (x)$ mide la sensibilidad de los valores de $f (x)$ a pequeños cambios de $x$, se define como:
+\pause
+\begin{align*}
+C = \abs{ \dfrac{E_{\text{rel}} (f (x))}{E_{\text{rel}} (x)} } 
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Definición de condición}
+Del teorema del valor medio en cálculo, podemos expresar:
+\pause
+\begin{align*}
+f (x_{T}) - f (x_{A}) & \approx \pderivada{f} (x_{t})(x_{T} - x_{A}) \rightarrow E_{\text{rel}}(f (x)) \approx \\[0.5em] 
+ & \approx \dfrac{ \pderivada{f} (x_{T})}{f (x_{T})} (x_{T} - x_{A})
+\end{align*}
+\pause
+luego
+\begin{align*}
+C \approx \abs{ x_{T} \dfrac{\pderivada{f} (x_{T})}{f (x_{T})} }
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Definición de condición}
+Se utilizará ésta definición como definición de condición para funciones $f (x)$ de una variable real.
+\\
+\bigskip
+Entonces el número de condición será:
+\pause
+\begin{align*}
+C = \abs{ x \, \dfrac{\pderivada{f} (x)}{f(x)} }
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Definición de condición}
+\begin{align*}
+C = \abs{ x \, \dfrac{\pderivada{f} (x)}{f(x)} }
+\end{align*}
+\setbeamercolor{item projected}{bg=black,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Para un $x$ dado $0 < C (x) < 1$ se dirá que el problema está bien condicionado, y cuanto menor sea $C$, mejor condicionado.
+\item Si $C (x) > 1$, el problema estará mal condicionado.
+\item Si $C (x) = 1$, el error relativo se mantiene.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplos}
+Las siguientes funciones están bien condicionadas?
+\pause
+\setbeamercolor{item projected}{bg=cobalt,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item $f (x) = \sqrt{x} \hspace{1.5cm} C (x) = ?$
+\item $g (x) = x^{2}-1 \hspace{1.5cm} C (x) = ?$
+\end{enumerate}
+\end{frame}
 
-% plt.plot(x, P_Horner(x),'ro', label='Metodo de Horner')
+\subsection{Nuevamente la estabilidad}
 
-% plt.plot(x, P_Directo(x), label='Evaluacion Polinomio')
+\begin{frame}
+\frametitle{Estabilidad}
+Ya revisamos que la estabilidad de un algoritmo describe la sensibilidad de un método numérico específico
+respecto a los inevitables errores de redondeo cometidos durante su ejecución en aritmética de precisión finita.
+\end{frame}
+\begin{frame}
+\frametitle{Revisando la estabilidad}
+Consideremos la siguiente función:
+\begin{align*}
+f (x) = \sqrt{x + 1} - \sqrt{x}
+\end{align*}
+\pause
+Su número de condición es:
+\pause
+\begin{align*}
+C (x) = \abs{ x \, \dfrac{\pderivada{f} (x)}{f(x)} } = \dfrac{x}{2 \, \sqrt{x} \sqrt{x+1}}
+\end{align*}
+\pause
+Vemos que $C (x) < \dfrac{1}{2}$ para $x > 0$, por lo que la función está bien condicionada pero ...
+\end{frame}
+\begin{frame}
+\frametitle{Revisando la estabilidad}
+El pseudocódigo para calcular $x$ de tal forma que se vayan realizando las operaciones, es:
+\pause
+\setbeamercolor{item projected}{bg=apricot,fg=black}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item obtener $x$
+\item $y = x + 1$
+\item $f = \text{sqrt } (y)$
+\item $g = \text{sqrt } (x)$
+\item $h = f - g$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Revisando la estabilidad}	
+El procedimiento \textocolor{bole}{es inestable} para valores grandes de $x$, dado el paso 5, por lo que debemos de reestructurar la función.
+\end{frame}
 
-% plt.title('Comparacion grafica')
-% plt.legend(loc='upper left')
-% plt.grid(True)
-% plt.show()
-% \end{lstlisting}
-% \end{frame}
-% % \begin{frame}\frametitle{Función para generar secuencia de reales}
-% % Ya hemos mencionado que la librería \funcionazul{numpy} extiende el conjunto de funciones matemáticas que se tienen dentro de la otra librería \funcionazul{math}.
-% % \\
-% % \bigskip
-% % Veamos la sintaxis de la función \funcionazul{linspace} que aparece en la rutina de graficación.
-% % \end{frame}
-% % \begin{frame}
-% % \frametitle{La función \texttt{linspace}}
-% % Sintaxis mínima:
-% % \\
-% % \medskip
-% % \texttt{linspace(inicio, fin, num=50)}
-% % \\
-% % \medskip
-% % Donde:
-% % \begin{itemize}
-% % \item \texttt{inicio}: es el valor a partir del cual queremos generar la secuncia de puntos.
-% % \item \texttt{fin}: es el valor en donde se detiene la secuencia de puntos.
-% % \item \texttt{num}: es el número de puntos que se genera en el intervalo, por defecto se generan 50 puntos.
-% % \end{itemize}
-% % \end{frame}
-% % \begin{frame}
-% % \frametitle{La secuncia que se genera}
-% % Lo que obtenemos con \funcionazul{linspace}, es una secuencia de puntos distribuidos uniformemente en el intervalo \texttt{[inicio, fin]}.
-% % \end{frame}
+\subsection{Eficiencia}
+
+\begin{frame}
+\frametitle{Eficiencia}
+\emph{Debemos evitar que todo algoritmo sea inestable}. 
+\\
+\bigskip
+Si existieran varios métodos para evaluar una misma función, entonces conviene utilizar aquel que sea más eficiente, \pause es decir, \textocolor{byzantium}{el más rápido}.
+\end{frame}
+\begin{frame}
+\frametitle{Eficiencia}
+\textocolor{blue}{Hay que aprovechar al máximo los recursos: hardware, software, algoritmos, para resolver problemas más complejos y no para resolver peor problemas simples.}
+\end{frame}
+\begin{frame}
+\frametitle{Cita oportuna}
+\begin{quote}
+Cualquiera puede escribir código que una máquina entiende. Los buenos programadores escriben código que los humanos pueden entender.
+\end{quote}
+Martin Fowler.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo de eficiencia}
+Por ejemplo, para calcular $x**4$ para un $x$ dado, no es buena idea calcular $x**4.0$ (exponente en punto flotante).
+\\
+\bigskip
+\pause
+La mejor idea consiste en economizar el cálculo en dos pasos:
+\begin{align*}
+x2 &= x*x \\
+x4 &= x2*x2
+\end{align*}
+\pause
+y no un producto de la forma:
+\begin{align*}
+x4 = x*x*x*x
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo: Evaluación de polinomios}
+Supongamos que queremos evaluar el polinomio:
+\pause
+\begin{align*}
+P (x) = 2 + 4 \, x - 5\, x^{2} + 2\,  x^{3} - 6 \, x^{4} + 8 \, x^{5} + 10 \, x^{6}
+\end{align*}
+\pause
+Contando con que cada potencia de exponente $k$ entero como $k-1$ productos, tendríamos que el total de productos para evaluar en forma directa es:
+\[ 1+2+3+4+5+6=21\]
+Además de seis sumas.
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo: Evaluación de polinomios}
+Una mejora en el algoritmo , es calcular primero las potencias de forma sucesiva:
+\begin{align*}
+x^{2} & = x*x \\
+x^{3} & = x*x^{2} \\
+x^{4} & = x*x^{3} \\
+x^{5} & = x*x^{4} \\
+x^{6} & = x*x^{5}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo: Evaluación de polinomios}
+De tal forma que se añade un producto por cada potencia, para un total de productos:
+\begin{align*}
+1 + 2 + 2 + 2 + 2 + 2 = 11
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo: Evaluación de polinomios}
+Con el polinomio:
+\begin{align*}
+P (x) = 2 + 4 \, x - 5 \,  x^{2} + 2 \, x^{3} - 6 \, x^{4} + 8 \,  x^{5} + 10 \, x^{6}
+\end{align*}
+\pause
+podemos mejorar el algoritmo de la siguiente manera:
+\pause
+\fontsize{12}{12}\selectfont
+\begin{align*}
+P (x) = 2 + x \left\lbrace 4 + x \left( -5 + x \left[ 2 + x \left(-6 +x \left\lbrace 8+x*10 \right\rbrace \right) \right] \right) \right\rbrace 
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejemplo: Evaluación de polinomios}
+Para evaluar un polinomio de grado $n$ en el que ninguno de los coeficientes es cero, se necesitan
+\\
+\medskip
+\pause
+\begin{tabular}{l l}
+$\dfrac{n\ , (n + 1)}{2}$ & Productos para el primer método \\
+$2\ , n - 1$ & para el segundo métodos \\
+$n$ & para el tercero
+\end{tabular}
+\\
+\medskip
+\pause
+Antes de escribir una línea de código, hay que revisar la manera en que podemos optimizar la solución del problema.
+\end{frame}
+
+\section{Algoritmo de Horner}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Construyendo el algoritmo}
+
+\begin{frame}
+\frametitle{Algoritmo de Horner}
+Dado el polinomio:
+\begin{align*}
+P (x) = a_{0} + a_{1} \, x + \ldots + a_{n} \, x^{n} \hspace{1cm} a_{n} \neq 0
+\end{align*}
+\pause
+La evaluación de $P (x)$ para cierto valor de $x = z$ se puede realizar en $n$ pasos mediante el siguiente procedimiento:
+\end{frame}
+\begin{frame}
+\frametitle{Algoritmo de Horner}
+\begin{eqnarray*}
+\begin{aligned}
+b_{n} &= a_{n} \\ \pause
+b_{n-1} &= a_{n-1} + z*b_{n} \\ \pause
+b_{n-2} &= a_{n-2} + z*b_{n-1} \\ \pause
+\vdots \\
+b_{0} &= a_{0} + z*b_{1}
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Pseudocódigo}
+\setbeamercolor{item projected}{bg=copper,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item $b_{n} = a_{n}$
+\item repetir mientras $n > 0$
+\item $n = n - 1$
+\item $b = a_{n} + z*b$
+\item volver al paso 2
+\item $p (z) = b$
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio: evalúa el polinomio $P(x)$}
+\begin{align*}
+P (x) =2 + 4 \, x - 5 \, x^{2} + 2 \, x^{3} - 6 \, x^{4} + 8 \, x^{5} + 10 \, x^{6}
+\end{align*}
+\\
+\bigskip
+\pause
+Para simplificar el resultado, nos apoyaremos con una tabla con el valor $x$ a evaluar y $P (x)$ el valor obtenido:
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio: evalúa el polinomio $P(x)$}
+\begin{table}
+\centering
+\begin{tabular}{S | c}
+$x$ & $P (x)$ \\
+\hline -1.5 & \\
+\hline -0.65 & \\
+\hline 0.1 & \\
+\hline 1.4 & \\
+\hline 2.87 & 
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado}
+El polinomio $P(x)$ evaluado con el método de Horner:
+\\
+\medskip
+\renewcommand{\arraystretch}{1}
+\begin{table}
+\centering
+\begin{tabular}{c | c }
+$x$ & $P (x)$ \\
+\hline $-1.5$ & $0.78125$ \\
+\hline $-0.65$ & $-4.50683$ \\
+\hline $0.1$ & $2.35149$ \\
+\hline $1.4$ & $98.55968$ \\
+\hline $2.87$ & $6758.70245$ \\
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La primera respuesta}
+Podemos responder el ejercicio con una propuesta de evaluación directa, como se presenta en el siguiente código:
+\end{frame}
+\begin{frame}[allowframebreaks,fragile]
+\frametitle{Código de primera respuesta}
+\begin{lstlisting}[caption=Código directo]
+def eval_polinomio(x):
+    valor = 2 + 4 * x - 5 * x**2 + 2 * x**3 - 6 * x**4 + 8 * x**5 + 10 * x**6
+    return valor
+
+x0 = [-1.5, -0.65, 0.1, 1.4, 2.87]
+
+print('x0 \t Evaluacion')
+print('-'*20)
+
+for i in x0:
+    resultado = eval_polinomio(i)
+    print('{0:}  \t {1:.6f}'.format(i, resultado))
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Extendiendo la respuesta al problema}
+¿Cómo resolvemos el problema usando una función para el método de Horner? \pause
+
+¿Presentamos una tabla con formato de salida? \pause
+
+¿Graficamos $P (x)$ y un conjunto de datos evaluados? \pause
+
+¿Evaluamos el error relativo?
+\end{frame}
+\begin{frame}
+\frametitle{Extendiendo la respuesta al problema}
+Ya contamos con las herramientas necesarias para extender la respuesta al problema, \pause en nuestro código podemos agregar funciones, \pause ajustar formatos de salida en los resultados, \pause graficar el polinomio y los puntos (o un conjunto diferente de puntos), \pause y obtener el error relativo.
+\end{frame}
+\begin{frame}
+\frametitle{Pasos a resolver}
+\setbeamercolor{item projected}{bg=cyan,fg=black}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Conviene definir una función que resuelva la evaluación del método de Horner.
+\item Para obtener el error relativo, se debe de evaluar el polinomio y considerar que los valores obtenidos, son los valores exactos.
+\item Comparamos los resultados mediante una gráfica que represente los dos resultados de la evaluación.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Estructuramos el código en \python.}
+Ocuparemos dos listas para:
+\setbeamercolor{item projected}{bg=darkpastelgreen,fg=black}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Los valores $z$ donde queremos evaluar el polinomio $P (x)$.
+\item Los coeficientes del polinomio $P (x)$.
+\end{enumerate}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Función de Horner.}
+\fontsize{14}{14}\selectfont
+\begin{lstlisting}[caption=Código para la función de Horner]
+# Metodo de Horner
+
+def P_Horner(a, x):
+    P_Hor=0
+    for n in range(len(a)-1, -1, -1):     
+        P_Hor=a[n] + P_Hor * x
+    return P_Hor
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Función que evalúa directamente $P(x)$.}
+\fontsize{14}{14}\selectfont
+\begin{lstlisting}[caption=Evaluación directa de la función]
+# Evaluacion directa
+
+def P_Directo(x):
+    return 2 + 4*x - 5 * x**2 + 2 * x**3 -6 * x**4 + 8 * x**5 + 10 * x**6
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Calculamos el error relativo.}
+\begin{lstlisting}[caption=Evaluación del error relativo]
+# Calculo de error relativo
+
+def Err_Rel(pdirecto, pHorner): return (pdirecto - pHorner)/pdirecto * 100
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Uso de valores para evaluar}
+\begin{lstlisting}[caption=Valores para evaluar]
+# Valores de x0 para evaluar P(x0)
+x0 = [-1.5, -0.65, 0.1, 1.4, 2.87]
+
+# Coeficientes de P(x)
+a = [2,4, -5, 2, -6, 8, 10]
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Mostramos el error relativo de los puntos a evaluar.}
+\fontsize{14}{14}\selectfont
+\begin{lstlisting}[caption=Error relativo calculado]
+# Evaluacion de valores de P(x0)
+
+for i in range(len(x0)):
+	error_rel = Err_Rel(P_Directo(x0[i]), P_Horner(a, x0[i]))
+    print ("P({0:.2f}) = {1:.5f} , Error relativo = {2:}".format(x0[i],P_Horner(x0[i]), error_rel)) 
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Completando el código}
+Con el código que se ha presentado, podemos obtener en la terminal los valores obtenidos al usar el método de Horner, el valor con la evaluación directa y el error relativo.
+\\
+\bigskip
+\pause
+Te pedimos que incorpores una rutina de graficación para mostrar los puntos de la lista $x0$ y el polinomio $P(x)$.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Mostrando los resultados}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.55]{Imagenes/MetodoHorner_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Extendiendo la evaluación de puntos}
+El siguiente paso será incluir un mayor número de puntos a evaluar con el método de Horner.
+\\
+\bigskip
+\pause
+Para no incluir una lista con $50$ puntos distribuidos en el intervalo $(-2, 3)$, usaremos la función $\mbox{linspace}(-2, 3, 50)$ para crear ese conjunto.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Resultado gráfico más completo}
+En la gráfica se muestra el conjunto de datos que se evalúan con el método de Horner (puntos rojos), así como la función evaluada directamente (en línea continua) se compara, podemos ver que los resultados son prácticamente los mismos.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Resultado gráfico más completo}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.45]{Imagenes/MetodoHorner.eps} 
+\end{figure}
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Los resultados en una gráfica.}
+\begin{lstlisting}[caption=Elaboración de la gráfica]
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-2., 3., 50)
+
+plt.plot(x, P_Horner(a, x),'ro', label='Metodo de Horner')
+
+plt.plot(x, P_Directo(x), label='Evaluacion Polinomio')
+
+plt.title('Comparacion grafica')
+plt.legend(loc='upper left')
+plt.grid(True)
+plt.show()
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Función para generar secuencia de reales}
+Ya hemos mencionado que la librería \funcionazul{numpy} extiende el conjunto de funciones matemáticas que se tienen dentro de la otra librería \funcionazul{math}.
+\\
+\bigskip
+\pause
+Veamos la sintaxis de la función \funcionazul{linspace} que aparece en la rutina de graficación.
+\end{frame}
+\begin{frame}
+\frametitle{La función \texttt{linspace}}
+Sintaxis mínima:
+\\
+\medskip
+\texttt{linspace(inicio, fin, num=50)}
+\\
+\medskip
+Donde:
+\begin{itemize}
+\item \texttt{inicio}: es el valor a partir del cual queremos generar la secuncia de puntos.
+\item \texttt{fin}: es el valor en donde se detiene la secuencia de puntos.
+\item \texttt{num}: es el número de puntos que se genera en el intervalo, por defecto se generan 50 puntos.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{La secuncia que se genera}
+Lo que obtenemos con \funcionazul{linspace}, es una secuencia de puntos distribuidos uniformemente en el intervalo \texttt{[inicio, fin]}.
+\end{frame}
 \end{document}
