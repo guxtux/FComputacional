@@ -45,13 +45,13 @@ for i in range(2, n):
 plot1 = plt.figure(1)
 plt.plot(eje_x, error, '+')
 plt.plot(eje_x, error, ls='dashed', lw=0.7, color='red')
-plt.title('Error relativo al calcular $sin (x)$')
+plt.title('Error relativo al calcular $\sin (x)$')
 etiquetas()
 
 plot2 = plt.figure(2)
 plt.semilogy(eje_x, error, '+')
 plt.semilogy(eje_x, error, ls='dashed', lw=0.7, color='red')
-plt.title('Error relativo al calcular $sin (x)$ con el eje y - logarítmico')
+plt.title('Error relativo al calcular $\sin (x)$ con el eje y - logarítmico')
 etiquetas()
 
 plt.show()

@@ -602,14 +602,14 @@ for i in range(1, 7): |\pause|
 	print(i, x[-1], sep='\t\t') 
 \end{lstlisting}
 \end{frame}
-\begin{frame}
-\frametitle{¿Qué es lo que pasa?}
-Encontramos que los valores obtenidos no son los esperados.
-\\
-\bigskip
-\pause
-¿Por qué?
-\end{frame}
+% \begin{frame}
+% \frametitle{¿Qué es lo que pasa?}
+% Encontramos que los valores obtenidos no son los esperados.
+% \\
+% \bigskip
+% \pause
+% ¿Por qué?
+% \end{frame}
 
 
 % \begin{frame}
@@ -670,7 +670,7 @@ Para revisar esto, hagamos una gráfica de $y_{n}$, para $n = 1, 2, 4, 8$.
 \\
 \bigskip
 \pause
-Fecha de entrega: para la siguiente clase a más tardar 6 pm, vía Moodle.
+Fecha de entrega: para el viernes 1 de septiembre a más tardar 6 pm, vía Moodle.
 \end{frame}
 % \begin{frame}[allowframebreaks, fragile]
 % \frametitle{Gráfica de $y_{n}$}
@@ -817,7 +817,7 @@ Los cálculos efectuados en el segundo ejercicios son \textocolor{red}{inestable
 En métodos numéricos suele establecerse una \textocolor{cobalt}{tolerancia} como criterio de paro, \pause tal
 que el error relativo aproximado de un método, no exceda dicha tolerancia.
 \begin{align*}
-e_{r} < t
+E_{\text{rel}} < t
 \end{align*}
 donde $t$, es tolerancia fijada de antemano.
 \end{frame}
@@ -854,11 +854,15 @@ C = \abs{ \dfrac{E_{\text{rel}} (f (x))}{E_{\text{rel}} (x)} }
 Del teorema del valor medio en cálculo, podemos expresar:
 \pause
 \begin{align*}
-f (x_{T}) - f (x_{A}) & \approx \pderivada{f} (x_{t})(x_{T} - x_{A}) \rightarrow E_{\text{rel}}(f (x)) \approx \\[0.5em] 
+f (x_{T}) - f (x_{A}) & \approx \pderivada{f} (x_{T})(x_{T} - x_{A}) \rightarrow E_{\text{rel}}(f (x)) \approx \\[0.5em] 
  & \approx \dfrac{ \pderivada{f} (x_{T})}{f (x_{T})} (x_{T} - x_{A})
 \end{align*}
+donde $f (x_{T})$ es el valor exacto de la función, y $f (x_{A})$ es el valor aproximado de la función.
+\end{frame}
+\begin{frame}
+\frametitle{Definición de condición}
+Por lo que podemos reescribir el número de condición como:
 \pause
-luego
 \begin{align*}
 C \approx \abs{ x_{T} \dfrac{\pderivada{f} (x_{T})}{f (x_{T})} }
 \end{align*}

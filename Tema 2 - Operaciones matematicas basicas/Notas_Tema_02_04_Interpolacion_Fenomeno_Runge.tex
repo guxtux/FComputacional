@@ -3,9 +3,9 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Dresden_seahorse}
-\usefonttheme{serif}
+%\usefonttheme{serif}
 
-\title{ Consideraciones sobre las técnicas de interpolación}
+\title{Técnica de interpolación de Neville}
 \subtitle{Tema 2 - Operaciones matemáticas básicas}
 \author{M. en C. Gustavo Contreras Mayén}
 \date{}
@@ -16,13 +16,211 @@
 \section*{Contenido}
 \frame{\tableofcontents[currentsection, hideallsubsections]}
 
+\section{Interpolación de Neville}
+\frame{\tableofcontents[currentsection, hideothersubsections]}
+\subsection{Describiendo el método}
+
+\begin{frame}
+\frametitle{Sobre el método de Newton}
+El método de interpolación de Newton implica dos pasos:
+\pause
+\setbeamercolor{item projected}{bg=alizarin,fg=white}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item El cálculo de los coeficientes.
+\item Seguido de evaluación del polinomio.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Sobre el método de Newton}
+Esta técnica funciona bien si la interpolación se realiza \textocolor{ao(english)}{repetidamente en diferentes valores} de $x$ utilizando el \textocolor{arsenic}{mismo polinomio}.
+\end{frame}
+\begin{frame}
+\frametitle{El método de Neville}
+Si solo se \textocolor{bluegray}{interpola un punto}, una opción más conveniente es un método que calcule el interpolante en un solo paso, \pause como lo es el \textocolor{blush}{algoritmo de Neville}.
+\end{frame}
+\begin{frame}
+\frametitle{El método de Neville}
+Sea 
+\begin{align*}
+P_{k} \big[ x_{i} , x_{i+1}, \ldots, x_{i+k} \big]
+\end{align*}
+el polinomio de grado $k$ que pasa por los $k + 1$ puntos de datos:
+\pause
+\begin{align*}
+(x_{i}, y_{i}), \, (x_{i+1}, y_{i+1}), \ldots , (x_{i+k}, y_{i+k})
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{El método de Neville}
+Para un único punto, se tiene que:
+\pause
+\begin{align}
+P_{0} [x_{i}] = y_{i} \label{eq:3_07}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación de Neville con dos puntos}
+La interpolación basada en dos puntos es:
+\pause
+\begin{align*}
+P_{1} [x_{i}, x_{i+1}] = \dfrac{(x - x_{i+1}) P_{0} [x_{i}] + (x_{i} - x) P_{0} [x_{i+1}]}{x_{i} - x_{i+1}}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación de Neville con tres puntos}
+La interpolación basada en tres puntos es:
+\pause
+\begin{align*}
+&P_{2} [x_{i}, x_{i+1}, x_{i+2}] = \\[0.5em]
+&= \dfrac{(x - x_{i+2}) P_{1} [x_{i}, x_{i+1}] + (x_{i} - x) P_{1} [x_{i+1}, x_{i+2}]}{x_{i} - x_{i+2}}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Patrón para la interpolación de Neville}
+De las interpolaciones anteriores, podemos deducir una fórmula recursiva general para la interpolación de Neville:
+\end{frame}
+\begin{frame}
+\frametitle{Patrón para la interpolación de Neville}
+\begin{align}
+\begin{aligned}
+&P_{k} [x_{i}, x_{i+1}, \ldots, x_{i+k}] = \\[0.5em]
+&= \dfrac{(x - x_{i+k}) P_{k-1} [x_{i}, x_{i+1}, \ldots, x_{i+k-1}]}{x_{i} - x_{i+k}} + \\[0.5em]
+&+ \dfrac{(x_{i} - x) P_{k-1} [x_{i+1}, x_{i+2}, \ldots, x_{i+k}]}{x_{i} - x_{i+k}}
+\end{aligned}
+\label{eq:3_08}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{El método de Neville}
+Dado el valor de $x$, los cálculos se pueden realizar en el siguiente formato tabular (que se muestra para cuatro puntos de datos):
+\end{frame}
+\begin{frame}
+\frametitle{Formato tabular}
+\begin{table}
+\centering
+\fontsize{12}{12}\selectfont
+\begin{tabular}{| c | c | c | c | c |} \hline
+ & $k = 0$ & $k = 1$ & $k = 2$ & $k = 3$ \\ \hline
+$x_{0}$ & $P_{0} [x_{0}] = y_{0}$ & $P_{1} [x_{0}, x_{1}]$ & $P_{2} [x_{0}, x_{1}, x_{2}]$ & $P_{3} [x_{0}, x_{1}, x_{2}, x_{3}]$ \\ \hline
+$x_{1}$ & $P_{0} [x_{1}] = y_{1}$ & $P_{1} [x_{1}, x_{2}]$ & $P_{2} [x_{1}, x_{2}, x_{3}]$ & \\ \hline
+$x_{2}$ & $P_{0} [x_{2}] = y_{2}$ & $P_{1} [x_{2}, x_{3}]$ & & \\ \hline
+$x_{3}$ & $P_{0} [x_{3}] = y_{3}$ & & & \\ \hline	
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}
+\frametitle{El algoritmo de Neville}
+El algoritmo que calcula los elementos de la tabla, que denota el número de puntos de datos por $m$, es:
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El algoritmo de Neville}
+\begin{lstlisting}[caption=Algoritmo de Neville]
+y = yDatos.copy()
+for k in range (1,m):
+	for i in range(m-k):
+		y[i] = ((x - xDatos[i+k])*y[i] + (xDatos[i] - x)*y[i+1])/ (xDatos[i] - xDatos[i+k])
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Entendiendo el algoritmo}
+Este algoritmo funciona con arreglo unidimensional \textocolor{ao}{y}, que inicialmente contiene los valores de $y$, la segunda columna de la tabla anterior.
+\end{frame}
+\begin{frame}
+\frametitle{Entendiendo el algoritmo}
+Cada paso por el bucle exterior calcula los elementos de \textocolor{ao}{y} en la siguiente columna, \pause que sobrescriben las entradas anteriores.
+\end{frame}
+\begin{frame}
+\frametitle{Entiendiendo el algoritmo}
+Al final del procedimiento, el arreglo \textocolor{ao}{y} contiene los términos diagonales de la tabla.
+\end{frame}
+\begin{frame}
+\frametitle{Entendiendo el algoritmo}
+El valor de interpolación (evaluado en \textocolor{ao}{x}) que pasa por todos los puntos de datos es el primer elemento del arreglo \textocolor{ao}{y}.
+\end{frame}
+\begin{frame}
+\frametitle{Manejo en el módulo}
+Se recomienda que la siguiente función la incluyas en un módulo llamado \textocolor{ao}{interpolacion}, \pause para que de esa manera tengas las funciones de interpolación de Lagrange, Newton y Neville.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{El código de interpolación}
+\begin{lstlisting}[caption=La función interpolación de Neville]
+def neville(xDatos, yDatos, x):
+	m = len(xDatos)
+	y = yDatos.copy()
+	for k in range(1,m):
+		y[0:m-k] = ((x - xDatos[k:m])*y[0:m-k] + \
+					(xDatos[0:m-k] - x)*y[1:m-k+1])/ \
+					(xDatos[0:m-k] - xDatos[k:m])
+
+	return y[0]
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{Enunciado del ejercicio}
+Dados los siguientes puntos:
+\begin{table}
+\centering
+\begin{tabular}{| c | c | c | c | c |}
+$x$ & $4.0$ & $3.9$ & $3.8$ & $3.7$ \\ \hline
+$y$ & $-0.06604$ & $-0.02724$ & $0.01282$ & $0.05382$ \\	
+\end{tabular}
+\end{table}
+Con el método de Neville, calcula el valor de la raíz $y (x) = 0$.
+\end{frame}
+\begin{frame}
+\frametitle{Consideración importante}
+Este es un ejemplo de \textocolor{red}{interpolación inversa}, \pause en el que se intercambian los roles de \textocolor{ao}{x} e \textocolor{ao}{y}.
+\end{frame}
+\begin{frame}
+\frametitle{Consideración importante}
+En lugar de calcular \textocolor{ao}{y} en un \textocolor{ao}{x} dado, \pause encontramos \textocolor{ao}{x} que corresponde a un \textocolor{ao}{y} dado (en este caso, y = 0).
+\end{frame}
+\begin{frame}
+\frametitle{El código en un archivo}
+Revisa con cuidado el código con la implementación de la solución. 
+\end{frame}
+
+\subsection{Ejercicios a resolver}
+
+\begin{frame}
+\frametitle{Enunciado del ejercicio 1}
+Con el método de Neville calcula el valor de $y$ en $x = \pi /4$, a partir del conjunto de puntos:
+\begin{table}
+\centering
+\begin{tabular}{| c | c | c | c | c | c |}
+$x$ & $0$ & $0.5$ & $1$ & $1.5$ & 2 \\ \hline
+$y$ & $-1.00$ & $1.75$ & $4.00$ & $5.75$ & $7.00$ \\	
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}
+\frametitle{Enunciado del ejercicio 2}
+Dados los puntos:
+\begin{table}
+\centering
+\begin{tabular}{| c | c | c | c |}
+$x$ & $-1.2$ & $0.3$ & $1.1$ \\ \hline
+$y$ & $-5.76$ & $5.61$ & $-.69$ \\	
+\end{tabular}
+\end{table}
+Calcula el valor de $y$ en $x = 0$, usando el método de Neville y el método de Lagrange.
+\end{frame}
+
 \section{Fenómeno de Runge}
 \frame{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{Definición}
 
 \begin{frame}
 \frametitle{Fenónemo de Runge}
-Hasta el momento hemos revisado un par de estrategias para calcular un polinomio que pase por un conjunto de datos $(x_{i}, y_{i})$, pero hay que considerar un efecto importante al respecto: no siempre el mejor polinomio será aquel el de mayor grado $n$.
+Hasta el momento hemos revisado un par de estrategias para calcular un polinomio que pase por un conjunto de datos $(x_{i}, y_{i})$
+\end{frame}
+\begin{frame}
+\frametitle{Fenónemo de Runge}
+Pero hay que considerar un efecto importante al respecto: \textocolor{burntorange}{no siempre el mejor polinomio será aquel el de mayor grado $n$}.
 \\
 \medskip
 \pause
@@ -54,11 +252,19 @@ f (x) = \dfrac{1}{1 + 25 x^{2}}
 \end{frame}
 \begin{frame}
 \frametitle{¿Qué hacemos al respecto?}
-Como hemos visto en la gráfica anterior, la función que resulta del proceso de interpolación \enquote{oscila} a través de los puntos que deseamos interpolar; aquí el caso es que si aumentamos el grado del polinomio, los resultados serán aún más indeseables.
+Como hemos visto en la gráfica anterior, la función que resulta del proceso de interpolación \enquote{oscila} a través de los puntos que deseamos interpolar
+\end{frame}
+\begin{frame}
+\frametitle{El efecto Runge}
+El caso es que si aumentamos el grado del polinomio, los resultados serán aún más indeseables.
 \\
 \medskip
 \pause
-La pregunta obligada es: \textbf{¿qué podemos hacer para mejorar la interpolación?}
+A este efecto se le conoce como el \textocolor{carnelian}{efecto Runge}.
+\end{frame}
+\begin{frame}
+\frametitle{¿Qué hacemos al respecto?}
+La pregunta obligada es: \textocolor{cerulean}{¿qué podemos hacer para mejorar la interpolación?}
 \end{frame}
 
 \section{Uso de splines}
@@ -67,15 +273,15 @@ La pregunta obligada es: \textbf{¿qué podemos hacer para mejorar la interpolac
 
 \begin{frame}
 \frametitle{¿Qué es un spline?}
-En términos nada riguroso, se puede decir que un \textcolor{blue}{spline} es una función definida por una familia de polinomios \enquote{sociables}
+En términos nada riguroso, se puede decir que un \textocolor{blue}{spline} es una función definida por una familia de polinomios \enquote{sociables}.
 \\
 \bigskip
 \pause
-Donde el término \textit{sociable} se usa para indicar que los polinomios que constituyen una función \textcolor{blue}{spline}, están estrechamente vinculados.
+Donde el término \textit{sociable} se usa para indicar que los polinomios que constituyen una función \textocolor{blue}{spline}, están estrechamente vinculados.
 \end{frame}
 \begin{frame}
 \frametitle{El nomobre de spline}    
-El nombre de \textcolor{blue}{spline}, viene del inglés ya que es un instrumento que utilizaban los ingenieros navales para dibujar curvas suaves, forzadas a pasar por un conjunto de puntos prefijados.
+El nombre de \textocolor{blue}{spline}, viene del inglés ya que es un instrumento que utilizaban los ingenieros navales para dibujar curvas suaves, forzadas a pasar por un conjunto de puntos prefijados.
 \end{frame}
 \begin{frame}
 \frametitle{Las tres B's de los splines}
@@ -87,17 +293,17 @@ El uso de las funciones splines tiene mucha aceptación y popularidad se deben a
 \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
 }
 \begin{enumerate}[<+->]
-\item \textbf{Buenos:} Se  pueden usar en la solución de una gran variedad de problemas.
-\item \textbf{Bonitos:} La teoría matemática en que se basan es muy simple y a la vez elegante.
-\item \textbf{Baratos:} Su cálculo es muy sencillo y económico.
+\item \textocolor{copper}{Buenos:} Se  pueden usar en la solución de una gran variedad de problemas.
+\item \textocolor{coquelicot}{Bonitos:} La teoría matemática en que se basan es muy simple y a la vez elegante.
+\item \textocolor{cordovan}{Baratos:} Su cálculo es muy sencillo y económico.
 \end{enumerate}
 \end{frame}
 \begin{frame}
 \frametitle{Manejando splines con \python}
 Usaremos la librería \funcionazul{scipy} que contiene varias funciones con las que ahorramos tiempo para manejar splines y ajustar funciones sociables a un conjunto de datos.
-\\
-\medskip
-\pause
+\end{frame}
+\begin{frame}
+\frametitle{Manejando splines con \python}
 No está de más que revises la teoría al respecto, en la mayoría de los libros de análisis numérico, podrás encontrar la construcción matemática y formal de los splines.
 \end{frame}
 \begin{frame}
@@ -130,36 +336,40 @@ Dados un conjunto de puntos $(x[i],y[i])$ determina una aproximación con un spl
 el valor del polinomio suave y sus derivadas.
 \end{enumerate}
 \end{frame}
-\begin{frame}[allowframebreaks, fragile]
-\frametitle{Código}
-\begin{lstlisting}
-import matplotlib.pyplot as plt
-import scipy.interpolate as si
-from numpy import linspace
+% \begin{frame}[allowframebreaks, fragile]
+% \frametitle{Código}
+% \begin{lstlisting}
+% import matplotlib.pyplot as plt
+% import scipy.interpolate as si
+% from numpy import linspace
 
-def trazador_cub(n):
-    xi = linspace(-1, 1, n)
-    yi = 1./(1 + 25*xi**2)
-    tck = si.splrep(xi, yi)
-    return tck
+% def trazador_cub(n):
+%     xi = linspace(-1, 1, n)
+%     yi = 1./(1 + 25*xi**2)
+%     tck = si.splrep(xi, yi)
+%     return tck
 
-x = linspace(-1, 1, 100)
-y = 1./(1 + 25*x**2)
+% x = linspace(-1, 1, 100)
+% y = 1./(1 + 25*x**2)
 
-tck = trazador_cub(8)
-ys8 = si.splev(x, tck)
+% tck = trazador_cub(8)
+% ys8 = si.splev(x, tck)
 
-tck = trazador_cub(12)
-ys12 = si.splev(x, tck)
+% tck = trazador_cub(12)
+% ys12 = si.splev(x, tck)
 
-plt.plot(x, y)
-plt.plot(x, ys8,'+g-', label='n=8')
-plt.plot(x, ys12,'+r-',label ='n=12')
-plt.legend(loc='best')
-plt.title('Interpolacion con splines cubicos')
-plt.ylim(-0.2, 1.2)
-plt.show()
-\end{lstlisting}
+% plt.plot(x, y)
+% plt.plot(x, ys8,'+g-', label='n=8')
+% plt.plot(x, ys12,'+r-',label ='n=12')
+% plt.legend(loc='best')
+% plt.title('Interpolacion con splines cubicos')
+% plt.ylim(-0.2, 1.2)
+% plt.show()
+% \end{lstlisting}
+% \end{frame}
+\begin{frame}
+\frametitle{Código implementado}
+Revisa el archivo con el código que resuelve el problema con splines cúbicos.
 \end{frame}
 \begin{frame}
 \frametitle{Resultados gráficos}

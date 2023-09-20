@@ -12,24 +12,28 @@ import matplotlib as mpl
 
 mpl.rcParams['text.usetex'] = True
 
-x = linspace(-1, 1, 100)
-y = 1./(1 + 25 * x**2)
+def funcionInicial(x):
+    valor = 1./(1 + 25 * x**2)
+    return valor
 
 def trazador_cub(n):
     xi = linspace(-1, 1, n)
-    yi = 1./(1 + 25 * xi**2)
-    tck = splrep(xi, yi)
+    tck = splrep(xi, funcionInicial(xi))
     return tck
 
-tck = trazador_cub(8)
-ys_8_ = splev(x, tck)
 
-tck = trazador_cub(12)
-ys_12_ = splev(x, tck)
+x = linspace(-1, 1, 100)
 
-plt.plot(x, y, label='f(x)')
-plt.plot(x, ys_8_,'+g-', label='n=8')
-plt.plot(x, ys_12_,'+r-',label ='n=12')
+
+tck1 = trazador_cub()
+ys8 = splev(x, tck1)
+
+tck2 = trazador_cub()
+ys12 = splev(x, tck2)
+
+plt.plot(x, funcionInicial(x), label='f(x)')
+plt.plot(x, ys8,'+g-', lw=0.7, label='n=8')
+plt.plot(x, ys12,'+r-', lw=0.7, label ='n=12')
 plt.legend(loc='best')
 plt.title('Interpolación con splines cúbicos')
 plt.ylim(-0.2, 1.2)

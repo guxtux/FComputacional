@@ -3,7 +3,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Warsaw_seahorse}
-\usefonttheme{serif}
+%\usefonttheme{serif}
 
 \title{\large{Tema 1 - Errores y artimética de punto flotante}}
 \author{M. en C. Gustavo Contreras Mayén}
@@ -15,92 +15,92 @@
 \section*{Contenido}
 \frame[allowframebreaks]{\frametitle{Contenido} \tableofcontents[currentsection, hideallsubsections]}
 
-\section{Más conceptos importantes}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{Condición}
+% \section{Más conceptos importantes}
+% \frame{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Condición}
 
-\begin{frame}
-\frametitle{Condición}
-La condición (\emph{condicionamiento}) de una función $f(x)$ mide la sensibilidad de los valores de $f(x)$ a pequeños
-cambios de $x$, se define como:
-\pause
-\begin{align*}
-C = \abs{ \dfrac{E_{\text{rel}} \, (f (x))}{E_{_\text{rel}} (x)} }
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Definición de condición}
-Del teorema del valor medio en cálculo, podemos expresar:
-\pause
-\begin{eqnarray*}
-\begin{aligned}
-f (x_{T}) - f (x_{A})  &\approx \pderivada{f} (x_{T}) \, (x_{T} - x_{A}) \\ \pause
-\rightarrow E_{\text{rel}} (f (x)) &\approx \dfrac{ \pderivada{f} (x_{T})}{ f(x_{T})} (x_{T} - x_{A})
-\end{aligned}
-\end{eqnarray*}
-luego entonces:
-\pause
-\begin{align*}
-C \approx \abs{ x_{T} \dfrac{\pderivada{f} (x_{T})}{f (x_{T})} }
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Definición de condición}
-Se utilizará a $C$ como definición de condición para funciones $f (x)$ de una variable real.
-\\
-\bigskip
-\pause
-Entonces el número de condición será:
-\pause
-\begin{align*}
-C = \abs{ x \, \dfrac{\pderivada{f} (x)}{f (x)} }
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Valores del número de condición}
-\setbeamercolor{item projected}{bg=red,fg=white}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\item Para un $x$ dado $0 < C (x) < 1$ se dirá que \emph{el problema está bien condicionado}, \pause y cuanto menor sea $C$, mejor condicionado. \pause
-\item Si $C (x) > 1$, el problema estará mal condicionado.
-\item Si $C (x) = 1$, el error relativo se mantiene.
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Ejemplos}
-¿Las siguientes funciones están bien condicionadas?
-\pause
-\setbeamercolor{item projected}{bg=cadetblue,fg=amber}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\item $f (x) = \sqrt{x} \hspace{1.5cm} C (x) = ?$
-\item $g (x) = x^{2} - 1 \hspace{1.5cm} C (x) = ?$
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Los números de condición}
-Haciendo las cuentas tendremos que para las funciones:
-\pause
-\begin{align*}
-C (f (x) ) = \dfrac{1}{2} \hspace{0.75cm} &\Rightarrow 0 < C (f (x) ) < 1 \\
-\therefore \quad &\text{Problema bien condicionado}
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Los números de condición}
-El $C (g (x) )$ lo visualizamos con una gráfica:
-\pause
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.85]{Imagenes/Condicion_02.eps}
-\end{figure}
-\end{frame}
+% \begin{frame}
+% \frametitle{Condición}
+% La condición (\emph{condicionamiento}) de una función $f(x)$ mide la sensibilidad de los valores de $f(x)$ a pequeños
+% cambios de $x$, se define como:
+% \pause
+% \begin{align*}
+% C = \abs{ \dfrac{E_{\text{rel}} \, (f (x))}{E_{_\text{rel}} (x)} }
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Definición de condición}
+% Del teorema del valor medio en cálculo, podemos expresar:
+% \pause
+% \begin{eqnarray*}
+% \begin{aligned}
+% f (x_{T}) - f (x_{A})  &\approx \pderivada{f} (x_{T}) \, (x_{T} - x_{A}) \\ \pause
+% \rightarrow E_{\text{rel}} (f (x)) &\approx \dfrac{ \pderivada{f} (x_{T})}{ f(x_{T})} (x_{T} - x_{A})
+% \end{aligned}
+% \end{eqnarray*}
+% luego entonces:
+% \pause
+% \begin{align*}
+% C \approx \abs{ x_{T} \dfrac{\pderivada{f} (x_{T})}{f (x_{T})} }
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Definición de condición}
+% Se utilizará a $C$ como definición de condición para funciones $f (x)$ de una variable real.
+% \\
+% \bigskip
+% \pause
+% Entonces el número de condición será:
+% \pause
+% \begin{align*}
+% C = \abs{ x \, \dfrac{\pderivada{f} (x)}{f (x)} }
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Valores del número de condición}
+% \setbeamercolor{item projected}{bg=red,fg=white}
+% \setbeamertemplate{enumerate items}{%
+% \usebeamercolor[bg]{item projected}%
+% \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+% }
+% \begin{enumerate}[<+->]
+% \item Para un $x$ dado $0 < C (x) < 1$ se dirá que \emph{el problema está bien condicionado}, \pause y cuanto menor sea $C$, mejor condicionado. \pause
+% \item Si $C (x) > 1$, el problema estará mal condicionado.
+% \item Si $C (x) = 1$, el error relativo se mantiene.
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Ejemplos}
+% ¿Las siguientes funciones están bien condicionadas?
+% \pause
+% \setbeamercolor{item projected}{bg=cadetblue,fg=amber}
+% \setbeamertemplate{enumerate items}{%
+% \usebeamercolor[bg]{item projected}%
+% \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+% }
+% \begin{enumerate}[<+->]
+% \item $f (x) = \sqrt{x} \hspace{1.5cm} C (x) = ?$
+% \item $g (x) = x^{2} - 1 \hspace{1.5cm} C (x) = ?$
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Los números de condición}
+% Haciendo las cuentas tendremos que para las funciones:
+% \pause
+% \begin{align*}
+% C (f (x) ) = \dfrac{1}{2} \hspace{0.75cm} &\Rightarrow 0 < C (f (x) ) < 1 \\
+% \therefore \quad &\text{Problema bien condicionado}
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Los números de condición}
+% El $C (g (x) )$ lo visualizamos con una gráfica:
+% \pause
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[scale=0.85]{Imagenes/Condicion_02.eps}
+% \end{figure}
+% \end{frame}
 
 \section{Polinomios de Taylor}
 \frame{\tableofcontents[currentsection, hideothersubsections]}
@@ -919,7 +919,7 @@ Repitamos esta suma $1000000$ veces, ya conocemos de antemano su resultado. \pau
 \begin{lstlisting}[caption=Sumando en un ciclo]
 suma = 1.0
 
-for in in range(1, 1000001):
+for i in range(1, 1000001):
     suma += 0.0000001
 
 print('La suma es: {0:}'.format(suma))
@@ -1052,9 +1052,9 @@ La batería de los Patriot llevaba en funcionamiento más de $100$ horas, por lo
 \end{frame}
 \begin{frame}
 \frametitle{Entrega de los ejercicios a cuenta}
-Estos ejercicios a cuenta, se deberán de entregar a más tardar para el día domingo a las $12$ del día vía Moodle.
+Estos ejercicios a cuenta, se deberán de entregar a más tardar para el día domingo a las $5$  pm, vía Moodle.
 \\
 \bigskip
-Recuerda que puedes usar una notebook de Jupyter o archivo *.py (que deberán estar en un *.zip)
+Recuerda que puedes usar un notebook de Jupyter o archivo *.py, de preferencia un archivo por cada ejercicio(tu envío deberá estar en un *.zip)
 \end{frame}
 \end{document}

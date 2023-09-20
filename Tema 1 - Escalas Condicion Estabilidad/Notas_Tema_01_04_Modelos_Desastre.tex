@@ -4,7 +4,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Warsaw_seahorse}
-\usefonttheme{serif}
+%\usefonttheme{serif}
 
 \title{\large{Tema 1 - Errores y artimética de punto flotante}}
 \author{M. en C. Gustavo Contreras Mayén}
@@ -109,7 +109,7 @@ El error general de redondeo se acumula a medida que el equipo maneja más núme
 \end{frame}
 \begin{frame}
 \frametitle{Errores por redondeo}
-En algunos casos, el error por redondeo puede convertirse en el componente principal en la respuesta, lo que lleva a lo que los expertos informáticos llaman \azulfuerte{basura}.
+En algunos casos, el error por redondeo puede convertirse en el componente principal en la respuesta, lo que lleva a lo que los expertos informáticos llaman \textocolor{ao}{basura}.
 \end{frame}
 \begin{frame}
 \frametitle{Errores por redondeo}
@@ -124,7 +124,7 @@ Por consiguiente, si hacemos en la computadora un cálculo tan simple como $2 \f
 \label{eq:ecuacion_02_03}
 \end{equation}
 \pause
-Aunque el resultado es pequeño, no es $0$, y si se repite este cálculo varios millones de veces, \pause la respuesta final puede que ni siquiera sea pequeña (\textcolor{lava}{la basura genera basura}).
+Aunque el resultado es pequeño, no es $0$, y si se repite este cálculo varios millones de veces, \pause la respuesta final puede que ni siquiera sea pequeña (\textocolor{lava}{la basura genera basura}).
 \end{frame}
 
 \section{Modelos para el desastre}
@@ -353,12 +353,12 @@ Para valores grandes de $n$:
 }
 \begin{enumerate}[<+->]
 \item Calcular el factorial puede consumir demasiado tiempo.
-\item Elevar a la potencia, puede causar un \textcolor{ao}{overflow}, y como es el denominador, no queremos problemas en esta parte.
+\item Elevar a la potencia, puede causar un \textocolor{ao}{overflow}, y como es el denominador, no queremos problemas en esta parte.
 \end{enumerate}
 \end{frame}
 \begin{frame}
 \frametitle{Cambiando el cálculo}
-Cambiemos la operación de la siguiente manera: \pause usaremos una multiplicación que nos relacione el \emph{\textcolor{blue-violet}{siguiente término}} con un \emph{\textcolor{burgundy}{término previo}} de la serie.
+Cambiemos la operación de la siguiente manera: \pause usaremos una multiplicación que nos relacione el \emph{\textocolor{blue-violet}{siguiente término}} con un \emph{\textocolor{burgundy}{término previo}} de la serie.
 \end{frame}
 \begin{frame}
 \frametitle{Relación entre los términos}
@@ -448,12 +448,40 @@ La siguiente gráfica nos indica los valores obtenidos y el punto de iteración,
 \end{figure}
 \end{frame}
 \begin{frame}
+\frametitle{Ajustando el eje $x$}
+Notarás que en el eje $x$ el punto inicial está en la iteración $2$ con su correspondiente valor del error relativo, \pause para mostrarlo así en la gráfica, hay que usar una lista con los mismos puntos y ocuparla como argumento en \textocolor{ao}{matplotlib}.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Agregando una lista }
+\begin{lstlisting}
+eje_x = range(2, n)
+\end{lstlisting}
+Este elemento lo colocamos antes del ciclo \textocolor{ao}{for}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Graficando}
+En la parte de graficación, anotamos lo siguiente:
+\begin{lstlisting}
+plt.plot(eje_x, error, '+')
+plt.plot(eje_x, error)
+\end{lstlisting}
+De esta manera ya tendremos en el eje $x$ el valor de $2$.
+\end{frame}
+\begin{frame}
 \frametitle{Mejorando la presentación gráfica}
 Como vemos en la gráfica anterior, podemos pensar que para la segunda iteración, el error relativo se hace cero.
 \\
 \bigskip
 \pause
 Hagamos un ajuste al eje $y$, \pause hagamos el cambio a un eje logarítmico.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Cambiando la escala del eje}
+Para cambiar la escala del eje $y$, comentamos las líneas de \textocolor{ao}{plt.plot} y hacemos uso de la función \textocolor{ao}{semilogy}:
+\begin{lstlisting}
+plt.semilogy(eje_x, error, '+')
+plt.semilogy(eje_x, error, ls='dashed', lw=0.7, color='red')
+\end{lstlisting}
 \end{frame}
 \begin{frame}
 \frametitle{Gráfica del error relativo con eje logartímico}
@@ -479,7 +507,7 @@ Sabemos que este error surge de aproximar procesos continuos mediante procedimie
 \end{frame}
 \begin{frame}
 \frametitle{Errores de truncamiento}
-Como ejemplo suele tomarse la \emph{\textcolor{ao}{diferenciación numérica}} como forma de aproximar el cálculo de una derivada en un punto (o su equivalente, la \emph{\textcolor{lilac}{integración numérica)}}.
+Como ejemplo suele tomarse la \emph{\textocolor{ao}{diferenciación numérica}} como forma de aproximar el cálculo de una derivada en un punto (o su equivalente, la \emph{\textocolor{lilac!85!black}{integración numérica}}).
 \\
 \bigskip
 \pause
@@ -585,10 +613,10 @@ Como ejercicio, apliquemos el algoritmo para obtener la derivada de la función 
 \begin{align*}
 \pderivada{f} (0.45) = \dfrac{\sin (2 \, \pi \, (0.45 + h)) - \sin (2 \, \pi \, 0.45)}{h}
 \end{align*}
-\\
-\bigskip
-\pause
-Para obtener el valor de la aproximación y el error relativo en cada cálculo, ocupa una función que evalúe la derivada de $f$, así como el valor del error relativo para cada $h$.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio con la aproximación}
+Para obtener el valor de la aproximación y el error relativo en cada cálculo, implementa una función que evalúe la derivada de $f$, así como el valor del error relativo para cada $h$.
 \end{frame}
 \begin{frame}
 \frametitle{Ejercicio con la aproximación}
@@ -599,7 +627,7 @@ Considera el valor exacto de la derivada:
 \end{frame}
 \begin{frame}
 \frametitle{Ejercicio con la aproximación}
-Utiliza como valor inicial de $h = 10^{-1}$, para luego repertir el cálculo con $h = 10^{-2}$, así hasta llegar a $h = 10^{-16}$.
+Utiliza como valor inicial de $h = \num{d-1}$, para luego repertir el cálculo con $h = \num{d-2}$, así hasta llegar a $h = \num{d-16}$.
 \\
 \bigskip
 \pause
@@ -612,12 +640,12 @@ Será necesario incluir una rutina de graficación para estudiar el comportamien
 \centering
 \begin{tabular}{l | l | l}
 h & Aprox. $\pderivada{f} (x_{0})$ & Error relativo\\ \hline
-$10^{-1}$ & & \\ \hline
-$10^{-2}$ & & \\ \hline
-$10^{-3}$ & & \\ \hline
+$\num{d-1}$ & & \\ \hline
+$\num{d-2}$ & & \\ \hline
+$\num{d-3}$ & & \\ \hline
 \ldots & & \\ \hline
-$10^{-15}$ & & \\ \hline
-$10^{-16}$ & & \\ \hline
+$\num{d-15}$ & & \\ \hline
+$\num{d-16}$ & & \\ \hline
 \end{tabular}
 \end{table}
 \end{frame}
@@ -675,12 +703,26 @@ Vemos en los resultados que el valor del error relativo comienza a disminuir per
 \\
 \bigskip
 \pause
-\textcolor{red}{¿Por qué pasa esto?}
+\textocolor{red}{¿Por qué pasa esto?}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Interpretación de los resultados}
 Una vez que tengamos los resultados de la tabla, para interpretar de mejor manera los datos, tendremos que elaborar una gráfica del error relativo contra el valor de $h$.
 \end{frame}
+\begin{frame}[fragile]
+\frametitle{Rutina de graficación}
+Incluye en tu código una rutina de gráficación que muestre el valor del error relativo.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Para graficar el error relativo}
+\begin{verbatim}
+errores = []
+
+plt.plot(errores, '+b')
+plt.plot(errores, color='r', lw=0.7, ls='dashed')
+\end{verbatim}
+\end{frame}
+
 \begin{frame}
 \frametitle{Comportamiento del ER en escala normal}
 \begin{figure}
@@ -695,6 +737,13 @@ Vemos que hay un comportamiento de cambio drástico con los valores del error re
 \bigskip
 \pause
 Si ajustamos el eje $y$ a una escala logarítmica, quizá encontremos un resultado interesante.
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ajustando el eje $y$}
+La siguiente instrucción nos presenta el eje $y$ en escala logarítmica:
+\begin{verbatim}
+plt.yscale('log')
+\end{verbatim}
 \end{frame}
 \begin{frame}
 \frametitle{Comportamiento del ER en escala semilog}
