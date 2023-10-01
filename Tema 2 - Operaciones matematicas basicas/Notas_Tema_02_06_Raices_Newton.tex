@@ -3,7 +3,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Dresden_seahorse}
-\usefonttheme{serif}
+\<%usefonttheme{serif}
 
 \title{\large{Cálculo de raíces}}
 \subtitle{Tema 2 - Operaciones matemáticas básicas}
@@ -165,7 +165,7 @@ $0.73450$ & $0.73456$ & $0.73462$ & $0.00139$ & $0.00059$	& $-0.00020$ \\ \hline
 % \end{frame}
 
 \section{Newton-Raphson}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame[allowframebreaks]{\tableofcontents[currentsection, hideothersubsections]}
 \subsection{Definición}
 
 \begin{frame}
@@ -191,7 +191,11 @@ Si $x_{i + 1}$ es una raíz de $f (x) = 0$, tenemos que:
 0 = f (x_{i}) + \pderivada{f} (x_{i})(x_{i + 1} - x_{i}) + \order{x_{i + 1} - x_{i}}^{2}
 \end{align*}
 \pause
-Suponiendo que $x_{i}$ está cerca de $x_{i + 1}$, podemos eliminar el último término de la ecuación y resolver para $x_{i+1}$, por lo que la fórmula de Newton-Raphson es:
+Suponiendo que $x_{i}$ está cerca de $x_{i + 1}$, podemos eliminar el último término de la ecuación y resolver para $x_{i+1}$.
+\end{frame}
+\begin{frame}
+\frametitle{Método de Newton-Raphson}
+Por lo que la fórmula de Newton-Raphson es:
 \pause
 \begin{align*}
 x_{i+1} = x_{i} - \dfrac{f(x_{i})}{\pderivada{f} (x_{i})}
@@ -200,9 +204,9 @@ x_{i+1} = x_{i} - \dfrac{f(x_{i})}{\pderivada{f} (x_{i})}
 \begin{frame}
 \frametitle{Error en el método}
 Si $x$ representa el valor verdadero de la raíz, el error en $x_{i}$ es $E_{i} = x - x_{i}$.
-\\
-\bigskip
-\pause
+\end{frame}
+\begin{frame}
+\frametitle{Error en el método}
 Se puede demostrar que si $x_{i+1}$ se calcula de la expresión del \funcionazul{MNR}, el error es:
 \pause
 \begin{align*}
@@ -712,7 +716,7 @@ Los extremos del nuevo intervalo que contiene a la raíz se renombran para el si
 \end{frame}
 \begin{frame}
 \frametitle{Desventaja en el  método}
-\textcolor{red}{La desventaja de este método es que aparecen extremos fijos}: \pause uno de los extremos de la sucesión de intervalos no se mueve del punto original, por lo que las aproximaciones a la raíz, denotadas por $b_{1}$, $b_{2}$, $b_{3}$, etc. convergen a la raíz exacta solamente por un lado.
+\textocolor{red}{La desventaja de este método es que aparecen extremos fijos}: \pause uno de los extremos de la sucesión de intervalos no se mueve del punto original, por lo que las aproximaciones a la raíz, denotadas por $b_{1}$, $b_{2}$, $b_{3}$, etc. convergen a la raíz exacta solamente por un lado.
 \end{frame}
 \begin{frame}
 \frametitle{Presencia de extremos fijos}
@@ -1073,7 +1077,7 @@ x = np.linspace(-5, 5)
 
 \begin{frame}
 \frametitle{Ocupando el módulo \texttt{numpy}}
-Dentro de la librería \funcionazul{numpy} tenemos disponible la función \funcionazul{roots} para calcular la(s) raíz(ces) de \textcolor{armygreen}{un polinomio}.
+Dentro de la librería \funcionazul{numpy} tenemos disponible la función \funcionazul{roots} para calcular la(s) raíz(ces) de \textocolor{armygreen}{un polinomio}.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Parámetros a ocupar}
