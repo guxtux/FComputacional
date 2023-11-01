@@ -3,7 +3,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Dresden_seahorse}
-\usefonttheme{serif}
+% \usefonttheme{serif}
 
 \title{\large{Integración numérica}}
 \subtitle{Tema 2 - Operaciones matemáticas básicas}
@@ -205,7 +205,7 @@ que es la aproximación por diferencias finitas de orden $\order{h^{4}}$.
 
 \begin{frame}
 \frametitle{Integración de Romberg}
-La integración de Romberg combina la \textcolor{lava}{regla del trapecio} con la \textcolor{ao}{extrapolación de Richardson}. 
+La integración de Romberg combina la \textocolor{lava}{regla del trapecio} con la \textocolor{ao}{extrapolación de Richardson}. 
 \end{frame}
 \begin{frame}
 \frametitle{Integración de Romberg}
@@ -654,7 +654,7 @@ La aproximación también aplica para las cuadraturas Gaussianas, ya que son bue
 \begin{align*}
 \scaleint{6ex}_{\bs a}^{b} w(x) f(x) \dd{x}
 \end{align*}
-donde $w (x)$ se denomina \emph{función de peso o ponderación}, éstas pueden contener \textit{singularidades}, siempre y cuando sean integrables.
+donde $w (x)$ se denomina \textcolor{cerise}{función de peso o ponderación}, éstas pueden contener \textocolor{red}{singularidades}, siempre y cuando sean integrables.
 \end{frame}
 \begin{frame}
 \frametitle{Cuadraturas Gaussianas}
@@ -792,7 +792,7 @@ Estas fórmulas se pueden utilizar sin conocer la teoría detrás de ellas, ya q
 
 \begin{frame}
 \frametitle{Polinomios ortogonales}
-Los polinomios ortogonales se utilizan en muchas áreas de la física, de la matemática y del análisis numérico; se han estudiado a fondo y muchas de sus propiedades ya son conocidas. 
+Los \textocolor{blue-violet}{polinomios ortogonales} se utilizan en muchas áreas de la física, de la matemática y del análisis numérico; se han estudiado a fondo y muchas de sus propiedades ya son conocidas. 
 \end{frame}
 \begin{frame}
 \frametitle{Polinomios ortogonales}
@@ -816,11 +816,12 @@ A continuación se enlistan algunos de los polinomios ortogonales clásicos, la 
 \end{frame}
 \begin{frame}
 \frametitle{Polinomios ortogonales}
-Legendre: $p_{n} (x)$  \hspace{0.5cm} $a = -1$, $b = 1$, $w (x) = 1$ \\[0.5em]
+Legendre: $P_{n} (x)$  \hspace{0.5cm} $a = -1$, $b = 1$, $w (x) = 1$ \\[0.5em]
 $\scaleint{6ex}_{\bs -1}^{1} \left[ \varphi_{n} (x)\right]^{2} \dd{x} = \dfrac{2}{2 \, n + 1}$
 \\[0.5em]
 \rule{10cm}{1pt}
 \\[0.5em]
+\pause
 Chebyshev: $T_{n} (x)$ \hspace{0.5cm} $a = -1$, $b = 1$, $w (x) = (1 - x^{2})^{-1/2}$ \\[0.5em]
 $\scaleint{6ex}_{\bs -1}^{1} (1 - x^{2})^{-1/2} \left[ \varphi_{n} (x)\right]^{2} \dd{x} = \dfrac{\pi}{2} \hspace{0.2cm} (n > 0)$
 \end{frame}
@@ -845,6 +846,7 @@ $\scaleint{6ex}_{\bs 0}^{\infty} e^{-x} \, \left[ \varphi_{n} (x)\right]^{2} \dd
 \\[0.5em]
 \rule{10cm}{1pt}
 \\[0.5em]
+\pause
 Hermite: $H_{n} (x)$ \hspace{0.5cm} $a = -\infty$, $b = \infty$, $w (x) = e^{x^{2}}$ \\
 $\scaleint{6ex}_{\bs -\infty}^{\infty} e^{x^{2}} \, \left[ \varphi_{n} (x) \right]^{2} \dd{x} = \sqrt{\pi} \, 2^{n} \, n!$
 \end{frame}

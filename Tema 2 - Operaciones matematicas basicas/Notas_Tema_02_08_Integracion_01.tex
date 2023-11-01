@@ -3,7 +3,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Dresden_seahorse}
-\usefonttheme{serif}
+%\usefonttheme{serif}
 
 \title{\large{Integración numérica}}
 \subtitle{Tema 2 - Operaciones matemáticas básicas}
@@ -34,7 +34,7 @@ Dada la función $f (x)$, queremos calcular de manera numérica:
 
 \begin{frame}
 \frametitle{Introducción}
-La integración numérica (también conocida como \textcolor{blue}{cuadratura}) es un procedimiento con mayor precisión que la diferenciación numérica.
+La integración numérica (también conocida como \textocolor{blue}{cuadratura}) es un procedimiento con mayor precisión que la diferenciación numérica.
 \end{frame}
 \begin{frame}
 \frametitle{Introducción}
@@ -48,7 +48,7 @@ mediante la suma:
 I = \nsum_{i=0}^{n} A_{i} \, f (x_{i})
 \end{align*}
 \fontsize{12}{12}\selectfont
-donde las \textcolor{ao}{abscisas nodales} $x_{i}$ \pause y los \textcolor{amethyst}{pesos} $A_{i}$ dependen de una regla en particular usada para la cuadratura.
+donde las \textocolor{ao}{abscisas nodales} $x_{i}$ \pause y los \textocolor{amethyst}{pesos} $A_{i}$ dependen de una regla en particular usada para la cuadratura.
 \end{frame}
 \begin{frame}
 \frametitle{Clasificación de las cuadraturas}
@@ -60,8 +60,8 @@ Todas las reglas de cuadratura se dividen en dos grupos:
 \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
 }
 \begin{enumerate}[<+->]
-\item Fórmulas de \textcolor{blue-violet}{Newton-Cotes}.
-\item Fórmulas de \textcolor{americanrose}{Cuadraturas Gaussianas}.
+\item Fórmulas de \textocolor{blue-violet}{Newton-Cotes}.
+\item Fórmulas de \textocolor{americanrose}{Cuadraturas Gaussianas}.
 \end{enumerate}
 \end{frame}
 
@@ -71,7 +71,7 @@ Todas las reglas de cuadratura se dividen en dos grupos:
 
 \begin{frame}
 \frametitle{Fórmulas de Newton-Cotes}
-Estas fórmulas se caracterizan por usar un \textcolor{blue(pigment)}{espaciamiento uniforme y constante en las abscisas}, \pause aquí se consideran los \textcolor{blush}{métodos del trapecio} y la \textcolor{bole}{regla de Simpson}.
+Estas fórmulas se caracterizan por usar un \textocolor{blue(pigment)}{espaciamiento uniforme y constante en las abscisas}, \pause aquí se consideran los \textocolor{blush}{métodos del trapecio} y la \textocolor{bole}{regla de Simpson}.
 \end{frame}
 \begin{frame}
 \frametitle{Fórmulas de Newton-Cotes}
@@ -156,7 +156,7 @@ Siendo los casos:
 \end{frame}
 \begin{frame}
 \frametitle{Fórmulas de Newton-Cotes}
-La más importante es la regla del trapecio, ya que se puede combinar con la \textit{extrapolación de Richardson}, en un algoritmo eficiente llamado: \textcolor{cobalt}{Integración de Romberg}.
+La más importante es la regla del trapecio, ya que se puede combinar con la \textit{extrapolación de Richardson}, en un algoritmo eficiente llamado: \textocolor{cobalt}{Integración de Romberg}.
 \end{frame}
 
 \subsection{Regla del trapecio}
@@ -544,7 +544,7 @@ El resultado que nos devuelve es: $(11.728612573401893, 1.302137572589889e-13)$.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Usando \funcionazul{integrate.quad}}
-El \textcolor{burntumber}{primer valor es el valor de la integral}, mientras que el \textcolor{carnelian}{segundo valor es el error} asociado al algoritmo que usa \funcionazul{integrate.quad}, para que no lo reporte en el resultado, basta con indicar que queremos sólo el primer elemento de la lista:
+El \textocolor{burntumber}{primer valor es el valor de la integral}, mientras que el \textocolor{carnelian}{segundo valor es el error} asociado al algoritmo que usa \funcionazul{integrate.quad}, para que no lo reporte en el resultado, basta con indicar que queremos sólo el primer elemento de la lista:
 \\
 \bigskip
 \pause

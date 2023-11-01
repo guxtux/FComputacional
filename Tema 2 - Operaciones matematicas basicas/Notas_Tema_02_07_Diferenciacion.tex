@@ -3,7 +3,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Dresden_seahorse}
-\usefonttheme{serif}
+% \usefonttheme{serif}
 
 \title{\large{Diferenciación numérica}}
 \subtitle{Tema 2 - Operaciones matemáticas básicas}
@@ -42,7 +42,7 @@ Cuando decimos \enquote{función dada} significa que:
 }
 \begin{enumerate}[<+->]
 \item Tenemos un algoritmo para calcular la función, o
-\item Contamos con un conjunto de puntos discretos $(x_{i}, y_{i})$, $i = 0, 1,\ldots,N$.
+\item Contamos con un conjunto de puntos discretos $(x_{i}, y_{i})$, $i = 0, 1,\ldots, N$.
 \end{enumerate}
 \pause
 En cualquier caso, tenemos acceso a un número finito de pares de datos $(x, y)$ a partir de los cuales, podemos calcular la derivada.
@@ -57,11 +57,11 @@ Ya que es un medio para encontrar la derivada a partir de una aproximación con 
 \end{frame}
 \begin{frame}
 \frametitle{Desarrollo en series de Taylor}
-Una herramienta igualmente eficaz es el desarrollo en serie de Taylor de $f (x)$ sobre el punto de $x_{k}$, lo que representa como ventaja de que nos proporciona información acerca del error cometido en la aproximación.
+Una herramienta igualmente eficaz es el desarrollo en serie de Taylor de $f (x)$ sobre el punto de $x_{k}$, \pause como ventaja se nos proporciona información acerca del error cometido en la aproximación.
 \end{frame}
 \begin{frame}
 \frametitle{Cuidados con la diferenciación}
-La diferenciación numérica no es un proceso particularmente exacto: \pause se presentan un conflicto entre \textcolor{ao}{los errores de redondeo} (debido a la precisión de la máquina) y \textcolor{beaver}{los errores inherentes a la interpolación}.
+La diferenciación numérica no es un proceso particularmente exacto: \pause se presentan un conflicto entre \textocolor{ao}{los errores de redondeo} (debido a la precisión de la máquina) y \textocolor{bole}{los errores inherentes a la interpolación}.
 \\
 \bigskip
 \pause
@@ -75,22 +75,38 @@ Por esta razón, la derivada de una función no debe de ser calculada con la mis
 \begin{frame}
 \frametitle{Aproximación por diferencias finitas}
 La derivación por aproximación por diferencias finitas de las derivadas de $f (x)$, se basa en el desarrollo de series de Taylor hacia adelante y hacia atrás de $f (x)$ alrededor de $x$:
-\pause
+\end{frame}
+\begin{frame}
+\frametitle{Aprox. adelante por diferencias finitas}
 \begin{eqnarray*}
 \begin{aligned}
 f (x + h) &= f(x) + h \, \pderivada{f} (x) + \dfrac{h^{2}}{2!} \, \sderivada{f} (x) + \dfrac{h^{3}}{3!} \, \tderivada{f} (x) + \\[0.5em]
-&+ \dfrac{h^{4}}{4!} \, f^{(4)} (x) + \ldots \\ \pause
+&+ \dfrac{h^{4}}{4!} \, f^{(4)} (x) + \ldots
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Aprox. adelante por diferencias finitas}
+\begin{eqnarray*}
+\begin{aligned}
 f (x - h) &= f(x) - h \, \pderivada{f} (x) + \dfrac{h^{2}}{2!} \, \sderivada{f} (x) - \dfrac{h^{3}}{3!} \, \tderivada{f} (x) + \\[0.5em]
 &+ \dfrac{h^{4}}{4!} \, f^{(4)}(x) - \ldots
 \end{aligned}
 \end{eqnarray*}
 \end{frame}
 \begin{frame}
-\frametitle{Aproximación por diferencias finitas}
+\frametitle{Aprox. adelante 2 pasos}
 \begin{eqnarray*}
 \begin{aligned}
 f (x + 2 h) &= f(x) + 2 \, h \, \pderivada{f} (x) + \dfrac{(2 h)^{2}}{2!} \, \sderivada{f} (x) + \dfrac{(2 h)^{3}}{3!} \, \tderivada{f} (x) + \\[0.5em]
-&+ \dfrac{(2 h)^{4}}{4!} \, f^{(4)}(x) + \ldots \\ \pause
+&+ \dfrac{(2 h)^{4}}{4!} \, f^{(4)}(x) + \ldots
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Aprox. atrás 2 pasos}
+\begin{eqnarray*}
+\begin{aligned}
 f( x - 2 h) &= f(x) - 2 \, h \, \pderivada{f} (x) + \dfrac{(2 h)^{2}}{2!} \, \sderivada{f} (x) - \dfrac{(2 h)^{3}}{3!} \, \tderivada{f} (x) + \\[0.5em]
 &+  \dfrac{(2 h)^{4}}{4!} \, f^{(4)}(x) - \ldots
 \end{aligned}
@@ -134,7 +150,7 @@ Que de manera equivalente presentamos como:
 \begin{align*}
 \pderivada{f} (x) = \dfrac{f(x + h) - f(x - h)}{2 \, h} + \order{h^{2}}
 \end{align*}
-que es la llamada \textcolor{ao}{aproximación por diferencias centrales} de $\pderivada{f} (x)$.
+que es la llamada \textocolor{ao}{aproximación por diferencias centrales} de $\pderivada{f} (x)$.
 \end{frame}
 \begin{frame}
 \frametitle{Diferencias centrales de orden 2}
@@ -174,7 +190,7 @@ Es cierto, que necesitaremos una expresión para diferencias finitas que evalúe
 \\
 \bigskip
 \pause
-Estas expresiones son llamadas aproximaciones por diferencias finitas \textcolor{red}{hacia adelante} y \textcolor{blue}{hacia atrás}.
+Estas expresiones son llamadas aproximaciones por diferencias finitas \textocolor{red}{hacia adelante} y \textocolor{blue}{hacia atrás}.
 \end{frame}
 \begin{frame}
 \frametitle{Recuperando la expresión}
@@ -193,7 +209,7 @@ para obtener:
 \end{frame}
 \begin{frame}
 \frametitle{Diferencias centrales hacia adelante}
-Manteniendo los primeros términos, tenemos la \textcolor{red}{aproximación por diferencias centrales hacia adelante}:
+Manteniendo los primeros términos, tenemos la \textocolor{red}{aproximación por diferencias centrales hacia adelante}:
 \pause
 \begin{align*}
 \pderivada{f} (x) = \dfrac{f (x + h) - f (x)}{h} + \order{h}
@@ -207,7 +223,7 @@ f (x - h) &= f(x) - h \, \pderivada{f} (x) + \dfrac{h^{2}}{2!} \, \sderivada{f} 
 &+ \dfrac{h^{4}}{4!} \, f^{(4)}(x) - \ldots
 \end{align*}
 \pause
-Obtenemos la \textcolor{blue}{aproximación por diferencias hacia atrás}:
+Obtenemos la \textocolor{blue}{aproximación por diferencias hacia atrás}:
 \pause
 \begin{align*}
 \pderivada{f} (x) = \dfrac{f (x) - f(x - h)}{h} + \order{h}
@@ -262,7 +278,11 @@ que simplificando resulta:
 \begin{align*}
 \pderivada{f} (x) = \dfrac{- f (x + 2 \, h) + 4 \, f (x + h) - 3 \, f (x)}{2 \, h} + \order{h^{2}}
 \end{align*}
-siendo la expresión para la \textcolor{byzantine}{segunda aproximación por diferencias finitas hacia adelante}.
+siendo la expresión para la \textocolor{byzantine}{segunda aproximación por diferencias finitas hacia adelante}.
+\end{frame}
+\begin{frame}
+\frametitle{Funciones en el módulo}
+Cada una de las expresiones para las aproximaciones, deberás de incluirlas en el módulo \textoazul{moduloDiferencias}, ya que se ocupará en los siguientes ejercicios.
 \end{frame}
 
 \section{Errores en las aprox. por dif. fin.}
@@ -313,11 +333,34 @@ Para manejar esta situación que siempre se va a presentar, podemos apoyarnos co
 \begin{frame}
 \frametitle{Suposiciones importantes}
 Toma en cuenta de que las funciones para las aproximaciones por diferencias finitas deberán de estar en un módulo llamado \funcionazul{moduloDiferencias}.
-\\
-\bigskip
+\end{frame}
+\begin{frame}
+\frametitle{Aproximación a utilizar}
+La aproximación para la \textocolor{cobalt}{segunda derivada} que debemos de ocupar es la de diferencias centrales:
 \pause
+\begin{align*}
+\sderivada{f} (x) =  \dfrac{f(x + h) - 2 \, f (x) + f (x - h)}{h^{2}} + \order{h^{2}}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Suposiciones importantes}
 Además, la función \funcionazul{error\_rel} también se debe de llamar preferentemente de otro módulo, recuerda que los módulo permiten reutilizar código sin necesidad de copiar en otros módulos la misma función.
 \end{frame}
+\begin{frame}
+\frametitle{Lo que se debe de mostrar}
+\begin{table}
+\renewcommand{\arraystretch}{0.9}
+\centering
+\begin{tabular}{c | c | c}
+h & aproximación & error \\ \hline
+$0.64$ & \ldots & \ldots \\ \hline
+$0.32$ & \ldots & \ldots \\ \hline
+$0.16$ & \ldots & \ldots \\ \hline
+\ldots & \ldots & \ldots \\ \hline
+\num{8d-5} & \ldots & \ldots \\ \hline
+\end{tabular}    
+\end{table}
+\end{frame}    
 \begin{frame}[allowframebreaks, fragile]
 \frametitle{Implementando el código}
 \begin{lstlisting}[caption=Código para obtener la aproximación de la segunda derivada]
@@ -445,14 +488,14 @@ $\beta$ & $1.6595$ & $1.5434$ & $1.4186$ & $1.2925$ & $1.1712$ & $1.0585$ & $0.9
 \end{frame}
 \begin{frame}
 \frametitle{Problema a resolver}
-Si el segmento AB gira con velocidad angular constante de $\SI{25}{\radian\per\second}$, \pause con el método de diferencias finitas de orden $\order{h^{2}}$: calcula la \textcolor{ao}{velocidad angular} $\dv*{\beta}{t}$ del segmento BC contra el ángulo $\alpha$.
+Si el segmento AB gira con velocidad angular constante de $\SI[per-mode=symbol]{25}{\radian\per\second}$, \pause con el método de diferencias finitas de orden $\order{h^{2}}$: calcula la \textocolor{ao}{velocidad angular} $\dv*{\beta}{t}$ del segmento BC contra el ángulo $\alpha$.
 \end{frame}
 \begin{frame}
 \frametitle{Solución al ejercicio}
 La velocidad angular de BC es:
 \pause
 \begin{eqnarray*}
-\dv{\beta}{t} = \pause \dv{\beta}{\alpha} \, \dv{\alpha}{t} = \pause 25 \, \dv{\beta}{\alpha} \quad \SI{}{\radian\per\second}
+\dv{\beta}{t} = \pause \dv{\beta}{\alpha} \, \dv{\alpha}{t} = \pause 25 \, \dv{\beta}{\alpha} \quad \unit[per-mode=symbol]{\radian\per\second}
 \end{eqnarray*}
 donde $\dv*{\beta}{\alpha}$ se puede estimar con una aproximación de diferencias finitas, tomando los datos de la tabla anterior.
 \end{frame}
@@ -464,7 +507,7 @@ donde $\dv*{\beta}{\alpha}$ se puede estimar con una aproximación de diferencia
 \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
 }
 \begin{enumerate}
-\item Para los puntos extremos del lado izquierdo $(\alpha = \ang{0}, \ang{5}, \ang{10})$ se usará las diferencias \textcolor{red}{hacia adelante} de orden $\order{h^{2}}$.
+\item Para los puntos extremos del lado izquierdo $(\alpha = \ang{0}, \ang{5}, \ang{10})$ se usará las diferencias \textocolor{red}{hacia adelante} de orden $\order{h^{2}}$.
 \\[1em]
 \begin{table}
 \centering
@@ -486,7 +529,7 @@ $\beta$ & $\color{red}{1.6595}$ & $\color{red}{1.5434}$ & $\color{red}{1.4186}$ 
 }
 \begin{enumerate}[<+->]    
 \conti
-\item Para los puntos de en medio, el cálculo se hace con las \textcolor{cerisepink}{diferencias centrales}.
+\item Para los puntos de en medio, el cálculo se hace con las \textocolor{cerisepink}{diferencias centrales}.
 \\[1em]
 \begin{table}
 \centering
@@ -508,7 +551,7 @@ $\beta$ & $\color{red}{1.6595}$ & $\color{red}{1.5434}$ & $\color{red}{1.4186}$ 
 }
 \begin{enumerate}
 \conti
-\item Para los puntos extremos del lado derecho $(\alpha = \ang{20}, \ang{25}, \ang{30})$ se usará las diferencias \textcolor{blue}{hacia atrás} de orden $\order{h^{2}}$.
+\item Para los puntos extremos del lado derecho $(\alpha = \ang{20}, \ang{25}, \ang{30})$ se usará las diferencias \textocolor{blue}{hacia atrás} de orden $\order{h^{2}}$.
 \\[1em]
 \begin{table}
 \centering
@@ -526,7 +569,7 @@ $\beta$ & \ldots & $\color{blue}{1.1712}$ & $\color{blue}{1.0585}$ & $\color{blu
 Nótese que el incremento de $\alpha$ en grados es:
 \pause
 \begin{align*}
-h = \ang{5} \, \left( \dfrac{\pi \, \SI{}{\radian}}{\ang{180}} \right) = \SI{0.087266}{\radian}
+h = \ang{5} \, \left( \dfrac{\pi \, \unit{\radian}}{\ang{180}} \right) = \SI{0.087266}{\radian}
 \end{align*}
 \end{frame}
 \begin{frame}
@@ -546,11 +589,15 @@ Así tenemos que para el lado izquierdo la velocidad angular del segmento BC, es
 \pause
 \begin{eqnarray*}
 \begin{aligned}
-\dot{\beta}(\ang{0}) &=  \pause 25 \dfrac{- 3 \, \beta(\ang{0}) + 4 \, \beta(\ang{5}) - \beta(\ang{10})}{2 \, h} = \pause \SI{-32.01}{\radian\per\second}
+\dot{\beta}(\ang{0}) &=  \pause 25 \dfrac{- 3 \, \beta(\ang{0}) + 4 \, \beta(\ang{5}) - \beta(\ang{10})}{2 \, h} = \pause \SI[per-mode=symbol]{-32.01}{\radian\per\second}
 \end{aligned}
 \end{eqnarray*}
 \pause
 Aunque el cálculo es sencillo, tomemos en cuenta de que vamos a necesitar el resultado para completar la tabla de velocidad angular, por lo que nos conviene preparar un código en \python.
+\end{frame}
+\begin{frame}
+\frametitle{Nueva consideración}
+Para este ejercicio que ocupa puntos de una tabla, en el \funcionazul{moduloDiferencias}, habrá que incluir las funciones necesarias pero cuyos argumentos deben de ser puntos, no la función como en el caso del ejercicio anterior.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Calculando la velocidad a la izquierda}
@@ -570,7 +617,7 @@ Para los valores centrales de la tabla, la velocidad angular del segmento BC, es
 \pause
 \begin{eqnarray*}
 \begin{aligned}
-\dot{\beta}(\ang{5}) &= \pause \dfrac{\beta(\ang{10})- \beta(\ang{0})}{2 \, h} = \pause \SI{-34.51}{\radian\per\second}
+\dot{\beta}(\ang{5}) &= \pause \dfrac{\beta(\ang{10})- \beta(\ang{0})}{2 \, h} = \pause \SI[per-mode=symbol]{-34.51}{\radian\per\second}
 \end{aligned}
 \end{eqnarray*}
 \pause
@@ -615,23 +662,8 @@ Toma en cuenta que:
 }
 \begin{enumerate}[<+->]
 \item El código completo debe de quedar en un solo archivo.
-\item En una sola línea se hace la llamada a las funciones del \funcionazul{moduloDerivadas}.
+\item En una sola línea se hace la llamada a las funciones del \funcionazul{moduloDiferencias}.
 \item Hay que presentar la tabla completa de velocidad angular en la terminal, por lo que se deben de trabajar el código para mostrar la tabla.
-\seti
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Consideraciones importantes}
-\setbeamercolor{item projected}{bg=armygreen,fg=aureolin}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\conti
-\item El código completo debe de quedar en un solo archivo.
-\item En una sola línea se hace la llamada a las funciones del \funcionazul{moduloDerivadas}.
-\item Hay que presentar la tabla completa de velocidad angular en la terminal.
 \seti
 \end{enumerate}
 \end{frame}
@@ -719,7 +751,7 @@ Para practicar y repasar lo que hemos trabajado en este Tema 2, se te pide que e
 % $\dot{\beta}$ (rad/s) & $-32.01$ & $-34.51$ &  &  &  &  & 
 % \end{tabular}
 % \end{center}
-% \textcolor{red}{Debes de entregar la tabla y el código en \python.}
+% \textocolor{red}{Debes de entregar la tabla y el código en \python.}
 % \end{frame}
 % %\begin{frame}
 % %\frametitle{Ejercicio resuelto}
@@ -730,7 +762,7 @@ Para practicar y repasar lo que hemos trabajado en este Tema 2, se te pide que e
 % %$\dot{\beta}$ (rad/s) & -32.01 & -34.51 & -35.94 & -35.44 & -33.52 & -30.81  & -27.86 
 % %\end{tabular}
 % %\end{center}
-% %\textcolor{red}{Debe de entregarse la tabla y el código en python.}
+% %\textocolor{red}{Debe de entregarse la tabla y el código en python.}
 % %\end{frame}
 
 % \section{Extrapolación de Richardson}

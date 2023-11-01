@@ -3,7 +3,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Copenhagen_wolverine}
-\usefonttheme{serif}
+% \usefonttheme{serif}
 
 \title{\large{RK4, Estabilidad y Rigidez de las EDO}}
 \subtitle{Tema 3 - Ecuaciones Diferenciales Ordinarias}
@@ -22,7 +22,7 @@
 
 \begin{frame}
 \frametitle{Obteniendo el método}
-El \textcolor{cadmiumgreen}{método de Runge-Kutta de cuarto orden} (RK4) se obtiene de la serie de Taylor de la misma manera que el método de segundo orden.
+El \textocolor{cadmiumgreen}{método de Runge-Kutta de cuarto orden} (RK4) se obtiene de la serie de Taylor de la misma manera que el método de segundo orden.
 \\
 \bigskip
 \pause
@@ -34,7 +34,7 @@ La forma final de la fórmula de integración nuevamente depende de la elección
 \end{frame}
 \begin{frame}
 \frametitle{Versión para el RK4}
-La versión más popular, que se conoce simplemente como \textcolor{cornellred}{método de Runge-Kutta}, implica la siguiente secuencia de operaciones:
+La versión más popular, que se conoce simplemente como \textocolor{cornellred}{método de Runge-Kutta}, implica la siguiente secuencia de operaciones:
 \end{frame}
 \begin{frame}
 \frametitle{Versión para el RK4}
@@ -59,7 +59,7 @@ Por lo tanto, debemos adivinar el tamaño del paso de integración $h$ o determi
 \end{frame}
 \begin{frame}
 \frametitle{Otro tipo de métodos}
-Por el contrario, los llamados \textcolor{darkcerulean}{métodos adaptativos} pueden evaluar el error de truncamiento en cada paso de integración y ajustar el valor de $h$ en consecuencia (pero a un mayor costo de cálculo).
+Por el contrario, los llamados \textocolor{darkcerulean}{métodos adaptativos} pueden evaluar el error de truncamiento en cada paso de integración y ajustar el valor de $h$ en consecuencia (pero a un mayor costo de cálculo).
 \end{frame}
 \begin{frame}
 \frametitle{Propuesta de código}
@@ -287,12 +287,15 @@ Debido a que los errores inherentes a la solución numérica tienen el mismo efe
 \end{frame}
 \begin{frame}
 \frametitle{Hecho muy importante}
-Concluimos que nuestra solución numérica es víctima de \textcolor{red}{inestabilidad numérica} debido a la sensibilidad de la solución a las condiciones iniciales.
+Concluimos que nuestra solución numérica es víctima de \textocolor{red}{inestabilidad numérica} debido a la sensibilidad de la solución a las condiciones iniciales.
 \\
 \bigskip
 \pause
-\textbf{\textcolor{airforceblue}{Moraleja: }} No hay que confiar ciegamente en los resultados de la integración numérica.
+\textbf{\textocolor{airforceblue}{Moraleja: }} No hay que confiar ciegamente en los resultados de la integración numérica.
 \end{frame}
+
+\subsection{Ejercicios a cuenta}
+
 \begin{frame}
 \frametitle{Ejercicios a cuenta}
 \setbeamercolor{item projected}{bg=red,fg=white}
@@ -309,9 +312,6 @@ donde $y = h / r$.
 \seti 
 \end{enumerate}
 \end{frame}
-
-\subsection*{Ejercicios a cuenta}
-
 \begin{frame}
 \frametitle{Ejercicios a cuenta}
 \begin{figure}[H]
@@ -349,11 +349,105 @@ Grafica $h/r$ desde $t = 0$ hasta $t = 6$. A partir de la gráfica estima el per
 \begin{align*}
 \ddot{y} = g - \dfrac{C_{\text{D}}}{m} \, \dot{y}^{\, 2}
 \end{align*}
+\seti 
 \end{enumerate}
 \end{frame}
 \begin{frame}
 \frametitle{Ejercicios a cuenta}
 Calcula el tiempo de caída desde una altura de $\SI{5000}{\meter}$. Usa los valores de $g = \SI{9.81}{\meter\per\square\second}$, $C_{\text{D}} = \SI{0.2028 }{\kilo\gram\per\metre}$ y $m = \SI{80}{\kilo\gram}$.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicios a cuenta}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}
+\conti
+\item Según la ley de enfriamiento de Newton, la velocidad a la que se enfría un objeto es proporcional a la diferencia de temperatura entre el objeto y el medio ambiente que rodea al objeto.
+\item 
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicios a cuenta}
+La ecuación diferencial del proceso es:
+\begin{align*}
+\dv{T}{t} = k (T - T_{0})
+\end{align*}
+donde $T$ representa la temperatura del objeto en el tiempo $t$, $T_{0}$ la temperatura del medio ambiente y $k$ es la constante de proporcionalidad.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicios a cuenta}
+Si la temperatura del medio ambiente es de \SI{28}{\degreeCelsius}, la temperatura inicial del objeto es de \SI{100}{\degreeCelsius} y
+\begin{align*}
+k = \dfrac{1}{12} \, \ln \left( \dfrac{13}{18} \right)
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicios a cuenta}
+Usando el método de RK4 determina la temperatura aproximada del cuerpo después de \SI{12}{\minute}.
+\\
+\bigskip
+\pause
+Compara tu resultado con el valor exacto de la solución.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}
+\conti
+\item El movimiento de una luna que se encuentra en una órbita plana en torno de un planeta es descrito por el sistema:
+\begin{align*}
+\dv[2]{x}{t} = - g \, \dfrac{m \, x}{r^{3}}
+\end{align*}
+donde $r = \sqrt{x^{2} + y^{2}}$, $g$ es la constante gravitacional y $m$ es la masa de la luna.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+A fin de simplificar, suponemos que $g \, m = 1$.
+\\
+\bigskip
+Si $x (0) = 1$, $\pderivada{x} (x) = 0$, $y (0) = 0$, $\pderivada{y} (0) = 1$, la órbita es un círculo de radio $1$.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+Haciendo $x_{1} = x$, $x_{2} = \pderivada{x}$, $x_{3} = y$, $x_{4} = \pderivada{y}$, reduce el sistema a un sistema de cuatro EDO1.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+Usa un tamaño de paso:
+\begin{align*}
+h = \dfrac{2 \, \pi}{1024}
+\end{align*}
+y el método de RK4 para obtener un periodo de la órbita lunar.
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}
+\conti
+\item Si se drena el agua de un tanque cilíndrico vertical por medio de una válvula en la base del cilindro. 
+\\
+\bigskip
+La tasa de disminución del nivel del agua es
+\begin{align*}
+\dv{y}{t} = -k \, \sqrt{y}
+\end{align*}
+donde $k$ es una constante que depende de la válvula, $y$ es la altura del agua dentro del cilindro medida en metros y $t$ es el tiempo medido en minutos.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Ejercicio a cuenta}
+Si $k = 0.05$ y la altura inicial es de \SI{3}{\meter}, calcula el tiempo necesario para vaciar el tanque.
 \end{frame}
 
 \section{Estabilidad y rigidez}
@@ -362,11 +456,11 @@ Calcula el tiempo de caída desde una altura de $\SI{5000}{\meter}$. Usa los val
 
 \begin{frame}
 \frametitle{Concepto de estabilidad}
-Hablando de manera general, un método de integración se dice que \textcolor{blue}{es estable} si los efectos de errores locales, no se acumulan progresivamente, es decir, si el error global permanece acotado.
+Hablando de manera general, un método de integración se dice que \textocolor{blue}{es estable} si los efectos de errores locales, no se acumulan progresivamente, es decir, si el error global permanece acotado.
 \end{frame}
 \begin{frame}
 \frametitle{Concepto de estabilidad}
-Si el método \textcolor{red}{es inestable}, si el error global se incrementa de manera exponencial, generando eventualmente un desbordamiento (overflow).
+Si el método \textocolor{red}{es inestable}, si el error global se incrementa de manera exponencial, generando eventualmente un desbordamiento (overflow).
 \\
 \bigskip
 \pause
@@ -428,11 +522,11 @@ y (x + h) = (1 - \lambda \, h) \, y (x)
 \begin{align*}
 y (x + h) = (1 - \lambda \, h) \, y (x)
 \end{align*}
-Si $\abs{1 - \lambda \, h} > 1$, se nota claramente que \textcolor{red}{el método es inestable}, \pause ya que el valor de $\abs{y}$ se incrementa en cada paso de integración.
+Si $\abs{1 - \lambda \, h} > 1$, se nota claramente que \textocolor{red}{el método es inestable}, \pause ya que el valor de $\abs{y}$ se incrementa en cada paso de integración.
 \\
 \medskip
 \pause
-Por tanto, \pause \textcolor{blue}{el método de Euler es estable} solamente si $\abs{1 - \lambda \, h} \leq 1$, o
+Por tanto, \pause \textocolor{blue}{el método de Euler es estable} solamente si $\abs{1 - \lambda \, h} \leq 1$, o
 \begin{align*}
 h \leq \dfrac{2}{\lambda}
 \end{align*}
@@ -462,7 +556,7 @@ donde $\lambda_{\text{max}}$ es el valor propio mayor de $\mathbf{\Lambda}$.
 
 \begin{frame}
 \frametitle{El concepto de rigidez}
-Un problema de valores iniciales se dice que es \textbf{\emph{\textcolor{carmine}{rígido}}}, si algunos de los elementos del vector solución $\mathbf{y} (x)$ varían mucho más rápido con respecto a $x$, que otros.
+Un problema de valores iniciales se dice que es \textbf{\emph{\textocolor{carmine}{rígido}}}, si algunos de los elementos del vector solución $\mathbf{y} (x)$ varían mucho más rápido con respecto a $x$, que otros.
 \end{frame}
 \begin{frame}
 \frametitle{El concepto de rigidez}

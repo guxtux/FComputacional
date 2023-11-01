@@ -3,7 +3,7 @@
 \usepackage{../Estilos/ColoresLatex}
 \input{../Preambulos/pre_codigo}
 \input{../Preambulos/preambulo_Beamer_Copenhagen_wolverine}
-\usefonttheme{serif}
+% \usefonttheme{serif}
 
 \title{\large{Ecuaciones Diferenciales Ordinarias}}
 \subtitle{Tema 3 - Ecuaciones Diferenciales Ordinarias}
@@ -313,11 +313,11 @@ Las ecuaciones EDO1 equivalentes son:
 \end{frame}
 \begin{frame}
 \frametitle{Condiciones iniciales}
-La solución ahora requiere de $n$ condiciones auxiliares; si esas condiciones se especifican para el mismo valor de $x$, el problema se dice que es \emph{\textcolor{blue}{un problema de valores iniciales}}.
+La solución ahora requiere de $n$ condiciones auxiliares; si esas condiciones se especifican para el mismo valor de $x$, el problema se dice que es \emph{\textocolor{blue}{un problema de valores iniciales}}.
 \\
 \medskip
 \pause
-Las condiciones auxiliares, se llaman \emph{\textcolor{lava!90!black}{condiciones iniciales}}, que tienen la forma:
+Las condiciones auxiliares, se llaman \emph{\textocolor{lava!90!black}{condiciones iniciales}}, que tienen la forma:
 \pause
 \begin{align*}
 y_{0} (a) = \alpha_{0} \hspace{0.5cm} y_{1} (a) = \alpha_{1} \hspace{0.5cm} \ldots \hspace{0.5cm} y_{n-1} (a) = \alpha_{n-1}
@@ -330,7 +330,7 @@ Si $y_{i}$ se especifica para diferentes valores de $x$, el problema se llama \e
 \begin{align*}
 \sderivada{y} = - y \hspace{1cm} y (0) = 1 \hspace{1cm} \pderivada{y} (\pi) = 0
 \end{align*}
-es un \textcolor{awesome}{problema con condiciones de frontera}, ya que las dos condiciones se cumplen para diferentes valores de $x$.
+es un \textocolor{awesome}{problema con condiciones de frontera}, ya que las dos condiciones se cumplen para diferentes valores de $x$.
 \end{frame}
 \begin{frame}
 \frametitle{Tipos de problemas}
@@ -339,7 +339,7 @@ Mientras que:
 \begin{align*}
 \sderivada{y} = -y \hspace{1cm} y (0) = 1 \hspace{1cm} \pderivada{y} (0) = 0
 \end{align*}
-es un \textcolor{bole}{problema de condiciones iniciales}, ya que ambas condiciones están definidas en la solución para $x = 0$.
+es un \textocolor{bole}{problema de condiciones iniciales}, ya que ambas condiciones están definidas en la solución para $x = 0$.
 \end{frame}
 \begin{frame}
 \frametitle{Notación usada para el tema EDO}
@@ -575,7 +575,7 @@ Cuiden que la ruta del módulo se encuentre bien identificada para evitar errore
 
 \begin{frame}
 \frametitle{La función \texttt{Euler}}
-Esta función implementa el \textcolor{ao}{método de integración de Euler}.
+Esta función implementa el \textocolor{ao}{método de integración de Euler}.
 \\
 \bigskip
 \pause
@@ -745,7 +745,7 @@ Es posible ver el efecto cuando cambiamos el valor de $h$, \pause ejecutando el 
 \\
 \bigskip
 \pause
-Si lo hacemos, \pause \textcolor{carmine}{¿se debería reducir a la mitad el error de truncamiento?}.
+Si lo hacemos, \pause \textocolor{carmine}{¿se debería reducir a la mitad el error de truncamiento?}.
 \end{frame}
 \begin{frame}
 \frametitle{Cambiando el valor $h = 0.025$}
@@ -874,7 +874,7 @@ Como se puede observar en la figura anterior, que representa la evolución de lo
 \end{frame}
 \begin{frame}
 \frametitle{¿Qué hacemos para mejorar?}
-La respuesta a esta pregunta se tendrá cuando vemos el subtema: \pause \textcolor{ao}{métodos corrector-predictor}.
+La respuesta a esta pregunta se tendrá cuando vemos el subtema: \pause \textocolor{ao}{métodos corrector-predictor}.
 \end{frame}
 
 \section{Métodos de Runge-Kutta}
@@ -891,7 +891,7 @@ Para hacer que el nivel de precisión aumente, hay que reducir $h$, pero esto ge
 \end{frame}
 \begin{frame}
 \frametitle{Método de primer orden}
-El método de Euler se clasifica como un \textcolor{red}{método de primer orden} porque su error de truncamiento acumulativo se comporta como $\order{h}$, \pause su base fue la serie truncada de Taylor:
+El método de Euler se clasifica como un \textocolor{red}{método de primer orden} porque su error de truncamiento acumulativo se comporta como $\order{h}$, \pause su base fue la serie truncada de Taylor:
 \begin{align*}
 \mathbf{y} (x + h) = \mathbf{y} (x) + \pderivada{\mathbf{y}} (x) \, h
 \end{align*}
@@ -913,7 +913,7 @@ Pero ahora debemos derivar las expresiones para $\sderivada{\mathbf{y}}$, $\tder
 \end{frame}
 \begin{frame}
 \frametitle{Procedimiento para ahorrar trabajo}
-Este trabajo adicional se puede evitar utilizando los \textcolor{ao(english)}{métodos de Runge-Kutta} \pause que también se basan en series de Taylor truncadas, pero que no requieren el cálculo de derivadas superiores de $\mathbf{y} (x)$.
+Este trabajo adicional se puede evitar utilizando los \textocolor{ao(english)}{métodos de Runge-Kutta} \pause que también se basan en series de Taylor truncadas, pero que no requieren el cálculo de derivadas superiores de $\mathbf{y} (x)$.
 \end{frame}
 
 \section{Métodos de segundo orden}
@@ -1015,7 +1015,7 @@ $c_{0} = \dfrac{1}{3}$ & $c_{1} = \dfrac{2}{3}$ & $p = \dfrac{3}{4}$ & $q = \dfr
 \end{frame}
 \begin{frame}
 \frametitle{Métodos de segundo orden}
-Todas estas fórmulas se clasifican como \textcolor{blue(pigment)}{métodos de Runge-Kutta de segundo orden}, sin que ninguna fórmula tenga superioridad numérica sobre las demás.
+Todas estas fórmulas se clasifican como \textocolor{blue(pigment)}{métodos de Runge-Kutta de segundo orden}, sin que ninguna fórmula tenga superioridad numérica sobre las demás.
 \end{frame}
 
 \section{Runge-Kutta de segundo orden}
@@ -1126,7 +1126,7 @@ Los métodos de segundo orden no son populares en las aplicaciones computacional
 \\
 \bigskip
 \pause
-La mayoría de los programadores prefieren \textcolor{brown(web)}{fórmulas de integración de cuarto orden}, que logran una precisión dada con menos esfuerzo computacional.
+La mayoría de los programadores prefieren \textocolor{brown(web)}{fórmulas de integración de cuarto orden}, que logran una precisión dada con menos esfuerzo computacional.
 \end{frame}
 
 \subsection{Ejercicio RK2}
@@ -1136,7 +1136,7 @@ La mayoría de los programadores prefieren \textcolor{brown(web)}{fórmulas de i
 Con el método RK2 resuelve el siguiente problema:
 \pause
 \begin{align*}
-\pderivada{y} = \sin y \hspace{1cm} = 1
+\pderivada{y} = \sin y \hspace{2cm} y(0) = 1
 \end{align*}
 de $x = 0$ a $x = 0.5$ en pasos de $h = 0.1$.
 \end{frame}
@@ -1163,7 +1163,7 @@ Ocupamos nuevamente la notación que hemos ocupado:
 Considera la solución exacta de la EDO para estimar el error:
 \pause
 \begin{align*}
-y (x) = \ln \big[ \csc y \cot y \big] + 0.604582
+y (x) = 2 \, \cot^{-1} \left( e^{-x} \, \cot \left(\dfrac{1}{2} \right) \right)
 \end{align*}
 que hay que evaluar en los $x_{i}$ para obtener el valor exacto y entonces estimar el error.
 \end{frame}
@@ -1197,7 +1197,7 @@ print(tabla)
 \end{frame}
 \begin{frame}
 \frametitle{Tabla con los valores}
-En la siguiente tabla se presentan los resultados obtenidos y se estima el error absoluto con respecto al valor exacto de la solución.
+En la siguiente tabla se presentan los resultados obtenidos y se estima el error relativo con respecto al valor exacto de la solución.
 \\
 \bigskip
 \pause
@@ -1209,7 +1209,7 @@ Esos valores los obtenemos al evaluar los $x_{i}$ en la solución exacta.
 \centering
 \renewcommand*{\arraystretch}{0.9}
 \begin{tabular}{ c c c}
-$x$ & Aproximación & Error absoluto \\ \hline
+$x$ & Aproximación & Error relativo \\ \hline
 $0.0$ & $1.00000000$ & $0.000000e+00$ \\ \hline
 $0.1$ & $1.08634520$ & $1.054549e-05$ \\ \hline
 $0.2$ & $1.17681165$ & $8.455224e-06$ \\ \hline

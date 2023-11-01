@@ -7,7 +7,7 @@
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{arrows}
 \input{../Preambulos/preambulo_Beamer_Copenhagen_wolverine}
-\usefonttheme{serif}
+% \usefonttheme{serif}
 
 \title{\large{Métodos adaptativos}}
 \subtitle{Tema 3 - Ecuaciones Diferenciales Ordinarias}
@@ -50,7 +50,7 @@ Donde:
 \end{frame}
 \begin{frame}
 \frametitle{Tipos de flujo}
-El martillo puede experimentar, en principio, un flujo \enquote{\textcolor{cerise}{laminar separado}}, con un coeficiente de arrastre típico $C_{d} = 0.5$, \pause o un flujo \enquote{\textcolor{cobalt}{inestable-oscilante}}, con $C_{d} = 0.75$.
+El martillo puede experimentar, en principio, un flujo \enquote{\textocolor{cerise}{laminar separado}}, con un coeficiente de arrastre típico $C_{d} = 0.5$, \pause o un flujo \enquote{\textocolor{cobalt}{inestable-oscilante}}, con $C_{d} = 0.75$.
 \end{frame}
 \begin{frame}
 \frametitle{Incisos a resolver}
@@ -93,6 +93,18 @@ Considera los lanzamientos desde la posición inicial $x_{0} = 0$, $y_{0} = \SI{
 a) Sin fricción. \\
 b) Flujo laminar separado. \\
 c) Flujo oscilante inestable.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Incisos a resolver}
+\setbeamercolor{item projected}{bg=cornellred,fg=cosmiclatte}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti
 \item Evalúa la cantidad por la cual la distancia de tiro está influenciada por el arrastre.
 \end{enumerate}
 \end{frame}
@@ -151,11 +163,11 @@ v_{y0}
 \end{frame}
 \begin{frame}
 \frametitle{Resolviendo para $C_{D} = 0.5$}
-Se presenta la solución al ejercicio con el flujo \enquote{\textcolor{cerise}{laminar separado}}: $C_{D} = 0.5$.
+Se presenta la solución al ejercicio con el flujo \enquote{\textocolor{cerise}{laminar separado}}: $C_{D} = 0.5$.
 \\
 \bigskip
 \pause
-\textbf{Ejercicios a cuenta (2)}: Obtener las soluciones, las gráficas para los casos: sin fricción y con el flujo \enquote{\textcolor{cobalt}{inestable-oscilante}}, con $C_{d} = 0.75$. Así como una gráficas con las tres soluciones simultáneas.
+\textbf{Ejercicios a cuenta (2)}: Obtener las soluciones, las gráficas para los casos: sin fricción y con el flujo \enquote{\textocolor{cobalt}{inestable-oscilante}}, con $C_{d} = 0.75$. Así como una gráficas con las tres soluciones simultáneas.
 \end{frame}
 \begin{frame}[allowframebreaks, fragile]
 \frametitle{Código para la solución}
@@ -325,11 +337,11 @@ Por ejemplo, si la curva solución comienza con cambios rápidos antes de conver
 \end{frame}
 \begin{frame}
 \frametitle{Métodos adaptativos}
-Aquí es donde los \textbf{\textcolor{carmine}{métodos adaptativos}} llegan para apoyarnos: \pause estiman el error de truncamiento en cada paso de integración y ajustan automáticamente el tamaño de paso para mantener el error dentro de los límites prescritos.
+Aquí es donde los \textbf{\textocolor{carmine}{métodos adaptativos}} llegan para apoyarnos: \pause estiman el error de truncamiento en cada paso de integración y ajustan automáticamente el tamaño de paso para mantener el error dentro de los límites prescritos.
 \end{frame}
 \begin{frame}
 \frametitle{Fórmulas de integración}
-Los métodos de Runge-Kutta adaptativos utilizan las denominadas \textbf{\textcolor{blue}{fórmulas de integración incorporadas}}.
+Los métodos de Runge-Kutta adaptativos utilizan las denominadas \textbf{\textocolor{blue}{fórmulas de integración incorporadas}}.
 \\
 \medskip
 \pause
@@ -536,7 +548,7 @@ Debido a que $e (h)$ es una estimación conservadora del error real, \pause hace
 \end{frame}
 \begin{frame}
 \frametitle{Otra pregunta relevante}
-\textbf{\textcolor{red}{¿Hay alguna razón para usar los métodos no adaptativos?}}
+\textbf{\textocolor{red}{¿Hay alguna razón para usar los métodos no adaptativos?}}
 \\
 \bigskip
 \pause
@@ -628,7 +640,7 @@ Si el objeto se libera de una altura de $\SI{9}{\kilo\meter}$.
 \\
 \bigskip
 \pause
-\textbf{\textcolor{burgundy}{Calcula su altura y velocidad}} luego de $10$ segundos de caída, utiliza el método RK adaptativo.
+\textbf{\textocolor{burgundy}{Calcula su altura y velocidad}} luego de $10$ segundos de caída, utiliza el método RK adaptativo.
 \end{frame}
 \begin{frame}
 \frametitle{Planteamiento para la solución}
