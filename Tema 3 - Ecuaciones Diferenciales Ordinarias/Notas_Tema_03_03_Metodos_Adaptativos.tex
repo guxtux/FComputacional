@@ -17,223 +17,6 @@
 \begin{document}
 \maketitle
 
-\section{Método Predictor-Corrector Euler}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{Ejercicio 2}
-
-\begin{frame}
-\frametitle{Enunciado del ejercicio}
-El récord mundial de lanzamiento de martillo masculino es de $\SI{86.74}{\meter}$ y pertenece a Yuriy Sedykh desde 1986.
-\\
-\bigskip
-\pause
-El martillo masculino pesa $\SI{7.26}{\kilo\gram}$, es esférico y tiene un radio típico $R = \SI{6}{\centi\meter}$.
-\end{frame}
-\begin{frame}
-\frametitle{Enunciado del ejercicio}
-El arrastre del martillo se puede considerar proporcional al cuadrado de la velocidad del martillo en relación con el aire:
-\pause
-\begin{align*}
-F_{\text{D}} = \dfrac{1}{2} \, \rho \, A \, C_{\text{D}} \, v^{2}
-\end{align*}
-\pause
-Donde:
-\setbeamercolor{item projected}{bg=aquamarine,fg=arsenic}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\item $\rho$ es la densidad del aire $= \SI{1.2}{\kilo\gram\per\cubic\meter}$
-\item $A = \pi \, R^{2}$ es la sección de área del martillo.
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Tipos de flujo}
-El martillo puede experimentar, en principio, un flujo \enquote{\textocolor{cerise}{laminar separado}}, con un coeficiente de arrastre típico $C_{d} = 0.5$, \pause o un flujo \enquote{\textocolor{cobalt}{inestable-oscilante}}, con $C_{d} = 0.75$.
-\end{frame}
-\begin{frame}
-\frametitle{Incisos a resolver}
-Considera los lanzamientos desde la posición inicial $x_{0} = 0$, $y_{0} = \SI{2}{m}$, bajo el ángulo ideal $\varphi = \ang{45}$:
-\pause
-\setbeamercolor{item projected}{bg=cornellred,fg=cosmiclatte}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\item Encuentra la velocidad inicial que produce la distancia de lanzamiento del récord mundial.
-\seti
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Incisos a resolver}
-\setbeamercolor{item projected}{bg=cornellred,fg=cosmiclatte}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\conti
-\item Resuelve la ecuación de movimiento de Newton para el lanzamiento oblicuo del martillo usando el método predictor-corrector de Euler con un paso de tiempo $h = 0.01$, transformando primero las EDO para los movimientos $x$ e $y$ en un sistema de cuatro EDO1.
-\seti
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Incisos a resolver}
-\setbeamercolor{item projected}{bg=cornellred,fg=cosmiclatte}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\conti
-\item Calcula y grafica la dependencia temporal de la altitud del martillo y su trayectoria $y = y (x)$ en tres regímenes de flujo:
-\\
-a) Sin fricción. \\
-b) Flujo laminar separado. \\
-c) Flujo oscilante inestable.
-\seti
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Incisos a resolver}
-\setbeamercolor{item projected}{bg=cornellred,fg=cosmiclatte}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\conti
-\item Evalúa la cantidad por la cual la distancia de tiro está influenciada por el arrastre.
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Inciso 1}
-\textbf{Ejercicio a cuenta:} Plantea el problema a partir de la información que nos da el enunciado y resuelve el correspondiente sistema, para demostrar que la velocidad inicial con la que se alcanza la distancia del lanzamiento que es récord mundial es:
-\pause
-\begin{align*}
-v_{0} =  \SI{25}{\meter\per\second}
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Inciso 2}
-El problema equivalente con el conjunto de EDO1 es el siguiente: \pause con la notación:
-\pause
-\begin{align*}
-y_{1} &= x \\
-y_{2} &= y \\
-y_{3} &= v_{x} \\
-y_{4} &= v_{y} \\
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{En modo de arreglos}
-Se tiene entonces que:
-\pause
-\begin{align*}
-\begin{bmatrix}
-\pderivada{y}_{1} \\
-\pderivada{y}_{2} \\
-\pderivada{y}_{3} \\
-\pderivada{y}_{4} 
-\end{bmatrix}
-= 
-\begin{bmatrix}
-y_{3} \\
-y_{4} \\
-- \bigg( \dfrac{k}{m} \bigg) \, y_{3} \abs{y_{3}} \\
-- \bigg( \dfrac{k}{m} \bigg) \, y_{4} \abs{y_{4}}
-\end{bmatrix}
-\hspace{1.5cm}
-\begin{bmatrix}
-y_{1} (0) \\
-y_{2} (0) \\
-y_{3} (0) \\
-y_{4} (0)
-\end{bmatrix}
-=
-\begin{bmatrix}
-x_{0} \\
-y_{0} \\
-v_{x0} \\
-v_{y0}
-\end{bmatrix}
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Resolviendo para $C_{D} = 0.5$}
-Se presenta la solución al ejercicio con el flujo \enquote{\textocolor{cerise}{laminar separado}}: $C_{D} = 0.5$.
-\\
-\bigskip
-\pause
-\textbf{Ejercicios a cuenta (2)}: Obtener las soluciones, las gráficas para los casos: sin fricción y con el flujo \enquote{\textocolor{cobalt}{inestable-oscilante}}, con $C_{d} = 0.75$. Así como una gráficas con las tres soluciones simultáneas.
-\end{frame}
-\begin{frame}[allowframebreaks, fragile]
-\frametitle{Código para la solución}
-El siguiente código presenta la parte central de la solución, para evitar varias diapositivas con las constantes, te pedimos que revises el notebook para que se complemente el código.
-\end{frame}
-\begin{frame}[allowframebreaks, fragile]
-\frametitle{Código para la solución}
-\begin{lstlisting}[caption=Código con el método Corrector-Predictor de Euler]
-from metodosDirectos import eulerPC
-import numpy as np
-
-def Func(t, y, f):
-    f[1] = y[3]
-    f[2] = y[4]
-    f[3] = -k/m * y[3]*np.fabs(y[3])
-    f[4] = -k/m * y[4]*np.fabs(y[4]) - g
-
-y[1] = x0 ; y[2] = y0
-y[3] = vx0; y[4] = vy0
-
-tt[1] = t
-xt[1] = y[1]; yt[1] = y[2]
-
-while (t + ht <= tmax):
-    eulerPC(t, ht, y, n, Func)
-    t += ht; it += 1
-   
-    tt[it] = t
-    xt[it] = y[1]; yt[it] = y[2]
-   
-    if (y[2] < 0.e0): break
-\end{lstlisting}
-\end{frame}
-\begin{frame}
-\frametitle{De las gráficas}
-El código en el notebook no incluye los procedimientos para determinar:
-\setbeamercolor{item projected}{bg=bananayellow,fg=black}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\item La altura máxima.
-\item La distancia que recorre el martillo.
-\item La rutina de graficación.
-\end{enumerate}
-\pause
-Por lo que deberás de aplicar lo que hemos aprendido tanto de la física como de \python, para responder debidamente. La siguiente gráfica es un ejemplo de la respuesta esperada.
-\end{frame}
-\begin{frame}
-\frametitle{Gráfica de la altura máxima}
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.55]{Imagenes/plot_eulerPC_ejercicio_02_02.eps}
-\end{figure}
-\end{frame}
-\begin{frame}
-\frametitle{Gráfica de la distancia máxima}
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.55]{Imagenes/plot_eulerPC_ejercicio_02_01.eps}
-\end{figure}
-\end{frame}
-
-
-
 % \begin{frame}
 % \frametitle{Ejemplo}
 % Mostrar que el problema
@@ -831,414 +614,414 @@ y = e^{-x} \, \sin \sqrt{2} x
 \end{enumerate}
 \end{frame}
 
-\section{python para resolver las EDO}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
-\subsection{Antes de usar la librería}
+% \section{python para resolver las EDO}
+% \frame{\tableofcontents[currentsection, hideothersubsections]}
+% \subsection{Antes de usar la librería}
 
-\begin{frame}
-\frametitle{Usando \python{} para resolver las EDO}
-Un sistema de EDOs es usualmente formulado en forma estándar antes de ser resuelto numéricamente con \python.
-\pause
-La forma estándar es:
-\begin{align*}
-\pderivada{y} = f (y, t)
-\end{align*}
-\pause
-donde:
-\pause
-\begin{align*}
-y = [y_{1} (t), y_{2} (t), \ldots, y _{n} (t)]
-\end{align*}
-y $f$ es una función que determina las derivadas de la función $y_{i} (t)$.
-\end{frame}
-\begin{frame}
-\frametitle{Usando \python{} para resolver las EDO}
-Para resolver la EDO necesitamos conocer la función $f$ y una condición inicial: $y (0)$.
-\\
-\medskip
-\pause
-Nótese que las EDO de orden superior siempre pueden ser escritas en esta forma introduciendo nuevas variables para las derivadas intermedias.
-\end{frame}
-\section{La función \texttt{odeint}}
-\begin{frame}
-\frametitle{La función \texttt{scipy.integrate.odeint}}
-Dentro del módulo \funcionazul{scipy.integrate} tenemos disponible la función \funcionazul{odeint}, que integra un sistema de EDO.
-\pause
-\begin{align*}
-\dv{y}{t} = \mbox{ func}(y, t_{0}, ...)
-\end{align*}
-donde $y$ puede ser un vector.
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{La sintaxis para \texttt{odeint}}
-La sintaxis básica para la función es la siguiente:
-\\
-\bigskip
-\pause
-\funcionazul{odeint(func, y0, t, args=())}
-\end{frame}
-\begin{frame}
-\frametitle{Los parámetros de \texttt{odeint}}
-Los parámetros son los siguientes:
-\setbeamercolor{item projected}{bg=cerise,fg=bananayellow}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\item \funcionazul{func} : Función que se manda llamar $(y, t0, ...)$ Calcula la derivada de $y$ en $t_{0}$.
-\item \funcionazul{y0} : arreglo. Condición inicial de $y$, puede ser un vector.
-\seti
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Los parámetros de \texttt{odeint}}
-\setbeamercolor{item projected}{bg=cerise,fg=bananayellow}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\conti
-\item \funcionazul{t} : arreglo. Una secuencia de puntos temporales en los cuales se va a resolver para la variable $y$. La condición inicial debe de ser el primer elemento de esta secuencia.
-\item \funcionazul{args} : tupla opcional. Argumentos extra para pasar a la función.
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Lo que devuelve la función \textbf{odeint}}
-La función \funcionazul{odeint} devuelve una serie de elementos, el principal es:
-\\
-\medskip
-\pause
-$y$ : arreglo, \texttt{shape (len(t), len(y0))}
-\\
-\medskip
-Que es un arreglo que contiene los valores de $y$ para cada punto temporal $t$, con la condición inicial $y_{0}$ en el primer renglón.
-\end{frame}
-\begin{frame}
-\frametitle{Usando la función \texttt{odeint}}
-Una vez definida la función $F$ y el arreglo $y_{0}$, podemos usar la función \funcionazul{odeint}:
-\pause
-\begin{align*}
-y_{t} = \mbox{\texttt{odeint}} (F, y_{0}, t)
-\end{align*}
-Nótese que contiene el mínimo de argumentos para la función.
-\end{frame}
+% \begin{frame}
+% \frametitle{Usando \python{} para resolver las EDO}
+% Un sistema de EDOs es usualmente formulado en forma estándar antes de ser resuelto numéricamente con \python.
+% \pause
+% La forma estándar es:
+% \begin{align*}
+% \pderivada{y} = f (y, t)
+% \end{align*}
+% \pause
+% donde:
+% \pause
+% \begin{align*}
+% y = [y_{1} (t), y_{2} (t), \ldots, y _{n} (t)]
+% \end{align*}
+% y $f$ es una función que determina las derivadas de la función $y_{i} (t)$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Usando \python{} para resolver las EDO}
+% Para resolver la EDO necesitamos conocer la función $f$ y una condición inicial: $y (0)$.
+% \\
+% \medskip
+% \pause
+% Nótese que las EDO de orden superior siempre pueden ser escritas en esta forma introduciendo nuevas variables para las derivadas intermedias.
+% \end{frame}
+% \section{La función \texttt{odeint}}
+% \begin{frame}
+% \frametitle{La función \texttt{scipy.integrate.odeint}}
+% Dentro del módulo \funcionazul{scipy.integrate} tenemos disponible la función \funcionazul{odeint}, que integra un sistema de EDO.
+% \pause
+% \begin{align*}
+% \dv{y}{t} = \mbox{ func}(y, t_{0}, ...)
+% \end{align*}
+% donde $y$ puede ser un vector.
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{La sintaxis para \texttt{odeint}}
+% La sintaxis básica para la función es la siguiente:
+% \\
+% \bigskip
+% \pause
+% \funcionazul{odeint(func, y0, t, args=())}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Los parámetros de \texttt{odeint}}
+% Los parámetros son los siguientes:
+% \setbeamercolor{item projected}{bg=cerise,fg=bananayellow}
+% \setbeamertemplate{enumerate items}{%
+% \usebeamercolor[bg]{item projected}%
+% \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+% }
+% \begin{enumerate}[<+->]
+% \item \funcionazul{func} : Función que se manda llamar $(y, t0, ...)$ Calcula la derivada de $y$ en $t_{0}$.
+% \item \funcionazul{y0} : arreglo. Condición inicial de $y$, puede ser un vector.
+% \seti
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Los parámetros de \texttt{odeint}}
+% \setbeamercolor{item projected}{bg=cerise,fg=bananayellow}
+% \setbeamertemplate{enumerate items}{%
+% \usebeamercolor[bg]{item projected}%
+% \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+% }
+% \begin{enumerate}[<+->]
+% \conti
+% \item \funcionazul{t} : arreglo. Una secuencia de puntos temporales en los cuales se va a resolver para la variable $y$. La condición inicial debe de ser el primer elemento de esta secuencia.
+% \item \funcionazul{args} : tupla opcional. Argumentos extra para pasar a la función.
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Lo que devuelve la función \textbf{odeint}}
+% La función \funcionazul{odeint} devuelve una serie de elementos, el principal es:
+% \\
+% \medskip
+% \pause
+% $y$ : arreglo, \texttt{shape (len(t), len(y0))}
+% \\
+% \medskip
+% Que es un arreglo que contiene los valores de $y$ para cada punto temporal $t$, con la condición inicial $y_{0}$ en el primer renglón.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Usando la función \texttt{odeint}}
+% Una vez definida la función $F$ y el arreglo $y_{0}$, podemos usar la función \funcionazul{odeint}:
+% \pause
+% \begin{align*}
+% y_{t} = \mbox{\texttt{odeint}} (F, y_{0}, t)
+% \end{align*}
+% Nótese que contiene el mínimo de argumentos para la función.
+% \end{frame}
 
-\subsection{Ejercicios con \texttt{odeint}}
+% \subsection{Ejercicios con \texttt{odeint}}
 
-\begin{frame}
-\frametitle{Ejercicio 1 - Péndulo con fricción}
-La \textoazul{EDO2} para el ángulo $\theta$ de un péndulo que se desplaza bajo la acción de la gravedad y con fricción, se puede escribir como:
-\pause
-\begin{align*}
-\ddot{\theta} +  b \: \dot{\theta} +  c \: \sin \theta = 0 
-\end{align*}
-donde $b$ y $c$ son constantes positivas.
-\end{frame}
-\begin{frame}
-\frametitle{Solución al ejercicio}
-Para resolver el problema con la función \funcionazul{odeint} debemos convertir a un sistema de \textoazul{EDO1}.
-\\
-\bigskip
-\pause
-Definiendo la velocidad angular $\omega (t) = \dot{\theta}$, se obtiene el sistema:
-\pause
-\begin{align*}
-\dot{\theta} &= \omega \\
-\dot{\omega} &= -b \:\omega - c \: \sin(\theta)
-\end{align*}
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{Solución al ejercicio}
-Sea el vector $y =  [\theta, \omega]$. Así la función que usaremos en \python{} queda como:
-\begin{lstlisting}[caption=Función a integrar para el ejecicio del péndulo]
-def F(y, t, b, c):
-    theta, omega = y
-    dydt = [omega, -b * omega - c * np.sin(theta)]
-    return dydt
-\end{lstlisting}
-\end{frame}
-\begin{frame}
-\frametitle{Valores de las constantes}
-Consideramos que las constantes $b$ y $c$ son:
-\begin{align*}
-b &= 0.25 \\
-c &= 5.0
-\end{align*} 
-\end{frame}
-\begin{frame}
-\frametitle{Condiciones inciales}
-Para las condiciones iniciales, supongamos que el péndulo está muy cerca de la vertical con $\theta(0) = \pi - 0.1$, y que está en reposo, por lo que $\omega(0) = 0$.
-\\
-\bigskip
-\pause
-Entonces, el vector de las condiciones iniciales queda como:
-\pause
-\begin{align*}
-y0 =  [\pi - 0.1 , \; 0.0]
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Secuencia temporal}
-Generamos una secuencia de $101$ puntos temporales en el intervalo $0 \leq t \leq 10$, por lo que nuestro arreglo de tiempo es:
-\pause
-\begin{align*}
-t =  \mbox{\texttt{np.linspace}}(0., \; 10., \; 101)
-\end{align*}
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{Solución con \texttt{odeint}}
-Usamos la función \funcionazul{odeint} para la solución; el paso de los parámetros $b$ y $c$ a \funcionazul{F}, se hace a través de \funcionazul{args}:
-\pause
-\begin{lstlisting}[caption=Solución con odeint]
-from scipy.integrate import odeint
+% \begin{frame}
+% \frametitle{Ejercicio 1 - Péndulo con fricción}
+% La \textoazul{EDO2} para el ángulo $\theta$ de un péndulo que se desplaza bajo la acción de la gravedad y con fricción, se puede escribir como:
+% \pause
+% \begin{align*}
+% \ddot{\theta} +  b \: \dot{\theta} +  c \: \sin \theta = 0 
+% \end{align*}
+% donde $b$ y $c$ son constantes positivas.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Solución al ejercicio}
+% Para resolver el problema con la función \funcionazul{odeint} debemos convertir a un sistema de \textoazul{EDO1}.
+% \\
+% \bigskip
+% \pause
+% Definiendo la velocidad angular $\omega (t) = \dot{\theta}$, se obtiene el sistema:
+% \pause
+% \begin{align*}
+% \dot{\theta} &= \omega \\
+% \dot{\omega} &= -b \:\omega - c \: \sin(\theta)
+% \end{align*}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Solución al ejercicio}
+% Sea el vector $y =  [\theta, \omega]$. Así la función que usaremos en \python{} queda como:
+% \begin{lstlisting}[caption=Función a integrar para el ejecicio del péndulo]
+% def F(y, t, b, c):
+%     theta, omega = y
+%     dydt = [omega, -b * omega - c * np.sin(theta)]
+%     return dydt
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Valores de las constantes}
+% Consideramos que las constantes $b$ y $c$ son:
+% \begin{align*}
+% b &= 0.25 \\
+% c &= 5.0
+% \end{align*} 
+% \end{frame}
+% \begin{frame}
+% \frametitle{Condiciones inciales}
+% Para las condiciones iniciales, supongamos que el péndulo está muy cerca de la vertical con $\theta(0) = \pi - 0.1$, y que está en reposo, por lo que $\omega(0) = 0$.
+% \\
+% \bigskip
+% \pause
+% Entonces, el vector de las condiciones iniciales queda como:
+% \pause
+% \begin{align*}
+% y0 =  [\pi - 0.1 , \; 0.0]
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Secuencia temporal}
+% Generamos una secuencia de $101$ puntos temporales en el intervalo $0 \leq t \leq 10$, por lo que nuestro arreglo de tiempo es:
+% \pause
+% \begin{align*}
+% t =  \mbox{\texttt{np.linspace}}(0., \; 10., \; 101)
+% \end{align*}
+% \end{frame}
+% \begin{frame}[fragile]
+% \frametitle{Solución con \texttt{odeint}}
+% Usamos la función \funcionazul{odeint} para la solución; el paso de los parámetros $b$ y $c$ a \funcionazul{F}, se hace a través de \funcionazul{args}:
+% \pause
+% \begin{lstlisting}[caption=Solución con odeint]
+% from scipy.integrate import odeint
 
-sol = odeint(F, y_0_, t, args=(b, c))
-\end{lstlisting}
-\end{frame}
-\begin{frame}[plain, allowframebreaks, fragile]
-\frametitle{Código completo}
-\begin{lstlisting}[caption=Función con las EDO1 a integrar]
-from scipy.integrate import odeint
-import matplotlib.pyplot as plt
-import numpy as np
+% sol = odeint(F, y_0_, t, args=(b, c))
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}[plain, allowframebreaks, fragile]
+% \frametitle{Código completo}
+% \begin{lstlisting}[caption=Función con las EDO1 a integrar]
+% from scipy.integrate import odeint
+% import matplotlib.pyplot as plt
+% import numpy as np
 
-def F(y, t, b, c):
-    theta, omega = y
-    dydt = [omega, -b * omega - c * np.sin(theta)]
-    return dydt
+% def F(y, t, b, c):
+%     theta, omega = y
+%     dydt = [omega, -b * omega - c * np.sin(theta)]
+%     return dydt
 
-b = 0.25
-c = 5.0
+% b = 0.25
+% c = 5.0
 
-y0 =  [np.pi - 0.1, 0.0]
+% y0 =  [np.pi - 0.1, 0.0]
 
-t = np.linspace(0., 10., 101)
+% t = np.linspace(0., 10., 101)
 
-sol = odeint(F, y0, t, args=(b, c))
+% sol = odeint(F, y0, t, args=(b, c))
 
-# Agregamos las rutinas de graficacion
-\end{lstlisting}
-\end{frame}
-\begin{frame}[plain]
-\frametitle{Gráficas de la solución}
-La primera gráfica representa la posición y la velocidad angular del péndulo.
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.5]{Imagenes/plot_Ejercicio_odeint_01_Pendulo.eps}
-\end{figure}
-\end{frame}
-\begin{frame}[plain]
-\frametitle{Gráfica del espacio fase}
-Encontramos un atractor debido a la fricción en el péndulo.
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.5]{Imagenes/plot_Ejercicio_odeint_02_Pendulo.eps}
-\end{figure}
-\end{frame}
+% # Agregamos las rutinas de graficacion
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}[plain]
+% \frametitle{Gráficas de la solución}
+% La primera gráfica representa la posición y la velocidad angular del péndulo.
+% \begin{figure}
+%     \centering
+%     \includegraphics[scale=0.5]{Imagenes/plot_Ejercicio_odeint_01_Pendulo.eps}
+% \end{figure}
+% \end{frame}
+% \begin{frame}[plain]
+% \frametitle{Gráfica del espacio fase}
+% Encontramos un atractor debido a la fricción en el péndulo.
+% \begin{figure}
+%     \centering
+%     \includegraphics[scale=0.5]{Imagenes/plot_Ejercicio_odeint_02_Pendulo.eps}
+% \end{figure}
+% \end{frame}
 
-\begin{frame}
-\frametitle{Ejercicio 2 - Oscilador amortiguado}
-La ecuación de movimiento para el oscilador amortiguado es:
-\pause
-\begin{align*}
-\dv[2]{x}{t} + 2 \: \zeta \:  \omega_{0} \, \dv{x}{t} + \omega_{0}^{2} \: x = 0
-\end{align*}
-donde $x$ es la posición del oscilador, $\omega_{0}$ la frecuencia, y $\zeta$ es el factor de amortiguamiento.
-\end{frame}
-\begin{frame}
-\frametitle{Re-escribiendo la EDO}
-Para escribir esta \textoazul{EDO2} en la forma estándar, introducimos $p = \dv*{x}{t}$:
-\pause
-\begin{align*}
-\dv{p}{t} &= - 2 \: \zeta \: \omega_{0} \: p - \omega^{2} \: x \\
-\dv{x}{t} &= p
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Usando argumentos}
-Veremos con este ejemplo, la versatilidad de pasar argumentos extras a la función, que representan diferentes valores del factor de amortiguamiento.
-\end{frame}
-\begin{frame}
-\frametitle{Usando argumentos}
-De tal manera que en una sola ejecución del código, podemos realizar el pase de valores, de otra manera, tendríamos que realizar una ejecución del código y modificar a mano el valor del factor de amortiguamiento.
-\end{frame}
-\begin{frame}
-\frametitle{Usando argumentos}
-Como consecuencia de los argumentos extra, necesitamos pasar un argumento clave \funcionazul{args} a la función \funcionazul{odeint}.
-\\
-\bigskip
-\pause
-\begin{align*}
-\zeta = 0.0, 0.2, 1.0, 5.0
-\end{align*}
-\end{frame}
-\begin{frame}[plain, allowframebreaks, fragile]
-\frametitle{Código para resolver el problema}
-\begin{lstlisting}[caption=Código completo para el oscilador amortiguado]
-from scipy.integrate import odeint
-from numpy import zeros, array, linspace
-import matplotlib.pyplot as plt
+% \begin{frame}
+% \frametitle{Ejercicio 2 - Oscilador amortiguado}
+% La ecuación de movimiento para el oscilador amortiguado es:
+% \pause
+% \begin{align*}
+% \dv[2]{x}{t} + 2 \: \zeta \:  \omega_{0} \, \dv{x}{t} + \omega_{0}^{2} \: x = 0
+% \end{align*}
+% donde $x$ es la posición del oscilador, $\omega_{0}$ la frecuencia, y $\zeta$ es el factor de amortiguamiento.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Re-escribiendo la EDO}
+% Para escribir esta \textoazul{EDO2} en la forma estándar, introducimos $p = \dv*{x}{t}$:
+% \pause
+% \begin{align*}
+% \dv{p}{t} &= - 2 \: \zeta \: \omega_{0} \: p - \omega^{2} \: x \\
+% \dv{x}{t} &= p
+% \end{align*}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Usando argumentos}
+% Veremos con este ejemplo, la versatilidad de pasar argumentos extras a la función, que representan diferentes valores del factor de amortiguamiento.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Usando argumentos}
+% De tal manera que en una sola ejecución del código, podemos realizar el pase de valores, de otra manera, tendríamos que realizar una ejecución del código y modificar a mano el valor del factor de amortiguamiento.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Usando argumentos}
+% Como consecuencia de los argumentos extra, necesitamos pasar un argumento clave \funcionazul{args} a la función \funcionazul{odeint}.
+% \\
+% \bigskip
+% \pause
+% \begin{align*}
+% \zeta = 0.0, 0.2, 1.0, 5.0
+% \end{align*}
+% \end{frame}
+% \begin{frame}[plain, allowframebreaks, fragile]
+% \frametitle{Código para resolver el problema}
+% \begin{lstlisting}[caption=Código completo para el oscilador amortiguado]
+% from scipy.integrate import odeint
+% from numpy import zeros, array, linspace
+% import matplotlib.pyplot as plt
 
-def F(y, t, zeta, w0):
-    F = zeros((2), dtype='float64')
-    F[0] = y[1]
-    F[1] = -2 * zeta * w0 * y[1] - w0**2 * y[0]
-    return F    
+% def F(y, t, zeta, w0):
+%     F = zeros((2), dtype='float64')
+%     F[0] = y[1]
+%     F[1] = -2 * zeta * w0 * y[1] - w0**2 * y[0]
+%     return F    
 
-y0 =array([1.0, 0.0])
+% y0 =array([1.0, 0.0])
 
-t = linspace(0, 10, 1000)
-w0 = 2 * pi * 1.0
+% t = linspace(0, 10, 1000)
+% w0 = 2 * pi * 1.0
 
-y1 = odeint(F, y0, t, args=(0.0, w0))
-y2 = odeint(F, y0, t, args=(0.2, w0))
-y3 = odeint(F, y0, t, args=(1.0, w0))
-y4 = odeint(F, y0, t, args=(5.0, w0))
+% y1 = odeint(F, y0, t, args=(0.0, w0))
+% y2 = odeint(F, y0, t, args=(0.2, w0))
+% y3 = odeint(F, y0, t, args=(1.0, w0))
+% y4 = odeint(F, y0, t, args=(5.0, w0))
 
-# Aqui va la rutina de graficacion
-\end{lstlisting}
-\end{frame}
-\begin{frame}
-\frametitle{Gráfica con las soluciones}
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.55]{Imagenes/plot_Ejercicio_odeint_02_Pendulo_Casos.eps} 
-\end{figure}
-\end{frame}
+% # Aqui va la rutina de graficacion
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Gráfica con las soluciones}
+% \begin{figure}
+%     \centering
+%     \includegraphics[scale=0.55]{Imagenes/plot_Ejercicio_odeint_02_Pendulo_Casos.eps} 
+% \end{figure}
+% \end{frame}
 
-\begin{frame}
-\frametitle{Ejercicio 3 - Circuito RLC}
-La corriente eléctrica de un circuito $RLC$ en serie:
-\begin{figure}
-    % \centering
-    % \includegraphics[scale=1]{Imagenes/fig_edo_cto_RLC.eps}
-    \begin{circuitikz}
-	\draw
-	    (0,0)
-	        to[sV, l=$V_{s}$] ++(0,3)
-	        to[short] ++(1,0)
-	        to[cspst, o-o] ++(1,0)
-	        to[short] ++(1,0)
-	        to[L, l=$L$] ++(1,0)
-	        to[short] ++(1,0)
-	        to[short] ++(0,-1)
-	        to[C, l=$C$] ++(0,-1)
-	        to[short] ++(0,-1)
-	        to[short] ++(-1,0)
-	        to[R, l=$R$] ++(-1,0) --(0,0);
-	\end{circuitikz}
-\end{figure}
-\end{frame}
-\begin{frame}
-\frametitle{EDO del circuito RLC}
-Satisface la ecuación:
-\pause
-\begin{equation} \label{eq:ecuacion1}
-L \, \dv{i}{t} + R \: i+ \dfrac{1}{C} \scaleint{6ex}_{\bs 0}^{t} i (\pderivada{t}) \dd{\pderivada{t}} +\dfrac{1}{C} \: q(0) = E(t), \hspace{0.3cm} t > 0 
-\end{equation}
-\end{frame}
-\begin{frame}
-\frametitle{Circuito RLC}
-Cuando el circuito se cierra en el instante $t = 0$, se tiene que $i = i(t)$ es la corriente, $R$ es la resistencia, $L, C, E$ vienen dadas por: $L = \SI{200}{\henry}$, $C = \SI{0.001}{\farad}$, $E(t) = \SI{1}{\volt}$ para $t > 0$.
-\end{frame}
-\begin{frame}
-\frametitle{Circuito RLC}
-\begin{figure}
-    \centering
-    % \includegraphics[scale=0.7]{Imagenes/fig_edo_cto_RLC.eps}
-    \begin{circuitikz}
-        \draw
-            (0,0)
-                to[sV, l=$V_{s}$] ++(0,3)
-                to[short] ++(1,0)
-                to[cspst, o-o] ++(1,0)
-                to[short] ++(1,0)
-                to[L, l=$L$] ++(1,0)
-                to[short] ++(1,0)
-                to[short] ++(0,-1)
-                to[C, l=$C$] ++(0,-1)
-                to[short] ++(0,-1)
-                to[short] ++(-1,0)
-                to[R, l=$R$] ++(-1,0) --(0,0);
-        \end{circuitikz}
-\end{figure}
-Las condiciones iniciales son $q (0) = 0$ (carga inicial del condensador), $i (0) = 0$. 
-\end{frame}
-\begin{frame}
-\frametitle{Resolver el problema}
-Calcular la corriente para $0 \leq t \leq 5$ segundos y el factor de amortiguamiento y la frecuencia de oscilación del circuito $RLC$ para los siguientes valores de R:
-\pause
-\setbeamercolor{item projected}{bg=black,fg=white}
-\setbeamertemplate{enumerate items}{%
-\usebeamercolor[bg]{item projected}%
-\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
-}
-\begin{enumerate}[<+->]
-\item $R = \SI{0}{\ohm}$
-\item $R = \SI{50}{\ohm}$
-\item $R = \SI{100}{\ohm}$
-\item $R = \SI{300}{\ohm}$
-\end{enumerate}
-\end{frame}
-\begin{frame}
-\frametitle{Manejando las expresiones}
-Si definimos:
-\pause
-\begin{equation}\label{eq:ecuacion2}
-q (t) = \scaleint{6ex}_{\bs 0}^{\pderivada{t}} i (\pderivada{t}) \: \dd{\pderivada{t}}
-\end{equation}
-\pause
-derivando la expresión anterior:
-\pause
-\begin{equation}\label{eq:ecuacion3}
-\dv{t} \, q(t) = i (t), \hspace{1.5cm} q (0) = 0
-\end{equation}
-\end{frame}
-\begin{frame}
-\frametitle{Sustituyendo las expresiones}
-Sustituimos en la ecuación inicial, para reescribir:
-\pause
-\begin{equation}\label{eq:ecuacion4}
-\dv{t} i (t) = -\dfrac{R}{L} \: i (t) - \dfrac{1}{L \: C} \: q(t) + \dfrac{1}{L \: C} \: q(0) + \dfrac{E (t)}{L}, \: i(0) =  0 
-\end{equation}
-La ecuación (\ref{eq:ecuacion1}) se transformó en un sistema de dos EDO1: las ecuaciones (\ref{eq:ecuacion3}) y (\ref{eq:ecuacion4}).
-\end{frame}
-\begin{frame}[fragile, allowframebreaks]
-\begin{lstlisting}[caption=Código para el circuito RLC]
-from numpy import zeros, array, linspace
-from scipy.integrate import odeint
-import matplotlib.pyplot as plt
+% \begin{frame}
+% \frametitle{Ejercicio 3 - Circuito RLC}
+% La corriente eléctrica de un circuito $RLC$ en serie:
+% \begin{figure}
+%     % \centering
+%     % \includegraphics[scale=1]{Imagenes/fig_edo_cto_RLC.eps}
+%     \begin{circuitikz}
+% 	\draw
+% 	    (0,0)
+% 	        to[sV, l=$V_{s}$] ++(0,3)
+% 	        to[short] ++(1,0)
+% 	        to[cspst, o-o] ++(1,0)
+% 	        to[short] ++(1,0)
+% 	        to[L, l=$L$] ++(1,0)
+% 	        to[short] ++(1,0)
+% 	        to[short] ++(0,-1)
+% 	        to[C, l=$C$] ++(0,-1)
+% 	        to[short] ++(0,-1)
+% 	        to[short] ++(-1,0)
+% 	        to[R, l=$R$] ++(-1,0) --(0,0);
+% 	\end{circuitikz}
+% \end{figure}
+% \end{frame}
+% \begin{frame}
+% \frametitle{EDO del circuito RLC}
+% Satisface la ecuación:
+% \pause
+% \begin{equation} \label{eq:ecuacion1}
+% L \, \dv{i}{t} + R \: i+ \dfrac{1}{C} \scaleint{6ex}_{\bs 0}^{t} i (\pderivada{t}) \dd{\pderivada{t}} +\dfrac{1}{C} \: q(0) = E(t), \hspace{0.3cm} t > 0 
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Circuito RLC}
+% Cuando el circuito se cierra en el instante $t = 0$, se tiene que $i = i(t)$ es la corriente, $R$ es la resistencia, $L, C, E$ vienen dadas por: $L = \SI{200}{\henry}$, $C = \SI{0.001}{\farad}$, $E(t) = \SI{1}{\volt}$ para $t > 0$.
+% \end{frame}
+% \begin{frame}
+% \frametitle{Circuito RLC}
+% \begin{figure}
+%     \centering
+%     % \includegraphics[scale=0.7]{Imagenes/fig_edo_cto_RLC.eps}
+%     \begin{circuitikz}
+%         \draw
+%             (0,0)
+%                 to[sV, l=$V_{s}$] ++(0,3)
+%                 to[short] ++(1,0)
+%                 to[cspst, o-o] ++(1,0)
+%                 to[short] ++(1,0)
+%                 to[L, l=$L$] ++(1,0)
+%                 to[short] ++(1,0)
+%                 to[short] ++(0,-1)
+%                 to[C, l=$C$] ++(0,-1)
+%                 to[short] ++(0,-1)
+%                 to[short] ++(-1,0)
+%                 to[R, l=$R$] ++(-1,0) --(0,0);
+%         \end{circuitikz}
+% \end{figure}
+% Las condiciones iniciales son $q (0) = 0$ (carga inicial del condensador), $i (0) = 0$. 
+% \end{frame}
+% \begin{frame}
+% \frametitle{Resolver el problema}
+% Calcular la corriente para $0 \leq t \leq 5$ segundos y el factor de amortiguamiento y la frecuencia de oscilación del circuito $RLC$ para los siguientes valores de R:
+% \pause
+% \setbeamercolor{item projected}{bg=black,fg=white}
+% \setbeamertemplate{enumerate items}{%
+% \usebeamercolor[bg]{item projected}%
+% \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+% }
+% \begin{enumerate}[<+->]
+% \item $R = \SI{0}{\ohm}$
+% \item $R = \SI{50}{\ohm}$
+% \item $R = \SI{100}{\ohm}$
+% \item $R = \SI{300}{\ohm}$
+% \end{enumerate}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Manejando las expresiones}
+% Si definimos:
+% \pause
+% \begin{equation}\label{eq:ecuacion2}
+% q (t) = \scaleint{6ex}_{\bs 0}^{\pderivada{t}} i (\pderivada{t}) \: \dd{\pderivada{t}}
+% \end{equation}
+% \pause
+% derivando la expresión anterior:
+% \pause
+% \begin{equation}\label{eq:ecuacion3}
+% \dv{t} \, q(t) = i (t), \hspace{1.5cm} q (0) = 0
+% \end{equation}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Sustituyendo las expresiones}
+% Sustituimos en la ecuación inicial, para reescribir:
+% \pause
+% \begin{equation}\label{eq:ecuacion4}
+% \dv{t} i (t) = -\dfrac{R}{L} \: i (t) - \dfrac{1}{L \: C} \: q(t) + \dfrac{1}{L \: C} \: q(0) + \dfrac{E (t)}{L}, \: i(0) =  0 
+% \end{equation}
+% La ecuación (\ref{eq:ecuacion1}) se transformó en un sistema de dos EDO1: las ecuaciones (\ref{eq:ecuacion3}) y (\ref{eq:ecuacion4}).
+% \end{frame}
+% \begin{frame}[fragile, allowframebreaks]
+% \begin{lstlisting}[caption=Código para el circuito RLC]
+% from numpy import zeros, array, linspace
+% from scipy.integrate import odeint
+% import matplotlib.pyplot as plt
 
-def F(y, t, R, L) : 
-    C = 0.001
-    E = 1.0
+% def F(y, t, R, L) : 
+%     C = 0.001
+%     E = 1.0
             
-    F = zeros(2)
-    F[0] = y[1]
-    F[1] = -(R/L) * y[1] - (1.0/(L * C)) * y[0] + E/L
-    return F
+%     F = zeros(2)
+%     F[0] = y[1]
+%     F[1] = -(R/L) * y[1] - (1.0/(L * C)) * y[0] + E/L
+%     return F
 
-t = linspace(0.0, 5.0, 100)
-y0 = array([0., 0.])
+% t = linspace(0.0, 5.0, 100)
+% y0 = array([0., 0.])
 
-L = 200.0
-R = [0., 50, 100, 300]
+% L = 200.0
+% R = [0., 50, 100, 300]
 
-sol = odeint(F, y0, t)
+% sol = odeint(F, y0, t)
 
-# Hay que ajustar el codigo para que en un solo paso
-# se tengan las cuatro graficas en una sola imagen
-\end{lstlisting}
-\end{frame}
-\begin{frame}
-\frametitle{Solución gráfica con valores de $R$ superpuestos}
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.55]{Imagenes/plot_Ejercicio_odeint_03_Circuito_RLC.eps}
-\end{figure}
-\end{frame}
+% # Hay que ajustar el codigo para que en un solo paso
+% # se tengan las cuatro graficas en una sola imagen
+% \end{lstlisting}
+% \end{frame}
+% \begin{frame}
+% \frametitle{Solución gráfica con valores de $R$ superpuestos}
+% \begin{figure}
+%     \centering
+%     \includegraphics[scale=0.55]{Imagenes/plot_Ejercicio_odeint_03_Circuito_RLC.eps}
+% \end{figure}
+% \end{frame}
 % \subsection{Sistema de 3 masas acopladas}
 % \begin{frame}[fragile]
 % \frametitle{Ejercicio 4 - Masas acopladas}

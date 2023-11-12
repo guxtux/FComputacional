@@ -69,14 +69,14 @@ def integraorden4(F, x, y, xAlto, h):
 
 def eulerPC(t, ht, y, n, Func):
 
-    f1 = [0] * (n); f2 = [0] * (n)
-    yt = [0] * (n)
+    f1 = [0] * (n+1); f2 = [0] * (n+1)
+    yt = [0] * (n+1)
  
     # Lado derecho de la EDO en t
     Func(t, y, f1)
 
     # Paso predictor
-    for i in range(n): yt[i] = y[i] + ht * f1[i]
+    for i in range(1, n+1): yt[i] = y[i] + ht * f1[i]
     
     # Lado derecho de la EDO en t+ht
     Func(t + ht, yt, f2)
@@ -84,7 +84,7 @@ def eulerPC(t, ht, y, n, Func):
     ht2 = ht/2e0
 
     # Paso corrector
-    for i in range(n): y[i] += ht2 * (f1[i] + f2[i])
+    for i in range(1, n+1): y[i] += ht2 * (f1[i] + f2[i])
     
     return y
 
@@ -111,7 +111,7 @@ def integra_RKAdaptativo(F, x, y, xAlto, h, tol=1.0e-6):
     
     X.append(x)
     Y.append(y)
-    stopper = 0  # Integration stopper(0 = off, 1 = on)
+    stopper = 0  # Detiene la integración(0 = encendido, 1 = apagado)
     
     k0 = h*F(x,y)
     

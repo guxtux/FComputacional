@@ -54,9 +54,9 @@ tt[1] = t
 xt[1] = y[1]
 yt[1] = y[2]
 
-salida = open('valores_CD_075.txt', 'w')
+# salida = open('valores_CD_075.txt', 'w')
     
-salida.write("{0:2.5f} {1:2.5f} {2:1.5f}\n".format(tt[1], xt[1], yt[1]))
+# salida.write("{0:2.5f} {1:2.5f} {2:1.5f}\n".format(tt[1], xt[1], yt[1]))
 
 # ---- Solución con el método Predictor-Corrector de Euler ----
 
@@ -66,7 +66,7 @@ while (t + ht <= tmax):
     tt[it] = t
     xt[it] = y[1]
     yt[it] = y[2]
-    salida.write("{0:2.5f} {1:2.5f} {2:1.5f}\n".format(tt[it], xt[it], yt[it]))
+    # salida.write("{0:2.5f} {1:2.5f} {2:1.5f}\n".format(tt[it], xt[it], yt[it]))
    
     if (y[2] < 0.e0): break
 
@@ -77,28 +77,28 @@ hmax = np.argmax(yt)
 
 print('hmax = {0:3.2f} m'.format(yt[hmax]))
 
-salida.close()
+# salida.close()
 
-# plot1 = plt.figure(1)
-# plt.plot(xt[:433], yt[:433])
-# plt.plot(y[1], 0, 'ok')
-# plt.title(r'Distancia máxima alcanzada en el lanzamiento con $C_{D}= 0.75$ - Euler PC')
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.text(60, 5, r'xmax = {0:5.2f} m'.format(y[1]))
-# plt.xlim([0, 90])
-# plt.axhline(y=0, ls='dashed', lw=0.7, color='k')
-# #plt.savefig('plot_eulerPC_ejercicio_02_01.eps', format='eps')
+plot1 = plt.figure(1)
+plt.plot(xt[:433], yt[:433])
+plt.plot(y[1], 0, 'ok')
+plt.title(r'Distancia máxima alcanzada en el lanzamiento con $C_{D}= 0.75$ - Euler PC')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.text(60, 5, r'xmax = {0:5.2f} m'.format(y[1]))
+plt.xlim([0, 90])
+plt.axhline(y=0, ls='dashed', lw=0.7, color='k')
+#plt.savefig('plot_eulerPC_ejercicio_02_01.eps', format='eps')
 
-# plot2 =plt.figure(2)
-# plt.plot(tt[:433], yt[:433])
-# plt.plot(tt[hmax], yt[hmax], 'or')
-# plt.text(1.7, 20, r'hmax = {0:3.2f} m'.format(yt[hmax]))
-# plt.title(r'Altitud alcanzada con $C_{D}= 0.75$ - Euler PC')
-# plt.xlabel('t')
-# plt.ylabel('y')
-# plt.xlim([0, 4.5])
-# plt.axhline(y=0, ls='dashed', lw=0.7, color='k')
-# #plt.savefig('plot_eulerPC_ejercicio_02_02.eps', format='eps')
+plot2 =plt.figure(2)
+plt.plot(tt[:433], yt[:433])
+plt.plot(tt[hmax], yt[hmax], 'or')
+plt.text(1.7, 20, r'hmax = {0:3.2f} m'.format(yt[hmax]))
+plt.title(r'Altitud alcanzada con $C_{D}= 0.75$ - Euler PC')
+plt.xlabel('t')
+plt.ylabel('y')
+plt.xlim([0, 4.5])
+plt.axhline(y=0, ls='dashed', lw=0.7, color='k')
+#plt.savefig('plot_eulerPC_ejercicio_02_02.eps', format='eps')
 
-# plt.show()
+plt.show()

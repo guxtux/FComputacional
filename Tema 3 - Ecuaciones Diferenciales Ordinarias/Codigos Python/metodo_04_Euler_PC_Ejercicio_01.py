@@ -6,13 +6,33 @@ Created on Sun Oct  9 15:01:01 2022
 @author: gustavo
 """
 
-from metodosDirectos import eulerPC
+# from metodosDirectos import eulerPC
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 mpl.rcParams['text.usetex'] = True
 
+def eulerPC(t, ht, y, n, Func):
+
+    f1 = [0] * (n); f2 = [0] * (n)
+    yt = [0] * (n)
+ 
+    # Lado derecho de la EDO en t
+    Func(t, y, f1)
+
+    # Paso predictor
+    for i in range(n): yt[i] = y[i] + ht * f1[i]
+    
+    # Lado derecho de la EDO en t+ht
+    Func(t + ht, yt, f2)
+ 
+    ht2 = ht/2e0
+
+    # Paso corrector
+    for i in range(n): y[i] += ht2 * (f1[i] + f2[i])
+    
+    return y
 
 def f(x, y, f):
     f[0] = y[1]

@@ -862,4 +862,297 @@ A continuación se presentan las gráficas tanto de la solución de la EDO, como
 Vemos que el método de Euler predictor - corrector, corrige la falla en la estabilidad de la solución.
 \end{frame}
 
+\subsection{Ejercicio 2}
+
+\begin{frame}
+\frametitle{Enunciado del ejercicio}
+El récord mundial de lanzamiento de martillo masculino es de $\SI{86.74}{\meter}$ y pertenece a Yuriy Sedykh desde 1986.
+\\
+\bigskip
+\pause
+El martillo masculino pesa $\SI{7.26}{\kilo\gram}$, es esférico y tiene un radio típico $R = \SI{6}{\centi\meter}$.
+\end{frame}
+\begin{frame}
+\frametitle{Enunciado del ejercicio}
+El arrastre del martillo se puede considerar proporcional al cuadrado de la velocidad del martillo en relación con el aire:
+\pause
+\begin{align*}
+F_{\text{D}} = \dfrac{1}{2} \, \rho \, A \, C_{\text{D}} \, v^{2}
+\end{align*}
+\pause
+Donde:
+\setbeamercolor{item projected}{bg=aquamarine,fg=arsenic}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item $\rho$ es la densidad del aire $= \SI{1.2}{\kilo\gram\per\cubic\meter}$
+\item $A = \pi \, R^{2}$ es la sección de área del martillo.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Tipos de flujo}
+El martillo puede experimentar, en principio, un flujo \enquote{\textocolor{cerise}{laminar separado}}, con un coeficiente de arrastre típico $C_{d} = 0.5$, \pause o un flujo \enquote{\textocolor{cobalt}{inestable-oscilante}}, con $C_{d} = 0.75$.
+\end{frame}
+\begin{frame}
+\frametitle{Incisos a resolver}
+Considera los lanzamientos desde la posición inicial $x_{0} = 0$, $y_{0} = \SI{2}{m}$, bajo el ángulo ideal $\varphi = \ang{45}$:
+\pause
+\setbeamercolor{item projected}{bg=cornellred,fg=cosmiclatte}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item Encuentra la velocidad inicial que produce la distancia de lanzamiento del récord mundial.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Incisos a resolver}
+\setbeamercolor{item projected}{bg=cornellred,fg=cosmiclatte}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti
+\item Resuelve la ecuación de movimiento de Newton para el lanzamiento oblicuo del martillo usando el método predictor-corrector de Euler con un paso de tiempo $h = 0.01$, transformando primero las EDO para los movimientos $x$ e $y$ en un sistema de cuatro EDO1.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Incisos a resolver}
+\setbeamercolor{item projected}{bg=cornellred,fg=cosmiclatte}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti
+\item Calcula y grafica la dependencia temporal de la altitud del martillo y su trayectoria $y = y (x)$ en tres regímenes de flujo:
+\\
+a) Sin fricción. \\
+b) Flujo laminar separado. \\
+c) Flujo oscilante inestable.
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Incisos a resolver}
+\setbeamercolor{item projected}{bg=cornellred,fg=cosmiclatte}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti
+\item Evalúa la cantidad por la cual la distancia de tiro está influenciada por el arrastre.
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso 1}
+\textbf{Ejercicio a cuenta:} Plantea el problema a partir de la información que nos da el enunciado y resuelve el correspondiente sistema, para demostrar que la velocidad inicial con la que se alcanza la distancia del lanzamiento que es récord mundial es:
+\pause
+\begin{align*}
+v_{0} =  \SI{25}{\meter\per\second}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Inciso 2}
+El problema equivalente con el conjunto de EDO1 es el siguiente: \pause con la notación:
+\pause
+\begin{align*}
+y_{1} &= x \\
+y_{2} &= y \\
+y_{3} &= v_{x} \\
+y_{4} &= v_{y} \\
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{En modo de arreglos}
+Se tiene entonces que:
+\pause
+\begin{align*}
+\begin{bmatrix}
+\pderivada{y}_{1} \\
+\pderivada{y}_{2} \\
+\pderivada{y}_{3} \\
+\pderivada{y}_{4} 
+\end{bmatrix}
+= 
+\begin{bmatrix}
+y_{3} \\
+y_{4} \\
+- \bigg( \dfrac{k}{m} \bigg) \, y_{3} \abs{y_{3}} \\
+- \bigg( \dfrac{k}{m} \bigg) \, y_{4} \abs{y_{4}}
+\end{bmatrix}
+\hspace{1.5cm}
+\begin{bmatrix}
+y_{1} (0) \\
+y_{2} (0) \\
+y_{3} (0) \\
+y_{4} (0)
+\end{bmatrix}
+=
+\begin{bmatrix}
+x_{0} \\
+y_{0} \\
+v_{x0} \\
+v_{y0}
+\end{bmatrix}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Resolviendo para $C_{D} = 0.5$}
+Se presenta la solución al ejercicio con el flujo \enquote{\textocolor{cerise}{laminar separado}}: $C_{D} = 0.5$.
+\\
+\bigskip
+\pause
+\textbf{Ejercicios a cuenta (2)}: Obtener las soluciones, las gráficas para los casos: sin fricción y con el flujo \enquote{\textocolor{cobalt}{inestable-oscilante}}, con $C_{d} = 0.75$. Así como una gráficas con las tres soluciones simultáneas.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código para la solución}
+El siguiente código presenta la parte central de la solución, para evitar varias diapositivas con las constantes, te pedimos que revises el notebook para que se complemente el código.
+\end{frame}
+\begin{frame}
+\frametitle{Ajuste en la función eulerPC}
+Para evitar un error tipo \textocolor{red}{\enquote{fuera de índice}}, se requiere hacer un ajuste a la función \funcionazul{eulerPC}, que ahora se llamará \funcionazul{eulerPC2}, que se muestra a continuación.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Ajuste en la función eulerPC}
+\begin{lstlisting}[caption=Ajuste en el tamaño de las listas]
+def eulerPC2(t, ht, y, n, Func):
+
+    f1 = [0] * (n+1); f2 = [0] * (n+1)
+    yt = [0] * (n+1)
+ 
+    # Lado derecho de la EDO en t
+    Func(t, y, f1)
+
+    # Paso predictor
+    for i in range(1, n+1): yt[i] = y[i] + ht * f1[i]
+    
+    # Lado derecho de la EDO en t+ht
+    Func(t + ht, yt, f2)
+ 
+    ht2 = ht/2e0
+
+    # Paso corrector
+    for i in range(1, n+1): y[i] += ht2 * (f1[i] + f2[i])
+    
+    return y
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{La función eulerPC2 en el módulo}
+La función \funcionazul{eulerPC2} debe de incluirse en el módulo \funcionazul{MetodosDirectos}.
+\end{frame}
+\begin{frame}[allowframebreaks, fragile]
+\frametitle{Código para la solución}
+\begin{lstlisting}[caption=Código con el método Corrector-Predictor de Euler]
+from metodosDirectos import eulerPC2
+import numpy as np
+
+def Func(t, y, f):
+    f[1] = y[3]
+    f[2] = y[4]
+    f[3] = -k/m * y[3]*np.fabs(y[3])
+    f[4] = -k/m * y[4]*np.fabs(y[4]) - g
+
+g = 9.81e0
+m = 7.26e0
+R = 0.06e0
+rho = 1.2
+Cd = 0.e0
+k = 0.5e0 * rho * (np.pi * R * R) * Cd
+
+x0 = 0e0
+y0 =2e0
+v0 = 25e0
+
+phi = 45e0 * np.pi/180e0
+
+vx0 = v0 * np.cos(phi)
+vy0 = v0 * np.sin(phi)
+
+tmax = 20e0
+ht = 0.01e0
+
+n = 4
+nt = int(tmax/ht + 0.5) + 1
+
+y = np.zeros(n+1)
+tt = np.zeros(nt+1)
+xt = np.zeros(nt+1)
+yt = np.zeros(nt+1)
+
+t = 0e0
+it = 1
+
+y[1] = x0 
+y[2] = y0
+y[3] = vx0
+y[4] = vy0
+
+tt[1] = t
+xt[1] = y[1]
+yt[1] = y[2]
+
+while (t + ht <= tmax):
+    eulerPC2(t, ht, y, n, Func)
+    t += ht; it += 1
+   
+    tt[it] = t
+    xt[it] = y[1]; yt[it] = y[2]
+   
+    if (y[2] < 0.e0): break
+\end{lstlisting}
+\end{frame}
+\begin{frame}
+\frametitle{De las gráficas}
+El código en el notebook no incluye los procedimientos para determinar:
+\setbeamercolor{item projected}{bg=bananayellow,fg=black}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\item La altura máxima.
+\item La distancia que recorre el martillo.
+\item La rutina de graficación.
+\end{enumerate}
+\pause
+Por lo que deberás de aplicar lo que hemos aprendido tanto de la física como de \python, para responder debidamente. La siguiente gráfica es un ejemplo de la respuesta esperada.
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de la altura máxima}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/plot_eulerPC_ejercicio_02_02.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de la distancia máxima}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/plot_eulerPC_ejercicio_02_01.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica con los tres coeficientes}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/Metodo_Predictor_Corrector_Martillo.eps}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica con los tres coeficientes}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Imagenes/Metodo_Predictor_Corrector_Martillo_02.eps}
+\end{figure}
+\end{frame}
+
 \end{document}
