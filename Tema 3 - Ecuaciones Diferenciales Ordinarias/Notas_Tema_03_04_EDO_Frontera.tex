@@ -75,7 +75,7 @@ Los dos métodos tienen un problema común: dan lugar a \emph{conjuntos de ecuac
 \\
 \bigskip
 \pause
-Samos que los métodos para resolver ecuaciones no lineales son procedimientos iterativos que pueden consumir una gran cantidad de recursos computacionales. \pause Por lo tanto, resolver problemas de CDF no lineales no es barato.
+Sabemos que los métodos para resolver ecuaciones no lineales son procedimientos iterativos que pueden consumir una gran cantidad de recursos computacionales. \pause Por lo tanto, resolver problemas de CDF no lineales no es barato.
 \end{frame}
 \begin{frame}
 \frametitle{Otra desventaja}
@@ -191,6 +191,18 @@ Este es el procedimiento que usaremos para resolver problemas CDF no lineales:
 }
 \begin{enumerate}[<+->]
 \item Especifica los valores iniciales $u_{1}$ y $u_{2}$ que deben estar entre paréntesis para la raíz de $u$ en la ec. (\ref{eq:ecuacion_08_03}).
+\seti
+\end{enumerate}
+\end{frame}
+\begin{frame}
+\frametitle{Problemas con CDF no lineales}
+\setbeamercolor{item projected}{bg=battleshipgrey,fg=bananayellow}
+\setbeamertemplate{enumerate items}{%
+\usebeamercolor[bg]{item projected}%
+\raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+\begin{enumerate}[<+->]
+\conti
 \item Utiliza el método de Ridder para resolver la ec. (\ref{eq:ecuacion_08_03}) para $u$. Toma en cuenta que cada iteración requiere la evaluación de $\theta (u)$ resolviendo la ED como un problema de valor inicial.
 \seti
 \end{enumerate}
@@ -417,7 +429,7 @@ Esto visualiza el concepto del \enquote{método de disparo}.
 u1 = 1.0
 X1, Y1 = integraorden4(F, xInicio,condIni(u1), xAlto, h)
 
-# Primer intento de CI desconocida
+# Segundo intento de CI desconocida
 u2 = 2.0
 X2, Y2 = integraorden4(F, xInicio,condIni(u2), xAlto, h)
 \end{lstlisting}
@@ -571,7 +583,7 @@ h = -0.1
 u1 = 1.0
 X1, Y1 = integra_RKAdaptativo(F, xInicio, condIni(u1), xAlto, h)
 
-# Primer intento de CI desconocida
+# Segundo intento de CI desconocida
 u2 = 2.0
 X2, Y2 = integra_RKAdaptativo(F, xInicio, condIni(u2), xAlto, h)
 \end{lstlisting}
