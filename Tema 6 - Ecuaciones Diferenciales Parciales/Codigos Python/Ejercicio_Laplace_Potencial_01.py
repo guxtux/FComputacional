@@ -58,5 +58,5 @@ cset = ax.contourf(X,Y,Z, zdir='z', offset=-50, cmap=cm.coolwarm)
 
 ax.set_zlim(-50, 100)
 
-plt.savefig('plot_Ejercicio_Laplace_Potencial_01.eps', format='eps')
+#plt.savefig('plot_Ejercicio_Laplace_Potencial_01.eps', format='eps')
 plt.show()
