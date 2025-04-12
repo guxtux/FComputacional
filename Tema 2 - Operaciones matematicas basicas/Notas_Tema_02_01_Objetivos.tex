@@ -15,10 +15,10 @@
 \maketitle
 
 \section*{Contenido}
-\frame{\tableofcontents[currentsection, hideallsubsections]}
+\frame{\frametitle{Contenido} \tableofcontents[currentsection, hideallsubsections]}
 
 \section{Iniciamos Tema 2}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame{\frametitle{Temas a revisar} \tableofcontents[currentsection, hideothersubsections]}
 \subsection{Objetivos}
 
 \begin{frame}
@@ -41,10 +41,10 @@ Este tema es una base importante de todo el curso, ya que se establecen las oper
 \end{enumerate}
 \end{frame}
 
-\subsection*{Interpolación}
+\subsection{Interpolación}
 
 \begin{frame}
-\frametitle{Interpolación}
+\frametitle{Técnicas de Interpolación}
 \setbeamercolor{item projected}{bg=ashgrey,fg=burgundy}
 \setbeamertemplate{enumerate items}{%
 \usebeamercolor[bg]{item projected}%
@@ -58,7 +58,7 @@ Este tema es una base importante de todo el curso, ya que se establecen las oper
 \end{frame}
 \begin{frame}
 \frametitle{Ejemplo de interpolación}
-La viscosidad cinemática $\mu_{k}$ del agua varía con la temperatura $T$ de la siguiente manera:
+La viscosidad cinemática $\mu_{k} \, \left[ \num{e-3} \, \unit[per-mode=symbol]{\square\meter\per\second}\right]$ del agua varía con la temperatura $T \, \left[ \unit{\degreeCelsius} \right]$ de la siguiente manera:
 \pause
 \begin{table}[H]
 \centering
@@ -68,7 +68,7 @@ $\mu_{k}$ & $1.79$ & $1.13$ & $0.696$ & $0.519$ & $0.338$ & $0.321$ & $0.296$
 \end{tabular}
 \end{table}
 \pause
-¿Cuál será el valor de $\mu_{k}$ para $T = 10^{\circ},30^{\circ},60^{\circ}$ y $90^{\circ}$?
+¿Cuál será el valor de $\mu_{k}$ para $T = $ \SI{10}{\degreeCelsius}, \SI{30}{\degreeCelsius}, \SI{60}{\degreeCelsius}, y \SI{90}{\degreeCelsius}?
 \end{frame}
 \begin{frame}
 \frametitle{Los datos experimentales}
@@ -127,7 +127,7 @@ $\mu_{k}$ & $1.79$ & $1.13$ & $0.696$ & $0.519$ & $0.338$ & $0.321$ & $0.296$
 \frametitle{Encontrando raíces de una función}
 \begin{figure}
     \centering
-    \includegraphics[scale=0.6]{Imagenes/Encuentra_Raices_01.eps}
+    \includegraphics[scale=0.55]{Imagenes/Encuentra_Raices_01.eps}
 \end{figure}
 \end{frame}
 
@@ -211,6 +211,7 @@ Método de diferencias:
         \draw [<->] (2.5,1) -- node [midway, below] {h} (3,1);
     \end{tikzpicture}
 \end{center}
+La separación entre los puntos es una constante $h = \dfrac{b - a}{n}$, donde $n$ es el número de puntos.
 \end{frame}
 
 
@@ -228,14 +229,18 @@ Método de diferencias:
 \item Gauss-Legendre.
 \end{enumerate}
 \end{frame}
+\begin{frame}
+\frametitle{Fórmulas Gaussianas}
+Para esta técnica se utilizan las raíces de los polinomios ortogonales, es decir, de funciones especiales que se estudiaron en el curso de Matemáticas Avanzadas de la Física.
+\end{frame}
 
 \section{Programas matemáticos}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame{\frametitle{Temas a revisar} \tableofcontents[currentsection, hideothersubsections]}
 \subsection{Otro software}
 
 \begin{frame}
 \frametitle{¿Es necesario python?}
-Si bien es cierto que existen programas o softwares tanto de pago como de tipo GNU, enfocados al cálculo numérico, \pause nos podemos preguntar: ¿por qué hacerlo con \python?
+Si bien es cierto que existen programas o software tanto de pago como de tipo GNU, enfocados al cálculo numérico, \pause nos podemos preguntar: ¿por qué hacerlo con \python?
 \end{frame}
 \begin{frame}
 \frametitle{Software matemático}
