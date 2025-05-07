@@ -7,6 +7,7 @@
 
 \title{Técnicas de Interpolación}
 \subtitle{Tema 2 - Operaciones matemáticas básicas}
+
 \author{M. en C. Gustavo Contreras Mayén}
 \date{}
 
@@ -14,15 +15,15 @@
 \maketitle
 
 \section*{Contenido}
-\frame{\tableofcontents[currentsection, hideallsubsections]}
+\frame{\frametitle{Contenido} \tableofcontents[currentsection, hideallsubsections]}
 
 \section{Introducción}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame{\frametitle{Temas a revisar} \tableofcontents[currentsection, hideothersubsections]}
 \subsection{Definición de interpolación}
 
 \begin{frame}
 \frametitle{Punto de partida}
-Dados los $n + 1$ pares de datos $(x_{i}, y_{i})$, con $i = 0, 1 , \ldots, n$, queremos estimar el valor de $y (x)$.
+Dados los $n + 1$ pares de datos $(x_{i}, y_{i})$, con $i = 0, 1 , \ldots, n$, queremos estimar el valor de $y (x) \in [x_{0}, x_{n}]$ .
 \end{frame}
 \begin{frame}
 \frametitle{Interpolación}
@@ -53,23 +54,26 @@ El \textocolor{bole}{ajuste de curvas} se aplica a los datos que contienen una d
 En este caso, \textocolor{blue-violet}{queremos encontrar una curva suave que se aproxima a los datos en algún sentido}. \pause De tal manera que la curva no toca necesariamente los puntos de datos.
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Interpolación vs ajuste con curvas}
+\frametitle{Datos experimentales}
+\vspace*{-0.25cm}
 \begin{figure}
     \centering
-    \includegraphics[scale=0.55]{Imagenes/Intro_Interpolacion_001.eps}
+    \includegraphics[scale=0.6]{Imagenes/Intro_Interpolacion_001.eps}
     %\caption{Tenemos un conjunto de datos experimentales obtenidos en el laboratorio.}
 \end{figure}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Interpolación vs ajuste con curvas}
+\frametitle{Ajuste con mínimos cuadrados}
+\vspace*{-0.25cm}
 \begin{figure}
     \centering
-    \includegraphics[scale=0.55]{Imagenes/Intro_Interpolacion_002.eps}
+    \includegraphics[scale=0.6]{Imagenes/Intro_Interpolacion_002.eps}
     %\caption{La técnica de ajuste de curvas es una aproximación al conjunto de datos.}
 \end{figure}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Interpolación vs ajuste con curvas}
+\frametitle{Interpolación cuadrática vs mínimos cuadrados}
+\vspace{-0.25cm}
 \begin{figure}
     \centering
     \includegraphics[scale=0.6]{Imagenes/Intro_Interpolacion_003.eps}
@@ -182,39 +186,51 @@ Supongamos que tenemos seis mediciones como se indican en la siguiente figura, p
 \end{frame}
 \begin{frame}
 \frametitle{Ejemplo 3}
+\vspace*{-0.25cm}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.6]{Imagenes/figura01-1.eps} 
+	\includegraphics[scale=0.55]{Imagenes/figura01-1.eps} 
 \end{figure}
 \end{frame}
 \begin{frame}
-\frametitle{Gráfica de una interpolación}
+\frametitle{Lo que hace una interpolación}
 Las técnicas de interpolación hacen lo que pidamos, pero no necesariamente son consistentes con un fenómeno o modelo.
-\pause
+\end{frame}
+\begin{frame}
+\frametitle{Gráfica de una interpolación}
+\vspace*{-0.35cm}
 \begin{figure}
 	\centering
-		\includegraphics[scale=0.4]{Imagenes/figura02.eps} 
+		\includegraphics[scale=0.6]{Imagenes/figura02.eps} 
 \end{figure}
 \end{frame}
 
 \section{Interpolación polinomial}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\frame{\frametitle{Temas a revisar} \tableofcontents[currentsection, hideothersubsections]}
 \subsection{Interpolación de Lagrange}
 
 \begin{frame}
 \frametitle{Interpolación de Lagrange}
-La técnica más sencilla de interpolación, es usando polinomios. \pause Siempre es posible construir un \emph{único} polinomio de grado $n$ que pasa a través de $n + 1$ puntos.
+La técnica más sencilla de interpolación, es usando polinomios.
 \\
-\medskip
+\bigskip
 \pause
-Una manera de obtener este polinomio es usando la fórmula de Lagrange.
+Siempre es posible construir un \textocolor{debianred}{único} polinomio de grado $n$, $P_{n} (x)$, que pasa a través de $n + 1$ puntos.
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación de Lagrange}
+Una manera de obtener este polinomio $P_{n} (x)$ es usando la \textocolor{azure(colorwheel)}{fórmula de Lagrange}:
+\pause
+\begin{align*}
+P_{n} (x) = \nsum_{i = 0}^{n} \: y_{i} \: \ell_{i} (x)
+\end{align*}
 \end{frame}
 \begin{frame}
 \frametitle{Fórmula de Lagrange}
-\begin{equation}
+\begin{align}
 P_{n} (x) = \nsum_{i = 0}^{n} \: y_{i} \: \ell_{i} (x)
 \label{eq:ecuacion_03_01a}
-\end{equation}
+\end{align}
 donde $n$ es el grado del polinomio y
 \pause
 \begin{align}
@@ -224,11 +240,11 @@ donde $n$ es el grado del polinomio y
 \end{aligned}
 \label{eq:ecuacion_03_01b}
 \end{align}
-se llaman \emph{funciones cardinales}.
+se llaman \textocolor{brickred}{funciones cardinales}.
 \end{frame}
 \begin{frame}
-\frametitle{Por ejemplo, si $n = 1$}
-La interpolación es una línea recta:
+\frametitle{Interpolación con $n = 1$}
+Con $n = 1$, la interpolación es una línea recta:
 \pause
 \begin{align*}
 P_{1} (x) = y_{0} \: \ell_{0} (x) + y_{1} \: \ell_{1} (x)
@@ -240,17 +256,34 @@ y las funciones cardinales son:
 \end{align*}
 \end{frame}
 \begin{frame}
-\frametitle{Con $n = 2$}
+\frametitle{Polinomio de interpolación}
+Se tiene entonces que:
+\pause
+\begin{align*}
+P_{1} (x) = y_{0} \left[ \dfrac{x - x_{1}}{x_{0} - x_{1}} \right] + y_{1} \left[ \dfrac{x - x_{0}}{x_{1} - x_{0}} \right]
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación con $n = 2$}
 La interpolación es parabólica:
 \pause
 \begin{align*}
 P_{2} (x) = y_{0} \: \ell_{0} (x) + y_{1} \: \ell_{1} (x) + y_{2} \: \ell_{2} (x)
 \end{align*}
-y las $\mathcal{L}_{i}(x)$ son:
+y las $\ell_{i}(x)$ son:
 \begin{align*}
 \ell_{0} (x) &= \dfrac{(x - x_{1})(x - x_{2})}{(x_{0} - x_{1})(x_{0} - x_{2})} \\
 \ell_{1} (x) &= \dfrac{(x - x_{0})(x - x_{2})}{(x_{1} - x_{0})(x_{1} - x_{2})} \\
 \ell_{2} (x) &= \dfrac{(x - x_{0})(x - x_{1})}{(x_{2} - x_{0})(x_{2} - x_{1})} 
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Polinomio de interpolación}
+Con $n = 2$, el polinomio de interpolación es:
+\pause
+\begin{align*}
+P_{2} (x) &= y_{0} \left[ \dfrac{(x - x_{1})(x - x_{2})}{(x_{0} - x_{1})(x_{0} - x_{2})} \right] + y_{1} \left[ \dfrac{(x - x_{0})(x - x_{2})}{(x_{1} - x_{0})(x_{1} - x_{2})} \right] + \\[1em]
+&+ y_{2} \left[ \dfrac{(x - x_{0})(x - x_{1})}{(x_{2} - x_{0})(x_{2} - x_{1})} \right]
 \end{align*}
 \end{frame}
 \begin{frame}
@@ -286,7 +319,7 @@ donde $\xi \in (x_{0},x_{n})$, y éste valor normalmente no se conoce.
 Debemos de notar que mientras más lejos están los datos de $x$, contribuye a que el error se incremente. 
 \end{frame}
 
-\subsubsection{Interpolando}
+\subsection{Ejercicio de interpolación}
 
 \begin{frame}
 \frametitle{Ejercicio dei interpolación}
@@ -316,13 +349,17 @@ Temperatura [K] & Presión de vapor [kPa] \\
 \begin{frame}
 \frametitle{Pregunta para resolver}
 ¿Cuál es el valor de presión a una temperatura de $\SI{3}{\kelvin}$?
+\end{frame}
+\begin{frame}
+\frametitle{Pregunta para resolver}
+\vspace*{-0.25cm}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.4]{Imagenes/grafica03.eps} 
+	\includegraphics[scale=0.47]{Imagenes/grafica03.eps} 
 \end{figure}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Solución}
+\frametitle{Solución con interpolación lineal}
 Tomamos lo que ya conocemos para $n = 1$:
 \pause
 \begin{align*}
@@ -335,7 +372,7 @@ y las funciones cardinales son:
 \ell_{0} (x) = \dfrac{x - x_{1}}{x_{0} - x_{1}} \hspace{1cm} \ell_{1} (x) = \dfrac{x - x_{0}}{x_{1} - x_{0}}
 \end{align*}
 \end{frame}
-\begin{frame}[fragile]
+\begin{frame}
 \frametitle{Solución}
 En nuestro ejemplo, tenemos que:
 \pause
@@ -343,25 +380,53 @@ En nuestro ejemplo, tenemos que:
 (x_{0}, y_{0}) = (2.9, 18.6760) \\[1em]
 (x_{1}, y_{1}) = (3.2, 28.2599)
 \end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Haciendo las cuentas}
+Las funciones cardinales:
 \pause
-Con la interpolación lineal, tenemos que para una temperatura de \textocolor{blue}{$\SI{3.0}{\kelvin}$}, la presión tiene un valor de \textocolor{red}{$\mathbf{\SI{21.87}{\kilo\pascal}}$}
+\begin{eqnarray*}
+\begin{aligned}
+\ell_{0} (x) &= \dfrac{x - 3.2}{2.9 - 3.2} = \dfrac{x - 3.2}{-0.3} \\[1em] \pause
+\ell_{1} (x) &= \dfrac{x - 2.9}{3.2 - 2.9} = \dfrac{x - 2.9}{0.3}
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Construyendo el polinomio de interpolación}
+Ahora podemos expresar el polinomio como:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+P_{1} (x) &= y_{0} \: \ell_{0} (x) + y_{1} \: \ell_{1} (x) \\[1em] \pause
+&= 18.6760 \left( \dfrac{x - 3.2}{-0.3} \right) + 28.2599 \left( \dfrac{x - 2.9}{0.3} \right)
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Evaluando el punto $x$}
+Sustituimos el valor de $x = 3.0$:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+P_{1} (3.0) &= 18.6760 \cdot \dfrac{3.0 - 3.2}{-0.3} + 28.2599 \cdot \dfrac{3.0 - 2.9}{0.3} = \\[0.5em] \pause
+&= 18.6760 \left( \dfrac{-0.2}{-0.3} \right) + 28.2599 \left( \dfrac{0.1}{0.3} \right) = \\[0.5em] \pause
+&= 18.6760 \left( 0.6666 \right)  + 28.2599 \left( 0.3333 \right) = \\[0.5em] \pause
+&= 12.4490 + 9.4190 = \\[0.5em] \pause
+&= 21.8684
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{Resultado de la interpolación lineal}
+Con la interpolación lineal $(n = 1)$, tenemos que para una temperatura de \textocolor{blue}{$\SI{3.0}{\kelvin}$}, \pause la presión tiene un valor de \textocolor{red}{$\mathbf{\SI{21.8684}{\kilo\pascal}}$}
 \end{frame}
 \begin{frame}
 \frametitle{Interpolación cuadrática}
-Con la intención de mejorar nuestro resultado, podemos usar un polinomio de segundo orden, es decir $n = 2$:
+Con la intención de mejorar nuestro resultado, podemos usar un polinomio de segundo orden $P_{2} (x)$, es decir, con $n = 2$:
 \pause
 \begin{align*}
 P_{2} (x) = y_{0} \: \ell_{0} (x) + y_{1} \: \ell_{1} (x) + y_{2} \: \ell_{2} (x)
-\end{align*}
-\end{frame}
-\begin{frame}
-\frametitle{Interpolación cuadrática}
-Las funciones cardinales $\ell_{i}(x)$ son:
-\pause
-\begin{align*}
-\ell_{0} (x) &= \dfrac{(x - x_{1})(x - x_{2})}{(x_{0} - x_{1})(x_{0} - x_{2})} \\[1em]
-\ell_{1} (x) &= \dfrac{(x - x_{0})(x - x_{2})}{(x_{1} - x_{0})(x_{1} - x_{2})} \\[1em]
-\ell_{2} (x) &= \dfrac{(x - x_{0})(x - x_{1})}{(x_{2} - x_{0})(x_{2} - x_{1})} 
 \end{align*}
 \end{frame}
 \begin{frame}
@@ -374,10 +439,47 @@ Usando los valores de la tabla anterior:
 (x_{2}, y_{2}) = (3.2, 28.2599)
 \end{eqnarray*}
 \pause
-A una temperatura de \textocolor{blue}{$\SI{3.0}{\kelvin}$}, la presión de vapor tiene un valor de \textocolor{red}{$\mathbf{\SI{21.671}{\kilo\pascal}}$}
-\\
-\bigskip
-\visible<3->{El siguiente paso es usar cuatro puntos y construir el polinomio de orden $3$.}
+¿por qué no usar el punto $x_{3} = 3.5$?
+\end{frame}
+\begin{frame}
+\frametitle{Interpolación cuadrática}
+Las funciones cardinales $\ell_{i}(x)$ son:
+\pause
+\begin{align*}
+\ell_{0} (x) &= \dfrac{(x - x_{1})(x - x_{2})}{(x_{0} - x_{1})(x_{0} - x_{2})} \\[1em]
+\ell_{1} (x) &= \dfrac{(x - x_{0})(x - x_{2})}{(x_{1} - x_{0})(x_{1} - x_{2})} \\[1em]
+\ell_{2} (x) &= \dfrac{(x - x_{0})(x - x_{1})}{(x_{2} - x_{0})(x_{2} - x_{1})} 
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Funciones cardinales}
+Las funciones cardinales desarrolladas son:
+\pause
+\begin{eqnarray*}
+\begin{aligned}
+\ell_{0} (x) = \dfrac{x^{2} - x \left( x_{1} + x_{2} \right) + \left( x_{1} \, x_{2} \right)}{x_{0}^{2} - x_{0} \left( x_{1} + x_{2} \right) + \left( x_{1} \, x_{2} \right)} \\[0.5em] \pause
+\ell_{1} (x) = \dfrac{x^{2} - x \left( x_{0} + x_{2} \right) + \left( x_{0} \, x_{2} \right)}{x_{1}^{2} - x_{1} \left( x_{0} + x_{2} \right) + \left( x_{0} \, x_{2} \right)} \\[0.5em] \pause
+\ell_{2} (x) = \dfrac{x^{2} - x \left( x_{0} + x_{1} \right) + \left( x_{0} \, x_{1} \right)}{x_{2}^{2} - x_{2} \left( x_{0} + x_{1} \right) + \left( x_{0} \, x_{1} \right)}
+\end{aligned}
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\frametitle{El polinomio de interpolación}
+Se tiene entonces que:
+\pause
+\begin{align*}
+P_{2} (x) &= y_{0} \, \left( \dfrac{x^{2} - x \left( x_{1} + x_{2} \right) + \left( x_{1} \, x_{2} \right)}{x_{0}^{2} - x_{0} \left( x_{1} + x_{2} \right) + \left( x_{1} \, x_{2} \right)} \right) +  \\[0.5em]
+&+ y_{1} \left( \dfrac{x^{2} - x \left( x_{0} + x_{2} \right) + \left( x_{0} \, x_{2} \right)}{x_{1}^{2} - x_{1} \left( x_{0} + x_{2} \right) + \left( x_{0} \, x_{2} \right)} \right) + \\[0.5em]
+&+ y_{2} \left( \dfrac{x^{2} - x \left( x_{0} + x_{1} \right) + \left( x_{0} \, x_{1} \right)}{x_{2}^{2} - x_{2} \left( x_{0} + x_{1} \right) + \left( x_{0} \, x_{1} \right)} \right)
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{Evaluando el polinomio}
+Con los datos proporcionados previamente y con $x = 3.0$, al evaluar el polinomio $P_{2} (x)$, se tiene que: \pause a la temperatura de \textocolor{blue}{$\SI{3.0}{\kelvin}$}, la presión de vapor tiene un valor de \textocolor{red}{$\mathbf{\SI{21.6036}{\kilo\pascal}}$}
+\end{frame}
+\begin{frame}
+\frametitle{Pregunta obligada}
+Si aumentamos el grado del polinomio, es decir, con $P_{3} (x)$ y ocupando cuatro de los datos experimentales, \pause ¿cuál sería el resultado? \pause ¿mejoraría la aproximación?
 \end{frame}
 % \begin{frame}
 % \frametitle{Ejercicio a cuenta}
@@ -387,8 +489,8 @@ A una temperatura de \textocolor{blue}{$\SI{3.0}{\kelvin}$}, la presión de vapo
 % ¿Cuál es la diferencia en el resultado al tomar distintos puntos de la tabla? Es decir, tomando $2$ puntos antes y después de los $\SI{3.0}{\kelvin}$, o tomando $3$ antes y $1$ punto después de los $\SI{3.0}{\kelvin}$, etc. Presenta una tabla con los valores. Usando \python{} te será más fácil los cálculos. 
 % \end{frame}
 
-\section{Método Interp. Lagrange}
-\frame{\tableofcontents[currentsection, hideothersubsections]}
+\section{Interpolación de Lagrange}
+\frame{\frametitle{Temas a revisar} \tableofcontents[currentsection, hideothersubsections]}
 \subsection{Resolviendo con python}
 
 \begin{frame}
@@ -409,9 +511,17 @@ x = 1.5, 2.5, 3.5
 \end{align*}
 \end{frame}
 \begin{frame}
+\frametitle{Trabajo manual}
+Con el algoritmo que revisamos, podemos calcular el polinomio de interpolación, pero es tedioso y propenso a errores.
+\\
+\bigskip
+\pause
+Vamos a usar \python{} para resolver el problema.
+\end{frame}
+\begin{frame}
 \frametitle{Corroborar los resultados obtenidos}
-Aunque el enunciado no lo solicite directamente, podemos avanzar en la comprobación de los resultados si:
-\setbeamercolor{item projected}{bg=aqua,fg=applegreen}
+Aunque el enunciado del problema no lo solicita directamente, podemos avanzar en la comprobación de los resultados si:
+\setbeamercolor{item projected}{bg=aqua,fg=cobalt}
 \setbeamertemplate{enumerate items}{%
 \usebeamercolor[bg]{item projected}%
 \raisebox{1.5pt}{\colorbox{bg}{\color{fg}\footnotesize\insertenumlabel}}%
@@ -448,8 +558,29 @@ for k in x0:
     print ('El polinomio evaluado en P ({0:}) = {1:}'.format(k,  yres))
 \end{lstlisting}
 \end{frame}
+\begingroup
+\setbeamercolor{background canvas}{bg=black}
+\begin{frame}[plain]
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Imagenes/Interpolacion_Codigo_03.png}
+\end{figure}
+\end{frame}
+\endgroup
+\begin{frame}
+\frametitle{Resultados de la interpolación}
+Al ejecutar el código anterior, se obtiene la siguiente salida:
+\pause
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Imagenes/Interpolacion_Codigo_03_Terminal.png}
+\end{figure}
+\end{frame}
 \begin{frame}[fragile]
-\frametitle{Solución (en la terminal y con una gráfica)}
+\frametitle{Datos y resultados}
+Tenemos entonces:
+\pause
 \begin{table}
 \centering
 \renewcommand{\arraystretch}{0.9}
@@ -467,7 +598,7 @@ $x$ & $P (x)$ \\
 \end{frame}
 \begin{frame}
 \frametitle{Graficando los datos interpolados}
-Para graficar los datos obtenidos, debemos de almacenarlos en un objeto, en este caso será una lista.
+Para graficar los datos obtenidos, debemos de almacenarlos en un objeto, \pause en este caso será una lista, ya que nos facilitará las cosas al momento de graficar.
 \\
 \bigskip
 \pause

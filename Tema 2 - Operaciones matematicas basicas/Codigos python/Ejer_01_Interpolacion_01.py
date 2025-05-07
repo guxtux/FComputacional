@@ -17,14 +17,13 @@ def etiquetas():
     plt.xlabel('Variable independiente x')
     plt.ylabel('Variable dependiente P(x)')
 
+# Declaración de variables
 n = 3
 x0 = np.array([1.5, 2.5, 3.5])
 x = np.array([1., 2., 3., 4.])
 f = np.array([0.671, 0.620, 0.567, 0.512])
 
 x1 = np.linspace(1, 4)
-
-
 datos = []
 
 for k in x0:
@@ -63,5 +62,6 @@ plt.plot(x0, datos, 'ob', label= 'Interpolados')
 plt.plot(x1, y1, 'm', label='Polinomio interp.')
 plt.legend(loc='best')
 etiquetas()
+plt.savefig('Ejercicio_Interpolacion_03.eps', format='eps')
 
 plt.show()

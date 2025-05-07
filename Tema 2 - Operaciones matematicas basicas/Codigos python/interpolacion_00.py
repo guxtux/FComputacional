@@ -14,7 +14,7 @@ from scipy import interpolate
 mpl.rcParams['text.usetex'] = True
 
 x = np.array([0.0, 1., 2., 2.5, 3.])
-y = np. array([2.9, 3.7, 4.1, 4.4, 5.0])
+y = np.array([2.9, 3.7, 4.1, 4.4, 5.0])
 
 x1 = np.linspace(0, 3)
 
@@ -33,13 +33,13 @@ plt.legend(loc='best')
 
 plot2 = plt.figure(2)
 plt.plot(x, y, '+b', label='Datos')
-plt.plot(x, m*x + c, 'r', ls='dashed', label='Línea ajustada')
+plt.plot(x, m*x + c, 'r', ls='dashed', label='Mínimos cuadrados')
 plt.legend(loc='best')
 
 plot3 = plt.figure(3)
 plt.plot(x, y, '+b', label='Datos')
-plt.plot(x, m*x + c, 'r', ls= 'dashed', label='Línea ajustada')
-plt.plot(x1, y1, 'k', label='Interpolación')
+plt.plot(x, m*x + c, 'r', ls= 'dashed', label='Mínimos cuadrados')
+plt.plot(x1, y1, 'k', label='Interpolación cuadrática')
 plt.legend(loc='best')
 
 plt.show()
